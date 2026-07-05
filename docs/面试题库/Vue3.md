@@ -1,0 +1,314 @@
+---
+title: Vue3 高频面试题
+category: 面试题库
+difficulty: 中级
+status: reviewed
+tags:
+  - Vue3
+  - 响应式
+  - Diff
+  - Composition API
+  - 组件
+companies:
+  - 字节跳动
+  - 腾讯
+  - 阿里
+  - 美团
+---
+
+# Vue3 高频面试题
+
+> 收录字节/腾讯/阿里/美团近两年（2024-2025）真实面经中的高频 Vue3 真题，共 18 道。
+> 题目按出现频率从高到低排列。
+
+---
+
+### Q1: Vue3 响应式原理（Proxy 实现）
+> ⭐⭐⭐⭐⭐ | 公司：字节(2025一面、2024二面)、腾讯(2024一面)、阿里(2025一面) | 难度：中级
+
+**题目**：请详细描述 Vue3 的响应式系统原理，包括 `reactive` 和 `ref` 的实现。与 Vue2 的 `Object.defineProperty` 相比有哪些优势？
+
+**考察点**：
+- `Proxy` 拦截 13 种操作（get/set/has/deleteProperty/ownKeys 等）
+- `Reflect` 配合 Proxy 使用的原因
+- 依赖收集（track）和派发更新（trigger）的流程
+- `effect` 副作用函数的实现
+- 与 Vue2 对比：Proxy 可拦截数组索引和 length、动态属性新增/删除、不需要递归遍历
+
+> 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+
+---
+
+### Q2: Diff 算法 + 最长递增子序列（LIS）
+> ⭐⭐⭐⭐⭐ | 公司：字节(2025二面、2024二面)、腾讯(2025二面)、阿里(2024二面) | 难度：中高级
+
+**题目**：请描述 Vue3 的 Diff 算法做了哪些优化？为什么要使用最长递增子序列（LIS）？它解决了什么问题？
+
+**考察点**：
+- 静态标记（PatchFlags）+ 动态节点靶向更新
+- 头头/尾尾/头尾/尾头四步快速比较
+- 中间乱序部分的 LIS 算法：找到最长递增子序列后，移动不在序列中的节点
+- `key` 在 Diff 中的作用：唯一标识、复用 DOM
+- 与 Vue2 双端比较的对比
+
+> 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
+
+---
+
+### Q3: computed vs watch 区别与原理
+> ⭐⭐⭐⭐⭐ | 公司：阿里(2025一面)、美团(2024一面)、腾讯(2024一面) | 难度：中级
+
+**题目**：请对比 `computed` 和 `watch` 的区别。`computed` 是如何实现缓存和懒执行的？什么场景下更适合用 `watch`？
+
+**考察点**：
+- `computed` 惰性求值：依赖不变时返回缓存值，不重新计算
+- `computed` 依赖收集的 `dirty` 标记机制
+- `watch` 监听数据变化执行副作用（如 API 请求）
+- `computed` 有返回值，`watch` 没有
+- `computed` vs `methods`：computed 有缓存，methods 每次调用都执行
+
+> 答案参考：[../Vue3/computed-watch.md](../Vue3/computed-watch.md)
+> 延伸：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+
+---
+
+### Q4: nextTick 原理与使用场景
+> ⭐⭐⭐⭐⭐ | 公司：腾讯(2024一面)、字节(2025一面)、阿里(2025一面) | 难度：中级
+
+**题目**：请解释 `nextTick` 的实现原理。在什么场景下需要用到 `nextTick`？Vue3 的 `nextTick` 与 Vue2 有什么差异？
+
+**考察点**：
+- DOM 更新是异步的，`nextTick` 在 DOM 更新后执行回调
+- 内部使用微任务（Promise.then）优先，降级方案（MutationObserver -> setImmediate -> setTimeout）
+- Vue 的调度队列（scheduler job queue）确保更新只执行一次
+- 典型场景：获取更新后的 DOM 元素
+
+> 答案参考：[../Vue3/nextTick.md](../Vue3/nextTick.md)
+> 延伸：[../Vue3/scheduler.md](../Vue3/scheduler.md)
+
+---
+
+### Q5: KeepAlive 原理 + LRU 缓存策略
+> ⭐⭐⭐⭐ | 公司：字节(2025二面)、腾讯(2024二面) | 难度：中高级
+
+**题目**：`<KeepAlive>` 组件的实现原理是什么？它的缓存策略是怎样的？如何使用 LRU 算法管理缓存？
+
+**考察点**：
+- 组件实例缓存到 `cache` Map 中，`keys` 数组记录访问顺序
+- LRU（最近最少使用）：超过 `max` 时淘汰最久未访问的组件
+- `activated` / `deactivated` 生命周期钩子
+- 虚拟 DOM 层面：渲染缓存的 vnode 而非创建新 vnode
+- `include` / `exclude` 的字符串/正则/数组匹配
+
+> 答案参考：[../Vue3/keepalive.md](../Vue3/keepalive.md)
+
+---
+
+### Q6: Composition API vs Options API
+> ⭐⭐⭐⭐ | 公司：美团(2025一面)、腾讯(2024一面)、字节(2025一面) | 难度：中级
+
+**题目**：Composition API 相比 Options API 解决了什么问题？请举例说明在大型组件中两者的差异。
+
+**考察点**：
+- Options API 按选项类型分割，逻辑分散（data/methods/watch 分开）
+- Composition API 按功能组织，逻辑内聚
+- `setup` 中抽取组合函数（composables）实现逻辑复用
+- Mixin 的问题：命名冲突、来源不清晰、隐式依赖
+- 更好的 TypeScript 类型推导支持
+
+> 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+
+---
+
+### Q7: 为什么 v-for 需要绑定 key
+> ⭐⭐⭐⭐ | 公司：腾讯(2024一面)、字节(2025一面)、阿里(2025一面) | 难度：中级
+
+**题目**：`v-for` 为什么必须使用 `key`？为什么不能用 `index` 作为 `key`？有什么场景下用 `index` 也问题不大？
+
+**考察点**：
+- `key` 是虚拟 DOM 的唯一标识，用于比对算法判断节点是否可复用
+- 没有 `key` 时默认"就地复用"，可能导致状态错乱
+- `index` 做 key：列表头尾增删导致大量 DOM 更新（所有 key 都变了）
+- `index` 可用场景：静态列表、不涉及增删改、无状态组件
+
+> 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
+
+---
+
+### Q8: Vue3 vs Vue2 全面对比
+> ⭐⭐⭐⭐ | 公司：阿里(2025一面)、字节(2024一面)、腾讯(2024一面) | 难度：中级
+
+**题目**：请从响应式、编译优化、API 设计、性能、TypeScript 支持等方面，全面对比 Vue3 和 Vue2 的差异。
+
+**考察点**：
+- 响应式：Proxy vs Object.defineProperty
+- 编译优化：静态提升（hoistStatic）、预字符串化、PatchFlags 靶向更新
+- 虚拟 DOM: Block Tree 优化跳过静态内容
+- API：Composition API + `<script setup>` vs Options API
+- Tree Shaking：按需引入（Vue2 全量引入）
+- TypeScript 支持从"可以写"到"一等公民"
+- Fragment / Teleport / Suspense 新内置组件
+
+> 答案参考：[../Vue3/index.md](../Vue3/index.md)
+> 延伸：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+
+---
+
+### Q9: 父子组件生命周期执行顺序
+> ⭐⭐⭐⭐ | 公司：美团(2024一面)、字节(2025一面)、腾讯(2024一面) | 难度：中级
+
+**题目**：父子组件在挂载和更新时，生命周期的执行顺序是怎样的？为什么是这个顺序？
+
+**考察点**：
+- 挂载：父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
+- 更新：父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
+- 卸载：父 beforeUnmount -> 子 beforeUnmount -> 子 unmounted -> 父 unmounted
+- 原因：父组件的挂载需要子组件先完成（递归渲染），更新也需要子组件先更新完才能确认父组件更新完
+
+> 答案参考：[../Vue3/lifecycle.md](../Vue3/lifecycle.md)
+
+---
+
+### Q10: ref vs reactive 详解
+> ⭐⭐⭐⭐ | 公司：字节(2025一面)、美团(2024一面)、阿里(2025一面) | 难度：中级
+
+**题目**：`ref` 和 `reactive` 分别适用于什么场景？`ref` 的内部实现是怎样的？为什么模板中 `ref` 可以自动解包 `.value`？
+
+**考察点**：
+- `reactive` 通过 Proxy 代理对象，不能代理基本类型
+- `ref` 内部创建 class RefImpl，用 `.value` 的 getter/setter 做依赖追踪
+- `ref` 可包装任意类型，`reactive` 只能包装对象
+- 模板中 ref 自动解包（编译时处理），reactive 不需要解包
+- `toRef` / `toRefs` 解构响应式对象保持响应性
+
+> 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+
+---
+
+### Q11: watchEffect vs watch
+> ⭐⭐⭐ | 公司：腾讯(2024二面)、字节(2025面)、阿里(2024二面) | 难度：中级
+
+**题目**：`watchEffect` 和 `watch` 有什么区别？`watchEffect` 的自动依赖追踪是如何实现的？
+
+**考察点**：
+- `watch` 指定监听源，`watchEffect` 自动追踪回调中用到的响应式数据
+- `watchEffect` 默认立即执行，`watch` 需配置 `immediate: true`
+- `watch` 可获取 oldValue 和 newValue，`watchEffect` 不能直接获取
+- `watchEffect` 内部使用 effect 的 track 自动收集依赖
+- `flush` 配置：'pre'（渲染前）、'post'（渲染后）、'sync'（同步）
+
+> 答案参考：[../Vue3/computed-watch.md](../Vue3/computed-watch.md)
+
+---
+
+### Q12: Teleport + Suspense 组件
+> ⭐⭐⭐ | 公司：字节(2025二面)、美团(2024二面) | 难度：中级
+
+**题目**：`<Teleport>` 的原理是什么？`<Suspense>` 如何实现异步组件的加载状态？分别适用于什么场景？
+
+**考察点**：
+- `Teleport` 将组件内容渲染到指定 DOM 节点（to 属性），突破父组件的 overflow/z-index 限制
+- `Teleport` 实现：vnode 的 `target` 属性，patch 时挂载到目标容器
+- `Suspense` 捕获异步依赖（`async setup` 或 `defineAsyncComponent`）
+- `Suspense` 的 `default` 和 `fallback` 插槽切换
+- 场景：Modal/弹窗用 Teleport，代码分割的异步组件用 Suspense
+
+> 答案参考：[../Vue3/teleport-suspense.md](../Vue3/teleport-suspense.md)
+
+---
+
+### Q13: Scheduler 调度器 + 批量更新机制
+> ⭐⭐⭐ | 公司：腾讯(2024三面)、字节(2025二面) | 难度：中高级
+
+**题目**：Vue3 的调度器（Scheduler）是如何实现批量异步更新的？`queueJob` 和 `queueFlush` 的流程是怎样的？
+
+**考察点**：
+- 同步修改多次，DOM 只更新一次：通过微任务队列合并更新
+- `isFlushing` 标记防止重复入队
+- `job` 允许去重（`allowRecurse` 控制递归更新）
+- `queueJob` 将更新任务加入队列，`queueFlush` 异步执行
+- `nextTick` 通过 `queueFlush` 的回调队列实现
+
+> 答案参考：[../Vue3/scheduler.md](../Vue3/scheduler.md)
+> 延伸：[../Vue3/nextTick.md](../Vue3/nextTick.md)
+
+---
+
+### Q14: 自定义指令（Custom Directive）
+> ⭐⭐⭐ | 公司：美团(2024二面)、腾讯(2025一面)、阿里(2024一面) | 难度：中级
+
+**题目**：如何在 Vue3 中注册和使用自定义指令？指令的生命周期钩子有哪些？请实现一个 `v-permission` 权限指令。
+
+**考察点**：
+- 指令钩子：`created` / `beforeMount` / `mounted` / `beforeUpdate` / `updated` / `beforeUnmount` / `unmounted`
+- 与 Vue2 的钩子名称差异（bind -> beforeMount, inserted -> mounted 等）
+- 指令参数（binding.value / arg / modifiers）
+- `v-permission` 实现：根据用户权限列表移除 DOM 元素
+- 实际场景：防抖指令、点击外部关闭指令、水印指令
+
+> 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+
+---
+
+### Q15: Vue3 编译器优化
+> ⭐⭐⭐ | 公司：阿里(2025二面)、腾讯(2024二面) | 难度：中高级
+
+**题目**：Vue3 的模板编译器做了哪些编译时优化？静态提升和预字符串化是什么？
+
+**考察点**：
+- 静态节点提升（HoistStatic）：静态 vnode 提到 render 函数外，避免重复创建
+- 预字符串化：连续的静态节点直接编译为字符串 innerHTML
+- PatchFlags：为动态绑定的节点生成标志位（TEXT/CLASS/STYLE/PROPS 等）
+- Block Tree：动态节点收集到 `dynamicChildren`，跳过静态节点的 diff
+- 缓存事件处理函数：`cacheHandlers` 避免组件更新时重新绑定事件
+
+> 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
+
+---
+
+### Q16: Pinia vs Vuex
+> ⭐⭐⭐ | 公司：字节(2025一面)、腾讯(2024一面) | 难度：中级
+
+**题目**：Pinia 与 Vuex 相比有哪些优势？为什么 Vue 官方推荐使用 Pinia？
+
+**考察点**：
+- Pinia 移除了 mutations，只保留 state / getters / actions
+- 完整的 TypeScript 类型推导，不需要额外的类型声明
+- 没有模块嵌套（namespaced modules），store 扁平化管理
+- 支持多个 store 直接相互引用
+- 更轻量（~1KB）、去除了 `commit` / `dispatch` 的概念
+- 支持 Composition API 风格定义 store
+
+> 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+
+---
+
+### Q17: `<script setup>` 语法糖
+> ⭐⭐⭐ | 公司：腾讯(2024一面)、美团(2025一面) | 难度：中级
+
+**题目**：`<script setup>` 相比标准 `<script>` 有哪些简化和优势？`defineProps` / `defineEmits` / `defineExpose` 是怎样工作的？
+
+**考察点**：
+- 顶层变量/导入自动暴露给模板
+- 编译时宏 `defineProps`/`defineEmits`/`defineExpose`（无需导入）
+- 更少的样板代码，更好的 IDE 支持
+- `useSlots` / `useAttrs` 替代 `$slots` / `$attrs`
+- 编译为 `setup()` 函数，运行时开销为零
+
+> 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+
+---
+
+### Q18: 自定义渲染器（Custom Renderer）
+> ⭐⭐ | 公司：字节(2024三面) | 难度：高级
+
+**题目**：Vue3 的自定义渲染器是如何设计的？`createRenderer` 的原理是什么？可以用于哪些跨端场景？
+
+**考察点**：
+- Vue3 将 runtime-core 和平台渲染解耦
+- `createRenderer` 接收自定义的节点操作函数（createElement/patchProp/insert 等）
+- 跨平台方案：Weex、uni-app、小程序渲染到 Canvas
+- 只需实现平台 API：`nodeOps` + `patchProp`
+- 复杂组件的渲染器是可组合的
+
+> 答案参考：[../Vue3/renderer.md](../Vue3/renderer.md)
