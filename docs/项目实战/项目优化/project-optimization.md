@@ -353,7 +353,7 @@ npm run build    # 配置了 rollup-plugin-visualizer 后自动打开
 - [性能优化 - 打包](../../性能优化/bundle-optimization.md) — Vite/Webpack 构建优化
 - [大数据表格](../业务场景/big-data-table.md) — 运行时渲染优化的典型案例
 - [防重复请求](../基础设施/request-dedup.md) — 网络请求优化
-- [KeepAlive 缓存](./keepalive.md) — 页面缓存的正确姿势
+- [KeepAlive 缓存](../../Vue3/keepalive.md) — 页面缓存的正确姿势
 
 ---
 

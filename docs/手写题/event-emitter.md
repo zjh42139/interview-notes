@@ -347,7 +347,7 @@ function useEventEmitter() {
 
 - [手写 Promise](./promise.md) -- Promise 的回调队列与 EventEmitter 的 listener 数组有相似设计
 - [手写 compose/pipe](./compose-pipe.md) -- 函数组合，可以配合 EventEmitter 实现中间件管道
-- [JavaScript 发布订阅模式](../JavaScript/pub-sub.md) -- 发布订阅 vs 观察者模式对比
+- JavaScript 发布订阅模式 -- 发布订阅 vs 观察者模式对比
 - [snippets/event-emitter](../../snippets/ts/event-emitter.ts) -- 项目中的 EventEmitter 工具代码
 
 ## 更新记录

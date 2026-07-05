@@ -213,8 +213,8 @@ Step 9: 页面内 v-permission 指令控制按钮级别显隐
 ```
 
 #### 参考答案路径
-- [权限系统 RBAC 模型](../../项目实战/权限系统/permission-rbac.md)
-- [动态路由实现](../../项目实战/权限系统/dynamic-route.md)
+- [权限系统 RBAC 模型](../项目实战/权限系统/permission-rbac.md)
+- [动态路由实现](../项目实战/权限系统/dynamic-route.md)
 
 #### 追问 1：用户登出再登入，权限变了但菜单没变怎么处理？
 
@@ -918,8 +918,8 @@ service.interceptors.request.use((config) => {
 ```
 
 #### 答案参考路径
-- [认证鉴权/Token 刷新](../../项目实战/认证鉴权/token-refresh.md)
-- [认证鉴权/登录鉴权](../../项目实战/认证鉴权/login-auth.md)
+- [认证鉴权/Token 刷新](../项目实战/认证鉴权/token-refresh.md)
+- [认证鉴权/登录鉴权](../项目实战/认证鉴权/login-auth.md)
 
 #### 评分标准
 
@@ -1174,8 +1174,8 @@ export function useErrorBoundary() {
 ```
 
 #### 答案参考路径
-- [基础设施/请求去重](../../项目实战/基础设施/request-dedup.md)
-- [信息安全/Token 安全存储](../../安全/token-storage.md)
+- [基础设施/请求去重](../项目实战/基础设施/request-dedup.md)
+- [信息安全/Token 安全存储](../安全/token-storage.md)
 
 #### 评分标准
 
@@ -1343,8 +1343,8 @@ export default {
 ```
 
 #### 答案参考路径
-- [性能优化/首屏优化](../../性能优化/first-screen.md)
-- [性能优化/Web Vitals](../../性能优化/web-vitals.md)
+- [性能优化/首屏优化](../性能优化/first-screen.md)
+- [性能优化/Web Vitals](../性能优化/web-vitals.md)
 
 #### 评分标准
 
@@ -1495,9 +1495,9 @@ Vite 开发模式：
 - 但 Vite 的优势在于**开发体验**（HMR 秒级），生产构建速度通常不是最高优先级
 
 #### 答案参考路径
-- [性能优化/打包优化](../../性能优化/bundle-optimization.md)
-- [工程化/Tree Shaking](../../工程化/tree-shaking.md)
-- [工程化/Vite](../../工程化/vite.md)
+- [性能优化/打包优化](../性能优化/bundle-optimization.md)
+- [工程化/Tree Shaking](../工程化/tree-shaking.md)
+- [工程化/Vite](../工程化/vite.md)
 
 #### 评分标准
 
@@ -1742,8 +1742,8 @@ onDeactivated(() => {
 | H5/移动端 | 3-5 | 移动端内存更受限 |
 
 #### 答案参考路径
-- [性能优化/虚拟列表](../../性能优化/virtual-list.md)
-- [Vue3/KeepAlive](../../Vue3/keepalive.md)
+- [性能优化/虚拟列表](../性能优化/virtual-list.md)
+- [Vue3/KeepAlive](../Vue3/keepalive.md)
 
 #### 评分标准
 

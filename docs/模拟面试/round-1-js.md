@@ -123,8 +123,8 @@ p.getName();
 
 #### 参考答案链接
 
-- [JavaScript/this](../../JavaScript/this.md)
-- [JavaScript/call-apply-bind](../../JavaScript/call-apply-bind.md)
+- [JavaScript/this](../JavaScript/this.md)
+- [JavaScript/call-apply-bind](../JavaScript/call-apply-bind.md)
 
 #### 追问方向
 
@@ -192,8 +192,8 @@ for (var i = 1; i <= 5; i++) {
 
 #### 参考答案链接
 
-- [JavaScript/closure](../../JavaScript/closure.md)
-- [JavaScript/event-loop](../../JavaScript/event-loop.md)
+- [JavaScript/closure](../JavaScript/closure.md)
+- [JavaScript/event-loop](../JavaScript/event-loop.md)
 
 #### 追问方向
 
@@ -379,9 +379,9 @@ console.log('14');
 
 #### 参考答案链接
 
-- [JavaScript/promise](../../JavaScript/promise.md)
-- [JavaScript/event-loop](../../JavaScript/event-loop.md)
-- [JavaScript/async-await](../../JavaScript/async-await.md)
+- [JavaScript/promise](../JavaScript/promise.md)
+- [JavaScript/event-loop](../JavaScript/event-loop.md)
+- [JavaScript/async-await](../JavaScript/async-await.md)
 
 #### 追问方向
 
@@ -479,8 +479,8 @@ Object.prototype.__proto__ === null
 
 #### 参考答案链接
 
-- [JavaScript/prototype-chain](../../JavaScript/prototype-chain.md)
-- [JavaScript/new](../../JavaScript/new.md)
+- [JavaScript/prototype-chain](../JavaScript/prototype-chain.md)
+- [JavaScript/new](../JavaScript/new.md)
 
 #### 追问方向
 
@@ -613,8 +613,8 @@ Object.prototype.__proto__ === null
 
 #### 参考答案链接
 
-- [CSS/center-layout](../../CSS/center-layout.md)
-- [CSS/flexbox](../../CSS/flexbox.md)
+- [CSS/center-layout](../CSS/center-layout.md)
+- [CSS/flexbox](../CSS/flexbox.md)
 
 #### 追问方向
 
@@ -900,8 +900,8 @@ Object.prototype.__proto__ === null
 
 #### 参考答案链接
 
-- [CSS/bfc](../../CSS/bfc.md)
-- [CSS/stacking-context](../../CSS/stacking-context.md)
+- [CSS/bfc](../CSS/bfc.md)
+- [CSS/stacking-context](../CSS/stacking-context.md)
 
 #### 追问方向
 
@@ -1003,7 +1003,7 @@ Object.prototype.__proto__ === null
 
 #### 参考答案链接
 
-- [CSS/flexbox](../../CSS/flexbox.md)
+- [CSS/flexbox](../CSS/flexbox.md)
 
 #### 追问方向
 
@@ -1315,10 +1315,10 @@ function deepClone(target, map = new WeakMap()) {
 
 #### 参考答案链接
 
-- [手写题/debounce-throttle](../../手写题/debounce-throttle.md)
-- [手写题/deep-clone](../../手写题/deep-clone.md)
-- [JavaScript/deep-clone](../../JavaScript/deep-clone.md)
-- [JavaScript/debounce-throttle](../../JavaScript/debounce-throttle.md)
+- [手写题/debounce-throttle](../手写题/debounce-throttle.md)
+- [手写题/deep-clone](../手写题/deep-clone.md)
+- [JavaScript/deep-clone](../JavaScript/deep-clone.md)
+- [JavaScript/debounce-throttle](../JavaScript/debounce-throttle.md)
 
 #### 追问方向
 

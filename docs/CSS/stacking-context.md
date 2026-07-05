@@ -182,7 +182,7 @@ export function nextZIndex() {
 - [What No One Told You About Z-Index (Philip Walton)](https://philipwalton.com/articles/what-no-one-told-you-about-z-index/)
 - [CSS Triggers — 哪些属性触发合成层](https://csstriggers.com/)
 - [BFC 块级格式化上下文](./bfc.md)
-- [浏览器渲染流程与合成层](./浏览器/render-process.md)
+- [浏览器渲染流程与合成层](../浏览器/render-process.md)
 
 ## 更新记录
 
