@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: process.env.BASE || '/',
   title: '前端面试知识库',
   description: '体系化的前端面试准备资料，以真实大厂面试为标准',
   lang: 'zh-CN',
