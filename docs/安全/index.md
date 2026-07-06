@@ -33,7 +33,8 @@ mindmap
 
 1. ⭐⭐⭐⭐⭐ [XSS](./xss.md)
 2. ⭐⭐⭐⭐⭐ [CSRF](./csrf.md)
-3. ⭐⭐⭐⭐   [Token 存储安全](./token-storage.md)
+3. ⭐⭐⭐⭐   [CSP 内容安全策略](./csp.md)
+4. ⭐⭐⭐⭐   [Token 存储安全](./token-storage.md)
 
 ## 知识点索引
 
@@ -41,4 +42,5 @@ mindmap
 |--------|------|------|------|------|
 | [XSS](./xss.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [CSRF](./csrf.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [CSP 内容安全策略](./csp.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [Token 存储安全](./token-storage.md) | ⭐⭐⭐⭐ | 中级 | — | draft |

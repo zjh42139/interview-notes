@@ -19,6 +19,12 @@ mindmap
     闭包
       作用域链
       执行上下文
+    类型转换
+      隐式转换
+      ToPrimitive
+    Set/Map/WeakMap
+      弱引用
+      Vue3响应式
     异步
       Promise
       Event Loop
@@ -34,12 +40,14 @@ mindmap
 2. ⭐⭐⭐⭐⭐ [闭包](./closure.md)
 3. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
 4. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
-5. ⭐⭐⭐⭐   [async/await](./async-await.md)
-6. ⭐⭐⭐⭐   [call/apply/bind](./call-apply-bind.md)
-7. ⭐⭐⭐⭐   [原型链](./prototype-chain.md)
-8. ⭐⭐⭐⭐   [new](./new.md)
-9. ⭐⭐⭐     [深拷贝](./deep-clone.md)
-10. ⭐⭐⭐    [防抖节流](./debounce-throttle.md)
+5. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
+6. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
+7. ⭐⭐⭐⭐   [async/await](./async-await.md)
+8. ⭐⭐⭐⭐   [call/apply/bind](./call-apply-bind.md)
+9. ⭐⭐⭐⭐   [原型链](./prototype-chain.md)
+10. ⭐⭐⭐⭐   [new](./new.md)
+11. ⭐⭐⭐     [深拷贝](./deep-clone.md)
+12. ⭐⭐⭐    [防抖节流](./debounce-throttle.md)
 
 ## 知识点索引
 
@@ -49,6 +57,8 @@ mindmap
 | [call/apply/bind](./call-apply-bind.md) | ⭐⭐⭐⭐ | 中级 | [✅](../手写题/bind-call-apply.md) | draft |
 | [new](./new.md) | ⭐⭐⭐⭐ | 初级 | [✅](../手写题/new.md) | draft |
 | [闭包](./closure.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [类型转换](./type-coercion.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
+| [Set / Map / WeakMap](./set-map-weakmap.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [原型链](./prototype-chain.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [Promise](./promise.md) | ⭐⭐⭐⭐⭐ | 中级 | [✅](../手写题/promise.md) | draft |
 | [Event Loop](./event-loop.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |

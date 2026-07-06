@@ -17,6 +17,10 @@ tags:
 ```mermaid
 mindmap
   root((算法))
+    栈和队列
+      Stack LIFO
+      Queue FIFO
+      单调栈
     数组
       双指针
       滑动窗口
@@ -55,15 +59,16 @@ mindmap
 
 1. ⭐⭐⭐⭐⭐ [数组](./array.md)
 2. ⭐⭐⭐⭐⭐ [哈希表](./hash.md)
-3. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
-4. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
-5. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
-6. ⭐⭐⭐⭐   [树](./tree.md)
-7. ⭐⭐⭐⭐   [链表](./linked-list.md)
-8. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md)
-9. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md)
-10. ⭐⭐⭐⭐   [二分查找](./binary-search.md)
-11. ⭐⭐⭐     [排序](./sort.md)
+3. ⭐⭐⭐⭐   [栈和队列](./stack-queue.md)
+4. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
+5. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
+6. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
+7. ⭐⭐⭐⭐   [树](./tree.md)
+8. ⭐⭐⭐⭐   [链表](./linked-list.md)
+9. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md)
+10. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md)
+11. ⭐⭐⭐⭐   [二分查找](./binary-search.md)
+12. ⭐⭐⭐     [排序](./sort.md)
 
 ## 知识点索引
 
@@ -71,6 +76,7 @@ mindmap
 |--------|------|------|------|------|
 | [数组](./array.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [哈希表](./hash.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
+| [栈和队列](./stack-queue.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
 | [双指针](./two-pointers.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [滑动窗口](./sliding-window.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [树](./tree.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
