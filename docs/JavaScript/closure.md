@@ -37,13 +37,13 @@ graph TB
     end
 
     subgraph "outer 执行上下文"
-        O_VO[变量对象: {a, inner}]
+        O_VO["变量对象: { a, inner }"]
         O_SCOPE[作用域链]
         O_THIS[this]
     end
 
     subgraph "inner 执行上下文"
-        I_VO[变量对象: {}]
+        I_VO["变量对象: { }"]
         I_SCOPE[作用域链]
         I_THIS[this]
     end

@@ -82,9 +82,9 @@ export function useMouse() {
 ```mermaid
 flowchart LR
     subgraph Options["Options API: 按类型拆分"]
-        D1["data: { count, user }"]
-        M1["methods: { inc, fetch }"]
-        W1["watch: { count, user }"]
+        D1["data: count, user"]
+        M1["methods: inc, fetch"]
+        W1["watch: count, user"]
     end
     subgraph Composition["Composition API: 按功能聚合"]
         C1["useCounter: count + inc + watch(count)"]
