@@ -40,9 +40,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        env:
-          BASE: /interview-notes/
-        run: pnpm build
+        run: pnpm build:pages
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
