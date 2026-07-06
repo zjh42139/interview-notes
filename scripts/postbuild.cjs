@@ -57,6 +57,9 @@ if (!fs.existsSync(DIST)) {
   process.exit(0)
 }
 
+// .nojekyll prevents GitHub Pages from ignoring files starting with _ or .
+fs.writeFileSync(path.join(DIST, '.nojekyll'), '')
+
 let count = 0
 walkDir(DIST, function (file) {
   let html = fs.readFileSync(file, 'utf8')
