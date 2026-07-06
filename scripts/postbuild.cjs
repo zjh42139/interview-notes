@@ -60,7 +60,7 @@ if (!fs.existsSync(DIST)) {
 let count = 0
 walkDir(DIST, function (file) {
   let html = fs.readFileSync(file, 'utf8')
-  if (html.includes('__mermaidInjected')) return
+  if (html.includes('__mermaidInjected')) return // already injected by head config
   html = html.replace('</head>', MERMAID_SCRIPT + '\n</head>')
   fs.writeFileSync(file, html)
   count++
