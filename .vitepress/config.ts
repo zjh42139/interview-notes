@@ -10,11 +10,6 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
-    [
-      'script',
-      {},
-      `(function(){if(window.__mermaidInjected)return;window.__mermaidInjected=true;function r(){if(typeof mermaid==='undefined')return;var b=document.querySelectorAll('div.language-mermaid:not([data-mermaid-done])');for(var i=0;i<b.length;i++){var bl=b[i];bl.setAttribute('data-mermaid-done','1');var c=bl.querySelector('code');if(!c)continue;var id='mm-'+Date.now()+'-'+i;try{mermaid.render(id,c.textContent||'').then(function(res){var d=document.createElement('div');d.className='mermaid-svg';d.innerHTML=res.svg;bl.replaceWith(d)}).catch(function(e){console.error('Mermaid:',e)})}catch(e){console.error('Mermaid:',e)}}}var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';s.onload=function(){mermaid.initialize({startOnLoad:false,securityLevel:'loose'});r();new MutationObserver(function(){r()}).observe(document.body,{childList:true,subtree:true})};document.head.appendChild(s)})();`,
-    ],
   ],
 
   themeConfig: {
