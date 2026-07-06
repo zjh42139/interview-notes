@@ -68,6 +68,7 @@ export default defineConfig({
         { text: 'cherry-pick', link: '/Git/cherry-pick' },
         { text: 'stash', link: '/Git/stash' },
         { text: 'tag', link: '/Git/tag' },
+        { text: 'reset vs revert', link: '/Git/reset-vs-revert' },
         { text: 'bisect', link: '/Git/bisect' },
         { text: 'Git Flow', link: '/Git/git-flow' },
       ],
@@ -79,8 +80,8 @@ export default defineConfig({
         { text: 'Utility Types', link: '/TypeScript/utility-types' },
         { text: 'satisfies', link: '/TypeScript/satisfies' },
         { text: 'any / unknown / never', link: '/TypeScript/any-unknown-never' },
-      ],
-      '/Vue3/': [
+        { text: '声明文件 / declare', link: '/TypeScript/declaration' },
+      ], [
         { text: 'Vue3 知识地图', link: '/Vue3/' },
         { text: '响应式原理', link: '/Vue3/reactivity' },
         { text: 'computed / watch', link: '/Vue3/computed-watch' },
@@ -91,6 +92,7 @@ export default defineConfig({
         { text: 'Teleport / Suspense', link: '/Vue3/teleport-suspense' },
         { text: 'Composition API', link: '/Vue3/composition-api' },
         { text: 'v-model', link: '/Vue3/v-model' },
+        { text: '组件通信', link: '/Vue3/component-communication' },
         { text: 'Renderer', link: '/Vue3/renderer' },
         { text: 'Scheduler', link: '/Vue3/scheduler' },
       ],
@@ -139,6 +141,7 @@ export default defineConfig({
       ],
       '/工程化/': [
         { text: '工程化 知识地图', link: '/工程化/' },
+        { text: 'npm 深入', link: '/工程化/npm-deep' },
         { text: 'Vite', link: '/工程化/vite' },
         { text: 'Webpack', link: '/工程化/webpack' },
         { text: 'Babel / ESBuild', link: '/工程化/babel-esbuild' },
@@ -152,8 +155,8 @@ export default defineConfig({
         { text: 'CommonJS / ESM', link: '/Node/commonjs-esm' },
         { text: 'Node Event Loop', link: '/Node/node-event-loop' },
         { text: 'npm / pnpm', link: '/Node/package-manager' },
-      ],
-      '/算法/': [
+        { text: 'Express / Koa', link: '/Node/express-koa' },
+      ], [
         { text: '算法 知识地图', link: '/算法/' },
         { text: '数组', link: '/算法/array' },
         { text: '树', link: '/算法/tree' },
@@ -182,8 +185,8 @@ export default defineConfig({
         { text: '打包优化', link: '/性能优化/bundle-optimization' },
         { text: '虚拟列表', link: '/性能优化/virtual-list' },
         { text: '图片优化', link: '/性能优化/image-optimization' },
-      ],
-      '/前端架构/': [
+        { text: '性能分析工具', link: '/性能优化/performance-devtools' },
+      ], [
         { text: '前端架构 知识地图', link: '/前端架构/' },
         { text: '项目分层设计', link: '/前端架构/project-structure' },
         { text: '模块解耦', link: '/前端架构/module-decoupling' },
@@ -256,6 +259,7 @@ export default defineConfig({
             { text: 'WebSocket 实战', link: '/项目实战/业务场景/websocket' },
             { text: 'ECharts 实战', link: '/项目实战/业务场景/echarts' },
             { text: '大文件上传', link: '/项目实战/业务场景/big-file-upload' },
+            { text: 'Composable 设计', link: '/项目实战/业务场景/composable-design' },
           ],
         },
         { text: '项目优化', link: '/项目实战/项目优化/project-optimization' },

@@ -25,6 +25,7 @@ mindmap
       stash
     高级操作
       cherry-pick
+      reset/revert
       bisect
       tag
     分支策略
@@ -46,9 +47,10 @@ mindmap
 3. ⭐⭐⭐⭐⭐ [冲突处理](./conflict-resolution.md) -- 日常痛点，实操考查重点
 4. ⭐⭐⭐⭐   [cherry-pick](./cherry-pick.md) -- hotfix 场景高频使用
 5. ⭐⭐⭐⭐   [stash](./stash.md) -- 临时切换分支，每个开发者都用
-6. ⭐⭐⭐⭐   [Git Flow](./git-flow.md) -- 分支策略选型，架构方向问题
-7. ⭐⭐⭐     [tag](./tag.md) -- 发布管理，CI/CD 相关
-8. ⭐⭐⭐     [bisect](./bisect.md) -- 调试利器，加分项
+6. ⭐⭐⭐⭐   [reset vs revert](./reset-vs-revert.md) -- 代码回滚，撤销操作必考
+7. ⭐⭐⭐⭐   [Git Flow](./git-flow.md) -- 分支策略选型，架构方向问题
+8. ⭐⭐⭐     [tag](./tag.md) -- 发布管理，CI/CD 相关
+9. ⭐⭐⭐     [bisect](./bisect.md) -- 调试利器，加分项
 
 ## 知识点索引
 
@@ -59,6 +61,7 @@ mindmap
 | [冲突处理](./conflict-resolution.md) | ⭐⭐⭐⭐⭐ | 中级 | filled |
 | [cherry-pick](./cherry-pick.md) | ⭐⭐⭐⭐ | 中级 | filled |
 | [stash](./stash.md) | ⭐⭐⭐⭐ | 初级 | filled |
+| [reset vs revert](./reset-vs-revert.md) | ⭐⭐⭐⭐ | 中级 | filled |
 | [Git Flow](./git-flow.md) | ⭐⭐⭐⭐ | 中级 | filled |
 | [tag](./tag.md) | ⭐⭐⭐ | 初级 | filled |
 | [bisect](./bisect.md) | ⭐⭐⭐ | 初级 | filled |

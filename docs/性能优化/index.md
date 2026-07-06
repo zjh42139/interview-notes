@@ -22,6 +22,12 @@ mindmap
       FID
       CLS
       INP
+    性能分析工具
+      Performance
+      Lighthouse
+      Memory
+      Network
+      Coverage
     首屏优化
     打包优化
       code splitting
@@ -36,16 +42,18 @@ mindmap
 ## 推荐学习顺序
 
 1. ⭐⭐⭐⭐⭐ [Web Vitals](./web-vitals.md)
-2. ⭐⭐⭐⭐⭐ [首屏优化](./first-screen.md)
-3. ⭐⭐⭐⭐   [打包优化](./bundle-optimization.md)
-4. ⭐⭐⭐⭐   [虚拟列表](./virtual-list.md)
-5. ⭐⭐⭐     [图片优化](./image-optimization.md)
+2. ⭐⭐⭐⭐⭐ [性能分析工具](./performance-devtools.md)
+3. ⭐⭐⭐⭐⭐ [首屏优化](./first-screen.md)
+4. ⭐⭐⭐⭐   [打包优化](./bundle-optimization.md)
+5. ⭐⭐⭐⭐   [虚拟列表](./virtual-list.md)
+6. ⭐⭐⭐     [图片优化](./image-optimization.md)
 
 ## 知识点索引
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
 | [Web Vitals](./web-vitals.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |
+| [性能分析工具](./performance-devtools.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [首屏优化](./first-screen.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [打包优化](./bundle-optimization.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [虚拟列表](./virtual-list.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
