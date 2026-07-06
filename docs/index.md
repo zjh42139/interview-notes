@@ -13,16 +13,24 @@ description: 体系化的前端面试准备资料
 | --------------------------- | -------------------------------------- | ---------- |
 | [JavaScript](./JavaScript/) | this / 闭包 / Promise / Event Loop     | ⭐⭐⭐⭐⭐ |
 | [Vue3](./Vue3/)             | 响应式 / Diff / KeepAlive / 生命周期   | ⭐⭐⭐⭐⭐ |
+| [Vue Router](./VueRouter/)   | history/hash / 动态路由 / 路由守卫      | ⭐⭐⭐⭐⭐ |
+| [Pinia](./Pinia/)             | defineStore / state / persist / vs Vuex | ⭐⭐⭐⭐⭐ |
 | [项目实战](./项目实战/)     | 登录鉴权 / 权限系统 / Axios封装        | ⭐⭐⭐⭐⭐ |
 | [手写题](./手写题/)         | Promise / bind / 深拷贝 / EventEmitter | ⭐⭐⭐⭐⭐ |
 | [TypeScript](./TypeScript/) | 泛型 / extends / infer / utility types | ⭐⭐⭐⭐   |
 | [CSS](./CSS/)               | BFC / Flexbox / Grid / 居中方案        | ⭐⭐⭐⭐   |
-| [浏览器](./浏览器/)         | 渲染流程 / 缓存 / Web Storage          | ⭐⭐⭐     |
+| [HTML](./HTML/)             | HTML5语义化 / defer-async / SEO-SSR    | ⭐⭐⭐⭐   |
+| [Git](./Git/)               | Commit规范 / merge-rebase / 冲突处理    | ⭐⭐⭐⭐   |
+| [浏览器](./浏览器/)         | 渲染流程 / 缓存 / Service Worker / GC  | ⭐⭐⭐     |
 | [网络](./网络/)             | HTTP/HTTPS / TCP / CORS                | ⭐⭐⭐     |
-| [工程化](./工程化/)         | Vite / Webpack / Tree Shaking          | ⭐⭐⭐     |
+| [工程化](./工程化/)         | Vite深入 / Webpack / ESM模块化 / pnpm  | ⭐⭐⭐     |
 | [性能优化](./性能优化/)     | Web Vitals / 首屏 / 虚拟列表           | ⭐⭐⭐     |
+| [前端架构](./前端架构/)     | 项目分层 / 组件设计 / 设计模式 / Monorepo  | ⭐⭐⭐⭐   |
+| [微前端](./微前端/)         | qiankun / Module Federation / iframe       | ⭐⭐⭐     |
+| [CICD](./CICD/)             | GitHub Actions / Jenkins / Docker          | ⭐⭐⭐     |
+| [日志监控](./日志监控/)     | Sentry / 埋点 / 性能监控 / 线上定位     | ⭐⭐⭐     |
 | [安全](./安全/)             | XSS / CSRF / Token存储                 | ⭐⭐⭐     |
-| [算法](./算法/)             | 数组 / 树 / 链表 / 高频题              | ⭐⭐⭐     |
+| [算法](./算法/)             | 数组 / 哈希 / 双指针 / 滑动窗口 / DFS-BFS / DP | ⭐⭐⭐     |
 | [Node](./Node/)             | CommonJS/ESM / Event Loop              | ⭐⭐       |
 | [面试题库](./面试题库/)     | 按领域整理的大厂真题                   | ⭐⭐⭐⭐⭐ |
 | [HR](./HR/)                 | 自我介绍 / 离职原因 / 职业规划         | ⭐⭐⭐⭐   |

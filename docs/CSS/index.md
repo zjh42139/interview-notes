@@ -14,15 +14,21 @@ mindmap
       Flexbox
       Grid
       居中方案
+      rem/vw
     盒模型
       content-box
       border-box
     响应式
       media query
       container query
+    变量与主题
+      CSS变量
     层叠
       层叠上下文
       z-index
+    工程化
+      BEM
+      CSS Modules/Scoped
 ```
 
 ## 推荐学习顺序
@@ -32,8 +38,12 @@ mindmap
 3. ⭐⭐⭐⭐   [盒模型](./box-model.md)
 4. ⭐⭐⭐⭐   [居中方案](./center-layout.md)
 5. ⭐⭐⭐⭐   [Grid](./grid.md)
-6. ⭐⭐⭐     [响应式](./responsive.md)
-7. ⭐⭐⭐     [层叠上下文](./stacking-context.md)
+6. ⭐⭐⭐⭐   [rem / vw 移动端适配](./rem-vw.md)
+7. ⭐⭐⭐⭐   [CSS 变量](./css-variables.md)
+8. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
+9. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
+10. ⭐⭐⭐     [响应式](./responsive.md)
+11. ⭐⭐⭐     [层叠上下文](./stacking-context.md)
 
 ## 知识点索引
 
@@ -44,5 +54,9 @@ mindmap
 | [Grid](./grid.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [居中方案](./center-layout.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
 | [盒模型](./box-model.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
+| [rem / vw 移动端适配](./rem-vw.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [CSS 变量](./css-variables.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [BEM 命名规范](./bem.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
+| [CSS Modules / Scoped](./css-modules-scoped.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [响应式](./responsive.md) | ⭐⭐⭐ | 中级 | — | draft |
 | [层叠上下文](./stacking-context.md) | ⭐⭐⭐ | 中级 | — | draft |
