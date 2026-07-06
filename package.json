@@ -5,12 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "build": "vitepress build docs && node scripts/postbuild.cjs",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "mermaid": "^11.4.0",
-    "vitepress": "^1.6.3",
-    "vitepress-plugin-mermaid": "^2.0.17"
+    "mermaid": "^10.9.6",
+    "vitepress": "^1.6.3"
   }
 }

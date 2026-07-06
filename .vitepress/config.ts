@@ -1,8 +1,6 @@
 import { defineConfig } from 'vitepress'
-import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default withMermaid(
-  defineConfig({
+export default defineConfig({
   base: process.env.BASE || '/',
   title: '前端面试知识库',
   description: '体系化的前端面试准备资料，以真实大厂面试为标准',
@@ -336,6 +334,4 @@ export default withMermaid(
   markdown: {
     lineNumbers: true,
   },
-
-  }),
-)
+})
