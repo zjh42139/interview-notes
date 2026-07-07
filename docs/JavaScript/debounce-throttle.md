@@ -27,23 +27,21 @@ tags:
 ### 一张图说清楚区别
 
 ```mermaid
-gantt
-    title 防抖 vs 节流（假设持续触发 10s，delay 300ms）
-    dateFormat  X
-    axisFormat %s
-
-    section 用户触发
-    连续触发     :done, 0, 10s
-
-    section 防抖(trailing)
-    等待 300ms  :crit, 9.7s, 0.3s
-    执行！      :milestone, 10s, 0s
-
-    section 节流(trailing)
-    执行1       :milestone, 0.3s, 0s
-    执行2       :milestone, 0.6s, 0s
-    执行3       :milestone, 0.9s, 0s
-    执行N       :milestone, 10s, 0s
+flowchart TB
+    subgraph input["用户连续触发 ▲▲▲▲▲ (10s 内高频 click/input)"]
+    end
+    input --> debounce
+    input --> throttle
+    subgraph debounce["防抖 debounce (trailing 模式)"]
+        D1["每次触发都重置计时器"] --> D2["停止触发 300ms 后"]
+        D2 --> D3["执行 1 次 ✅"]
+    end
+    subgraph throttle["节流 throttle (trailing 模式)"]
+        T1["第一次触发开始计时"] --> T2["每 300ms 执行 1 次"]
+        T2 --> T3["10s 内执行约 33 次 ✅"]
+    end
+    style D3 fill:#4a9,stroke:#4a9,color:#fff
+    style T3 fill:#4a9,stroke:#4a9,color:#fff
 ```
 
 **防抖（debounce）**：从最后一次触发开始计时，延迟 N 毫秒后执行。如果期间再次触发，重新计时。
