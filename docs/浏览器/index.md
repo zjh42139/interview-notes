@@ -40,6 +40,10 @@ mindmap
       新生代Scavenge
       老生代Mark-Sweep
       增量标记
+    DOM 事件
+      捕获-目标-冒泡
+      事件委托
+      e.target
 ```
 
 ## 推荐学习顺序
@@ -55,6 +59,7 @@ mindmap
 9. ⭐⭐⭐⭐   [Web Storage](./storage.md)
 10. ⭐⭐⭐     [IndexedDB](./indexeddb.md)
 11. ⭐⭐⭐     [Web Worker](./web-worker.md)
+12. ⭐⭐⭐⭐   [DOM 事件机制 / 事件委托](./dom-event-delegation.md)
 
 ## 知识点索引
 
@@ -71,3 +76,4 @@ mindmap
 | [Web Storage](./storage.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
 | [IndexedDB](./indexeddb.md) | ⭐⭐⭐ | 中级 | — | filled |
 | [Web Worker](./web-worker.md) | ⭐⭐⭐ | 中级 | — | draft |
+| [DOM 事件机制 / 事件委托](./dom-event-delegation.md) | ⭐⭐⭐⭐ | 中级 | — | draft |

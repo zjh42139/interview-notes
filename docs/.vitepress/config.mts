@@ -36,6 +36,7 @@ export default defineConfig({
         { text: '深拷贝', link: '/JavaScript/deep-clone' },
         { text: '防抖 / 节流', link: '/JavaScript/debounce-throttle' },
         { text: '生成器 / 迭代器', link: '/JavaScript/generator-iterator' },
+        { text: 'Proxy / Reflect', link: '/JavaScript/proxy-reflect' },
       ],
       '/CSS/': [
         { text: 'CSS 知识地图', link: '/CSS/' },
@@ -131,6 +132,7 @@ export default defineConfig({
         { text: 'requestAnimationFrame', link: '/浏览器/request-animation-frame' },
         { text: '垃圾回收 GC', link: '/浏览器/gc' },
         { text: 'IndexedDB', link: '/浏览器/indexeddb' },
+        { text: 'DOM 事件机制 / 事件委托', link: '/浏览器/dom-event-delegation' },
       ],
       '/网络/': [
         { text: '网络 知识地图', link: '/网络/' },

@@ -36,6 +36,10 @@ mindmap
       yield
       Symbol.iterator
       asyncIterator
+    Proxy/Reflect
+      reactive 基石
+      依赖收集
+      Vue3 响应式
 ```
 
 ## 推荐学习顺序
@@ -53,6 +57,7 @@ mindmap
 11. ⭐⭐⭐     [深拷贝](./deep-clone.md)
 12. ⭐⭐⭐    [防抖节流](./debounce-throttle.md)
 13. ⭐⭐⭐    [生成器 / 迭代器](./generator-iterator.md)
+14. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
 
 ## 知识点索引
 
@@ -71,3 +76,4 @@ mindmap
 | [深拷贝](./deep-clone.md) | ⭐⭐⭐ | 中级 | [✅](../手写题/deep-clone.md) | draft |
 | [防抖节流](./debounce-throttle.md) | ⭐⭐⭐ | 初级 | [✅](../手写题/debounce-throttle.md) | draft |
 | [生成器 / 迭代器](./generator-iterator.md) | ⭐⭐⭐ | 高级 | — | draft |
+| [Proxy / Reflect](./proxy-reflect.md) | ⭐⭐⭐⭐⭐ | 高级 | ✅ react | draft |
