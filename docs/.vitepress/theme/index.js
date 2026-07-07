@@ -22,11 +22,28 @@ function renderAll() {
           d.innerHTML = r.svg
           b.replaceWith(d)
         })
-        .catch(() => b.removeAttribute('data-mr'))
-    } catch (_) {
+        .catch((err) => {
+          console.error('Mermaid render error:', err)
+          b.removeAttribute('data-mr')
+        })
+    } catch (err) {
+      console.error('Mermaid render error:', err)
       b.removeAttribute('data-mr')
     }
   }
+}
+
+function loadMermaid(cb) {
+  // 生产环境：postbuild 脚本已通过 CDN script 标签注入
+  if (window.mermaid) return cb()
+
+  // 开发环境：CDN 动态加载，绕过 Vite 预构建 mermaid 内部
+  // 动态 import 的 504 问题（flowDiagram-v2 等子模块 chunk 过期）
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js'
+  script.onload = () => cb()
+  script.onerror = () => console.error('Failed to load mermaid from CDN')
+  document.head.appendChild(script)
 }
 
 export default {
@@ -34,24 +51,15 @@ export default {
   setup() {
     const router = useRouter()
 
-    onMounted(async () => {
-      // Dev: load mermaid via Vite dynamic import
-      // Build: postbuild CDN already set window.mermaid, skip the import
-      if (!window.mermaid) {
-        try {
-          const mod = await import('mermaid')
-          window.mermaid = mod.default
-        } catch (_) {
-          return
-        }
-      }
+    onMounted(() => {
+      loadMermaid(() => {
+        window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
+        renderAll()
 
-      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
-      renderAll()
-
-      new MutationObserver(() => {
-        nextTick().then(renderAll)
-      }).observe(document.body, { childList: true, subtree: true })
+        new MutationObserver(() => {
+          nextTick().then(renderAll)
+        }).observe(document.body, { childList: true, subtree: true })
+      })
     })
 
     watch(

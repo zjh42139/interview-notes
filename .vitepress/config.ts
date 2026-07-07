@@ -35,6 +35,7 @@ export default defineConfig({
         { text: 'async / await', link: '/JavaScript/async-await' },
         { text: '深拷贝', link: '/JavaScript/deep-clone' },
         { text: '防抖 / 节流', link: '/JavaScript/debounce-throttle' },
+        { text: '生成器 / 迭代器', link: '/JavaScript/generator-iterator' },
       ],
       '/CSS/': [
         { text: 'CSS 知识地图', link: '/CSS/' },
@@ -333,5 +334,14 @@ export default defineConfig({
 
   markdown: {
     lineNumbers: true,
+  },
+
+  vite: {
+    optimizeDeps: {
+      // mermaid 内部对每种图表类型做动态 import()，
+      // Vite 预构建时会拆成独立 chunk。chunk hash 变化后
+      // 缓存引用不同步导致 504。排除预构建让动态 import 原生运行。
+      exclude: ['mermaid'],
+    },
   },
 })

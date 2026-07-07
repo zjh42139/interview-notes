@@ -32,6 +32,10 @@ mindmap
     工具
       深拷贝
       防抖节流
+    生成器/迭代器
+      yield
+      Symbol.iterator
+      asyncIterator
 ```
 
 ## 推荐学习顺序
@@ -48,6 +52,7 @@ mindmap
 10. ⭐⭐⭐⭐   [new](./new.md)
 11. ⭐⭐⭐     [深拷贝](./deep-clone.md)
 12. ⭐⭐⭐    [防抖节流](./debounce-throttle.md)
+13. ⭐⭐⭐    [生成器 / 迭代器](./generator-iterator.md)
 
 ## 知识点索引
 
@@ -65,3 +70,4 @@ mindmap
 | [async/await](./async-await.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [深拷贝](./deep-clone.md) | ⭐⭐⭐ | 中级 | [✅](../手写题/deep-clone.md) | draft |
 | [防抖节流](./debounce-throttle.md) | ⭐⭐⭐ | 初级 | [✅](../手写题/debounce-throttle.md) | draft |
+| [生成器 / 迭代器](./generator-iterator.md) | ⭐⭐⭐ | 高级 | — | draft |
