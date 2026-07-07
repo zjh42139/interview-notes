@@ -82,7 +82,8 @@ export default defineConfig({
         { text: 'satisfies', link: '/TypeScript/satisfies' },
         { text: 'any / unknown / never', link: '/TypeScript/any-unknown-never' },
         { text: '声明文件 / declare', link: '/TypeScript/declaration' },
-      ], [
+      ],
+      '/Vue3/': [
         { text: 'Vue3 知识地图', link: '/Vue3/' },
         { text: '响应式原理', link: '/Vue3/reactivity' },
         { text: 'computed / watch', link: '/Vue3/computed-watch' },
@@ -157,7 +158,8 @@ export default defineConfig({
         { text: 'Node Event Loop', link: '/Node/node-event-loop' },
         { text: 'npm / pnpm', link: '/Node/package-manager' },
         { text: 'Express / Koa', link: '/Node/express-koa' },
-      ], [
+      ],
+      '/算法/': [
         { text: '算法 知识地图', link: '/算法/' },
         { text: '数组', link: '/算法/array' },
         { text: '树', link: '/算法/tree' },
@@ -187,7 +189,8 @@ export default defineConfig({
         { text: '虚拟列表', link: '/性能优化/virtual-list' },
         { text: '图片优化', link: '/性能优化/image-optimization' },
         { text: '性能分析工具', link: '/性能优化/performance-devtools' },
-      ], [
+      ],
+      '/前端架构/': [
         { text: '前端架构 知识地图', link: '/前端架构/' },
         { text: '项目分层设计', link: '/前端架构/project-structure' },
         { text: '模块解耦', link: '/前端架构/module-decoupling' },
