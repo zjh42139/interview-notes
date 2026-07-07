@@ -1,7 +1,9 @@
 import DefaultTheme from 'vitepress/theme'
 import { onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vitepress'
+import './custom.css'
 
+// --- Mermaid rendering ---
 function renderAll() {
   if (typeof window.mermaid === 'undefined') return
   const blocks = document.querySelectorAll(
@@ -34,11 +36,7 @@ function renderAll() {
 }
 
 function loadMermaid(cb) {
-  // 生产环境：postbuild 脚本已通过 CDN script 标签注入
   if (window.mermaid) return cb()
-
-  // 开发环境：CDN 动态加载，绕过 Vite 预构建 mermaid 内部
-  // 动态 import 的 504 问题（flowDiagram-v2 等子模块 chunk 过期）
   const script = document.createElement('script')
   script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js'
   script.onload = () => cb()
@@ -46,16 +44,63 @@ function loadMermaid(cb) {
   document.head.appendChild(script)
 }
 
+// --- Ctrl+K 搜索快捷键 ---
+function bindSearchShortcut() {
+  const isMac = /Mac|iPod|iPhone|iPad/.test(navigator.platform || '')
+  const modKey = isMac ? '⌘' : 'Ctrl'
+
+  window.addEventListener('keydown', (e) => {
+    // Ctrl+K (Win/Linux) or Cmd+K (Mac)
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault()
+      // VitePress local-search 按钮
+      const btn =
+        document.querySelector('.DocSearch-Button') ||
+        document.querySelector('#local-search button') ||
+        document.querySelector('[class*="search"] button')
+      if (btn) btn.click()
+    }
+  })
+
+  // 注入快捷键标识到搜索按钮
+  function badge() {
+    const btn = document.querySelector('.DocSearch-Button')
+    if (!btn || btn.querySelector('.DocSearch-Button-Keys')) return
+
+    const keys = document.createElement('span')
+    keys.className = 'DocSearch-Button-Keys'
+    keys.innerHTML = `
+      <span class="DocSearch-Button-Key">${modKey}</span>
+      <span class="DocSearch-Button-Key">K</span>
+    `
+
+    // 插入到 placeholder 文字后面
+    const ph = btn.querySelector('.DocSearch-Button-Placeholder')
+    if (ph) {
+      ph.after(keys)
+    } else {
+      btn.appendChild(keys)
+    }
+  }
+
+  // 初始注入 + SPA 路由切换后重新注入
+  nextTick().then(badge)
+  return badge
+}
+
+// --- Theme ---
 export default {
   extends: DefaultTheme,
   setup() {
     const router = useRouter()
+    let badge
 
     onMounted(() => {
+      badge = bindSearchShortcut()
+
       loadMermaid(() => {
         window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
         renderAll()
-
         new MutationObserver(() => {
           nextTick().then(renderAll)
         }).observe(document.body, { childList: true, subtree: true })
@@ -64,7 +109,11 @@ export default {
 
     watch(
       () => router.route.path,
-      () => nextTick().then(renderAll)
+      () => {
+        nextTick().then(renderAll)
+        // 路由切换后重新注入快捷键标识（VitePress 可能重建 DOM）
+        nextTick().then(() => badge && badge())
+      }
     )
   },
 }
