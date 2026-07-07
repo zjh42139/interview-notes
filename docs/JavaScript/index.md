@@ -44,6 +44,10 @@ mindmap
       二进制数据
       大文件上传
       DataView 字节序
+    跨 Realm
+      iframe instanceof 失效
+      postMessage
+      structuredClone
 ```
 
 ## 推荐学习顺序
@@ -63,6 +67,7 @@ mindmap
 13. ⭐⭐⭐    [生成器 / 迭代器](./generator-iterator.md)
 14. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
 15. ⭐⭐⭐    [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
+16. ⭐⭐⭐    [跨 Realm 场景](./cross-realm.md)
 
 ## 知识点索引
 
@@ -83,3 +88,4 @@ mindmap
 | [生成器 / 迭代器](./generator-iterator.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [Proxy / Reflect](./proxy-reflect.md) | ⭐⭐⭐⭐⭐ | 高级 | ✅ react | draft |
 | [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md) | ⭐⭐⭐ | 高级 | — | draft |
+| [跨 Realm 场景](./cross-realm.md) | ⭐⭐⭐ | 高级 | — | draft |

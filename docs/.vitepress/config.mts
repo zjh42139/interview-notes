@@ -38,6 +38,7 @@ export default defineConfig({
         { text: '生成器 / 迭代器', link: '/JavaScript/generator-iterator' },
         { text: 'Proxy / Reflect', link: '/JavaScript/proxy-reflect' },
         { text: 'ArrayBuffer / TypedArray', link: '/JavaScript/arraybuffer-typedarray' },
+        { text: '跨 Realm 场景', link: '/JavaScript/cross-realm' },
       ],
       '/CSS/': [
         { text: 'CSS 知识地图', link: '/CSS/' },
