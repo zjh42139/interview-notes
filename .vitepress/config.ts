@@ -315,6 +315,29 @@ export default defineConfig({
 
     search: {
       provider: 'local',
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档',
+          },
+          modal: {
+            displayDetails: '显示详情',
+            resetButtonTitle: '重置',
+            backButtonTitle: '返回',
+            noResultsText: '无结果',
+            footer: {
+              selectText: '选择',
+              selectKeyAriaLabel: 'Enter',
+              navigateText: '切换',
+              navigateUpKeyAriaLabel: '上箭头',
+              navigateDownKeyAriaLabel: '下箭头',
+              closeText: '关闭',
+              closeKeyAriaLabel: 'Esc',
+            },
+          },
+        },
+      },
     },
 
     outline: {

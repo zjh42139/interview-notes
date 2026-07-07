@@ -44,60 +44,14 @@ function loadMermaid(cb) {
   document.head.appendChild(script)
 }
 
-// --- Ctrl+K 搜索快捷键 ---
-function bindSearchShortcut() {
-  const isMac = /Mac|iPod|iPhone|iPad/.test(navigator.platform || '')
-  const modKey = isMac ? '⌘' : 'Ctrl'
-
-  window.addEventListener('keydown', (e) => {
-    // Ctrl+K (Win/Linux) or Cmd+K (Mac)
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault()
-      // VitePress local-search 按钮
-      const btn =
-        document.querySelector('.DocSearch-Button') ||
-        document.querySelector('#local-search button') ||
-        document.querySelector('[class*="search"] button')
-      if (btn) btn.click()
-    }
-  })
-
-  // 注入快捷键标识到搜索按钮
-  function badge() {
-    const btn = document.querySelector('.DocSearch-Button')
-    if (!btn || btn.querySelector('.DocSearch-Button-Keys')) return
-
-    const keys = document.createElement('span')
-    keys.className = 'DocSearch-Button-Keys'
-    keys.innerHTML = `
-      <span class="DocSearch-Button-Key">${modKey}</span>
-      <span class="DocSearch-Button-Key">K</span>
-    `
-
-    // 插入到 placeholder 文字后面
-    const ph = btn.querySelector('.DocSearch-Button-Placeholder')
-    if (ph) {
-      ph.after(keys)
-    } else {
-      btn.appendChild(keys)
-    }
-  }
-
-  // 初始注入 + SPA 路由切换后重新注入
-  nextTick().then(badge)
-  return badge
-}
-
-// --- Theme ---
 export default {
   extends: DefaultTheme,
   setup() {
     const router = useRouter()
-    let badge
+
+    // 注：Ctrl+K 搜索快捷键由 VitePress 原生支持，无需额外代码
 
     onMounted(() => {
-      badge = bindSearchShortcut()
-
       loadMermaid(() => {
         window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
         renderAll()
@@ -109,11 +63,7 @@ export default {
 
     watch(
       () => router.route.path,
-      () => {
-        nextTick().then(renderAll)
-        // 路由切换后重新注入快捷键标识（VitePress 可能重建 DOM）
-        nextTick().then(() => badge && badge())
-      }
+      () => nextTick().then(renderAll)
     )
   },
 }
