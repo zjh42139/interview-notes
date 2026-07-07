@@ -40,6 +40,10 @@ mindmap
       reactive 基石
       依赖收集
       Vue3 响应式
+    ArrayBuffer/TypedArray
+      二进制数据
+      大文件上传
+      DataView 字节序
 ```
 
 ## 推荐学习顺序
@@ -58,6 +62,7 @@ mindmap
 12. ⭐⭐⭐    [防抖节流](./debounce-throttle.md)
 13. ⭐⭐⭐    [生成器 / 迭代器](./generator-iterator.md)
 14. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
+15. ⭐⭐⭐    [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
 
 ## 知识点索引
 
@@ -77,3 +82,4 @@ mindmap
 | [防抖节流](./debounce-throttle.md) | ⭐⭐⭐ | 初级 | [✅](../手写题/debounce-throttle.md) | draft |
 | [生成器 / 迭代器](./generator-iterator.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [Proxy / Reflect](./proxy-reflect.md) | ⭐⭐⭐⭐⭐ | 高级 | ✅ react | draft |
+| [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md) | ⭐⭐⭐ | 高级 | — | draft |

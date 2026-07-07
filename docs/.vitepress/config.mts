@@ -37,6 +37,7 @@ export default defineConfig({
         { text: '防抖 / 节流', link: '/JavaScript/debounce-throttle' },
         { text: '生成器 / 迭代器', link: '/JavaScript/generator-iterator' },
         { text: 'Proxy / Reflect', link: '/JavaScript/proxy-reflect' },
+        { text: 'ArrayBuffer / TypedArray', link: '/JavaScript/arraybuffer-typedarray' },
       ],
       '/CSS/': [
         { text: 'CSS 知识地图', link: '/CSS/' },
