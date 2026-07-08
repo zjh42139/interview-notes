@@ -8,9 +8,13 @@ export default defineConfig({
   lastUpdated: true,
   cleanUrls: true,
 
-  head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
-  ],
+  // favicon 通过 transformHead 注入，确保 href 使用 VitePress
+  // 已解析的 base（包括 --base CLI 覆盖），跨平台可靠
+  transformHead({ siteData }) {
+    return [
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: `${siteData.base}favicon.svg` }],
+    ]
+  },
 
   themeConfig: {
     nav: [

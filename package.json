@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs && node scripts/postbuild.cjs",
-    "build:pages": "vitepress build docs --base /interview-notes/ && node scripts/postbuild.cjs",
+    "build:pages": "BASE=/interview-notes/ vitepress build docs --base /interview-notes/ && node scripts/postbuild.cjs",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {

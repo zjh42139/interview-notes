@@ -35,13 +35,27 @@ function renderAll() {
   }
 }
 
-function loadMermaid(cb) {
-  if (window.mermaid) return cb()
-  const script = document.createElement('script')
-  script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js'
-  script.onload = () => cb()
-  script.onerror = () => console.error('Failed to load mermaid from CDN')
-  document.head.appendChild(script)
+async function ensureMermaid() {
+  if (window.mermaid) return
+
+  // 优先：Vite 打包 mermaid（同源加载，无追踪防护警告）
+  // optimizeDeps.exclude 已配，mermaid 不被预构建，避免子模块 504
+  try {
+    const mod = await import('mermaid')
+    window.mermaid = mod.default || mod
+    return
+  } catch (_) {
+    // 开发环境 Vite 加载失败时降级到 CDN
+  }
+
+  // 降级：CDN 按需加载
+  await new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js'
+    script.onload = resolve
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
 }
 
 export default {
@@ -49,16 +63,16 @@ export default {
   setup() {
     const router = useRouter()
 
-    // 注：Ctrl+K 搜索快捷键由 VitePress 原生支持，无需额外代码
+    // 注：Ctrl+K 搜索快捷键由 VitePress 原生支持
 
-    onMounted(() => {
-      loadMermaid(() => {
-        window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
-        renderAll()
-        new MutationObserver(() => {
-          nextTick().then(renderAll)
-        }).observe(document.body, { childList: true, subtree: true })
-      })
+    onMounted(async () => {
+      await ensureMermaid()
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
+      renderAll()
+
+      new MutationObserver(() => {
+        nextTick().then(renderAll)
+      }).observe(document.body, { childList: true, subtree: true })
     })
 
     watch(
