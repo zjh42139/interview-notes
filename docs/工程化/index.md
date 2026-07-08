@@ -34,6 +34,9 @@ mindmap
     pnpm
       workspace
       monorepo
+    Tailwind CSS
+      原子化 CSS
+      Tree Shaking
 ```
 
 ## 推荐学习顺序
@@ -44,6 +47,7 @@ mindmap
 4. ⭐⭐⭐⭐   [Tree Shaking](./tree-shaking.md)
 5. ⭐⭐⭐⭐   [pnpm](./pnpm.md)
 6. ⭐⭐⭐     [Babel / ESBuild](./babel-esbuild.md)
+7. ⭐⭐⭐     [Tailwind CSS](./tailwindcss.md)
 
 ## 知识点索引
 
@@ -55,3 +59,4 @@ mindmap
 | [Babel / ESBuild](./babel-esbuild.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [Tree Shaking](./tree-shaking.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [pnpm](./pnpm.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
+| [Tailwind CSS](./tailwindcss.md) | ⭐⭐⭐ | 中级 | — | draft |
