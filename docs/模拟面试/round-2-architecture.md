@@ -219,9 +219,9 @@ onLCP(metric => report({ type: 'web_vital', name: 'LCP', value: metric.value }))
 - [首屏优化](../性能优化/first-screen.md)
 - [缓存策略体系](../性能优化/caching-strategy.md)
 - [Web Vitals](../性能优化/web-vitals.md)
-- [微前端概述](../微前端/overview.md)
-- [qiankun](../微前端/qiankun.md)
-- [Module Federation](../微前端/module-federation.md)
+- [微前端概述](../前端架构/微前端/overview.md)
+- [qiankun](../前端架构/微前端/qiankun.md)
+- [Module Federation](../前端架构/微前端/module-federation.md)
 - [面试回答：项目性能优化](../面试回答/项目/project-optimization.md)
 
 ## 更新记录

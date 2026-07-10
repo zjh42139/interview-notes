@@ -199,8 +199,8 @@ axios.defaults.withCredentials = true
 - [MDN: Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 - [MDN: Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
 - [http-https](./http-https.md) — HTTP 请求/响应的基础
-- [安全/csrf](../安全/csrf.md) — CORS 防御的核心攻击
-- [安全/xss](../安全/xss.md) — JSONP 被淘汰的安全原因
+- [安全/csrf](../浏览器/安全/csrf.md) — CORS 防御的核心攻击
+- [安全/xss](../浏览器/安全/xss.md) — JSONP 被淘汰的安全原因
 
 ## 更新记录
 

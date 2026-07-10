@@ -1177,7 +1177,7 @@ export function useErrorBoundary() {
 
 #### 答案参考路径
 - [基础设施/请求去重](../项目实战/基础设施/request-dedup.md)
-- [信息安全/Token 安全存储](../安全/token-storage.md)
+- [信息安全/Token 安全存储](../浏览器/安全/token-storage.md)
 
 #### 评分标准
 

@@ -304,8 +304,8 @@ export function isSet(val: unknown): val is Set<unknown> {
 ## 相关阅读
 
 - [原型链](./prototype-chain.md) —— instanceof 底层查的是原型链
-- [微前端概述](../微前端/overview.md)
-- [qiankun](../微前端/qiankun.md)
+- [微前端概述](../前端架构/微前端/overview.md)
+- [qiankun](../前端架构/微前端/qiankun.md)
 - [Web Worker](../浏览器/web-worker.md)
 
 ## 更新记录

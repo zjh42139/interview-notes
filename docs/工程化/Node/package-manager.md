@@ -285,7 +285,7 @@ npm exec -- vite --version
 
 ### 3. pnpm workspace monorepo 配置
 
-详见 [工程化/pnpm](../工程化/pnpm.md)，这里补充 scripts 层面的配置：
+详见 [工程化/pnpm](../pnpm.md)，这里补充 scripts 层面的配置：
 
 ```json
 // 根目录 package.json — monorepo scripts
@@ -315,7 +315,7 @@ npm exec -- vite --version
 - [Node 知识地图](./index.md)
 - [Node Event Loop](./node-event-loop.md)
 - [CommonJS / ESM](./commonjs-esm.md)
-- [工程化 pnpm](../工程化/pnpm.md)
+- [工程化 pnpm](../pnpm.md)
 
 ## 更新记录
 

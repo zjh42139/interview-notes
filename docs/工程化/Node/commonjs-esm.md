@@ -207,7 +207,7 @@ console.log("b 结束")
 
 ### Tree Shaking 为什么依赖 ESM
 
-见 [工程化/Tree Shaking](../工程化/tree-shaking.md) 详细分析。一句话：CJS 的 `require` 是运行时动态的，打包工具无法在编译阶段分析哪些代码不会被用到；ESM 的 `import`/`export` 是静态语法，依赖图在编译时就确定了。
+见 [工程化/Tree Shaking](../tree-shaking.md) 详细分析。一句话：CJS 的 `require` 是运行时动态的，打包工具无法在编译阶段分析哪些代码不会被用到；ESM 的 `import`/`export` 是静态语法，依赖图在编译时就确定了。
 
 ### Node 中同时使用 CJS 和 ESM 的坑
 
@@ -307,7 +307,7 @@ const routes: RouteRecordRaw[] = [
 - [Node 知识地图](./index.md)
 - [Node Event Loop](./node-event-loop.md)
 - [npm / pnpm](./package-manager.md)
-- [工程化 Tree Shaking](../工程化/tree-shaking.md)
+- [工程化 Tree Shaking](../tree-shaking.md)
 
 ## 更新记录
 

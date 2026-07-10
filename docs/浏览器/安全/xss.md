@@ -19,7 +19,7 @@ tags:
 ---
 
 # XSS
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
+> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > ⭐⭐⭐⭐⭐｜难度：中级｜项目：★★★
 
@@ -208,8 +208,8 @@ function SearchResult() {
 
 - [CSRF](./csrf.md)
 - [Token 存储安全](./token-storage.md)
-- [网络/CORS](../网络/cors.md)
-- [浏览器/渲染进程](../浏览器/render-process.md)
+- [网络/CORS](../../网络/cors.md)
+- [浏览器/渲染进程](../render-process.md)
 - [安全 知识地图](./index.md)
 
 ## 更新记录

@@ -250,7 +250,7 @@ export { http }
 
 - [登录鉴权](./login-auth.md) — 双 Token 的生成和首次存储
 - [Axios 封装](../基础设施/axios-encapsulation.md) — 拦截器基座
-- [Token 存储安全](../../安全/token-storage.md) — XSS/CSRF 攻防
+- [Token 存储安全](../../浏览器/安全/token-storage.md) — XSS/CSRF 攻防
 
 ---
 

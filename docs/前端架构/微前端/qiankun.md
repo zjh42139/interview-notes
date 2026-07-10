@@ -331,7 +331,7 @@ module.exports = {
 
 - [微前端概述](./overview.md) — 四种方案对比与选型决策
 - [Module Federation](./module-federation.md) — 另一种模块共享思路
-- [CSS Flexbox 布局](../CSS/flexbox) — 子应用内布局方案
+- [CSS Flexbox 布局](../../CSS/flexbox) — 子应用内布局方案
 
 ---
 

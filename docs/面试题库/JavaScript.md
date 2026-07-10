@@ -143,7 +143,7 @@ obj.foo.call({ name: 'other' }); // ?
 - Node 11+ 版本对微任务的修改
 
 > 答案参考：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
-> 延伸：[../Node/node-event-loop.md](../Node/node-event-loop.md)
+> 延伸：[../工程化/Node/node-event-loop.md](../工程化/Node/node-event-loop.md)
 
 ---
 

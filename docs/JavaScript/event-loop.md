@@ -248,7 +248,7 @@ watch(provinceCode, async (code) => {
 - [下一篇](./async-await.md)
 - [Promise](./promise.md)
 - [async/await](./async-await.md)
-- [Node Event Loop](../Node/node-event-loop.md)
+- [Node Event Loop](../工程化/Node/node-event-loop.md)
 
 ## 更新记录
 

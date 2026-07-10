@@ -245,7 +245,7 @@ new ModuleFederationPlugin({
 
 - [微前端概述](./overview.md) — 四种方案全景对比
 - [qiankun 深度解析](./qiankun.md) — 应用级隔离的另一种思路
-- [Webpack 基础](../工程化/webpack) — 理解 loader/plugin 机制才能看懂 MF 配置
+- [Webpack 基础](../../工程化/webpack) — 理解 loader/plugin 机制才能看懂 MF 配置
 
 ---
 

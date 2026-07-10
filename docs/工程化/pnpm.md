@@ -278,7 +278,7 @@ import ProTable from "@myapp/shared/table"
 
 - [工程化 知识地图](./index.md)
 - [Vite](./vite.md)
-- [npm / pnpm](../Node/package-manager.md)
+- [npm / pnpm](../工程化/Node/package-manager.md)
 
 ## 更新记录
 

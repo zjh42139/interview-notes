@@ -40,7 +40,7 @@ description: 体系化的前端面试准备资料——知识文章学原理、�
 | [Vue3](Vue3/) | 12 | 响应式 / Diff / KeepAlive / 生命周期 / Composition API / Scheduler |
 | [HTML](HTML/) | 16 | 语义化 / 表单 / Canvas vs SVG / History API / Web Worker |
 | [CSS](CSS/) | 20 | BFC / Flexbox / Grid / 层叠上下文 / 响应式 / CSS 性能 |
-| [浏览器](浏览器/) | 22 | 渲染流程 / 缓存 / 安全 / V8 / 内存泄漏 / GC |
+| [浏览器](浏览器/) | 26 | 渲染流程 / 缓存 / 安全 / V8 / 内存泄漏 / GC |
 | [网络](网络/) | 8 | HTTP/HTTPS / HTTP2/3 / TCP / DNS/CDN / WebSocket / CORS / Fetch API |
 
 ## 二、框架生态（深入框架）
@@ -59,12 +59,10 @@ description: 体系化的前端面试准备资料——知识文章学原理、�
 
 | 模块 | 文章 | 说明 |
 |------|------|------|
-| [工程化](工程化/) | 9 | Vite / Webpack / Tree Shaking / pnpm / ESM |
+| [工程化](工程化/) | 17 | Vite / Webpack / Tree Shaking / pnpm / ESM / Node / 日志监控 |
 | [性能优化](性能优化/) | 8 | Web Vitals / 首屏 / 虚拟列表 / 打包优化 / 缓存策略 |
-| [安全](安全/) | 4 | XSS / CSRF / CSP / Token 存储 |
-| [Git](Git/) | 9 | Commit 规范 / merge vs rebase / stash / reset vs revert |
 | [架构设计](前端架构/) | 9 | 项目分层 / 组件设计 / 设计模式 / qiankun / Module Federation |
-| [Node](Node/) | 4 | CommonJS/ESM / Event Loop / Express/Koa |
+| [Git](Git/) | 9 | Commit 规范 / merge vs rebase / stash / reset vs revert |
 | [CICD](CICD/) | 4 | GitHub Actions / Jenkins / Docker |
 
 ## 四、算法手写（练 coding）

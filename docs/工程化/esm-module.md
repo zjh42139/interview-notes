@@ -178,7 +178,7 @@ import "./polyfills"  // 修改了全局 Array.prototype.flat
 
 ### 3. 循环引用：ESM vs CJS 的不同表现
 
-CJS 的循环引用问题及解决方案详见 [Node / CommonJS / ESM](../Node/commonjs-esm.md)。这里聚焦 ESM 的处理方式。
+CJS 的循环引用问题及解决方案详见 [Node / CommonJS / ESM](../工程化/Node/commonjs-esm.md)。这里聚焦 ESM 的处理方式。
 
 ```ts
 // a.mjs
@@ -272,7 +272,7 @@ export default defineConfig({
 
 ## 相关阅读
 
-- [Node / CommonJS / ESM](../Node/commonjs-esm.md) -- CJS 侧的完整分析（加载流程、互操作、条件导出、易错点）
+- [Node / CommonJS / ESM](../工程化/Node/commonjs-esm.md) -- CJS 侧的完整分析（加载流程、互操作、条件导出、易错点）
 - [Tree Shaking](./tree-shaking.md) -- Tree Shaking 的更多实践细节
 - [Vite 深入](./vite-deep.md) -- ESM 在 Vite 中如何支撑"按需编译"
 - [工程化 知识地图](./index.md)

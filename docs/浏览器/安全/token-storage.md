@@ -19,7 +19,7 @@ tags:
 ---
 
 # Token 存储安全
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
+> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > ⭐⭐⭐⭐｜难度：中级｜项目：★★★
 
@@ -242,8 +242,8 @@ export function broadcastTokenRefreshed(token: string) {
 
 - [XSS](./xss.md)
 - [CSRF](./csrf.md)
-- [项目实战/认证鉴权/login-auth](../项目实战/认证鉴权/login-auth.md)
-- [项目实战/认证鉴权/token-refresh](../项目实战/认证鉴权/token-refresh.md)
+- [项目实战/认证鉴权/login-auth](../../项目实战/认证鉴权/login-auth.md)
+- [项目实战/认证鉴权/token-refresh](../../项目实战/认证鉴权/token-refresh.md)
 - [安全 知识地图](./index.md)
 
 ## 更新记录

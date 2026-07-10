@@ -254,7 +254,7 @@ setInterval(() => {
 - [Node 知识地图](./index.md)
 - [CommonJS / ESM](./commonjs-esm.md)
 - [npm / pnpm](./package-manager.md)
-- [JavaScript Event Loop](../JavaScript/event-loop.md)
+- [JavaScript Event Loop](../../JavaScript/event-loop.md)
 
 ## 更新记录
 

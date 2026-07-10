@@ -18,7 +18,7 @@ tags:
 ---
 
 # CSP 内容安全策略
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
+> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > "CSP 是 XSS 的最后一道防线"——这句话在面试中说出来，面试官就知道你理解了纵深防御的思维。输入输出过滤是第一道，CSP 是第二道。
 
@@ -185,7 +185,7 @@ Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report
 - [XSS](./xss.md) —— 跨站脚本攻击的三种类型和防御方案
 - [CSRF](./csrf.md) —— 跨站请求伪造的原理和防御（SameSite Cookie）
 - [Token 存储安全](./token-storage.md) —— HttpOnly/Secure/SameSite Cookie 配置
-- [HTTPS 安全](../网络/http-https.md) —— TLS 加密和证书验证
+- [HTTPS 安全](../../网络/http-https.md) —— TLS 加密和证书验证
 
 ---
 

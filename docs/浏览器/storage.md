@@ -239,8 +239,8 @@ if (cached && Date.now() - cached.cachedAt < 24 * 3600 * 1000) {
 - [MDN: IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 - [MDN: Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
 - [cache](./cache) —— HTTP 缓存策略，与服务端缓存配合使用
-- [安全/token-storage](../安全/token-storage) —— Token 存储的安全最佳实践
-- [安全/xss](../安全/xss) —— XSS 攻击原理及防御，理解为什么 LocalStorage 存 Token 危险
+- [安全/token-storage](../浏览器/安全/token-storage) —— Token 存储的安全最佳实践
+- [安全/xss](../浏览器/安全/xss) —— XSS 攻击原理及防御，理解为什么 LocalStorage 存 Token 危险
 
 ---
 

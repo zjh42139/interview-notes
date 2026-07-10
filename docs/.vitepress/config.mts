@@ -168,6 +168,17 @@ export default defineConfig({
         { text: 'requestAnimationFrame', link: '/浏览器/request-animation-frame' },
         { text: 'IndexedDB', link: '/浏览器/indexeddb' },
         { text: 'DOM 事件机制 / 事件委托', link: '/浏览器/dom-event-delegation' },
+        {
+          text: '安全',
+          collapsed: true,
+          items: [
+            { text: '安全 知识地图', link: '/浏览器/安全/' },
+            { text: 'XSS', link: '/浏览器/安全/xss' },
+            { text: 'CSRF', link: '/浏览器/安全/csrf' },
+            { text: 'CSP', link: '/浏览器/安全/csp' },
+            { text: 'Token 存储安全', link: '/浏览器/安全/token-storage' },
+          ],
+        },
       ],
       '/网络/': [
         { text: '网络 知识地图', link: '/网络/' },
@@ -190,13 +201,28 @@ export default defineConfig({
         { text: 'Vite 深入', link: '/工程化/vite-deep' },
         { text: 'ESM 模块化', link: '/工程化/esm-module' },
         { text: 'Tailwind CSS', link: '/工程化/tailwindcss' },
-      ],
-      '/Node/': [
-        { text: 'Node 知识地图', link: '/Node/' },
-        { text: 'CommonJS / ESM', link: '/Node/commonjs-esm' },
-        { text: 'Node Event Loop', link: '/Node/node-event-loop' },
-        { text: 'npm / pnpm', link: '/Node/package-manager' },
-        { text: 'Express / Koa', link: '/Node/express-koa' },
+        {
+          text: 'Node',
+          collapsed: true,
+          items: [
+            { text: 'Node 知识地图', link: '/工程化/Node/' },
+            { text: 'CommonJS / ESM', link: '/工程化/Node/commonjs-esm' },
+            { text: 'Node Event Loop', link: '/工程化/Node/node-event-loop' },
+            { text: 'npm / pnpm', link: '/工程化/Node/package-manager' },
+            { text: 'Express / Koa', link: '/工程化/Node/express-koa' },
+          ],
+        },
+        {
+          text: '日志监控',
+          collapsed: true,
+          items: [
+            { text: '日志监控 知识地图', link: '/工程化/日志监控/' },
+            { text: 'Sentry', link: '/工程化/日志监控/sentry' },
+            { text: '性能监控', link: '/工程化/日志监控/performance-monitor' },
+            { text: '埋点系统', link: '/工程化/日志监控/tracking' },
+            { text: '线上问题定位', link: '/工程化/日志监控/online-debug' },
+          ],
+        },
       ],
       '/算法/': [
         { text: '算法 知识地图', link: '/算法/' },
@@ -212,13 +238,6 @@ export default defineConfig({
         { text: 'DFS / BFS', link: '/算法/dfs-bfs' },
         { text: '动态规划', link: '/算法/dynamic-programming' },
         { text: '二分查找', link: '/算法/binary-search' },
-      ],
-      '/安全/': [
-        { text: '安全 知识地图', link: '/安全/' },
-        { text: 'XSS', link: '/安全/xss' },
-        { text: 'CSRF', link: '/安全/csrf' },
-        { text: 'CSP', link: '/安全/csp' },
-        { text: 'Token 存储安全', link: '/安全/token-storage' },
       ],
       '/性能优化/': [
         { text: '性能优化 知识地图', link: '/性能优化/' },
@@ -238,13 +257,17 @@ export default defineConfig({
         { text: '组件设计', link: '/前端架构/component-design' },
         { text: '设计模式', link: '/前端架构/design-patterns' },
         { text: 'Monorepo', link: '/前端架构/monorepo' },
-      ],
-      '/微前端/': [
-        { text: '微前端 知识地图', link: '/微前端/' },
-        { text: '微前端概述', link: '/微前端/overview' },
-        { text: 'qiankun', link: '/微前端/qiankun' },
-        { text: 'Module Federation', link: '/微前端/module-federation' },
-        { text: 'iframe 方案', link: '/微前端/iframe' },
+        {
+          text: '微前端',
+          collapsed: true,
+          items: [
+            { text: '微前端 知识地图', link: '/前端架构/微前端/' },
+            { text: '微前端概述', link: '/前端架构/微前端/overview' },
+            { text: 'qiankun', link: '/前端架构/微前端/qiankun' },
+            { text: 'Module Federation', link: '/前端架构/微前端/module-federation' },
+            { text: 'iframe 方案', link: '/前端架构/微前端/iframe' },
+          ],
+        },
       ],
       '/CICD/': [
         { text: 'CI/CD 知识地图', link: '/CICD/' },
@@ -252,13 +275,6 @@ export default defineConfig({
         { text: 'GitHub Actions', link: '/CICD/github-actions' },
         { text: 'Jenkins', link: '/CICD/jenkins' },
         { text: 'Docker', link: '/CICD/docker' },
-      ],
-      '/日志监控/': [
-        { text: '日志监控 知识地图', link: '/日志监控/' },
-        { text: 'Sentry', link: '/日志监控/sentry' },
-        { text: '性能监控', link: '/日志监控/performance-monitor' },
-        { text: '埋点系统', link: '/日志监控/tracking' },
-        { text: '线上问题定位', link: '/日志监控/online-debug' },
       ],
       '/项目实战/': [
         { text: '项目实战 知识地图', link: '/项目实战/' },
