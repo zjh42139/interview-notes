@@ -21,6 +21,7 @@ tags:
 ---
 
 ### Q1: 泛型的使用场景与实践
+> 🏷️ 概念题
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：什么是泛型？请举出在项目中至少 3 个泛型的使用场景，并写出示例代码。如何约束泛型的范围？
@@ -38,6 +39,7 @@ tags:
 ---
 
 ### Q2: Utility Types 实现原理
+> 🏷️ 手写题
 > ⭐⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：请手写实现 `Partial`、`Required`、`Readonly`、`Pick`、`Omit`、`Record`、`Exclude`、`Extract`、`ReturnType`，并说明它们之间的关系。
@@ -55,6 +57,7 @@ tags:
 ---
 
 ### Q3: any / unknown / never 的区别
+> 🏷️ 对比题
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请详细对比 `any`、`unknown`、`never` 三种类型。各自的使用场景是什么？为什么应该尽量避免使用 `any`？
@@ -71,6 +74,7 @@ tags:
 ---
 
 ### Q4: extends 和 infer 详解
+> 🏷️ 概念题
 > ⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：`extends` 在 TypeScript 中有哪些用法？`infer` 关键字的作用是什么？请用 `infer` 实现一个获取函数参数类型的工具类型。
@@ -87,6 +91,7 @@ tags:
 ---
 
 ### Q5: satisfies 关键字的用法
+> 🏷️ 概念题
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：TypeScript 4.9 引入的 `satisfies` 关键字解决了什么问题？与类型标注（`: Type`）和 `as` 断言有什么区别？
@@ -103,6 +108,7 @@ tags:
 ---
 
 ### Q6: keyof + 映射类型 + 条件类型
+> 🏷️ 概念题
 > ⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：`keyof`、映射类型（Mapped Types）和条件类型（Conditional Types）分别是什么？它们如何组合使用？请实现一个类型工具：选出对象中值为特定类型的 key。
@@ -121,6 +127,7 @@ tags:
 
 
 ### Q8: 类型体操基础
+> 🏷️ 手写题
 > ⭐⭐⭐ | 难度：中高级
 
 **题目**：请实现 `DeepReadonly<T>` 和 `DeepPartial<T>`，递归地处理嵌套对象。并实现一个 `MyExclude<T, U>`。
@@ -138,6 +145,7 @@ tags:
 ---
 
 ### Q9: 声明文件（.d.ts）与 declare
+> 🏷️ 概念题
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：什么场景下需要写 `.d.ts` 声明文件？`declare` / `declare global` / `declare module` 分别怎么用？如何为第三方库扩展类型？
@@ -155,6 +163,7 @@ tags:
 
 
 ### Q11: as const 的用法
+> 🏷️ 概念题
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：`as const`（const assertion）有什么作用？在项目中有哪些典型应用场景？
@@ -172,6 +181,7 @@ tags:
 
 
 ### Q13: TypeScript 的类型收窄（Type Narrowing）
+> 🏷️ 概念题
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：TypeScript 有哪些类型收窄的方式？请举例说明 `typeof`、`instanceof`、`in`、自定义类型守卫（Type Predicate）的用法。
@@ -190,6 +200,7 @@ tags:
 
 
 ### Q15: 项目中的 TypeScript 最佳实践
+> 🏷️ 场景题
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：在 Vue3 + TypeScript 项目中，你有哪些最佳实践？如何为组件的 props、emits、template ref、provide/inject 提供类型？

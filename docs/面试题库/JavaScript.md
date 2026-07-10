@@ -427,3 +427,64 @@ let b = 2;
 - `WeakSet` 只能存对象，弱引用
 
 > 答案参考：[../JavaScript/deep-clone.md](../JavaScript/deep-clone.md)
+
+---
+
+### Q21: Promise.all / allSettled / any / race 对比
+> ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 对比题
+
+**题目**：Promise.all、allSettled、any、race 有什么区别？各适用什么场景？
+
+**考察点**：
+- all：全部成功才 resolve，一个失败就 reject。场景：批量请求——一个失败全停
+- allSettled：等全部 settle（不管成败），返回 `{status, value/reason}[]`。场景：批量操作——部分失败不影响
+- race：第一个 settle（不管成败）的结果。场景：超时控制——谁快用谁
+- any：第一个成功的，全失败抛 AggregateError。场景：多 CDN 降级——哪个快用哪个
+- 共同点：都接收 Promise 数组，返回 Promise
+
+**追问预测**：
+- "all 一个失败，其他请求还在跑吗" → 还在跑——Promise 创建后无法取消
+- "any 和 race 的本质区别" → race 看谁先 settle（不管成败），any 看谁先成功
+
+> 📖 答案参考：[Promise 原理](../JavaScript/promise.md)
+> 🎤 回答稿：[Promise 面试回答](../面试回答/JavaScript/promise.md)
+> ✍️ 手写参考：[Promise.all / allSettled / any / race](../手写题/promise-static.md)
+
+---
+
+### Q22: null 和 undefined 的区别
+> ⭐⭐⭐⭐ | 难度：初级
+> 🏷️ 对比题
+
+**题目**：null 和 undefined 有什么区别？`typeof null` 为什么返回 `"object"`？
+
+**30 秒版**：undefined 是"没赋值"（变量声明了没初始化、参数没传、对象属性不存在），null 是"空值"（主动设为空）。`typeof null === "object"` 是 JS 的历史 bug——null 的类型标签是 0，和对象一样。
+
+**2 分钟版**：区别——1) `undefined == null` 为 true，`===` 为 false；2) Number(null) = 0，Number(undefined) = NaN；3) JSON 序列化 null 保留，undefined 被忽略；4) 函数默认参数只有 undefined 触发，null 不触发
+
+**追问预测**：
+- "怎么同时判断 null 和 undefined" → `value == null`（宽松等号，null 和 undefined 相等）
+- "void 0 是什么" → 返回 undefined，确保不被人重写 undefined 变量影响
+
+> 📖 答案参考：[类型转换](../JavaScript/type-coercion.md)
+
+---
+
+### Q23: 数组去重方法
+> ⭐⭐⭐⭐ | 难度：初级
+> 🏷️ 概念题
+
+**题目**：数组去重有哪些方法？各有什么优缺点？
+
+**回答框架**：
+1. `[...new Set(arr)]` —— 最简洁，但只对基本类型有效（对象比较引用）
+2. `filter + indexOf` —— 兼容性好，O(n²) 性能差
+3. `reduce + includes` —— 逻辑清晰，也是 O(n²)
+4. 对象数组按某字段去重：`Map` 以该字段为 key —— O(n)
+
+**追问预测**：
+- "Set 去重对象数组为什么不行" → Set 比较引用——`{a:1} !== {a:1}`
+- "怎么按 id 去重对象数组" → `[...new Map(arr.map(v => [v.id, v])).values()]`
+
+> 📖 答案参考：[Set / Map / WeakMap](../JavaScript/set-map-weakmap.md)
