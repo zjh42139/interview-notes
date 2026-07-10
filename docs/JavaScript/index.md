@@ -32,7 +32,6 @@ mindmap
     工具
       深拷贝
       防抖节流
-    生成器/迭代器
       yield
       Symbol.iterator
       asyncIterator
@@ -64,7 +63,6 @@ mindmap
 10. ⭐⭐⭐⭐   [new](./new.md)
 11. ⭐⭐⭐     [深拷贝](./deep-clone.md)
 12. ⭐⭐⭐    [防抖节流](./debounce-throttle.md)
-13. ⭐⭐⭐    [生成器 / 迭代器](./generator-iterator.md)
 14. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
 15. ⭐⭐⭐    [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
 16. ⭐⭐⭐    [跨 Realm 场景](./cross-realm.md)
@@ -77,6 +75,8 @@ mindmap
 | [call/apply/bind](./call-apply-bind.md) | ⭐⭐⭐⭐ | 中级 | [✅](../手写题/bind-call-apply.md) | draft |
 | [new](./new.md) | ⭐⭐⭐⭐ | 初级 | [✅](../手写题/new.md) | draft |
 | [闭包](./closure.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [class / extends / super](./class-extends.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
+| [for...of vs for...in](./for-of-for-in.md) | ⭐⭐⭐⭐ | 初级 | drafted |
 | [类型转换](./type-coercion.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [Set / Map / WeakMap](./set-map-weakmap.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [原型链](./prototype-chain.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
@@ -85,7 +85,6 @@ mindmap
 | [async/await](./async-await.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [深拷贝](./deep-clone.md) | ⭐⭐⭐ | 中级 | [✅](../手写题/deep-clone.md) | draft |
 | [防抖节流](./debounce-throttle.md) | ⭐⭐⭐ | 初级 | [✅](../手写题/debounce-throttle.md) | draft |
-| [生成器 / 迭代器](./generator-iterator.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [Proxy / Reflect](./proxy-reflect.md) | ⭐⭐⭐⭐⭐ | 高级 | ✅ react | draft |
 | [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [跨 Realm 场景](./cross-realm.md) | ⭐⭐⭐ | 高级 | — | draft |

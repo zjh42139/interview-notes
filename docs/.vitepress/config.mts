@@ -40,6 +40,8 @@ export default defineConfig({
         { text: '深拷贝', link: '/JavaScript/deep-clone' },
         { text: '防抖 / 节流', link: '/JavaScript/debounce-throttle' },
         { text: '生成器 / 迭代器', link: '/JavaScript/generator-iterator' },
+        { text: 'class / extends / super', link: '/JavaScript/class-extends' },
+        { text: 'for...of vs for...in', link: '/JavaScript/for-of-for-in' },
         { text: 'Proxy / Reflect', link: '/JavaScript/proxy-reflect' },
         { text: 'ArrayBuffer / TypedArray', link: '/JavaScript/arraybuffer-typedarray' },
         { text: '跨 Realm 场景', link: '/JavaScript/cross-realm' },
@@ -307,6 +309,9 @@ export default defineConfig({
       '/手写题/': [
         { text: '手写题 知识地图', link: '/手写题/' },
         { text: 'Promise', link: '/手写题/promise' },
+        { text: 'Promise.all / allSettled / any / race', link: '/手写题/promise-static' },
+        { text: 'LRU Cache', link: '/手写题/lru-cache' },
+        { text: '批量请求并发控制', link: '/手写题/concurrency-control' },
         { text: 'bind / call / apply', link: '/手写题/bind-call-apply' },
         { text: 'new', link: '/手写题/new' },
         { text: 'debounce / throttle', link: '/手写题/debounce-throttle' },
