@@ -28,6 +28,8 @@ tags:
 
 ## Q1：BFC 有哪些应用场景？⭐⭐⭐⭐⭐
 
+**30秒答**：BFC 独立渲染区域——内部布局不影响外部。触发：overflow:hidden、display:flow-root、float、absolute。三大应用：清除浮动（BFC 包裹浮动子元素）、防 margin 重叠、两栏自适应布局。
+
 **追问预测**：
 - "BFC 和 IFC/FFC 的关系" → 四个格式化上下文——BFC 块级、IFC 行内、FFC Flex、GFC Grid
 - "overflow:hidden 触发 BFC 的副作用" → 裁剪溢出内容——现代方案 display:flow-root 无副作用
@@ -50,6 +52,8 @@ tags:
 
 ## Q2：Flex 和 Grid 的区别？如何选型？⭐⭐⭐⭐⭐
 
+**30秒答**：Flex 一维布局——管行或列，适合组件内排列。Grid 二维布局——同时管行和列，适合页面级布局。混用：页面骨架用 Grid，组件内排列用 Flex。fr 单位和 minmax() 是 Grid 独有优势。
+
 **追问预测**：
 - "Flexbox 是一维还是二维" → 一维——只管行或列。Grid 二维——同时管行和列
 - "什么时候用 Grid 不用 Flex" → 有明确行列结构（Dashboard、后台骨架）用 Grid；组件内排列用 Flex
@@ -69,6 +73,8 @@ tags:
 ---
 
 ## Q3：`display:none`、`visibility:hidden`、`opacity:0` 三种隐藏方式的区别？⭐⭐⭐⭐⭐
+
+**30秒答**：display:none 移除 DOM 流触发回流——不占位不渲染。visibility:hidden 占位只重绘——子元素设 visible 可恢复。opacity:0 占位可交互——视觉透明但能点击。
 
 **追问预测**：
 - "display:none 和 visibility:hidden 哪个更耗性能" → display:none 触发回流——移除 DOM 流；visibility:hidden 只重绘
@@ -90,6 +96,8 @@ tags:
 
 ## Q4：`absolute` 相对于谁定位？包含块规则是什么？⭐⭐⭐⭐⭐
 
+**30秒答**：absolute 相对最近 position 非 static 祖先定位——没有就用初始包含块(视口)。脱离文档流不占位。和 relative 的区别——relative 占位不脱离流。fixed 相对视口——transform 祖先例外。
+
 **追问预测**：
 - "absolute 相对于谁定位" → 最近的 position 非 static 的祖先；找不到就用初始包含块（视口）
 - "包含块的规则" → absolute 找 position 非 static 祖先；fixed 永远是视口（除 transform 例外）
@@ -108,6 +116,8 @@ tags:
 ---
 
 ## Q5：`position: sticky` 为什么会失效？⭐⭐⭐⭐
+
+**30秒答**：sticky 在容器内滚动到阈值才固定——父元素 overflow:hidden 或高度不够会失效。和 fixed 区别——fixed 始终固定。必须设 top/left 值才生效。
 
 **追问预测**：
 - "sticky 失效的常见原因" → 父元素 overflow:hidden 或高度不够、没设 top/left 值
@@ -128,6 +138,8 @@ tags:
 ---
 
 ## Q6：CSS 优先级怎么计算？`!important` 一定最高吗？⭐⭐⭐⭐⭐
+
+**30秒答**：!important > 内联 > id > class/伪类/属性 > 元素/伪元素。权值 !important=∞、内联=1000、id=100、class=10、元素=1。权值相同后来居上。用户 !important 高于作者 !important。
 
 **追问预测**：
 - "important 一定最高吗" → 用户样式 important > 作者样式 important > 作者普通 > 用户普通 > 浏览器默认
@@ -150,6 +162,8 @@ tags:
 
 ## Q7：`100vh` 在移动端为什么会有问题？怎么解决？⭐⭐⭐⭐
 
+**30秒答**：100vh 在移动端浏览器工具栏收起/展开时高度变化——导致布局抖动。解决：dvh(动态视口)、svh(小视口)、lvh(大视口)新单位——或用 JS 动态设 CSS 变量。
+
 **追问预测**：
 - "100vh 和 100% 的区别" → vh 是视口高度百分比；% 是父元素高度百分比
 - "移动端 100vh 问题怎么解决" → dvh（动态视口高度）/ svh（小视口）/ lvh（大视口）CSS 新单位
@@ -167,6 +181,8 @@ tags:
 ---
 
 ## Q8：`rem`、`vw`、`px` 分别适用于什么场景？⭐⭐⭐⭐
+
+**30秒答**：rem 相对根元素 font-size——适合全局响应式。em 相对父元素——容易叠加。vw 视口宽度 1%。px 固定像素。移动端适配：postcss-px-to-viewport 自动转 vw + rem 做全局缩放。
 
 **追问预测**：
 - "rem 和 em 的区别" → rem 根元素 font-size；em 父元素 font-size。rem 更适合全局响应式
@@ -187,6 +203,8 @@ tags:
 
 ## Q9：为什么 `margin: auto` 有时候不能居中？⭐⭐⭐⭐
 
+**30秒答**：margin:auto 水平居中需块级+明确宽度——auto 平分剩余空间。垂直方向 auto=0——规范规定所以不能垂直居中。Flex/Grid 容器中垂直 auto 也生效。
+
 **追问预测**：
 - "margin:auto 水平居中条件" → 块级元素 + 有明确宽度——auto 平分剩余空间
 - "margin:auto 垂直为什么不行" → 垂直方向 auto = 0——规范规定。Flex/Grid 例外
@@ -205,6 +223,8 @@ tags:
 ---
 
 ## Q10：如何实现水平垂直居中？说出所有方案 ⭐⭐⭐⭐⭐
+
+**30秒答**：Flexbox(display:flex+justify-content:center+align-items:center)最通用。Grid(place-items:center)一行最简洁。绝对+transform(top:50%+left:50%+translate(-50%))适合弹窗。不定宽高用 Flex/Grid。
 
 **追问预测**：
 - "说出 5 种居中方案" → Flexbox/Grid/绝对定位+transform/绝对定位+margin:auto/table-cell
@@ -227,6 +247,8 @@ tags:
 
 ## Q11：外边距重叠（Margin Collapse）是什么？如何解决？⭐⭐⭐⭐
 
+**30秒答**：相邻块级元素垂直 margin 取最大值不叠加。触发条件：父子间无 border/padding/inline content/BFC 隔开。解决：触发 BFC(overflow:hidden)或加 border/padding 隔开。
+
 **追问预测**：
 - "父子 margin 重叠的条件" → 父子间没有 border/padding/inline content/BFC 隔开
 - "怎么解决 margin 重叠" → 触发 BFC——overflow:hidden 或 display:flow-root 隔开
@@ -246,6 +268,8 @@ tags:
 ---
 
 ## Q12：`z-index` 失效的几种情况？⭐⭐⭐⭐
+
+**30秒答**：z-index 失效：元素没设 position、父级层叠上下文 z-index 更低。层叠上下文由 position+z-index、opacity<1、transform、filter 等创建。子元素 z-index 只在父级层叠上下文内有效。
 
 **追问预测**：
 - "z-index 失效的几种情况" → 元素没设 position、父级创建了层叠上下文且 z-index 更低
@@ -269,6 +293,8 @@ tags:
 
 ## Q15：`transition` 和 `animation` 有什么区别？⭐⭐⭐⭐
 
+**30秒答**：transition 需要触发条件(hover/focus)只有两个状态——适合简单过渡。animation 自动播放多关键帧——适合复杂动画。性能：用 transform/opacity 做动画 GPU 加速，避免 width/height/top/left 触发回流。
+
 **追问预测**：
 - "transition 和 animation 的核心区别" → transition 需要触发条件（hover/focus）且只有两个状态；animation 自动播放多关键帧
 - "哪些属性适合 transition" → transform/opacity——只触发合成不触发重排。width/height 触发回流不适合
@@ -287,6 +313,8 @@ tags:
 ---
 
 ## Q16：单行/多行文本溢出省略怎么实现？⭐⭐⭐⭐
+
+**30秒答**：单行 text-overflow:ellipsis+white-space:nowrap+overflow:hidden 三件套。多行 -webkit-line-clamp+display:-webkit-box+overflow:hidden。多行兼容性差——Firefox 不支持。
 
 **追问预测**：
 - "多行省略的核心属性" → display:-webkit-box + -webkit-line-clamp + -webkit-box-orient:vertical
@@ -307,6 +335,8 @@ tags:
 
 ## Q17：如何清除浮动？clearfix 和 BFC 方案有什么区别？⭐⭐⭐⭐
 
+**30秒答**：clearfix ::after+clear:both 在浮动元素后插入清除块。BFC 触发后计算高度包含浮动子元素。现代 Flexbox/Grid 基本不再需要清除浮动。
+
 **追问预测**：
 - "clearfix 的原理" → ::after 伪元素 + clear:both——在浮动元素后插入一个清除浮动的块
 - "BFC 清除浮动的原理" → BFC 计算高度时包含浮动子元素——触发 BFC 即可包裹浮动
@@ -326,6 +356,8 @@ tags:
 ---
 
 ## Q18：CSS 如何实现暗黑模式？⭐⭐⭐⭐
+
+**30秒答**：CSS 变量切换主题色值+prefers-color-scheme 媒体查询自动跟随系统+class 切换手动控制。图片用 CSS filter 降低亮度或准备两套资源。
 
 **追问预测**：
 - "暗黑模式的实现方式" → CSS 变量切换、prefers-color-scheme 媒体查询、class 切换

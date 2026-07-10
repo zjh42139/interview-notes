@@ -23,6 +23,8 @@ tags:
 
 ### Q1: Vue3 响应式 | 概念题原理（Proxy 实现）
 
+**30秒答**：Vue3 用 Proxy 代理整个对象——访问时 track 收集依赖，修改时 trigger 派发更新。依赖存储 WeakMap→Map→Set 三层。相比 Vue2 defineProperty：能检测新增/删除、数组索引、Map/Set，初始化快。
+
 **追问预测**：
 - "Proxy 和 defineProperty 的本质区别" → Proxy 代理整个对象——无需递归劫持、能检测新增删除、支持数组和 Map/Set
 - "ref 和 reactive 怎么选" → 基本类型用 ref、对象用 reactive。ref 重新赋值不丢响应性
@@ -45,6 +47,8 @@ tags:
 
 ### Q2: Diff 算法 | 概念题 + 最长递增子序列（LIS）
 
+**30秒答**：双端比较+最长递增子序列。新旧节点从头尾各放指针往中间收——头头/尾尾/头尾/尾头逐个匹配。匹配不上的用 LIS——在 LIS 中的不移动，不在的插入/删除。O(n)。
+
 **追问预测**：
 - "key 的作用是什么" → 节点唯一标识——没有 key 时 Diff 只靠索引匹配，内容完全可能不对
 - "index 当 key 有什么问题" → 数组头部插入——所有旧元素 index 改变，Diff 认为全部是新节点
@@ -66,6 +70,8 @@ tags:
 ---
 
 ### Q3: computed | 对比题 vs watch 区别与原理
+
+**30秒答**：computed 有缓存——依赖不变直接返回缓存值；methods 每次重新执行。computed 内部用 effect + 惰性求值 + dirty 标记。可以写 get 和 set。watch 监听数据变化执行副作用——支持旧值、deep、immediate。
 
 **追问预测**：
 - "computed 和 methods 区别" → computed 有缓存——依赖不变直接返回缓存值，methods 每次重新执行
@@ -90,6 +96,8 @@ tags:
 
 ### Q4: nextTick | 概念题 原理与使用场景
 
+**30秒答**：nextTick 把回调推入微任务队列——在当前 DOM 更新完成后执行。场景：修改数据后立刻读取 DOM。Vue 内部响应式更新是异步批量的——多次改同一个数据只触发一次更新。
+
 **追问预测**：
 - "nextTick 的原理" → 回调推入微任务队列——Promise.then 优先，降级 setImmediate/setTimeout
 - "什么时候必须用 nextTick" → 修改数据后立即读取 DOM 状态——此时 DOM 还未更新
@@ -110,6 +118,8 @@ tags:
 ---
 
 ### Q5: KeepAlive | 概念题 原理 + LRU 缓存策略
+
+**30秒答**：KeepAlive 内部 Map 缓存组件 VNode——切换时复用不走销毁重建。max 属性触发 LRU 淘汰最久未访问的。缓存组件多了 activated/deactivated 两个生命周期。
 
 **追问预测**：
 - "KeepAlive 怎么实现缓存" → 内部 Map——key 是组件名 value 是 VNode；有 max 属性时触发 LRU 淘汰
@@ -132,6 +142,8 @@ tags:
 
 ### Q6: Composition | 对比题 API vs Options API
 
+**30秒答**：Composition API 解决 mixin 的命名冲突和来源不清晰——按功能组织代码而非选项。setup 在 beforeCreate 前执行——此时没有 this。Composition 和 Options 可以混用但不推荐。
+
 **追问预测**：
 - "为什么引入 Composition API" → 逻辑复用替代 mixin、TS 类型推导更好、代码按功能而非选项组织
 - "setup 里不能访问 this 为什么" → setup 在组件实例创建前执行——此时 this 还不存在
@@ -153,6 +165,8 @@ tags:
 
 ### Q7: 为什么 v-for | 概念题 需要绑定 key
 
+**30秒答**：key 是 Diff 中节点的唯一标识——同 key 同类型才复用 DOM。没有 key 只能靠索引匹配，内容完全可能不对。用 index 当 key——数组顺序变了 key 全错，Diff 认为全部是新节点。
+
 **追问预测**：
 - "用 index 当 key 可以吗" → 不可以——数组顺序变化时 index 全错，Diff 全部重建
 - "key 必须全局唯一吗" → 不需要——同层唯一即可，不同层级可以复用相同 key
@@ -173,6 +187,8 @@ tags:
 ---
 
 ### Q8: Vue3 vs Vue2 | 对比题 全面对比
+
+**30秒答**：响应式 Proxy 替代 defineProperty、Composition API、Fragment/Teleport/Suspense 新组件、Tree Shaking 按需打包、TypeScript 原生支持。删除了 $on/$off 事件总线、filters 过滤器。
 
 **追问预测**：
 - "Vue3 删除了哪些 API" → $on/$off/$once 事件总线、filters 过滤器、$listeners 合并到 $attrs
@@ -199,6 +215,8 @@ tags:
 
 ### Q9: 父子组件 | 概念题生命周期执行顺序
 
+**30秒答**：父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted。setup 在 beforeCreate 之前——替代了两者。keep-alive 组件多了 activated/deactivated。
+
 **追问预测**：
 - "完整生命周期顺序" → 父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted
 - "setup 替代了哪些生命周期" → beforeCreate 和 created——setup 在这两者之前执行
@@ -218,6 +236,8 @@ tags:
 ---
 
 ### Q10: ref vs | 对比题 reactive 详解
+
+**30秒答**：ref 适合基本类型和重新赋值——模板自动解 .value。reactive 适合对象——不能重新赋值、解构丢失响应性需 toRefs。ref 内部也是 Proxy——存 .value 属性上。
 
 **追问预测**：
 - "reactive 解构后还响应式吗" → 不是——解构是值拷贝。必须用 toRefs() 保持响应性
@@ -240,6 +260,8 @@ tags:
 ---
 
 ### Q11: watchEffect | 对比题 vs watch
+
+**30秒答**：watchEffect 自动追踪依赖、立即执行——不需要指定数据源。watch 惰性执行、需指定数据源、支持旧值对比。watchEffect 返回 stop 函数用于停止追踪。
 
 **追问预测**：
 - "watchEffect 和 watch 的本质区别" → watchEffect 自动追踪依赖立即执行；watch 惰性需指定数据源且支持旧值
@@ -280,6 +302,8 @@ tags:
 
 ### Q14: 自定义指令 | 概念题（Custom Directive）
 
+**30秒答**：指令是对 DOM 元素的底层操作——mounted/updated/unmounted 等 7 个钩子。v-permission 权限指令——mounted 时检查权限数组，无权限则 removeChild。适合跨组件复用的 DOM 行为。
+
 **追问预测**：
 - "自定义指令的 7 个钩子" → created/mounted/updated/beforeUnmount/unmounted——与组件生命周期对齐
 - "指令和组件的区别" → 指令操作底层 DOM 元素，组件封装 UI + 逻辑
@@ -302,6 +326,8 @@ tags:
 
 ### Q16: Pinia | 对比题 vs Vuex
 
+**30秒答**：Pinia 无 mutations——actions 直接改 state、完整 TS 类型推导、去 modules 改为多 store。Vuex 需要 commit mutation 才能改 state、TypeScript 支持弱。持久化用 pinia-plugin-persistedstate。
+
 **追问预测**：
 - "Pinia 和 Vuex 核心区别" → Pinia 无 mutations、完整 TS 推导、去 modules 改为多 store
 - "Pinia 怎么持久化" → pinia-plugin-persistedstate——自动同步 localStorage 或 sessionStorage
@@ -323,6 +349,8 @@ tags:
 ---
 
 ### Q17: `<script setup>` 语法糖
+
+**30秒答**：script setup 是语法糖——顶层绑定自动暴露给模板、无需 return、更好的 TS 推导。defineProps/defineEmits 是编译宏无需 import。defineExpose 显式声明对外暴露的属性。
 
 **追问预测**：
 - "script setup 和普通 script 的区别" → 语法糖——无需 return、自动暴露顶层绑定、更好的 TS 推导

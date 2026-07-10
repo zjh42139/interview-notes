@@ -22,6 +22,8 @@ tags:
 
 ### Q1: 泛型的使用场景与实践
 
+**30秒答**：泛型=类型参数化——延迟到使用时确定类型。保留类型安全不丢失推导。场景：axios 响应包装类型、表格列定义、通用组件 props。extends 约束泛型范围。
+
 **追问预测**：
 - "泛型约束怎么实现" → extends——<T extends {length:number}> 限制 T 必须有 length 属性
 - "什么时候不用泛型" → 类型确定不变时——如 sum(a:number,b:number) 不需要泛型化
@@ -44,6 +46,8 @@ tags:
 ---
 
 ### Q2: Utility Types 实现原理
+
+**30秒答**：Pick 挑选属性、Omit 排除属性、Partial 全部可选、Required 全部必填。核心是映射类型——[K in keyof T]:T[K]。Pick/Omit/Partial 能手写实现说明真懂了。
 
 **追问预测**：
 - "Pick 和 Omit 的区别" → Pick 挑选属性；Omit 排除属性——互补操作
@@ -68,6 +72,8 @@ tags:
 
 ### Q3: any / unknown / never 的区别
 
+**30秒答**：any 放弃类型检查——传染性危险。unknown 类型安全——使用前必须收窄(typeof/instanceof/is)。never 永远不返回(抛异常/死循环)或不可能分支(穷举检查)。
+
 **追问预测**：
 - "unknown 和 any 的本质区别" → unknown 类型安全——使用前必须类型收窄；any 放弃类型检查
 - "never 的使用场景" → 永远不返回的函数（抛异常/死循环）、不可能的分支（exhaustive check）
@@ -89,6 +95,8 @@ tags:
 ---
 
 ### Q4: extends 和 infer 详解
+
+**30秒答**：extends 三个角色——泛型约束(T extends U)、条件类型(T extends U?X:Y)、继承(class extends)。infer 在条件类型中声明类型变量——提取 ReturnType/Awaited 等。
 
 **追问预测**：
 - "extends 在泛型中有几种含义" → 约束（限制 T）、条件类型（三元判断）、继承（class/interface）
@@ -112,6 +120,8 @@ tags:
 
 ### Q5: satisfies 关键字的用法
 
+**30秒答**：satisfies 保留类型推导不做断言——as 强制转换可能丢失类型安全。和:类型标注的区别——satisfies 不改变变量类型保留更精确推导。场景：既要约束又不丢字面量类型。
+
 **追问预测**：
 - "satisfies 和 as 的区别" → satisfies 保留类型推导不做断言；as 强制转换可能丢失类型安全
 - "satisfies 和 : 类型标注的区别" → satisfies 不改变变量类型——保留更精确的推导
@@ -133,6 +143,8 @@ tags:
 ---
 
 ### Q6: keyof + 映射类型 + 条件类型
+
+**30秒答**：keyof 取对象键的联合类型——keyof typeof 取值的键。映射类型 [K in keyof T]:... 遍历键生成新类型。配合 extends 做条件类型过滤。模板字面量类型做字符串拼接。
 
 **追问预测**：
 - "keyof 和 typeof 配合怎么用" → typeof 取值的类型→keyof typeof 取对象键的联合类型
@@ -158,6 +170,8 @@ tags:
 
 ### Q8: 类型体操基础
 
+**30秒答**：DeepReadonly/DeepPartial 递归映射——T[K] extends object ? X<T[K]> : T[K]。实用价值：写出更准确的类型定义。边界：不要为了炫技写过于复杂降低可读性的类型。
+
 **追问预测**：
 - "DeepReadonly 怎么实现" → 递归映射——T[K] extends object ? DeepReadonly<T[K]> : T[K]
 - "类型体操的实用价值" → 写出更准确的类型定义——让编译器帮你发现错误而不是靠运行时
@@ -180,6 +194,8 @@ tags:
 ---
 
 ### Q9: 声明文件（.d.ts）与 declare
+
+**30秒答**：.d.ts 只有类型声明无实现——类似 C 头文件。declare module 为无类型第三方库声明类型。declare global 扩展全局类型——给 Window 加自定义属性。
 
 **追问预测**：
 - ".d.ts 和 .ts 的区别" → .d.ts 只有类型声明没有实现——类似 C 的头文件
@@ -204,6 +220,8 @@ tags:
 
 ### Q11: as const 的用法
 
+**30秒答**：as const 固定字面量类型为最窄——readonly+literal。数组变 readonly tuple——每个元素精确到字面量。和 enum 比——更轻量不生成运行时代码。
+
 **追问预测**：
 - "as const 和 readonly 的区别" → as const 把字面量类型固定为最窄——readonly + literal；readonly 只是只读
 - "as const 对数组的影响" → 变成 readonly tuple——每个元素类型精确到字面量
@@ -226,6 +244,8 @@ tags:
 
 
 ### Q13: TypeScript 的类型收窄（Type Narrowing）
+
+**30秒答**：typeof/instanceof/in/is 四种收窄。自定义 type guard 返回 arg is SomeType——TS 在 if 块内自动收窄。never 穷举检查——default 分支赋值给 never 遗漏编译报错。
 
 **追问预测**：
 - "类型收窄的几种方式" → typeof/instanceof/in/自定义 type guard（is）/switch 穷举
@@ -250,6 +270,8 @@ tags:
 
 
 ### Q15: 项目中的 TypeScript 最佳实践
+
+**30秒答**：Vue3 defineProps 用泛型传类型、Pinia 完整 TS 推导、composables 标注返回类型。strict 严格模式逐步开启。any 尽量不用——用 unknown 替代。第三方无类型用 declare module。
 
 **追问预测**：
 - "Vue3+TS 项目的最佳实践" → defineProps 用泛型传类型、Pinia store 完整 TS 类型推导、composables 返回类型标注

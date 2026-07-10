@@ -23,6 +23,8 @@ tags:
 
 ### Q1: Promise 执行顺序 | 输出题输出题
 
+**30秒答**：先同步后异步——new Promise里的代码同步执行，.then回调进微任务队列。当前宏任务跑完→清空全部微任务→再取下一个宏任务。1 4 7 5 6 2 3 这个输出顺序就是"同步→微→宏"的体现。
+
 **追问预测**：
 - "setTimeout(fn,0) 换成 0 一样吗" → 0 是最小延迟，嵌套 5 层后强制 4ms
 - "requestAnimationFrame 加进来顺序怎么变" → rAF 在渲染前执行，既不是宏也不是微任务
@@ -81,6 +83,10 @@ console.log('7');
 
 ### Q3: 闭包 + setTimeout | 输出题 输出题
 
+**30秒答**：bind 返回一个永久绑定了 this 的新函数。call 和 apply 的区别只在传参——call 逐个传、apply 数组传。两个关键点：bind 返回的函数再 bind 无效，new 的优先级高于 bind。
+
+**30秒答**：闭包 = 函数能记住并访问它被创建时所在的作用域——即使外层函数已经执行完了。for + var + setTimeout 全输出 5 是经典题——var 是函数作用域，所有回调共享同一个 i；用 let 或 IIFE 创建独立作用域解决。
+
 **追问预测**：
 - "let 为什么能解决 for+setTimeout" → let 块作用域，每次迭代创建新绑定，闭包引用独立的 i
 - "不用 let 怎么解决" → IIFE 包一层创建独立作用域
@@ -109,6 +115,8 @@ for (var i = 0; i < 5; i++) {
 ---
 
 ### Q4: this 指向判断 | 概念题
+
+**30秒答**：this 由调用方式决定——new 绑定→call/apply/bind 显式→对象.方法 隐式→默认(window/undefined)。箭头函数没自己的 this，从外层词法继承，call/bind 对它无效。
 
 **追问预测**：
 - "call 和 apply 的区别" → 传参方式——call 逐个、apply 数组，功能完全相同
@@ -168,6 +176,10 @@ obj.foo.call({ name: 'other' }); // ?
 
 ### Q6: 手写深拷贝 | 手写题
 
+**30秒答**：JS 单线程靠 Event Loop 调度——同步代码执行完→清空微任务(Promise.then/MutationObserver)→取一个宏任务(setTimeout/事件)→再清空微→可能渲染→循环。微任务优先级高于宏任务。
+
+**30秒答**：递归遍历对象——基本类型直接返回，对象创建新容器递归拷贝。三个难点：循环引用用 WeakMap 记录已拷贝对象、Date/RegExp 用 instanceof 判断重新构造、Symbol 用 getOwnPropertySymbols 获取。
+
 **追问预测**：
 - "怎么处理循环引用" → WeakMap 记录已拷贝对象，遇到重复引用直接返回缓存
 - "Date/RegExp/Map/Set 怎么拷贝" → instanceof 判断类型，调用对应构造函数重新创建
@@ -189,6 +201,8 @@ obj.foo.call({ name: 'other' }); // ?
 ---
 
 ### Q7: async/await | 输出题 + Promise 混合输出题
+
+**30秒答**：async 函数返回 Promise，await 等 Promise settle 后继续——await 后面的代码相当于 .then 回调，作为微任务执行。try/catch 可以替代 .catch——代码读起来像同步。
 
 **追问预测**：
 - "async 函数的返回值是什么" → 永远是 Promise——返回普通值自动用 Promise.resolve 包装
@@ -468,6 +482,30 @@ let b = 2;
 - any：第一个成功的，全失败抛 AggregateError。场景：多 CDN 降级——哪个快用哪个
 - 共同点：都接收 Promise 数组，返回 Promise
 
+**30秒答**：每个对象都有 __proto__ 指向原型，原型又有自己的原型——串成原型链。函数才有 prototype——new 出来的对象 __proto__ 指向函数的 prototype。instanceof 就是顺着 __proto__ 找 prototype。class 本质是语法糖。
+
+**30秒答**：var 函数作用域/可重复声明/有变量提升；let 块作用域/不可重复声明/有 TDZ；const 块作用域/不可重复声明/不可重新赋值（但对象属性可改）。现在默认用 const——需要改的用 let——不用 var。
+
+**30秒答**：防抖——连续触发只执行最后一次（搜索框输入）。节流——连续触发按固定频率执行（页面滚动）。核心都是 setTimeout 控制频率。防抖每次重置计时器，节流一段时间内只执行一次。
+
+**30秒答**：new 做四步——创建空对象→设 __proto__ 指向构造函数 prototype→执行构造函数绑定 this→返回对象（构造函数不 return 对象的话）。面试常问：return 一个对象，new 就返回那个对象。
+
+**30秒答**：基本类型 7 种——string/number/boolean/undefined/null/symbol/bigint。引用类型——Object/Array/Function。typeof null === object 是历史 bug。最可靠判断用 Object.prototype.toString.call。
+
+**30秒答**：标记清除——从根对象出发标记所有可达对象，不可达的回收。引用计数——记录每个对象的引用次数，归零回收但解决不了循环引用。V8 分代 GC——新生代 Scavenge 复制，老生代 Mark-Sweep-Compact。
+
+**30秒答**：JS 用 IEEE754 双精度存储——0.1+0.2 二进制无限循环导致精度丢失。解决：转整数计算、toFixed 格式化、或用 big.js/Decimal 库。面试说清"二进制不能精确表示十进制小数"就够了。
+
+**30秒答**：构造函数维护三态 pending/fulfilled/rejected——状态不可逆。.then 返回新 Promise——回调返回值决定新 Promise 状态。then 回调异步执行（微任务）。手写核心：状态机 + 回调队列 + then 返回新 Promise。
+
+**30秒答**：利用事件冒泡——把监听绑在父元素上，通过 e.target 判断真正被点击的子元素。好处：动态新增子元素无需重新绑定、减少内存占用。不冒泡的事件（focus/blur/scroll）不能委托。
+
+**30秒答**：class 是 prototype 的语法糖。区别：class 必须 new、内部自动严格模式、方法不可枚举、有 TDZ。extends 同时设置了 constructor.prototype 和 __proto__ 两条继承链——比 ES5 寄生组合继承更简洁。
+
+**30秒答**：Map key 可以是任意类型且保持插入顺序；WeakMap key 只能是对象且是弱引用——key 被回收后 value 自动 GC。WeakMap 不可迭代、没有 size——因为 key 随时可能被 GC。场景：DOM 节点关联数据、私有属性。
+
+**30秒答**：all 全成功才 resolve/一个失败就 reject。allSettled 等全部 settle 不管成败。race 取第一个 settle 的结果。any 取第一个成功的——全失败才抛 AggregateError。场景：all 批量请求；race 超时控制；any 多 CDN 降级。
+
 **追问预测**：
 - "all 一个失败，其他请求还在跑吗" → 还在跑——Promise 创建后无法取消
 - "any 和 race 的本质区别" → race 看谁先 settle（不管成败），any 看谁先成功
@@ -488,6 +526,8 @@ let b = 2;
 
 **2 分钟版**：区别——1) `undefined == null` 为 true，`===` 为 false；2) Number(null) = 0，Number(undefined) = NaN；3) JSON 序列化 null 保留，undefined 被忽略；4) 函数默认参数只有 undefined 触发，null 不触发
 
+**30秒答**：undefined 是没赋值（变量声明未初始化、参数没传、属性不存在）。null 是主动设的空值。== 下 null 和 undefined 相等，=== 下不等。typeof null === object 是 JS 历史 bug。value == null 同时判断两者。
+
 **追问预测**：
 - "怎么同时判断 null 和 undefined" → `value == null`（宽松等号，null 和 undefined 相等）
 - "void 0 是什么" → 返回 undefined，确保不被人重写 undefined 变量影响
@@ -507,6 +547,8 @@ let b = 2;
 2. `filter + indexOf` —— 兼容性好，O(n²) 性能差
 3. `reduce + includes` —— 逻辑清晰，也是 O(n²)
 4. 对象数组按某字段去重：`Map` 以该字段为 key —— O(n)
+
+**30秒答**：最简单 [...new Set(arr)]——一行搞定基本类型。对象数组按 id 去重用 Map——[...new Map(arr.map(v=>[v.id,v])).values()]——O(n)保持顺序。Set 去重对象不行——比较的是引用。
 
 **追问预测**：
 - "Set 去重对象数组为什么不行" → Set 比较引用——`{a:1} !== {a:1}`
