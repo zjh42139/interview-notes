@@ -223,6 +223,15 @@ function handleInput(e) {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "v-model 的原理是什么" | 追问 :value + @input 的语法糖 + modelValue/update:modelValue |
+| "Vue3 的 v-model 和 Vue2 有什么区别" | 追问去掉 .sync、支持多个 v-model、自定义修饰符 |
+| "v-model 怎么在组件上绑定多个值" | 追问 v-model:title + v-model:content 的写法 |
+| "v-model 的修饰符怎么自定义" | 追问 modelModifiers prop + 在 update:modelValue 中处理 |
+
 ## 相关阅读
 
 - [响应式原理](./reactivity.md) —— v-model 背后的响应式系统如何工作

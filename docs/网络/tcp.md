@@ -152,6 +152,15 @@ upstream backend {
 
 ## 相关阅读
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "TCP 三次握手为什么不是两次" | 追问 SYN 洪范攻击和防御方案 |
+| "TCP 和 UDP 有什么区别" | 追问为什么 HTTP/3 选 UDP（QUIC） |
+| "TCP 怎么保证可靠传输" | 追问滑动窗口和拥塞控制的区别 |
+| "四次挥手为什么多一次" | 追问 TIME_WAIT 为什么等 2MSL |
+
 - [MDN: TCP](https://developer.mozilla.org/en-US/docs/Glossary/TCP)
 - [Cloudflare: What is TCP?](https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/)
 - [http-https](./http-https.md) — TCP 上层的 HTTP 协议

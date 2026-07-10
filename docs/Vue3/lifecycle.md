@@ -177,6 +177,15 @@ setup 中可以使用 **Composition API 版本**的生命周期钩子：`onMount
 **❌ onUnmounted 中访问 ref 一定是安全的**
 如果父组件被卸载导致子组件也跟着卸载，ref 值可能已经不可用。对有 DOM 操作（如 `ref.value?.removeEventListener`），用可选链是个好习惯。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Vue3 的生命周期有哪些" | 追问 setup 替代了 beforeCreate 和 created 的时机 |
+| "onMounted 能拿到 DOM 吗" | 追问和 nextTick 的关系——mounted 时 DOM 已创建但不保证子组件已挂载 |
+| "onBeforeUnmount 做什么" | 追问清理定时器、事件监听、observer 的必要性 |
+| "父子组件生命周期的执行顺序" | 追问父 beforeMount→子 mount→父 mounted 的嵌套顺序 |
+
 ## 相关阅读
 
 - [KeepAlive](./keepalive.md) — onActivated / onDeactivated 的额外钩子

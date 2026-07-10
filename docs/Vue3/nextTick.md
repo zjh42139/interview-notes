@@ -189,6 +189,15 @@ async function submitForm() {
 **❌ 修改数据后一定需要 nextTick 才能读 DOM**
 只有在需要获取**本次更新后**的 DOM 属性（offsetHeight、scrollTop 等）或操作刚渲染的元素时才需要 nextTick。普通的数据读取不需要。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "nextTick 的原理是什么" | 追问微任务优先——Promise.then→MutationObserver→setTimeout 的降级策略 |
+| "什么时候必须用 nextTick" | 追问 DOM 更新是异步的——改了 data 立刻读 DOM 还是旧值 |
+| "nextTick 和 setTimeout(fn,0) 哪个先执行" | 追问微任务 vs 宏任务的执行顺序 |
+| "Vue3 为什么不用宏任务做 nextTick" | 追问宏任务在渲染之前——可能导致更新前就显示了 |
+
 ## 相关阅读
 
 - [响应式原理](./reactivity.md) — 数据变更如何触发 effect

@@ -235,6 +235,15 @@ server {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "强缓存和协商缓存有什么区别" | 追问 Cache-Control: no-cache 和 no-store 的区别 |
+| "ETag 和 Last-Modified 哪个更可靠" | 追问为什么 ETag 能解决一秒内多次修改的问题 |
+| "为什么 index.html 不能缓存" | 追问文件名 hash + 强缓存的部署策略 |
+| "304 状态码是怎么产生的" | 追问 If-None-Match 和 If-Modified-Since 的生成逻辑 |
+
 ## 相关阅读
 
 - [MDN: HTTP caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching)

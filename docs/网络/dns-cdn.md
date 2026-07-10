@@ -166,6 +166,15 @@ https://img-cdn.example.com/avatar/user123.jpg?x-oss-process=image/format,webp
 
 ## 相关阅读
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "DNS 查询过程是怎样的" | 追问递归查询和迭代查询的区别 |
+| "CDN 的原理是什么" | 追问 DNS 调度 vs Anycast 就近接入方式 |
+| "DNS 有哪些记录类型" | 追问 CNAME 和 A 的区别、MX/TXT 的用途 |
+| "DNS 安全怎么保障" | 追问 DNS over HTTPS（DoH）和 DNSSEC |
+
 - [MDN: DNS](https://developer.mozilla.org/en-US/docs/Glossary/DNS)
 - [Cloudflare: What is a CDN?](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/)
 - [http-https](./http-https.md) — DNS 解析后的 HTTP 通信

@@ -131,6 +131,15 @@ export function useDashboardWS() {
 
 ## 相关阅读
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "WebSocket 和 HTTP 有什么区别" | 追问握手时的 HTTP Upgrade 机制 |
+| "WebSocket 和 SSE 怎么选" | 追问 SSE 的自动重连和 event ID 机制 |
+| "WebSocket 断线了怎么办" | 追问心跳检测（ping/pong）+ 指数退避重连 |
+| "多实例 WebSocket 怎么共享" | 追问 Redis Pub/Sub 或 MQ 跨进程广播 |
+
 - [MDN: WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 - [MDN: Server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
 - [http-https](./http-https.md) — WebSocket 和 SSE 基于的底层 HTTP 协议

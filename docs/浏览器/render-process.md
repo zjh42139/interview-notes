@@ -184,6 +184,15 @@ flowchart TD
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "浏览器渲染流程是怎样的" | 追问合成（composite）为什么要单独一层 |
+| "CSS 放 head 和放 body 底部有什么区别" | 追问 FOUC 的原理和防御 |
+| "display:none 的元素在渲染树的哪个阶段被排除" | 追问 visibility:hidden 和 display:none 的渲染差异 |
+| "为什么 JS 会阻塞渲染" | 追问 async/defer 怎么绕过阻塞 |
+
 ## 相关阅读
 
 - [MDN: How browsers work](https://developer.mozilla.org/en-US/docs/Web/Performance/How_browsers_work)

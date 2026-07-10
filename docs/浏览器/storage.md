@@ -224,6 +224,15 @@ if (cached && Date.now() - cached.cachedAt < 24 * 3600 * 1000) {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Cookie 和 LocalStorage 有什么区别" | 追问容量、自动携带、HttpOnly 安全属性 |
+| "SessionStorage 的标签页隔离怎么实现" | 追问同源但不同标签页的数据隔离场景 |
+| "Token 存在哪里最安全" | 追问 accessToken（内存）vs refreshToken（HttpOnly Cookie） |
+| "localStorage 满了怎么办" | 追问 5MB 上限的报错处理 + IndexedDB 升级方案 |
+
 ## 相关阅读
 
 - [MDN: Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)

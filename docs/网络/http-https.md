@@ -183,6 +183,15 @@ location /api/v2/ { proxy_pass http://backend-v2:3000; }
 
 ## 相关阅读
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "HTTP 和 HTTPS 有什么区别" | 追问 TLS 握手的四个步骤 |
+| "HTTPS 是怎么保证安全的" | 追问对称加密和非对称加密分别用在哪 |
+| "HTTP 状态码有哪些" | 追问 301 vs 302、401 vs 403 的区别 |
+| "HTTP/1.1 Keep-Alive 是什么" | 追问 HTTP/2 多路复用怎么解决队头阻塞 |
+
 - [MDN: HTTP overview](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
 - [MDN: HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS)
 - [Cloudflare: What is TLS?](https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/)

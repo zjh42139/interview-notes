@@ -161,6 +161,15 @@ canvasRenderer.createApp({
 - 理解**单元测试中 Vue Test Utils** 的 `mount()` 实现（内部 mock 了 DOM 操作）
 - 理解**uni-app / Taro** 等跨端框架的 Vue3 适配（它们提供了小程序平台的 nodeOps）
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Vue3 的渲染器做了什么" | 追问 patch 函数——创建、更新、卸载三种操作的统一入口 |
+| "虚拟 DOM 和真实 DOM 怎么同步" | 追问挂载（mount）和更新（patch）的两阶段流程 |
+| "SSR 的渲染器和 DOM 渲染器有什么区别" | 追问 createSSRApp 生成的 renderer 输出 HTML 字符串而非 DOM 操作 |
+| "自定义渲染器怎么用" | 追问 createRenderer 传入自定义 nodeOps 实现跨平台渲染 |
+
 ## 相关阅读
 
 - [Diff / Patch](./diff-patch.md) — patch 函数是 Renderer 的核心

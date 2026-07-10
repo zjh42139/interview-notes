@@ -238,6 +238,15 @@ const formData = reactive({ name: "", items: [] })
 4. **Object.assign 是深拷贝** -- 只是把源对象的**可枚举自有属性**复制到目标对象，一层的浅拷贝
 5. **深拷贝和浅拷贝的性能差异很大** -- 对大型对象深拷贝确实很慢（O(n) 还要递归），项目中注意只在必要时深拷贝
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "深拷贝怎么实现" | 追问循环引用——用 WeakMap 记录已拷贝对象 |
+| "JSON.parse(JSON.stringify) 有什么问题" | 追问不支持的 6 种类型（undefined/function/symbol/Date/RegExp/Map） |
+| "structuredClone 和手写深拷贝的区别" | 追问浏览器原生 API 支持的类型和不可克隆的类型 |
+| "为什么用 WeakMap 而不是 Map" | 追问垃圾回收——源对象销毁后 WeakMap 中的记录自动清除 |
+
 ## 相关阅读
 
 - [上一篇](./new.md)

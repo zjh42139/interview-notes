@@ -274,6 +274,15 @@ self.onmessage = async (e) => {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Web Worker 有什么用" | 追问不能操作 DOM、不能访问 window 的限制 |
+| "Worker 怎么和主线程通信" | 追问结构化克隆 vs Transferable 零拷贝 |
+| "Shared Worker 和 Dedicated Worker 的区别" | 追问多 Tab 共享 WebSocket 的场景 |
+| "Service Worker 是 Worker 吗" | 追问生命周期差异——SW 独立于页面运行 |
+
 ## 相关阅读
 
 - [MDN: Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)

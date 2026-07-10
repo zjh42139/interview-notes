@@ -187,6 +187,15 @@ axios.defaults.withCredentials = true
 
 ## 相关阅读
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "跨域怎么解决" | 追问 CORS 预检请求（OPTIONS）的触发条件 |
+| "JSONP 和 CORS 有什么区别" | 追问 JSONP 为什么只能 GET、有什么风险 |
+| "CORS 请求发出去了吗" | 追问同源策略只拦读不拦发——CSRF 的根因 |
+| "withCredentials 怎么配" | 追问带凭证时 origin 为什么不能用通配符 |
+
 - [MDN: Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 - [MDN: Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
 - [http-https](./http-https.md) — HTTP 请求/响应的基础

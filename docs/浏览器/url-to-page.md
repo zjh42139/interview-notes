@@ -201,6 +201,15 @@ flowchart TD
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "从输入 URL 到页面展示发生了什么" | 追问 DNS 递归和迭代查询的过程 |
+| "哪一步最耗时，怎么优化" | 追问 DNS→prefetch、TCP→preconnect、渲染→减少回流 |
+| "DOMContentLoaded 和 load 触发时机" | 追问 defer 脚本在哪个之前执行完 |
+| "TCP 为什么是三次握手" | 追问确认双方收发能力的必要性 |
+
 ## 相关阅读
 
 - [渲染流程](./render-process.md) —— Layout / Paint / Composite 的详细拆解

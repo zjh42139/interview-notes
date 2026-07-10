@@ -246,6 +246,15 @@ self.addEventListener('install', (e) => {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Service Worker 的生命周期" | 追问 install→waiting→activate→fetch 每步做什么 |
+| "SW 怎么实现离线缓存" | 追问 Cache First / Network First 策略的取舍 |
+| "SW 更新了旧 SW 还在运行怎么办" | 追问 skipWaiting + clients.claim 的时机 |
+| "SW 为什么只能 HTTPS" | 追问中间人攻击的风险和浏览器强制策略 |
+
 ## 相关阅读
 
 - [MDN: Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)

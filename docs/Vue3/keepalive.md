@@ -192,6 +192,15 @@ const useTabsStore = defineStore('tabs', () => {
 **❌ KeepAlive 不需要 key**
 `vnode.key` 是 KeepAlive 识别缓存的唯一标识。不设 key 时 Vue 会用组件 type 作为 fallback，导致同一组件的不同实例共享缓存，出现数据错乱。特别是 `<component :is>` 动态组件时必须设 `:key`。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "KeepAlive 的原理是什么" | 追问缓存 vnode 到 cache Map 里、activated/deactivated 的生命周期 |
+| "KeepAlive 怎么决定缓存哪些组件" | 追问 include/exclude/max 三个 props 的工作机制 |
+| "缓存的组件太多了怎么办" | 追问 max 属性 + LRU 算法的淘汰策略 |
+| "KeepAlive 和路由怎么配合" | 追问 keep-alive 嵌套 router-view 的 include 动态绑定 |
+
 ## 相关阅读
 
 - [Diff / Patch](./diff-patch.md) — KeepAlive 的激活/失活如何影响 patch 流程

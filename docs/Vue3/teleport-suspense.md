@@ -170,6 +170,15 @@ Teleport 只改变 DOM 位置，不改变组件层级。父组件的 provide/inj
 **❌ 所有异步组件都要用 Suspense**
 `defineAsyncComponent` 本身就有 `loadingComponent` 和 `errorComponent` 选项，大部分场景不需要 Suspense。Suspense 更适合**多个异步组件协同等待**的场景。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Teleport 解决了什么问题" | 追问弹窗/下拉菜单的 z-index 和 overflow:hidden 陷阱 |
+| "Teleport 的内容还能用父组件的 provide 吗" | 追问仍是父组件的逻辑子节点——provide/inject 正常工作 |
+| "Suspense 的 fallback 和 loading 有什么区别" | 追问 Suspense 处理的是异步组件——不只是视觉上的 loading |
+| "Suspense 和 ErrorBoundary 怎么配合" | 追问 onErrorCaptured + Suspense 处理异步加载失败的完整方案 |
+
 ## 相关阅读
 
 - [Composition API](./composition-api.md) — async setup 的写法

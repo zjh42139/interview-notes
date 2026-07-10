@@ -173,6 +173,15 @@ Electron 本质是打包了一个精简版 Chromium + Node.js。每个 BrowserWi
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Chrome 有哪些进程" | 追问 Renderer 进程的沙箱隔离机制 |
+| "多进程架构有什么好处" | 追问 site isolation 和 iframe 进程隔离 |
+| "为什么 Chrome 占内存" | 追问进程 vs 线程的取舍——内存换安全 |
+| "一个 Tab 崩溃会影响其他吗" | 追问 process-per-site-instance 策略 |
+
 ## 相关阅读
 
 - [渲染流程](./render-process.md) —— Renderer 进程内部的渲染管线详解

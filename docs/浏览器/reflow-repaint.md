@@ -199,6 +199,15 @@ rows.forEach((row, i) => {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "回流和重绘有什么区别" | 追问为什么回流一定触发重绘但反过来不一定 |
+| "怎么减少回流" | 追问 transform 代替 top/left 的底层原理（合成层） |
+| "读 offsetTop 为什么触发回流" | 追问强制同步布局（forced sync layout）的机制 |
+| "will-change 有什么副作用" | 追问创建合成层过多导致的内存开销 |
+
 ## 相关阅读
 
 - [MDN: will-change](https://developer.mozilla.org/en-US/docs/Web/CSS/will-change)

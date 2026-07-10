@@ -314,6 +314,15 @@ async function saveOfflineMessages(db, messages) {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "IndexedDB 和 LocalStorage 有什么区别" | 追问事务、索引、异步 API 的对比 |
+| "IndexedDB 为什么能存大文件" | 追问对象存储（object store）和键值对的区别 |
+| "什么时候用 IndexedDB 而不是后端接口" | 追问离线优先（offline-first）的应用场景 |
+| "IndexedDB 的事务有什么限制" | 追问读写锁和不能跨 object store 的原因 |
+
 ## 相关阅读
 
 - [MDN: IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)

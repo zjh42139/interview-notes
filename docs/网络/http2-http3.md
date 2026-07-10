@@ -112,6 +112,15 @@ server {
 
 ## 相关阅读
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "HTTP/2 有什么改进" | 追问多路复用和 HTTP/1.1 队头阻塞的区别 |
+| "HTTP/3 为什么换 QUIC" | 追问 TCP 队头阻塞为什么无法在应用层解决 |
+| "服务端推送和 WebSocket 区别" | 追问各自的适用场景和协议层级 |
+| "HPACK 头部压缩怎么工作" | 追问静态表和动态表分别存什么 |
+
 - [MDN: HTTP/2](https://developer.mozilla.org/en-US/docs/Glossary/HTTP_2)
 - [Cloudflare: What is HTTP/3?](https://www.cloudflare.com/learning/performance/what-is-http3/)
 - [Cloudflare: What is QUIC?](https://www.cloudflare.com/learning/ddos/glossary/quick-udp-internet-connection-quic/)

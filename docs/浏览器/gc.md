@@ -247,6 +247,15 @@ function createHandler(hugeData) {
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "V8 的 GC 机制是怎样的" | 追问新生代 Scavenge 为什么快、老生代为什么用 Mark-Sweep |
+| "增量标记解决了什么问题" | 追问三色标记法的白灰黑状态转换 |
+| "引用计数和标记清除的区别" | 追问循环引用为什么引用计数解决不了 |
+| "WeakMap 和 GC 有什么关系" | 追问弱引用不阻止 GC 的底层原理 |
+
 ## 相关阅读
 
 - [MDN: Memory Management](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management)

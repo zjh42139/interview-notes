@@ -244,6 +244,15 @@ requestAnimationFrame(gameLoop);
 
 ---
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "rAF 和 setTimeout 做动画有什么区别" | 追问 rAF 在每帧的哪个阶段执行 |
+| "requestIdleCallback 是什么" | 追问和 rAF 的执行时机差异——空闲 vs 渲染前 |
+| "rAF 在后台标签页还会执行吗" | 追问为什么切后台时动画自动暂停 |
+| "为什么不用 setInterval 做动画" | 追问累积延迟和掉帧的原因 |
+
 ## 相关阅读
 
 - [MDN: requestAnimationFrame](https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame)
