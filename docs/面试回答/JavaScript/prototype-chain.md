@@ -1,56 +1,65 @@
 ---
 title: 原型链 面试回答
-description: 原型链的 30 秒速答和 2 分钟深度回答
+description: 面试中如何回答原型链——30 秒速答 + 2 分钟详解 + 追问预判
 category: 面试回答
 type: interview
 score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft
-created: 2026-07-10
+created: 2026-07-06
 updated: 2026-07-10
+reviewed: null
+tags:
+  - 原型链
+  - prototype
+  - __proto__
+  - instanceof
+  - 面试回答
 ---
 
 # 原型链 面试回答
 
-> 对应题库：[面试题库/JavaScript](../../面试题库/JavaScript.md)
+## Q1: 原型链是什么？prototype 和 `__proto__` 有什么区别？
 
-## 30 秒版
+### 30 秒版本
 
-JS 的继承是通过原型链实现的。每个对象都有一个 `__proto__` 指向它的原型，原型也是一个对象，也有自己的 `__proto__`，这样一层层往上连成一条链——直到 `Object.prototype`，它的 `__proto__` 是 null。访问一个对象的属性时，JS 先在自己身上找，找不到就沿着原型链往上找，找到了就返回，找到头都没有就返回 undefined。
+"JS 靠原型链实现继承——每个对象都有 `__proto__` 指向它的原型，原型又有自己的原型，一层层往上直到 null。`prototype` 是函数才有的属性——用这个函数 new 出来的对象，`__proto__` 指向函数的 `prototype`。"
 
----
+### 2 分钟版本
 
-## 2 分钟版
+"记住两条线：
 
-**第一：prototype 和 `__proto__` 的区别。**
+**构造器线（Function 这边）**：每个函数都有 `prototype` 属性——指向一个对象，这个对象里放了所有实例共享的方法。比如 `Array.prototype.push`，所有数组实例都能用 `push`——它们不从实例上找，顺着 `__proto__` 到 `Array.prototype` 找。
 
-构造函数（比如 `function Person() {}`）有一个 `prototype` 属性，指向它的原型对象。这个构造函数 `new` 出来的实例，它们的 `__proto__` 指向同一个 `prototype`。所以 `person.__proto__ === Person.prototype`。`__proto__` 是浏览器暴露的内部属性，标准写法是 `Object.getPrototypeOf()`。
+**实例线（Object 这边）**：每个对象都有 `__proto__`——指向构造它的函数的 `prototype`。`const arr = [1,2,3]`，`arr.__proto__ === Array.prototype`。`arr.__proto__.__proto__ === Object.prototype`。再往上 `Object.prototype.__proto__ === null`——原型链的终点。
 
-`Object.prototype` 是所有对象的根。`Function.prototype` 是所有函数的根——因为函数也是对象。这就形成了一个有趣的三角：`Function.__proto__ === Function.prototype`（Function 是它自己的实例）。
+**一句话区分**：`prototype` 是函数独有的——"我给未来的实例准备的原型对象"；`__proto__` 是所有对象都有的——"我顺着它去找属性和方法"。`Object.getPrototypeOf(obj)` 是标准 API，比 `__proto__` 更推荐。
 
-**第二：instanceof 的原理。**
+**instanceof 的原理**：`A instanceof B` 就是在 `A.__proto__` 链上找 `B.prototype`。`[] instanceof Array` —— `[].__proto__ === Array.prototype` → true。`[] instanceof Object` → `[].__proto__.__proto__ === Object.prototype` → true。这就是为什么"数组 instanceof 什么都是 true"。
 
-`A instanceof B` 就是沿着 A 的 `__proto__` 链往上找，看能不能找到 `B.prototype`。`[] instanceof Array` → 找 `[].__proto__` 是不是 `Array.prototype` → 是，返回 true。跨 Realm 的问题——不同 iframe 中的 Array 构造函数不同，所以 `iframe.contentWindow.Array` 的实例 instanceof 主窗口的 Array 返回 false。
+**class 的本质**：`class` 是 prototype 的语法糖。`class Dog extends Animal` 底层就是 `Dog.prototype.__proto__ = Animal.prototype`。"
 
-**第三：ES6 class 和原型链的关系。**
+### 追问预判
 
-class 本质是语法糖。`class Dog extends Animal` 编译后就是 `Dog.prototype.__proto__ = Animal.prototype` + `Dog.__proto__ = Animal`（静态方法继承）。class 增加的只是一些保护——比如 `new.target` 检查、内部方法不可枚举。
-
----
-
-## 追问预判
-
-| 追问 | 回应要点 |
-|------|----------|
-| "`__proto__` 和 prototype 有什么区别" | prototype 是函数才有的属性，`__proto__` 是每个对象都有的内部链接。构造函数的 prototype = 实例的 `__proto__` |
-| "Object.create(null) 和 {} 有什么区别" | `Object.create(null)` 创建的对象没有 `__proto__`——连 `hasOwnProperty`、`toString` 都没有。适合当纯键值对字典，不用担心原型污染 |
-| "hasOwnProperty 有什么用" | 区分属性是自身还是原型上的。`for...in` 会遍历原型上的可枚举属性，用 `hasOwnProperty` 过滤掉 |
-
----
+| 面试官追问 | 你的回答 |
+|-----------|---------|
+| "class 和 function 构造函数的区别" | class 是语法糖——底层还是 prototype。区别：class 必须 new 调用、内部自动严格模式、方法不可枚举、有 TDZ。继承上 class 的 extends 同时设置了 constructor.prototype 和 `__proto__` 两条链 |
+| "怎么判断一个属性是实例自身的还是原型上的" | `obj.hasOwnProperty('prop')` 或 `Object.hasOwn(obj, 'prop')`。for...in 会遍历原型上的可枚举属性——要加 hasOwnProperty 守卫 |
+| "为什么 `Object.prototype` 的 `__proto__` 是 null" | 原型链必须有个终点，否则会无限循环。null 就是原型链的终点——访问 `.toString()` 找到 Object.prototype 就停了 |
 
 ## 别踩的坑
 
-- "把 prototype 和 `__proto__` 说反了"——实例.`__proto__` → 构造函数.prototype → 再往上找。面试中画线时写反直接挂
-- "for...in 会遍历原型属性"——这和其他语言的 for-in 行为不同，JS 里要加 `hasOwnProperty` 守卫
-- "arr.forEach / arr.map 不是在 arr 上定义的"——它们在 `Array.prototype` 上，能调用是因为原型链查找
+1. **`__proto__` 和 `prototype` 搞反** —— `prototype` 只有函数有，`__proto__` 所有对象都有。面试说反了基本挂
+2. **"prototype 是函数的原型"** —— 不能说"函数的原型"——这是自我指涉。应该说"函数 new 出来的对象的原型"
+3. **修改原型影响所有实例** —— `Array.prototype.myMethod = ...` 会影响所有数组。这是危险的——生产代码中库之间可能冲突
+
+## 相关阅读
+
+- [原型链 知识文档](../../JavaScript/prototype-chain.md)
+- [class / extends / super](../../JavaScript/class-extends.md)
+- [闭包 面试回答](./closure.md)
+
+## 更新记录
+
+- 2026-07-10：重写（30秒/2分钟/追问预判/易错点 标准格式）

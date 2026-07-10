@@ -1,58 +1,65 @@
 ---
-title: 跨域 CORS 面试回答
-description: 跨域和 CORS 的 30 秒速答和 2 分钟深度回答
+title: 跨域 / CORS 面试回答
+description: 面试中如何回答跨域和 CORS——30 秒速答 + 2 分钟详解 + 追问预判
 category: 面试回答
 type: interview
 score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft
-created: 2026-07-10
+created: 2026-07-06
 updated: 2026-07-10
+reviewed: null
+tags:
+  - CORS
+  - 跨域
+  - 同源策略
+  - JSONP
+  - 面试回答
 ---
 
 # 跨域 / CORS 面试回答
 
-> 对应题库：[面试题库/网络](../../面试题库/网络.md)
+## Q1: 什么是跨域？CORS 怎么解决？
 
-## 30 秒版
+### 30 秒版本
 
-跨域是浏览器的同源策略阻止了一个源的 JS 访问另一个源的资源。CORS 就是解决这个问题的标准方案——服务端设置 `Access-Control-Allow-Origin` 告诉浏览器"允许哪些源访问我"。复杂请求（非 GET/POST 或有自定义头）浏览器会先发一个 OPTIONS 预检请求，确认服务端允许后才发真正的请求。注意：跨域请求发出去了、服务端也处理了、响应也返回了——浏览器只是不让 JS 读响应。
+"跨域是浏览器的同源策略——协议、域名、端口任一不同就不能访问对方资源。CORS 是标准跨域方案——服务器在响应里加 `Access-Control-Allow-Origin` 头，浏览器检查通过就允许访问。"
 
----
+### 2 分钟版本
 
-## 2 分钟版
+"同源策略限制了三样：DOM 访问、Cookie 读取、AJAX 请求。`<img>` `<script>` `<link>` 加载资源不受限制——这就是 JSONP 能跨域的原理。
 
-**第一：同源策略和跨域的本质。**
+**CORS 两种请求**：
 
-同源 = 协议 + 域名 + 端口完全相同。同源策略限制三件事：跨域 JS 不能读另一个源的 DOM、不能读 Cookie/Storage、不能读 AJAX 响应。但 `<script>`、`<img>`、`<link>` 这些标签不受同源限制——它们的 src/href 可以跨域加载。JSONP 就是利用 `<script>` 不受限——动态创建 script 标签，服务端返回一段调用指定回调函数的 JS。
+**简单请求**：GET/POST/HEAD + 三种 Content-Type（text/plain、multipart/form-data、x-www-form-urlencoded）+ 无自定义头。浏览器直接发请求，服务器返回 `Access-Control-Allow-Origin`，浏览器检查通过→JS 读到响应。
 
-**第二：CORS 的三种场景。**
+**预检请求（Preflight）**：不满足简单请求条件——比如 `Content-Type: application/json` 或自定义头 `Authorization`——浏览器先发 OPTIONS 问服务器"这个请求你能接受吗？"。服务器返回 `Access-Control-Allow-Methods/Headers` 等头。通过→浏览器才发正式请求。不通过→404 或 CORS 错误。
 
-简单请求——GET/HEAD/POST + 三种 Content-Type 之一（`application/x-www-form-urlencoded`、`multipart/form-data`、`text/plain`）+ 无自定义头。浏览器直接发请求，检查响应头 `Access-Control-Allow-Origin`。预检请求——DELETE/PUT 方法或带自定义头。浏览器先发 OPTIONS 请求"问一下"服务端允不允许，服务端返回 `Access-Control-Allow-Methods: DELETE, PUT` 和 `Access-Control-Allow-Headers: X-Custom-Token`，浏览器收到允许后才发真正的请求。携带凭证——需要 `withCredentials: true`，服务端必须返回 `Access-Control-Allow-Credentials: true` 且 origin 不能用 `*`。
+**其他跨域方案**：JSONP（`<script>` 不受限/只 GET/古老）、代理（Nginx 反向代理/devServer proxy）、postMessage（iframe 通信）、WebSocket（不受同源限制）。
 
-**第三：跨域的其他方案。**
+**实践**：开发环境用 Vite `server.proxy` 代理；生产环境 Nginx 统一 CORS 头 + 反向代理。"
 
-JSONP：只支持 GET、没有错误处理、有 XSS 风险——现代项目基本不用。代理：开发环境 Vite 的 `server.proxy`，生产 Nginx 反向代理——请求发给同源，代理转发到真实服务端。PostMessage：iframe 跨域通信的标准——发送方指定 targetOrigin，接收方校验 event.origin。WebSocket 不受同源限制——它有自己的安全模型。
+### 追问预判
 
-**第四：一定要强调的陷阱。**
-
-CORS 请求发出去了！服务端收到并处理了！只是浏览器阻止 JS 读取响应！这正是 CSRF 能成功的前提。攻击者不能读响应，但请求本身已经造成了副作用——转账已经完成、密码已经改了。
-
----
-
-## 追问预判
-
-| 追问 | 回应要点 |
-|------|----------|
-| "OPTIONS 预检请求可以缓存吗" | 可以。`Access-Control-Max-Age: 3600` 让浏览器缓存预检结果 1 小时——这段时间内同样类型的请求不再发预检。Chrome 最大缓存 2 小时 |
-| "JSONP 为什么只能 GET" | 因为 `<script src="...">` 只能发 GET 请求——它不是一个 AJAX 调用，只是浏览器加载 script 资源。POST/PUT/DELETE 无法用 script 标签模拟 |
-| "nginx 代理为什么能解决跨域" | 因为跨域是浏览器的限制——不是服务端的限制。Nginx 把 `/api` 反向代理到真实服务器，浏览器眼里请求一直是发给同源的 |
-
----
+| 面试官追问 | 你的回答 |
+|-----------|---------|
+| "简单请求和预检请求的分界" | 三个条件同时满足才简单——方法、Content-Type、无自定义头。一个不满足就触发预检 |
+| "JSONP 为什么被淘汰" | 只支持 GET、无错误处理、XSS 风险。CORS 更标准更安全 |
+| "CORS 能带 Cookie 吗" | 默认不带。需前端 `credentials: 'include'` + 后端 `Access-Control-Allow-Credentials: true` + Origin 不能是 `*` |
 
 ## 别踩的坑
 
-- "跨域是服务端不让访问"——不是。浏览器和服务端都能看到请求，限制只发生在浏览器。用 Postman/curl 从来不会遇到跨域问题，因为它们不是浏览器
-- "Access-Control-Allow-Origin: * 能通杀"——能，但不能配合 withCredentials。带 Cookie 的跨域请求必须指定具体 origin
-- "忘了 OPTIONS 请求"——接口加了跨域头还是 404/405——检查服务端是否处理了 OPTIONS 方法的请求
+1. **"跨域是后端问题"** —— 减分。跨域是浏览器行为——后端返回了数据但浏览器不让 JS 读。前端要理解 CORS 才能排查
+2. **OPTIONS 请求 404** —— 很多后端只注册 GET/POST，OPTIONS 直接 404
+3. **`Access-Control-Allow-Origin: *` 和 `credentials: 'include'` 互斥** —— 要带 Cookie 就不能用 `*`
+
+## 相关阅读
+
+- [CORS 知识文档](../../网络/cors.md)
+- [同源策略](../../浏览器/same-origin-policy.md)
+- [HTTP / HTTPS 面试回答](./http-https.md)
+
+## 更新记录
+
+- 2026-07-10：重写（30秒/2分钟/追问预判/易错点 标准格式）

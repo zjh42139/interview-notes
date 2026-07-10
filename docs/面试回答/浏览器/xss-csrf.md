@@ -1,56 +1,64 @@
 ---
-title: XSS/CSRF 面试回答
-description: XSS 和 CSRF 的 30 秒速答和 2 分钟深度回答
+title: XSS / CSRF 面试回答
+description: 面试中如何回答 XSS 和 CSRF——30 秒速答 + 2 分钟详解 + 追问预判
 category: 面试回答
 type: interview
 score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft
-created: 2026-07-10
+created: 2026-07-06
 updated: 2026-07-10
+reviewed: null
+tags:
+  - XSS
+  - CSRF
+  - Web安全
+  - 面试回答
 ---
 
 # XSS / CSRF 面试回答
 
-> 对应题库：[面试题库/浏览器 Q4](../../面试题库/浏览器.md)
+## Q1: XSS 是什么？怎么防？
 
-## 30 秒版
+### 30 秒版本
 
-XSS 是攻击者在你的页面执行恶意脚本——偷 cookie、劫持页面。防御靠 HTML 实体转义 + CSP + HttpOnly Cookie。CSRF 是攻击者伪造用户发起请求——利用浏览器自动携带 Cookie 的特性。防御靠 SameSite Cookie + CSRF Token。一句话区分：XSS 利用的是网站对脚本的信任，CSRF 利用的是网站对浏览器的信任。
+"XSS 是跨站脚本攻击——攻击者把恶意脚本注入到页面里执行。三种类型：反射型（URL 参数直接拼进 HTML）、存储型（恶意代码存数据库里被所有用户看到）、DOM 型（JS 从不可信来源取数据写进 DOM）。防御四层：输出转义、HttpOnly Cookie、CSP 白名单、输入校验。"
 
----
+### 2 分钟版本
 
-## 2 分钟版
+"先区分三种 XSS 的攻击路径：
 
-**先说 XSS。**
+**反射型**——攻击在请求里。用户点击恶意链接→URL 里的脚本反射到页面上立即执行。常见入口：搜索框、错误提示把参数原样输出到页面。
 
-XSS 分三种。反射型——恶意脚本放在 URL 里，被服务端拼到 HTML 回显，需要诱骗用户点击。存储型——攻击者把脚本存在数据库里（评论、昵称），每个访问页面的人都会被攻击，危害最大。DOM 型——前端 JS 直接把用户输入用 innerHTML 拼进页面，服务端从头到尾不知道发生了什么。
+**存储型（最危险）**——攻击在数据库里。攻击者提交的恶意代码被存到服务器→其他用户访问时页面嵌入了这段代码→在所有受害者浏览器里执行。常见入口：评论区、用户资料、私信。
 
-防御有四层。第一层 HTML 实体转义——所有用户输入的 `<` 变成 `&lt;`，脚本标签就不会被执行。Vue 的 `{{ }}` 和 React 的 JSX 自动做了这一步——这就是为什么别用 `v-html` 和 `dangerouslySetInnerHTML`。第二层 CSP——HTTP 头声明这个页面只能加载哪些来源的脚本，就算有脚本被注入了也执行不了。第三层 HttpOnly Cookie——设置了 HttpOnly 的 Cookie 对 JS 不可见，攻击脚本读到 `document.cookie` 也是空的。第四层富文本场景用 DOMPurify 做白名单过滤——只允许 `<b>` `<i>` `<a>` 这些安全标签通过。
+**DOM 型**——攻击全在客户端。JS 从 URL hash、referrer、postMessage 取了不可信数据→直接写进 DOM。浏览器没发请求到服务器，攻击完全不经过服务端。
 
-**再说 CSRF。**
+**四层防御**：1) 输出转义——HTML 正文用 `&lt;` `&gt;`、属性值用 `&quot;`、script 块用 `\x3C`。多语境转义——不能一个转义函数覆盖所有场景。2) HttpOnly Cookie——Token 设为 HttpOnly，浏览器不让 JS 读。即使 XSS 了，攻击者拿不到用户身份。3) CSP——`Content-Security-Policy` HTTP 头，白名单控制资源加载。XSS 即使注入成功，攻击者的脚本不在白名单里→不执行。4) 输入校验——前后端双重校验，富文本用 DOMPurify 白名单过滤。
 
-攻击者利用的是浏览器会自动在跨域请求中携带目标站点 Cookie 的特性。你在 A 网站登录 → 浏览器存了 Cookie → 你访问了 B 网站 → B 网站的页面上有一个隐藏的表单 `<form action="A.com/transfer">` → 自动提交 → 浏览器带着你的 Cookie 发送请求 → A 网站以为是你的操作。这就是 CSRF。
+**和 CSRF 的本质区别**：XSS 是在受害者页面里执行恶意代码（代码注入），CSRF 是利用受害者已登录身份发伪造请求（身份盗用）。"
 
-防御层级也很清楚。最强的是 SameSite Cookie——设成 Strict 或 Lax 之后，跨站请求根本不带 Cookie，CSRF 直接失效。传统方案是 CSRF Token——服务端生成随机 Token 嵌入页面的表单，攻击者跨域读不到这个 Token，请求提交时校验不通过。再加一层 Referer/Origin 检验——服务端看看请求是从哪个源来的，不是自己的域名就拒绝。最后一道防线是敏感操作独立二次验证——转账、改密码再输一次密码或验证码。
+### 追问预判
 
-**还有关键的一点**：XSS 可以绕过 CSRF Token。如果页面有存储型 XSS 漏洞，攻击脚本可以读到 DOM 里的 CSRF Token，然后带着 Token 发伪造请求。这就是为什么 XSS 的严重程度高于 CSRF——一个 XSS 可能让所有 CSRF 防御失效。
-
----
-
-## 追问预判
-
-| 追问 | 回应要点 |
-|------|----------|
-| "SameSite Lax 能完全防 CSRF 吗" | 不能。img src 发起的 GET 请求在 Lax 下可能依然携带 Cookie（不同浏览器行为有差异）。CSRF 不只有 POST——`<img src="bank.com/delete?id=1">` 可能触发 DELETE 操作 |
-| "JSONP 和 CSRF 有什么关系" | JSONP 用 `<script>` 发跨域请求天然携带 Cookie，可以伪造 GET 操作。这就是为什么 JSONP 接口绝对不能做写操作 |
-| "HttpOnly 能防 XSS 吗" | 不防 XSS 攻击本身——它只是让偷不到 Cookie。攻击者还可以用 XSS 劫持 DOM、键盘记录、发起钓鱼弹窗。HttpOnly 是止损手段，不是预防手段 |
-
----
+| 面试官追问 | 你的回答 |
+|-----------|---------|
+| "innerHTML 和 textContent 哪个安全" | textContent 始终当纯文本，天然安全。innerHTML 直接插 HTML——是 XSS 入口 |
+| "CSP 的 nonce 机制" | 每次请求生成随机 nonce 值，合法 script 标签带上相同 nonce——CSP 只放行带正确 nonce 的脚本。攻击者猜不到 nonce |
+| "DOM 型 XSS 后端怎么防" | 防不了——DOM 型完全不经过服务端。只能在客户端的 JS 层面做输入校验和输出转义 |
 
 ## 别踩的坑
 
-- "把 XSS 和 CSRF 说混"——面试官问 XSS 你答 SameSite Cookie，直接挂。XSS 的核心是"在你的页面跑我的脚本"，CSRF 的核心是"用你的身份发我的请求"
-- "只说了 CSP 但不知道 nonce 和 hash 的区别"——nonce 每次请求不同，适合服务端渲染；hash 基于内容不变，适合静态页面
-- "认为 CSRF Token 是百分百安全的"——有 XSS 就可以读 Token，token 防御会被瓦解
+1. **"XSS 是后端问题"** —— 三种 XSS 中 DOM 型完全不经过服务端，纯粹是前端自己的问题
+2. **只用 innerHTML 转义不够** —— 多语境转义——HTML 正文、属性值、URL 参数、CSS 值、script 块各需要不同的转义规则。一个 `escapeHTML` 函数不能保护所有场景
+3. **CSP 能替代输出转义** —— 不能。CSP 是防御纵深——它假设 XSS 可能已经在某处发生了，限制攻击面。但不可替代正确的输出转义
+
+## 相关阅读
+
+- [XSS / CSRF 知识文档](../../浏览器/安全/xss.md)
+- [CSRF](../../浏览器/安全/csrf.md)
+- [CSP](../../浏览器/安全/csp.md)
+
+## 更新记录
+
+- 2026-07-10：重写（30秒/2分钟/追问预判/易错点 标准格式）

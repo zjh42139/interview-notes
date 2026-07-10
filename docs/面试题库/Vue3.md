@@ -21,7 +21,7 @@ tags:
 
 ---
 
-### Q1: Vue3 响应式原理（Proxy 实现）
+### Q1: Vue3 响应式 | 概念题原理（Proxy 实现）
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请详细描述 Vue3 的响应式系统原理，包括 `reactive` 和 `ref` 的实现。与 Vue2 的 `Object.defineProperty` 相比有哪些优势？
@@ -38,7 +38,7 @@ tags:
 
 ---
 
-### Q2: Diff 算法 + 最长递增子序列（LIS）
+### Q2: Diff 算法 | 概念题 + 最长递增子序列（LIS）
 > ⭐⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：请描述 Vue3 的 Diff 算法做了哪些优化？为什么要使用最长递增子序列（LIS）？它解决了什么问题？
@@ -55,7 +55,7 @@ tags:
 
 ---
 
-### Q3: computed vs watch 区别与原理
+### Q3: computed | 对比题 vs watch 区别与原理
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请对比 `computed` 和 `watch` 的区别。`computed` 是如何实现缓存和懒执行的？什么场景下更适合用 `watch`？
@@ -73,7 +73,7 @@ tags:
 
 ---
 
-### Q4: nextTick 原理与使用场景
+### Q4: nextTick | 概念题 原理与使用场景
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请解释 `nextTick` 的实现原理。在什么场景下需要用到 `nextTick`？Vue3 的 `nextTick` 与 Vue2 有什么差异？
@@ -89,7 +89,7 @@ tags:
 
 ---
 
-### Q5: KeepAlive 原理 + LRU 缓存策略
+### Q5: KeepAlive | 概念题 原理 + LRU 缓存策略
 > ⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：`<KeepAlive>` 组件的实现原理是什么？它的缓存策略是怎样的？如何使用 LRU 算法管理缓存？
@@ -105,7 +105,7 @@ tags:
 
 ---
 
-### Q6: Composition API vs Options API
+### Q6: Composition | 对比题 API vs Options API
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：Composition API 相比 Options API 解决了什么问题？请举例说明在大型组件中两者的差异。
@@ -121,7 +121,7 @@ tags:
 
 ---
 
-### Q7: 为什么 v-for 需要绑定 key
+### Q7: 为什么 v-for | 概念题 需要绑定 key
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：`v-for` 为什么必须使用 `key`？为什么不能用 `index` 作为 `key`？有什么场景下用 `index` 也问题不大？
@@ -137,7 +137,7 @@ tags:
 
 ---
 
-### Q8: Vue3 vs Vue2 全面对比
+### Q8: Vue3 vs Vue2 | 对比题 全面对比
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请从响应式、编译优化、API 设计、性能、TypeScript 支持等方面，全面对比 Vue3 和 Vue2 的差异。
@@ -157,7 +157,7 @@ tags:
 
 ---
 
-### Q9: 父子组件生命周期执行顺序
+### Q9: 父子组件 | 概念题生命周期执行顺序
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：父子组件在挂载和更新时，生命周期的执行顺序是怎样的？为什么是这个顺序？
@@ -172,7 +172,7 @@ tags:
 
 ---
 
-### Q10: ref vs reactive 详解
+### Q10: ref vs | 对比题 reactive 详解
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：`ref` 和 `reactive` 分别适用于什么场景？`ref` 的内部实现是怎样的？为什么模板中 `ref` 可以自动解包 `.value`？
@@ -189,7 +189,7 @@ tags:
 
 ---
 
-### Q11: watchEffect vs watch
+### Q11: watchEffect | 对比题 vs watch
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：`watchEffect` 和 `watch` 有什么区别？`watchEffect` 的自动依赖追踪是如何实现的？
@@ -223,7 +223,7 @@ tags:
 
 ---
 
-### Q14: 自定义指令（Custom Directive）
+### Q14: 自定义指令 | 概念题（Custom Directive）
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：如何在 Vue3 中注册和使用自定义指令？指令的生命周期钩子有哪些？请实现一个 `v-permission` 权限指令。
@@ -240,7 +240,7 @@ tags:
 ---
 
 
-### Q16: Pinia vs Vuex
+### Q16: Pinia | 对比题 vs Vuex
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：Pinia 与 Vuex 相比有哪些优势？为什么 Vue 官方推荐使用 Pinia？
