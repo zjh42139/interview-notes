@@ -1,6 +1,6 @@
 ---
 title: CSS 面试题
-description: CSS 高频面试题合集 —— 字节/腾讯/阿里/美团 2024-2025 真题
+description: CSS 高频面试题合集
 category: CSS
 type: interview
 score: 0
@@ -20,6 +20,7 @@ tags:
   - 优先级
 ---
 
+---
 # CSS 面试题
 
 
