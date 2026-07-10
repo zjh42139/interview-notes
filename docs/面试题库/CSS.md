@@ -27,6 +27,11 @@ tags:
 > 关联知识点：见每题末尾的 📖 链接
 
 ## Q1：BFC 有哪些应用场景？⭐⭐⭐⭐⭐
+
+**追问预测**：
+- "BFC 和 IFC/FFC 的关系" → 四个格式化上下文——BFC 块级、IFC 行内、FFC Flex、GFC Grid
+- "overflow:hidden 触发 BFC 的副作用" → 裁剪溢出内容——现代方案 display:flow-root 无副作用
+- "Flex 容器是 BFC 吗" → 不是——Flex 创建 FFC。但行为类似——不会和外部 float 重叠
 > 🏷️ 概念题
 
 **考察点**：对 BFC 触发机制和实战应用的理解深度。
@@ -44,6 +49,11 @@ tags:
 ---
 
 ## Q2：Flex 和 Grid 的区别？如何选型？⭐⭐⭐⭐⭐
+
+**追问预测**：
+- "Flexbox 是一维还是二维" → 一维——只管行或列。Grid 二维——同时管行和列
+- "什么时候用 Grid 不用 Flex" → 有明确行列结构（Dashboard、后台骨架）用 Grid；组件内排列用 Flex
+- "IE 支持 Grid 吗" → IE11 支持旧版 Grid 语法（-ms-前缀/功能有限）。2026 不需要考虑 IE
 > 🏷️ 对比题
 
 **考察点**：一维 vs 二维布局的认知和工程选型判断。
@@ -59,6 +69,11 @@ tags:
 ---
 
 ## Q3：`display:none`、`visibility:hidden`、`opacity:0` 三种隐藏方式的区别？⭐⭐⭐⭐⭐
+
+**追问预测**：
+- "display:none 和 visibility:hidden 哪个更耗性能" → display:none 触发回流——移除 DOM 流；visibility:hidden 只重绘
+- "opacity:0 的元素能点击吗" → 能——仍占据空间且响应事件。pointer-events:none 可以禁用交互
+- "三者对子元素的影响" → display:none 子元素全不可见；visibility:hidden 子元素设 visible 可恢复可见
 > 🏷️ 对比题
 
 **考察点**：隐藏元素的三种维度——DOM 存在性、空间占用、事件响应。

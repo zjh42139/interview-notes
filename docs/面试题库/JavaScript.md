@@ -22,6 +22,11 @@ tags:
 ---
 
 ### Q1: Promise 执行顺序 | 输出题输出题
+
+**追问预测**：
+- "setTimeout(fn,0) 换成 0 一样吗" → 0 是最小延迟，嵌套 5 层后强制 4ms
+- "requestAnimationFrame 加进来顺序怎么变" → rAF 在渲染前执行，既不是宏也不是微任务
+- "Node.js Event Loop 结果一样吗" → 不同——Node 有 6 阶段 libuv 循环
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：写出以下代码的输出顺序：
@@ -75,6 +80,11 @@ console.log('7');
 ---
 
 ### Q3: 闭包 + setTimeout | 输出题 输出题
+
+**追问预测**：
+- "let 为什么能解决 for+setTimeout" → let 块作用域，每次迭代创建新绑定，闭包引用独立的 i
+- "不用 let 怎么解决" → IIFE 包一层创建独立作用域
+- "闭包会导致内存泄漏吗" → 不会——除非你把大对象挂在闭包引用链上长期不释放
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：以下代码输出什么？如何让输出变成 0 1 2 3 4？
@@ -99,6 +109,11 @@ for (var i = 0; i < 5; i++) {
 ---
 
 ### Q4: this 指向判断 | 概念题
+
+**追问预测**：
+- "call 和 apply 的区别" → 传参方式——call 逐个、apply 数组，功能完全相同
+- "箭头函数的 this 怎么确定" → 从定义位置外层词法继承，call/bind 对箭头函数无效
+- "严格模式下 this 是什么" → 默认绑定为 undefined（非严格为 window）
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：判断以下场景中 `this` 的指向，并说明原因：
@@ -152,6 +167,11 @@ obj.foo.call({ name: 'other' }); // ?
 ---
 
 ### Q6: 手写深拷贝 | 手写题
+
+**追问预测**：
+- "怎么处理循环引用" → WeakMap 记录已拷贝对象，遇到重复引用直接返回缓存
+- "Date/RegExp/Map/Set 怎么拷贝" → instanceof 判断类型，调用对应构造函数重新创建
+- "怎么拷贝 Symbol 属性" → Object.getOwnPropertySymbols + Reflect.ownKeys
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请手写一个 `deepClone` 函数，要求支持对象、数组、Date、RegExp、Map、Set，并处理循环引用的场景。
@@ -169,6 +189,11 @@ obj.foo.call({ name: 'other' }); // ?
 ---
 
 ### Q7: async/await | 输出题 + Promise 混合输出题
+
+**追问预测**：
+- "async 函数的返回值是什么" → 永远是 Promise——返回普通值自动用 Promise.resolve 包装
+- "await 后面的代码什么时候执行" → 作为微任务——在当前同步代码执行完后
+- "forEach 里 await 为什么不等" → forEach 回调不会等待返回的 Promise——用 for...of
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：写出以下代码的输出顺序：

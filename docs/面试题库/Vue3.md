@@ -22,6 +22,11 @@ tags:
 ---
 
 ### Q1: Vue3 响应式 | 概念题原理（Proxy 实现）
+
+**追问预测**：
+- "Proxy 和 defineProperty 的本质区别" → Proxy 代理整个对象——无需递归劫持、能检测新增删除、支持数组和 Map/Set
+- "ref 和 reactive 怎么选" → 基本类型用 ref、对象用 reactive。ref 重新赋值不丢响应性
+- "为什么 Vue3 比 Vue2 快" → Proxy 惰性代理、静态提升 PatchFlag、编译时优化跳过静态节点
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请详细描述 Vue3 的响应式系统原理，包括 `reactive` 和 `ref` 的实现。与 Vue2 的 `Object.defineProperty` 相比有哪些优势？
@@ -39,6 +44,11 @@ tags:
 ---
 
 ### Q2: Diff 算法 | 概念题 + 最长递增子序列（LIS）
+
+**追问预测**：
+- "key 的作用是什么" → 节点唯一标识——没有 key 时 Diff 只靠索引匹配，内容完全可能不对
+- "index 当 key 有什么问题" → 数组头部插入——所有旧元素 index 改变，Diff 认为全部是新节点
+- "Diff 为什么是 O(n) 不是 O(n³)" → 只做同层比较——不会把 A 层节点和 B 层节点做对比
 > ⭐⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：请描述 Vue3 的 Diff 算法做了哪些优化？为什么要使用最长递增子序列（LIS）？它解决了什么问题？
@@ -56,6 +66,11 @@ tags:
 ---
 
 ### Q3: computed | 对比题 vs watch 区别与原理
+
+**追问预测**：
+- "computed 和 methods 区别" → computed 有缓存——依赖不变直接返回缓存值，methods 每次重新执行
+- "computed 能写吗" → 可以——提供 get 和 set。set 时通常修改依赖的响应式数据
+- "computed 的原理" → 内部 effect + 惰性求值 + dirty 标记——依赖变了标记 dirty，访问时才重新计算
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请对比 `computed` 和 `watch` 的区别。`computed` 是如何实现缓存和懒执行的？什么场景下更适合用 `watch`？
@@ -74,6 +89,11 @@ tags:
 ---
 
 ### Q4: nextTick | 概念题 原理与使用场景
+
+**追问预测**：
+- "nextTick 的原理" → 回调推入微任务队列——Promise.then 优先，降级 setImmediate/setTimeout
+- "什么时候必须用 nextTick" → 修改数据后立即读取 DOM 状态——此时 DOM 还未更新
+- "nextTick 和 setTimeout 区别" → nextTick 微任务当前 tick 结束执行，setTimeout 宏任务下一个 tick
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请解释 `nextTick` 的实现原理。在什么场景下需要用到 `nextTick`？Vue3 的 `nextTick` 与 Vue2 有什么差异？
@@ -90,6 +110,11 @@ tags:
 ---
 
 ### Q5: KeepAlive | 概念题 原理 + LRU 缓存策略
+
+**追问预测**：
+- "KeepAlive 怎么实现缓存" → 内部 Map——key 是组件名 value 是 VNode；有 max 属性时触发 LRU 淘汰
+- "缓存的组件多了哪些生命周期" → activated 切回时触发、deactivated 切出时触发
+- "LRU 怎么实现 O(1)" → 哈希表定位节点 + 双向链表管理顺序
 > ⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：`<KeepAlive>` 组件的实现原理是什么？它的缓存策略是怎样的？如何使用 LRU 算法管理缓存？
@@ -106,6 +131,11 @@ tags:
 ---
 
 ### Q6: Composition | 对比题 API vs Options API
+
+**追问预测**：
+- "为什么引入 Composition API" → 逻辑复用替代 mixin、TS 类型推导更好、代码按功能而非选项组织
+- "setup 里不能访问 this 为什么" → setup 在组件实例创建前执行——此时 this 还不存在
+- "Options 和 Composition 能混用吗" → 可以——但同一功能不要分散在两种写法中
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：Composition API 相比 Options API 解决了什么问题？请举例说明在大型组件中两者的差异。
@@ -122,6 +152,11 @@ tags:
 ---
 
 ### Q7: 为什么 v-for | 概念题 需要绑定 key
+
+**追问预测**：
+- "用 index 当 key 可以吗" → 不可以——数组顺序变化时 index 全错，Diff 全部重建
+- "key 必须全局唯一吗" → 不需要——同层唯一即可，不同层级可以复用相同 key
+- "v-for 和 v-if 能一起用吗" → Vue3 v-if 优先级更高——不推荐。用 computed 过滤数据
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：`v-for` 为什么必须使用 `key`？为什么不能用 `index` 作为 `key`？有什么场景下用 `index` 也问题不大？
@@ -138,6 +173,11 @@ tags:
 ---
 
 ### Q8: Vue3 vs Vue2 | 对比题 全面对比
+
+**追问预测**：
+- "Vue3 删除了哪些 API" → $on/$off/$once 事件总线、filters 过滤器、$listeners 合并到 $attrs
+- "Vue2 项目迁移 Vue3 的最大成本" → 生态配套——Element UI→Element Plus、Vuex→Pinia
+- "Vue3 的 Tree Shaking 支持" → Vue3 按需导出——未使用的 API 打包时自动移除，减小产物体积
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请从响应式、编译优化、API 设计、性能、TypeScript 支持等方面，全面对比 Vue3 和 Vue2 的差异。
@@ -158,6 +198,11 @@ tags:
 ---
 
 ### Q9: 父子组件 | 概念题生命周期执行顺序
+
+**追问预测**：
+- "完整生命周期顺序" → 父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted
+- "setup 替代了哪些生命周期" → beforeCreate 和 created——setup 在这两者之前执行
+- "keep-alive 组件多了什么" → activated 切回时触发、deactivated 切出时触发
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：父子组件在挂载和更新时，生命周期的执行顺序是怎样的？为什么是这个顺序？
@@ -173,6 +218,11 @@ tags:
 ---
 
 ### Q10: ref vs | 对比题 reactive 详解
+
+**追问预测**：
+- "reactive 解构后还响应式吗" → 不是——解构是值拷贝。必须用 toRefs() 保持响应性
+- "ref 在模板中需要 .value 吗" → 不需要——模板自动解包顶层 ref。嵌套 ref 不自动解
+- "template ref 和响应式 ref 是同一个东西吗" → 不是——template ref 是 DOM 引用，响应式 ref 是数据包装
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：`ref` 和 `reactive` 分别适用于什么场景？`ref` 的内部实现是怎样的？为什么模板中 `ref` 可以自动解包 `.value`？
@@ -190,6 +240,11 @@ tags:
 ---
 
 ### Q11: watchEffect | 对比题 vs watch
+
+**追问预测**：
+- "watchEffect 和 watch 的本质区别" → watchEffect 自动追踪依赖立即执行；watch 惰性需指定数据源且支持旧值
+- "watchEffect 怎么停止" → 返回值是 stop 函数——调用即停止追踪
+- "什么时候用 watchEffect" → 不需要对比旧值、依赖动态变化多——如根据多个响应式值更新 DOM
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：`watchEffect` 和 `watch` 有什么区别？`watchEffect` 的自动依赖追踪是如何实现的？
@@ -224,6 +279,11 @@ tags:
 ---
 
 ### Q14: 自定义指令 | 概念题（Custom Directive）
+
+**追问预测**：
+- "自定义指令的 7 个钩子" → created/mounted/updated/beforeUnmount/unmounted——与组件生命周期对齐
+- "指令和组件的区别" → 指令操作底层 DOM 元素，组件封装 UI + 逻辑
+- "v-permission 指令原理" → mounted 时查权限数组——无权限则 el.parentNode.removeChild(el)
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：如何在 Vue3 中注册和使用自定义指令？指令的生命周期钩子有哪些？请实现一个 `v-permission` 权限指令。
@@ -241,6 +301,11 @@ tags:
 
 
 ### Q16: Pinia | 对比题 vs Vuex
+
+**追问预测**：
+- "Pinia 和 Vuex 核心区别" → Pinia 无 mutations、完整 TS 推导、去 modules 改为多 store
+- "Pinia 怎么持久化" → pinia-plugin-persistedstate——自动同步 localStorage 或 sessionStorage
+- "多个 store 之间怎么互相访问" → 直接 import 另一个 store——互相可见，循环引用注意处理
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：Pinia 与 Vuex 相比有哪些优势？为什么 Vue 官方推荐使用 Pinia？
@@ -258,6 +323,11 @@ tags:
 ---
 
 ### Q17: `<script setup>` 语法糖
+
+**追问预测**：
+- "script setup 和普通 script 的区别" → 语法糖——无需 return、自动暴露顶层绑定、更好的 TS 推导
+- "怎么暴露方法给父组件" → defineExpose——显式声明对外可访问的属性
+- "defineProps 和 defineEmits 怎么用" → 编译宏——无需 import，直接在 script setup 中使用
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：`<script setup>` 相比标准 `<script>` 有哪些简化和优势？`defineProps` / `defineEmits` / `defineExpose` 是怎样工作的？
