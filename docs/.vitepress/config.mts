@@ -99,16 +99,6 @@ export default defineConfig({
         { text: 'bisect', link: '/Git/bisect' },
         { text: 'Git Flow', link: '/Git/git-flow' },
       ],
-      '/TypeScript/': [
-        { text: 'TypeScript 知识地图', link: '/TypeScript/' },
-        { text: '泛型', link: '/TypeScript/generics' },
-        { text: 'extends / infer', link: '/TypeScript/extends-infer' },
-        { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
-        { text: 'Utility Types', link: '/TypeScript/utility-types' },
-        { text: 'satisfies', link: '/TypeScript/satisfies' },
-        { text: 'any / unknown / never', link: '/TypeScript/any-unknown-never' },
-        { text: '声明文件 / declare', link: '/TypeScript/declaration' },
-      ],
       '/Vue3/': [
         { text: 'Vue3 知识地图', link: '/Vue3/' },
         { text: '响应式原理', link: '/Vue3/reactivity' },
@@ -143,6 +133,16 @@ export default defineConfig({
         { text: '持久化', link: '/Pinia/persist' },
         { text: 'vs Vuex', link: '/Pinia/vs-vuex' },
         { text: '插件', link: '/Pinia/plugins' },
+      ],
+      '/TypeScript/': [
+        { text: 'TypeScript 知识地图', link: '/TypeScript/' },
+        { text: '泛型', link: '/TypeScript/generics' },
+        { text: 'extends / infer', link: '/TypeScript/extends-infer' },
+        { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
+        { text: 'Utility Types', link: '/TypeScript/utility-types' },
+        { text: 'satisfies', link: '/TypeScript/satisfies' },
+        { text: 'any / unknown / never', link: '/TypeScript/any-unknown-never' },
+        { text: '声明文件 / declare', link: '/TypeScript/declaration' },
       ],
       '/浏览器/': [
         { text: '浏览器 知识地图', link: '/浏览器/' },
