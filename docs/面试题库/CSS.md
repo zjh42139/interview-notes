@@ -38,6 +38,7 @@ tags:
 **追问**：BFC 和 IFC/FFC/GFC 的关系？（格式化上下文的四种类型）
 
 📖 [BFC](../CSS/bfc.md)
+🎤 回答稿：[../面试回答/CSS/box-model-bfc.md](../面试回答/CSS/box-model-bfc.md)
 
 ---
 
@@ -51,6 +52,7 @@ tags:
 - 选型原则：只需要对齐一排元素 → Flex；需要行+列同时控制 → Grid
 
 📖 [Flexbox](../CSS/flexbox.md) · [Grid](../CSS/grid.md)
+🎤 回答稿：[../面试回答/CSS/flexbox-grid-layout.md](../面试回答/CSS/flexbox-grid-layout.md)
 
 ---
 
@@ -173,6 +175,7 @@ tags:
 - **解决**：触发 BFC（`overflow: hidden` / `display: flow-root`）；用 padding 代替 margin；加 border/padding 隔离
 
 📖 [BFC](../CSS/bfc.md) · [盒模型](../CSS/box-model.md)
+🎤 回答稿：[../面试回答/CSS/box-model-bfc.md](../面试回答/CSS/box-model-bfc.md)
 
 ---
 
@@ -228,6 +231,7 @@ tags:
 - **区别**：clearfix 需要额外元素/伪元素；BFC 方案更简洁但 `overflow: hidden` 可能裁剪内容；`display: flow-root` 是最佳现代方案
 
 📖 [伪类 vs 伪元素](../CSS/pseudo.md) · [BFC](../CSS/bfc.md)
+🎤 回答稿：[../面试回答/CSS/box-model-bfc.md](../面试回答/CSS/box-model-bfc.md)
 
 ---
 

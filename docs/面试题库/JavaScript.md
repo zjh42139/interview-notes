@@ -54,6 +54,7 @@ console.log('7');
 
 > 答案参考：[../JavaScript/promise.md](../JavaScript/promise.md)
 > 延伸：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
+> 🎤 回答稿：[../面试回答/JavaScript/promise.md](../面试回答/JavaScript/promise.md)
 
 ---
 
@@ -93,6 +94,7 @@ for (var i = 0; i < 5; i++) {
 - 多种解决方案：`let`、IIFE、`setTimeout` 的第三个参数
 
 > 答案参考：[../JavaScript/closure.md](../JavaScript/closure.md)
+> 🎤 回答稿：[../面试回答/JavaScript/closure.md](../面试回答/JavaScript/closure.md)
 
 ---
 
@@ -143,7 +145,9 @@ obj.foo.call({ name: 'other' }); // ?
 - Node 11+ 版本对微任务的修改
 
 > 答案参考：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
+> 🎤 回答稿：[../面试回答/JavaScript/event-loop.md](../面试回答/JavaScript/event-loop.md)
 > 延伸：[../工程化/Node/node-event-loop.md](../工程化/Node/node-event-loop.md)
+> 🎤 回答稿：[../面试回答/JavaScript/promise.md](../面试回答/JavaScript/promise.md)
 
 ---
 
@@ -256,6 +260,7 @@ let b = 2;
 - TDZ 的原理：从块开始到声明之间不可访问
 
 > 答案参考：[../JavaScript/closure.md](../JavaScript/closure.md)
+> 🎤 回答稿：[../面试回答/JavaScript/closure.md](../面试回答/JavaScript/closure.md)
 
 ---
 
@@ -272,6 +277,7 @@ let b = 2;
 - 实际场景：搜索框输入（debounce）、滚动加载（throttle）
 
 > 答案参考：[../JavaScript/debounce-throttle.md](../JavaScript/debounce-throttle.md)
+> 🎤 回答稿：[../面试回答/JavaScript/debounce-throttle.md](../面试回答/JavaScript/debounce-throttle.md)
 > 延伸：[../手写题/debounce-throttle.md](../手写题/debounce-throttle.md)
 
 ---
@@ -385,6 +391,7 @@ let b = 2;
 - 不适合委托的场景：`focus`/`blur` 等不冒泡的事件
 
 > 答案参考：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
+> 🎤 回答稿：[../面试回答/JavaScript/event-loop.md](../面试回答/JavaScript/event-loop.md)
 > 延伸：[../手写题/event-emitter.md](../手写题/event-emitter.md)
 
 ---

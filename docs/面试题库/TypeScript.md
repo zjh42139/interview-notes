@@ -33,6 +33,7 @@ tags:
 - 函数、接口、类的泛型定义
 
 > 答案参考：[../TypeScript/generics.md](../TypeScript/generics.md)
+> 🎤 回答稿：[../面试回答/TypeScript/generics-utility.md](../面试回答/TypeScript/generics-utility.md)
 
 ---
 
@@ -202,3 +203,4 @@ tags:
 - `@types/` 类型声明文件的维护
 
 > 答案参考：[../TypeScript/generics.md](../TypeScript/generics.md)
+> 🎤 回答稿：[../面试回答/TypeScript/generics-utility.md](../面试回答/TypeScript/generics-utility.md)

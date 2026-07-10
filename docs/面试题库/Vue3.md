@@ -34,6 +34,7 @@ tags:
 - 与 Vue2 对比：Proxy 可拦截数组索引和 length、动态属性新增/删除、不需要递归遍历
 
 > 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+> 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
 
 ---
 
@@ -50,6 +51,7 @@ tags:
 - 与 Vue2 双端比较的对比
 
 > 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
+> 🎤 回答稿：[../面试回答/Vue3/diff-patch.md](../面试回答/Vue3/diff-patch.md)
 
 ---
 
@@ -67,6 +69,7 @@ tags:
 
 > 答案参考：[../Vue3/computed-watch.md](../Vue3/computed-watch.md)
 > 延伸：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+> 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
 
 ---
 
@@ -130,6 +133,7 @@ tags:
 - `index` 可用场景：静态列表、不涉及增删改、无状态组件
 
 > 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
+> 🎤 回答稿：[../面试回答/Vue3/diff-patch.md](../面试回答/Vue3/diff-patch.md)
 
 ---
 
@@ -149,6 +153,7 @@ tags:
 
 > 答案参考：[../Vue3/index.md](../Vue3/index.md)
 > 延伸：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+> 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
 
 ---
 
@@ -180,6 +185,7 @@ tags:
 - `toRef` / `toRefs` 解构响应式对象保持响应性
 
 > 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+> 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
 
 ---
 
