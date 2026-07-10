@@ -2,9 +2,11 @@
 title: 文本溢出省略
 description: CSS 单行/多行文本溢出省略的原理、兼容方案与多行截断最佳实践
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

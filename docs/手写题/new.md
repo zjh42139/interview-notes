@@ -2,9 +2,11 @@
 title: 手写 new
 description: 手写实现 new 操作符，理解构造函数和原型
 category: 手写题
+type: exercise
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

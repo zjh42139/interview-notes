@@ -2,9 +2,11 @@
 title: 线上问题定位
 description: 从错误发现到修复的完整排查链路
 category: 日志监控
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

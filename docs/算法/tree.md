@@ -2,9 +2,11 @@
 title: 树
 description: 树结构相关算法面试知识点
 category: 算法
+type: algorithm
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

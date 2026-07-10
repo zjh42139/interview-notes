@@ -2,6 +2,8 @@
 title: 职业规划
 description: 回答职业规划问题，核心是展示技术热情和清晰的发展方向——短期（1-2年）深扎技术、中期（3-5年）走向架构师或技术专家、长期关注业务影响力，让面试官看到你的自我驱动力和在团队中的长期留存可能性
 category: HR
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

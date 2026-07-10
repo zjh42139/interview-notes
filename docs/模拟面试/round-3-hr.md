@@ -2,6 +2,8 @@
 title: 三面：HR 面试
 description: 软技能 + 职业规划 + 薪资谈判 + Offer选择，30分钟全流程脚本
 category: 模拟面试
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

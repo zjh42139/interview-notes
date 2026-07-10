@@ -2,10 +2,12 @@
 title: WebSocket 实战
 description: WebSocket 实战涵盖前端连接管理、心跳检测、断线重连（指数退避）、消息确认机制（ACK），以及和 SSE 的对比选型
 category: 项目实战
+type: project
+score: 0
 section: 业务场景
 difficulty: 中高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

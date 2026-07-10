@@ -2,6 +2,8 @@
 title: 居中方案
 description: CSS 居中是面试高频手写题，涵盖水平居中、垂直居中、水平垂直居中的多种实现方案及其适用场景
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: draft

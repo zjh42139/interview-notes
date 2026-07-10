@@ -2,9 +2,11 @@
 title: Jenkins
 description: Jenkins 是 CI/CD 领域的老牌王者，Java 生态和大型企业的首选。面试中不需要会写 Jenkinsfile，但必须知道它是什么、和 GitHub Actions 有什么区别
 category: CICD
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

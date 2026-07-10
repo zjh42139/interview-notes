@@ -2,9 +2,11 @@
 title: KeepAlive + Router
 description: Vue Router 配合 KeepAlive 实现页面缓存、多标签页管理及滚动位置恢复
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

@@ -2,9 +2,11 @@
 title: cherry-pick
 description: git cherry-pick 用于将某个（或某几个）提交精确复制到当前分支，是 hotfix 场景和误提交修复中最常用的高级命令之一
 category: Git
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

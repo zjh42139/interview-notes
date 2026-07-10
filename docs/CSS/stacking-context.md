@@ -2,6 +2,8 @@
 title: 层叠上下文
 description: 层叠上下文控制元素在 z 轴上的显示顺序，理解其形成条件和层叠规则有助于解决 z-index 失效等常见问题
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
 status: draft

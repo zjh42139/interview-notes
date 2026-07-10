@@ -2,9 +2,11 @@
 title: Token 刷新
 description: Token 刷新是通过 refreshToken 在 accessToken 过期时无感知获取新 Token 的机制，核心在于并发请求锁与请求队列重放
 category: 项目实战
+type: project
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

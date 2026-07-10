@@ -2,9 +2,11 @@
 title: HTML 实体与编码
 description: HTML 字符实体、URL 编码、XSS 防御中的转义机制，以及 innerHTML vs textContent 的安全差异
 category: HTML
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

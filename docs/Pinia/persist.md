@@ -2,9 +2,11 @@
 title: 持久化
 description: Pinia 状态持久化插件 pinia-plugin-persistedstate 的配置、安全注意事项与自定义序列化
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

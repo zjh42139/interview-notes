@@ -2,9 +2,11 @@
 title: 块级 / 行内元素
 description: HTML 元素的分类：块级、行内、行内块和替换元素，以及它们的关键差异
 category: HTML
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

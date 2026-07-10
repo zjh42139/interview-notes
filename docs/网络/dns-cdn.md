@@ -2,6 +2,8 @@
 title: DNS / CDN
 description: DNS 将域名解析为 IP 地址（递归 + 迭代查询），CDN 通过就近节点分发内容加速用户访问
 category: 网络
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

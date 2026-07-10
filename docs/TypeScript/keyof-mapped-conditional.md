@@ -2,6 +2,8 @@
 title: keyof / mapped / conditional
 description: keyof 获取对象键的联合类型，映射类型基于旧类型创建新类型，条件类型实现类型层面的 if/else 逻辑
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: draft

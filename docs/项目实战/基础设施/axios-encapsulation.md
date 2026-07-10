@@ -2,9 +2,11 @@
 title: Axios 封装
 description: Axios 封装是通过拦截器+请求/响应统一处理实现的 HTTP 请求管理方案，涵盖类型定义、错误处理、Token 注入等完整实践
 category: 项目实战
+type: project
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

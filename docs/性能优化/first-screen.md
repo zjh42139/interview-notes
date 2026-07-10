@@ -2,9 +2,11 @@
 title: 首屏优化
 description: 首屏加载性能优化：关键渲染路径、资源加载策略、代码分割与骨架屏
 category: 性能优化
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

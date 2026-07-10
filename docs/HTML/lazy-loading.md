@@ -2,9 +2,11 @@
 title: 图片懒加载
 description: 图片懒加载的三种实现方式：loading=lazy、IntersectionObserver、滚动事件
 category: HTML
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

@@ -2,10 +2,12 @@
 title: Vue3 响应式原理 面试回答稿
 description: Vue3 响应式原理的逐字面试回答（响应式原理 / 为什么比 Vue2 快 / ref vs reactive）
 category: 面试回答
+type: interview
+score: 0
 section: Vue3
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

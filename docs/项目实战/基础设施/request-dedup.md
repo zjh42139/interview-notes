@@ -2,9 +2,11 @@
 title: 防重复请求
 description: 防重复请求是在短时间内阻止相同请求的重复发送，通过请求 Key 去重 + AbortController 取消 + Loading 状态三重防护，保障数据一致性
 category: 项目实战
+type: project
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

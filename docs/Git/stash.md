@@ -2,9 +2,11 @@
 title: stash
 description: git stash 用于临时保存工作区的未提交修改，让你可以在不丢失进度的前提下快速切换上下文，是日常开发中使用频率最高的"救急"命令
 category: Git
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

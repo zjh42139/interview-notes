@@ -2,9 +2,11 @@
 title: 选择器优先级
 description: CSS 选择器特异性（Specificity）的计算规则、权重比较与工程实践
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

@@ -2,9 +2,11 @@
 title: 手写深拷贝
 description: 手写实现深拷贝，处理循环引用、WeakMap、Date、RegExp 等
 category: 手写题
+type: exercise
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

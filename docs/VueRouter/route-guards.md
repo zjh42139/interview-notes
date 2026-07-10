@@ -2,9 +2,11 @@
 title: 路由守卫
 description: Vue Router 完整的导航守卫体系：全局守卫、路由独享守卫与组件内守卫
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

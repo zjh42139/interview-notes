@@ -2,9 +2,11 @@
 title: 三栏布局
 description: CSS 三栏布局的五种实现方案 —— 圣杯、双飞翼、Flex、Grid、绝对定位
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

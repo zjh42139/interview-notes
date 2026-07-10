@@ -2,9 +2,11 @@
 title: 打包优化
 description: 前端打包优化：代码分割、Tree Shaking、压缩与缓存策略
 category: 性能优化
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

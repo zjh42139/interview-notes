@@ -2,6 +2,8 @@
 title: KeepAlive
 description: Vue3 KeepAlive 组件的缓存原理与 LRU 算法实现
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed

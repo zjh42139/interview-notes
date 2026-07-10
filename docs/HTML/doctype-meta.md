@@ -2,9 +2,11 @@
 title: DOCTYPE / Meta
 description: DOCTYPE 声明的作用、Meta 标签分类和 viewport 配置
 category: HTML
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

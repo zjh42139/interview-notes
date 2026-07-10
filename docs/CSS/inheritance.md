@@ -2,9 +2,11 @@
 title: CSS 继承性
 description: CSS 属性继承规则、inherit/initial/unset/revert 四个关键字与工程实践
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

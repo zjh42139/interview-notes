@@ -2,6 +2,8 @@
 title: 响应式原理
 description: Vue3 响应式系统核心原理：effect、track、trigger 与 scheduler
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

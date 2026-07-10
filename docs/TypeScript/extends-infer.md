@@ -2,6 +2,8 @@
 title: extends / infer
 description: extends 用于泛型约束和条件类型判断，infer 用于在条件类型中推断类型变量，两者结合构成 TypeScript 类型编程的基础
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: draft

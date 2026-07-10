@@ -2,9 +2,11 @@
 title: v-model 原理
 description: Vue3 v-model 的完整原理：语法糖展开、组件 v-model 通信、多个 v-model 绑定、修饰符机制、与 Vue2 .sync 的区别
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

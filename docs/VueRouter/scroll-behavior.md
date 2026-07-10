@@ -2,9 +2,11 @@
 title: scrollBehavior
 description: Vue Router 滚动行为控制：savedPosition、锚点滚动与异步数据加载场景
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

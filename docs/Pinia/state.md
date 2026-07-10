@@ -2,9 +2,11 @@
 title: state
 description: Pinia state 的响应式定义、storeToRefs 解构、$patch 批量更新与 $subscribe 订阅
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

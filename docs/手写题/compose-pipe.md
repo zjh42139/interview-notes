@@ -2,9 +2,11 @@
 title: 手写 compose / pipe
 description: 手写实现 compose 和 pipe 函数组合
 category: 手写题
+type: exercise
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

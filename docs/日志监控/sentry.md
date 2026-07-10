@@ -2,9 +2,11 @@
 title: Sentry 错误监控
 description: Sentry 接入、Source Map 上传、Release 管理、Breadcrumbs
 category: 日志监控
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

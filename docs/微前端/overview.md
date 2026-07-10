@@ -2,9 +2,11 @@
 title: 微前端概述
 description: 微前端四大方案对比：iframe / single-spa / qiankun / Module Federation 的适用场景、核心差异与选型决策
 category: 微前端
+type: comparison
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

@@ -2,9 +2,11 @@
 title: 冲突处理
 description: Git 冲突是多人协作中的日常问题，掌握冲突的产生原因、标记解读、解决流程和预防策略是团队开发的必备技能
 category: Git
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

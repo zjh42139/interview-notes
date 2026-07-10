@@ -2,9 +2,11 @@
 title: getters
 description: Pinia getters 的 computed 封装、传参模式、this 指向与跨 store 访问
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

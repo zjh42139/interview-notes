@@ -2,6 +2,8 @@
 title: Utility Types
 description: TypeScript 内置的工具类型如 Partial、Pick、Omit、Record、ReturnType 等，是日常开发中最常用的类型操作手段
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

@@ -2,9 +2,11 @@
 title: 动态路由
 description: 动态路由是根据用户权限在运行时动态注册路由的完整方案，涵盖 addRoute、路由守卫、后端返回路由表、刷新恢复等关键机制
 category: 项目实战
+type: project
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

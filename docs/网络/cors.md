@@ -2,6 +2,8 @@
 title: CORS
 description: CORS（跨域资源共享）是浏览器控制跨域请求的安全机制，通过 HTTP 头部声明允许的源和方法
 category: 网络
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

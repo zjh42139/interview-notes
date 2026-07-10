@@ -2,10 +2,12 @@
 title: Promise 面试回答稿
 description: Promise 相关的逐字面试回答（链式调用 / async-await 区别 / 手写 Promise）
 category: 面试回答
+type: interview
+score: 0
 section: JavaScript
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

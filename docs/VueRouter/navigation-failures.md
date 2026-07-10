@@ -2,9 +2,11 @@
 title: 导航故障处理
 description: Vue Router 导航失败的类型、检测与处理，包括重复导航、守卫取消和全局错误兜底
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

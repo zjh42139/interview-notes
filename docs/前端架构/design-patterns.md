@@ -2,9 +2,11 @@
 title: 设计模式在前端
 description: 结合 Vue3 源码讲设计模式：策略、观察者、单例、装饰器、代理、适配器在前端工程中的实际应用
 category: 前端架构
+type: comparison
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

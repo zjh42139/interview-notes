@@ -2,9 +2,11 @@
 title: CSP 内容安全策略
 description: Content Security Policy（CSP）的核心原理：白名单机制、核心指令、nonce/hash 方案、违规报告，以及 CSP 作为 XSS 第二道防线的实践
 category: 安全
+type: security
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:
@@ -16,6 +18,7 @@ tags:
 ---
 
 # CSP 内容安全策略
+> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > "CSP 是 XSS 的最后一道防线"——这句话在面试中说出来，面试官就知道你理解了纵深防御的思维。输入输出过滤是第一道，CSP 是第二道。
 

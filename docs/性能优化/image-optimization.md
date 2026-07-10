@@ -2,9 +2,11 @@
 title: 图片优化
 description: 图片加载性能优化：格式选择、响应式图片、懒加载与 CDN 图片处理
 category: 性能优化
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

@@ -2,6 +2,8 @@
 title: any / unknown / never
 description: any、unknown、never 是 TypeScript 中三个特殊但容易混淆的类型，分别代表任意值、未知值和永不存在的值
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: draft

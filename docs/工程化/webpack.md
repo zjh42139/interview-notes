@@ -2,9 +2,11 @@
 title: Webpack
 description: Webpack 打包工具面试知识点
 category: 工程化
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

@@ -2,9 +2,11 @@
 title: 路由懒加载
 description: Vue Router 的路由懒加载机制、Webpack/Vite 代码分割与 chunk 分组策略
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

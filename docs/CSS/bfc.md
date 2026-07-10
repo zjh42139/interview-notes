@@ -2,6 +2,8 @@
 title: BFC
 description: BFC（块级格式化上下文）是 CSS 布局的核心概念，理解 BFC 的触发条件和作用有助于解决浮动、边距重叠等常见布局问题
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

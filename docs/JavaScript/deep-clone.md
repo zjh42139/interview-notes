@@ -2,9 +2,11 @@
 title: 深拷贝
 description: JavaScript 深拷贝的实现方案与 structuredClone API
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

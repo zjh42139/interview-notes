@@ -2,9 +2,11 @@
 title: 滑动窗口
 description: 滑动窗口算法面试知识点
 category: 算法
+type: algorithm
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

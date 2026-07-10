@@ -2,9 +2,11 @@
 title: Vite
 description: Vite 前端构建工具面试知识点
 category: 工程化
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

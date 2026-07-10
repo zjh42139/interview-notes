@@ -2,9 +2,11 @@
 title: reset vs revert
 description: git reset 和 git revert 是 Git 撤销操作的两种核心方式，理解它们的原理差异和适用场景是代码回滚的关键能力
 category: Git
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

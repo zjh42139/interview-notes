@@ -2,9 +2,11 @@
 title: Position 定位
 description: CSS 五种定位模式的完整解析 —— static、relative、absolute、fixed、sticky
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

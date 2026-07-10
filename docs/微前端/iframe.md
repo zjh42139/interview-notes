@@ -2,9 +2,11 @@
 title: iframe 方案的优劣
 description: iframe 微前端方案：六大缺陷（URL不同步、样式不同步、通信复杂、性能开销、SEO不友好、加载慢）+ 三个适用场景（富文本预览、第三方嵌入、跨域安全页面）
 category: 微前端
+type: comparison
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

@@ -2,9 +2,11 @@
 title: SEO / SSR / CSR / Hydration
 description: 客户端渲染、服务端渲染、静态站点生成、水合、同构渲染的选择策略和面试要点
 category: HTML
+type: comparison
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

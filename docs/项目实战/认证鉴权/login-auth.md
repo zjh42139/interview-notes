@@ -2,9 +2,11 @@
 title: 登录鉴权
 description: 登录鉴权是验证用户身份并颁发凭证（Token）的完整流程，涵盖 JWT、路由守卫、Pinia 状态管理、多 Tab 同步等实践
 category: 项目实战
+type: project
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

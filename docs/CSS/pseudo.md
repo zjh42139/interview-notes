@@ -2,9 +2,11 @@
 title: 伪类 vs 伪元素
 description: CSS 伪类与伪元素的本质区别、常见用法对比与 clearfix 实践
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

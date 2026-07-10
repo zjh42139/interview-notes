@@ -2,9 +2,11 @@
 title: DOM 事件机制与事件委托
 description: DOM 事件流的三阶段模型、事件委托原理与性能优化实战
 category: 浏览器
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-07
 updated: 2026-07-07
 reviewed: null

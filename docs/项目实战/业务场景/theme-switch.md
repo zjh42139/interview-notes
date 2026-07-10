@@ -2,10 +2,12 @@
 title: 主题切换
 description: 主题切换通过 CSS 变量 + data-theme 属性实现亮/暗主题切换，支持 Element Plus 暗黑模式适配、FOUC 避免、自定义组件适配和持久化用户选择
 category: 项目实战
+type: project
+score: 0
 section: 业务场景
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

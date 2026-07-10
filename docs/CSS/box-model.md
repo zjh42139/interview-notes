@@ -2,6 +2,8 @@
 title: 盒模型
 description: CSS 盒模型是布局的基石，理解 content-box 和 border-box 的区别及其对元素尺寸计算的影响
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: draft

@@ -2,9 +2,11 @@
 title: IndexedDB
 description: IndexedDB 是浏览器端的 NoSQL 数据库，支持事务、索引、大容量存储和异步操作，是 LocalStorage 无法满足需求时的标准升级方案
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

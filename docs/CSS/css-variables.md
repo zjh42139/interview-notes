@@ -2,9 +2,11 @@
 title: CSS 变量
 description: CSS 自定义属性（CSS Variables）是原生 CSS 的变量系统，支持运行时动态修改、级联继承和作用域控制，是实现主题切换和暗黑模式的核心技术
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

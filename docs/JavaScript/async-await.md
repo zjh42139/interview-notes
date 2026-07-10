@@ -2,9 +2,11 @@
 title: async / await
 description: JavaScript 中 async/await 的底层原理与 Generator 的关系
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

@@ -2,6 +2,8 @@
 title: 离职原因
 description: 回答离职原因的核心原则是"真诚 + 积极 + 成长导向"——不抱怨前东家，不回避真实矛盾，把每一次离职包装成一次理性的职业选择，让面试官看到你对自身职业发展的思考深度
 category: HR
+type: interview
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed

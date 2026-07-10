@@ -2,6 +2,8 @@
 title: 响应式
 description: 响应式设计通过媒体查询、弹性布局、容器查询等技术使页面适配不同屏幕尺寸，是移动端优先的核心实践
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
 status: draft

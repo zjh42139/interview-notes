@@ -2,9 +2,11 @@
 title: ESM 模块化深入
 description: ES Modules 静态结构、Tree Shaking 原理、动态导入、sideEffects、循环引用深层分析
 category: 工程化
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

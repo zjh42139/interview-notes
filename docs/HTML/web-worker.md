@@ -2,9 +2,11 @@
 title: Web Worker
 description: Dedicated Worker / Shared Worker / Service Worker 的区别，以及如何用 Worker 解决主线程阻塞问题
 category: HTML
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

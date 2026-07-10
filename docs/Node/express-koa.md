@@ -2,9 +2,11 @@
 title: Express / Koa
 description: Express 和 Koa 是 Node.js 最主流的两个 Web 框架，理解两者的中间件机制、洋葱模型和核心差异是后端方向面试的必考内容
 category: Node
+type: comparison
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

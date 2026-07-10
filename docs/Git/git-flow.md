@@ -2,9 +2,11 @@
 title: Git Flow
 description: Git 分支策略是团队协作的骨架，理解 Git Flow / GitHub Flow / Trunk-Based Development 三种模型的差异、优缺点和适用场景，是架构方向的核心问题
 category: Git
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

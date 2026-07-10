@@ -2,9 +2,11 @@
 title: Vite 深入
 description: Vite 为什么快、esbuild 原理、HMR 机制、依赖预构建、插件机制深度剖析
 category: 工程化
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

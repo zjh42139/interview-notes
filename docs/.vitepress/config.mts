@@ -343,9 +343,12 @@ export default defineConfig({
       ],
       '/面试回答/': [
         { text: '面试回答 总览', link: '/面试回答/' },
-        { text: 'JavaScript', link: '/面试回答/JavaScript/promise' },
-        { text: 'Vue3', link: '/面试回答/Vue3/reactivity' },
-        { text: '项目', link: '/面试回答/项目/login-auth' },
+        { text: 'Promise', link: '/面试回答/JavaScript/promise' },
+        { text: 'Event Loop', link: '/面试回答/JavaScript/event-loop' },
+        { text: 'Vue3 响应式', link: '/面试回答/Vue3/reactivity' },
+        { text: 'XSS / CSRF', link: '/面试回答/浏览器/xss-csrf' },
+        { text: 'URL 到页面', link: '/面试回答/浏览器/url-to-page' },
+        { text: '登录鉴权', link: '/面试回答/项目/login-auth' },
       ],
     },
 

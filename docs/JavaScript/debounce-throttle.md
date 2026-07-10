@@ -2,9 +2,11 @@
 title: 防抖 / 节流
 description: JavaScript 防抖与节流的实现原理及业务场景
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

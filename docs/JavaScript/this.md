@@ -2,9 +2,11 @@
 title: this
 description: JavaScript 中 this 指向的全面解析
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

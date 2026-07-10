@@ -2,6 +2,8 @@
 title: 项目介绍
 description: 用STAR法则拆解项目经历，把"我们团队做了一个系统"变成"我在什么背景下、承担什么角色、做了什么决策、拿到了什么结果"，让面试官清楚识别你的个人贡献和技术深度
 category: HR
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

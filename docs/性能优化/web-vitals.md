@@ -2,9 +2,11 @@
 title: Web Vitals
 description: Web Vitals 核心性能指标：LCP、INP、CLS 的测量与优化
 category: 性能优化
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

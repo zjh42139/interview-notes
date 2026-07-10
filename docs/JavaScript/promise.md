@@ -2,9 +2,11 @@
 title: Promise
 description: JavaScript Promise 的使用、原理与手写实现
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

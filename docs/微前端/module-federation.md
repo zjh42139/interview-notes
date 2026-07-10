@@ -2,9 +2,11 @@
 title: Module Federation
 description: Webpack 5 Module Federation 核心概念：exposes、remotes、shared 配置、与 qiankun 的区别、适用场景与落地实践
 category: 微前端
+type: comparison
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

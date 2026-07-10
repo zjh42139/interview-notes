@@ -2,9 +2,11 @@
 title: Set / Map / WeakMap
 description: JavaScript 集合类型对比、弱引用机制与 Vue3 响应式系统中的实战应用
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

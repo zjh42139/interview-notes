@@ -2,9 +2,11 @@
 title: 埋点系统
 description: 埋点方式对比、SDK 设计、PV/UV 上报、数据规范
 category: 日志监控
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

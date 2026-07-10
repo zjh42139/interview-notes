@@ -2,10 +2,12 @@
 title: 组件封装实践
 description: 组件封装实践以用户选择器为例，从需求分析到接口设计、实现、优化的完整过程，涵盖 Props/Events/Slots/Expose 四个维度及 loading/empty/error 三种状态
 category: 项目实战
+type: project
+score: 0
 section: 业务场景
 difficulty: 中高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

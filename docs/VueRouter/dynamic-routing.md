@@ -2,9 +2,11 @@
 title: 动态路由
 description: Vue Router 动态路由注册、权限路由实现与 addRoute 的坑点详解
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

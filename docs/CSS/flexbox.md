@@ -2,6 +2,8 @@
 title: Flexbox
 description: Flexbox（弹性盒子布局）是 CSS3 引入的一维布局模型，通过容器和项目属性实现灵活的对齐和空间分配
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

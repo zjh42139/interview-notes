@@ -2,9 +2,11 @@
 title: 高频题
 description: 高频算法面试题合集
 category: 算法
+type: algorithm
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

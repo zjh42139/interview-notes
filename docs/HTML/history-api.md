@@ -2,9 +2,11 @@
 title: History API 与 SPA 路由
 description: History API 的 pushState/replaceState/popstate 原理，以及 vue-router history 模式 vs hash 模式的底层实现
 category: HTML
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

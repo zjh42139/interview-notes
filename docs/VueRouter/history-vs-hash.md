@@ -2,9 +2,11 @@
 title: history / hash 模式
 description: Vue Router 两种路由模式的核心原理、区别与服务端部署方案
 category: VueRouter
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

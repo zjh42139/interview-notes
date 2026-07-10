@@ -2,9 +2,11 @@
 title: Pinia vs Vuex
 description: Pinia 与 Vuex 的核心差异对比：mutation、modules、TypeScript、体积、devtools 及迁移策略
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

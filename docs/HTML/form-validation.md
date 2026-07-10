@@ -2,9 +2,11 @@
 title: HTML5 表单与约束验证
 description: HTML5 表单新特性：input 类型、属性、约束验证 API、自定义校验和最佳实践
 category: HTML
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

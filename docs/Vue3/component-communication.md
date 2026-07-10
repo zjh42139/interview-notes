@@ -2,9 +2,11 @@
 title: 组件通信
 description: Vue3 组件通信全景图：props/emit、v-model、ref/defineExpose、provide/inject、slot、Pinia、mitt 七大方式及其适用场景与决策树
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

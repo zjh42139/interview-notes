@@ -2,9 +2,11 @@
 title: 类型转换
 description: JavaScript 隐式/显式类型转换规则、ToPrimitive 抽象操作与经典面试题
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

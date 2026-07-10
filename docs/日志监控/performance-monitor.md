@@ -2,9 +2,11 @@
 title: 性能监控
 description: Core Web Vitals、PerformanceObserver、sendBeacon 上报
 category: 日志监控
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

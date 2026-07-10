@@ -2,9 +2,11 @@
 title: Observer API
 description: MutationObserver、IntersectionObserver、ResizeObserver、PerformanceObserver 四大浏览器观察者 API 的完整使用指南
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

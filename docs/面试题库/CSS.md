@@ -2,6 +2,8 @@
 title: CSS 面试题
 description: CSS 高频面试题合集 —— 字节/腾讯/阿里/美团 2024-2025 真题
 category: CSS
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
@@ -20,7 +22,7 @@ tags:
 
 # CSS 面试题
 
-> 来源：字节跳动 / 腾讯 / 阿里巴巴 / 美团 2024-2025 前端面试真题
+
 > 关联知识点：见每题末尾的 📖 链接
 
 ## Q1：BFC 有哪些应用场景？⭐⭐⭐⭐⭐

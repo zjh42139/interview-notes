@@ -2,9 +2,11 @@
 title: qiankun 深度解析
 description: qiankun 微前端框架核心机制：JS 沙箱（ProxySandbox vs SnapshotSandbox）、CSS 隔离、initGlobalState 通信、生命周期、预加载与常见坑点
 category: 微前端
+type: comparison
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

@@ -2,9 +2,11 @@
 title: 模块解耦
 description: 前端模块解耦方案：高内聚低耦合原则、props/emit、provide/inject、Pinia store 全局通信、微内核架构的适用场景对比
 category: 前端架构
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

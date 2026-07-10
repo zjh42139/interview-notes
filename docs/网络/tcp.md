@@ -2,6 +2,8 @@
 title: TCP
 description: TCP 是面向连接的可靠传输协议，通过三次握手建立连接、四次挥手断开连接，配合拥塞控制和滑动窗口流量控制保证可靠传输
 category: 网络
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

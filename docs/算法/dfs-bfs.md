@@ -2,9 +2,11 @@
 title: DFS / BFS
 description: 深度优先搜索与广度优先搜索面试知识点
 category: 算法
+type: algorithm
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

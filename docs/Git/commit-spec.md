@@ -2,9 +2,11 @@
 title: Commit 规范
 description: Conventional Commits（约定式提交）是团队协作和自动化工具链的基础，结合 commitlint + husky + Commitizen 建立完整的提交规范体系
 category: Git
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

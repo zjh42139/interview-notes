@@ -2,9 +2,11 @@
 title: 手写 EventEmitter
 description: 手写实现 EventEmitter，包含 on、off、emit、once
 category: 手写题
+type: exercise
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

@@ -2,9 +2,11 @@
 title: new
 description: JavaScript 中 new 关键字的执行过程与手写实现
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

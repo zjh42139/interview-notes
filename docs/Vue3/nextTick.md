@@ -2,6 +2,8 @@
 title: nextTick
 description: Vue3 nextTick 的实现原理与微任务调度机制
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

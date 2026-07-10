@@ -2,9 +2,11 @@
 title: 栈和队列
 description: 栈（Stack）和队列（Queue）的核心原理、JS 实现、经典算法题，以及 JS 中调用栈和事件循环中任务队列的底层联系
 category: 算法
+type: algorithm
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

@@ -1,6 +1,8 @@
 ---
 title: TypeScript 高频面试题
 category: 面试题库
+type: interview
+score: 0
 difficulty: 中级
 status: reviewed
 tags:
@@ -17,13 +19,13 @@ companies:
 
 # TypeScript 高频面试题
 
-> 收录字节/腾讯/阿里/美团近两年（2024-2025）真实面经中的高频 TypeScript 真题，共 15 道。
+> 收录字节/腾讯/阿里/美团近两年（2024-2025）真实面经中的高频 TypeScript 真题，共 N 道。
 > 题目按出现频率从高到低排列。
 
 ---
 
 ### Q1: 泛型的使用场景与实践
-> ⭐⭐⭐⭐⭐ | 公司：字节(2025一面)、腾讯(2024一面)、阿里(2025一面) | 难度：中级
+> ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：什么是泛型？请举出在项目中至少 3 个泛型的使用场景，并写出示例代码。如何约束泛型的范围？
 
@@ -39,7 +41,7 @@ companies:
 ---
 
 ### Q2: Utility Types 实现原理
-> ⭐⭐⭐⭐⭐ | 公司：阿里(2024二面)、字节(2025面) | 难度：中高级
+> ⭐⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：请手写实现 `Partial`、`Required`、`Readonly`、`Pick`、`Omit`、`Record`、`Exclude`、`Extract`、`ReturnType`，并说明它们之间的关系。
 
@@ -56,7 +58,7 @@ companies:
 ---
 
 ### Q3: any / unknown / never 的区别
-> ⭐⭐⭐⭐ | 公司：腾讯(2024一面)、阿里(2025一面)、美团(2024一面) | 难度：中级
+> ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请详细对比 `any`、`unknown`、`never` 三种类型。各自的使用场景是什么？为什么应该尽量避免使用 `any`？
 
@@ -72,7 +74,7 @@ companies:
 ---
 
 ### Q4: extends 和 infer 详解
-> ⭐⭐⭐⭐ | 公司：字节(2025二面)、阿里(2024二面) | 难度：中高级
+> ⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：`extends` 在 TypeScript 中有哪些用法？`infer` 关键字的作用是什么？请用 `infer` 实现一个获取函数参数类型的工具类型。
 
@@ -88,7 +90,7 @@ companies:
 ---
 
 ### Q5: satisfies 关键字的用法
-> ⭐⭐⭐⭐ | 公司：美团(2025一面)、字节(2024一面)、腾讯(2025一面) | 难度：中级
+> ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：TypeScript 4.9 引入的 `satisfies` 关键字解决了什么问题？与类型标注（`: Type`）和 `as` 断言有什么区别？
 
@@ -104,7 +106,7 @@ companies:
 ---
 
 ### Q6: keyof + 映射类型 + 条件类型
-> ⭐⭐⭐⭐ | 公司：阿里(2024二面)、字节(2025面)、腾讯(2024二面) | 难度：中高级
+> ⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：`keyof`、映射类型（Mapped Types）和条件类型（Conditional Types）分别是什么？它们如何组合使用？请实现一个类型工具：选出对象中值为特定类型的 key。
 
@@ -121,7 +123,7 @@ companies:
 ---
 
 ### Q7: TypeScript 配置文件（tsconfig.json）
-> ⭐⭐⭐ | 公司：腾讯(2024一面)、美团(2025一面) | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：`tsconfig.json` 中 `strict`、`paths`、`include/exclude`、`references` 分别有什么作用？`strict` 模式具体包含了哪些子选项？
 
@@ -137,7 +139,7 @@ companies:
 ---
 
 ### Q8: 类型体操基础
-> ⭐⭐⭐ | 公司：字节(2025二面)、阿里(2024三面) | 难度：中高级
+> ⭐⭐⭐ | 难度：中高级
 
 **题目**：请实现 `DeepReadonly<T>` 和 `DeepPartial<T>`，递归地处理嵌套对象。并实现一个 `MyExclude<T, U>`。
 
@@ -154,7 +156,7 @@ companies:
 ---
 
 ### Q9: 声明文件（.d.ts）与 declare
-> ⭐⭐⭐ | 公司：美团(2024二面)、腾讯(2024面) | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：什么场景下需要写 `.d.ts` 声明文件？`declare` / `declare global` / `declare module` 分别怎么用？如何为第三方库扩展类型？
 
@@ -170,7 +172,7 @@ companies:
 ---
 
 ### Q10: Enum vs const enum
-> ⭐⭐⭐ | 公司：腾讯(2024面)、阿里(2025一面) | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：`enum` 和 `const enum` 有什么区别？`enum` 编译后的 JS 代码是怎样的？项目中一般推荐用 `enum` 还是联合类型？
 
@@ -186,7 +188,7 @@ companies:
 ---
 
 ### Q11: as const 的用法
-> ⭐⭐⭐ | 公司：字节(2025一面)、美团(2024一面) | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：`as const`（const assertion）有什么作用？在项目中有哪些典型应用场景？
 
@@ -202,7 +204,7 @@ companies:
 ---
 
 ### Q12: 条件类型的分发（Distributive Conditional Types）
-> ⭐⭐⭐ | 公司：阿里(2024二面)、字节(2025面) | 难度：中高级
+> ⭐⭐⭐ | 难度：中高级
 
 **题目**：什么是条件类型的分发行为？如何触发分发？如何阻止分发？写出以下类型的结果：
 
@@ -224,7 +226,7 @@ type Test3 = Exclude<string | number | boolean, string>;      // ?
 ---
 
 ### Q13: TypeScript 的类型收窄（Type Narrowing）
-> ⭐⭐⭐ | 公司：腾讯(2024一面)、美团(2025一面) | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：TypeScript 有哪些类型收窄的方式？请举例说明 `typeof`、`instanceof`、`in`、自定义类型守卫（Type Predicate）的用法。
 
@@ -241,7 +243,7 @@ type Test3 = Exclude<string | number | boolean, string>;      // ?
 ---
 
 ### Q14: 协变与逆变（Variance）
-> ⭐⭐ | 公司：字节(2024三面)、阿里(2024三面) | 难度：高级
+> ⭐⭐ | 难度：高级
 
 **题目**：请解释 TypeScript 中的协变（Covariance）和逆变（Contravariance）是什么？函数参数位置是逆变还是协变？为什么？
 
@@ -257,7 +259,7 @@ type Test3 = Exclude<string | number | boolean, string>;      // ?
 ---
 
 ### Q15: 项目中的 TypeScript 最佳实践
-> ⭐⭐⭐ | 公司：字节(2025一面)、腾讯(2024二面)、美团(2024面) | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：在 Vue3 + TypeScript 项目中，你有哪些最佳实践？如何为组件的 props、emits、template ref、provide/inject 提供类型？
 

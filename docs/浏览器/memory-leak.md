@@ -2,9 +2,11 @@
 title: 内存泄漏排查
 description: 前端内存泄漏的 4 种常见模式、Chrome DevTools 排查三步法和 WeakMap/WeakRef 防御机制
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

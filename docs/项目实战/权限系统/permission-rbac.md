@@ -2,9 +2,11 @@
 title: 权限 RBAC
 description: RBAC（基于角色的访问控制）通过"用户→角色→权限"三层模型管理权限，前端实现页面级路由控制 + 按钮级 v-permission 指令 + Pinia 权限缓存
 category: 项目实战
+type: project
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

@@ -2,6 +2,8 @@
 title: Web Worker
 description: Web Worker 在独立线程中运行 JavaScript，通过 postMessage 与主线程通信，用于执行耗时计算任务而不阻塞主线程 UI 渲染
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed

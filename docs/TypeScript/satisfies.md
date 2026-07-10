@@ -2,6 +2,8 @@
 title: satisfies
 description: satisfies 是 TypeScript 4.9 引入的操作符，用于在保持类型推断的同时校验类型兼容性，解决 const 断言和类型注解的局限性
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
 status: draft

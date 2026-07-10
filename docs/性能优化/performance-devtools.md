@@ -2,9 +2,11 @@
 title: 性能分析工具
 description: Chrome DevTools Performance / Lighthouse / Memory / Network / Coverage 面板实战指南，掌握性能问题的定位方法论
 category: 性能优化
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

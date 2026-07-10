@@ -2,9 +2,11 @@
 title: 虚拟列表
 description: 虚拟列表/虚拟滚动的原理与实现，处理万级数据不卡顿
 category: 性能优化
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

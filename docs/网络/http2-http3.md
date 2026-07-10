@@ -2,6 +2,8 @@
 title: HTTP2 / HTTP3
 description: HTTP/2 通过多路复用、头部压缩、服务端推送提升性能，HTTP/3 基于 QUIC（UDP）解决队头阻塞问题
 category: 网络
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed

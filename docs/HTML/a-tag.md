@@ -2,9 +2,11 @@
 title: a 标签全面解析
 description: a 标签的 href/target/rel/download 属性详解、安全陷阱和 SEO 最佳实践
 category: HTML
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

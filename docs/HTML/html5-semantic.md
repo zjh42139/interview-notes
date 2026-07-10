@@ -2,9 +2,11 @@
 title: HTML5 语义化
 description: HTML5 语义化标签的作用、常见标签和可访问性
 category: HTML
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

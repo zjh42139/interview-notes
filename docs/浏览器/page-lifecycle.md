@@ -2,9 +2,11 @@
 title: 页面生命周期
 description: DOMContentLoaded/load/beforeunload/visibilitychange/pagehide 等页面生命周期事件，以及 bfcache 回退缓存对它们的影响
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

@@ -2,6 +2,8 @@
 title: Renderer
 description: Vue3 自定义渲染器的设计原理与 createRenderer API
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed

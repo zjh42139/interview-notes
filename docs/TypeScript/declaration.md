@@ -2,9 +2,11 @@
 title: 声明文件 / declare
 description: TypeScript 声明文件与 declare 关键字全解：.d.ts 文件编写、declare module/global 类型扩展、interface vs type 对比、项目中的实际应用
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 中高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

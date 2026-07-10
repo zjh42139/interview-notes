@@ -2,9 +2,11 @@
 title: rem / vw 移动端适配
 description: rem 和 vw 是移动端适配的两种主流方案，rem 相对根元素字号实现等比缩放，vw 直接相对视口宽度，配合 postcss 插件可实现设计稿到代码的自动转换
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

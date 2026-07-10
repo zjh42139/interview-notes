@@ -2,9 +2,11 @@
 title: 排序
 description: 排序算法面试知识点
 category: 算法
+type: algorithm
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

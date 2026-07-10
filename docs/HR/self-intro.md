@@ -2,6 +2,8 @@
 title: 自我介绍
 description: 面试自我介绍是决定整场面试基调的第一印象，准备1分钟和3分钟两个版本，用"我是谁→我会什么→我做过什么→我为什么来"的结构，让面试官在最短时间内对你建立信任
 category: HR
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

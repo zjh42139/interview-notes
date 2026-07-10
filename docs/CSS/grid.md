@@ -2,6 +2,8 @@
 title: Grid
 description: CSS Grid（网格布局）是二维布局系统，可以同时控制行和列，适合复杂页面布局，与 Flexbox 互补使用
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: draft

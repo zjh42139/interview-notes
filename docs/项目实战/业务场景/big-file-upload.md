@@ -2,10 +2,12 @@
 title: 大文件上传
 description: 大文件上传通过分片切割、断点续传、秒传检测和并发控制实现高效可靠的大文件传输，配合 Web Worker 计算 hash 避免阻塞主线程，适用于后管系统的视频和压缩包上传
 category: 项目实战
+type: project
+score: 0
 section: 业务场景
 difficulty: 中高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

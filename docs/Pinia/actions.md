@@ -2,9 +2,11 @@
 title: actions
 description: Pinia actions 的同步/异步处理、$onAction 订阅机制、与 Vuex mutation+action 的本质区别
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

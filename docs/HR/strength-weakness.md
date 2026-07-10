@@ -2,6 +2,8 @@
 title: 优缺点
 description: 回答优缺点问题，优点必须具体+有证据支撑，缺点必须真实+有改进行动——不说"我太努力了"这种伪缺点，也不说"我不写文档"这种致命缺点，选一个真实但可改进的，体现自我认知和成长意愿
 category: HR
+type: interview
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed

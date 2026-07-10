@@ -2,9 +2,11 @@
 title: Mock
 description: Mock 是在开发阶段模拟后端接口的技术，涵盖方案选型、数据生成、开关切换的完整实践
 category: 项目实战
+type: project
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

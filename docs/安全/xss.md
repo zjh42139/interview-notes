@@ -2,9 +2,11 @@
 title: XSS
 description: XSS 跨站脚本攻击的类型、防御方案与项目实战
 category: 安全
+type: security
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null
@@ -17,6 +19,7 @@ tags:
 ---
 
 # XSS
+> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > ⭐⭐⭐⭐⭐｜难度：中级｜项目：★★★
 

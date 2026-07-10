@@ -2,9 +2,11 @@
 title: defer / async
 description: Script 标签的三种加载方式：普通、defer、async 的区别和适用场景
 category: HTML
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

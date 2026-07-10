@@ -2,9 +2,11 @@
 title: CI/CD 概述
 description: CI/CD（持续集成/持续交付/持续部署）是现代前端工程化的自动化基石，理解 pipeline 思想比记住某个工具的命令更重要
 category: CICD
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

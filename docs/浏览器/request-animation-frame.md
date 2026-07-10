@@ -2,9 +2,11 @@
 title: requestAnimationFrame
 description: requestAnimationFrame 是浏览器专门为动画设计的 API，在每帧渲染前执行回调，保证动画与屏幕刷新率同步，从根本上避免 setTimeout/setInterval 做动画的掉帧和卡顿问题
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

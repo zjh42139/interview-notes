@@ -2,6 +2,8 @@
 title: Diff / Patch
 description: Vue3 的虚拟 DOM Diff 算法与 patch 机制，包含 LIS 最长递增子序列
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

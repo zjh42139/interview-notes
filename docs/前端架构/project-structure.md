@@ -2,9 +2,11 @@
 title: 项目分层设计
 description: Vue3 + TypeScript 项目分层架构：api / hooks / utils / components / views / layout / plugins / types / store / router / assets 的职责边界与依赖方向
 category: 前端架构
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

@@ -2,9 +2,11 @@
 title: Web Components
 description: Custom Elements、Shadow DOM、HTML Templates 三大技术标准的原理与实践
 category: HTML
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

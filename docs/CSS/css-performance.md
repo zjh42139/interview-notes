@@ -2,9 +2,11 @@
 title: CSS 渲染性能
 description: CSS 属性触发重排/重绘/合成的分类、will-change/contain/content-visibility 性能优化实践
 category: CSS
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

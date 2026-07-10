@@ -2,9 +2,11 @@
 title: 项目性能优化
 description: 项目性能优化从首屏加载、运行时渲染、网络请求三个维度系统性地提升用户体验，涵盖路由懒加载、KeepAlive、虚拟列表、CDN、Gzip、打包分析等完整实践
 category: 项目实战
+type: project
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

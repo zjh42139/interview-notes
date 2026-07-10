@@ -2,9 +2,11 @@
 title: Tailwind CSS
 description: Tailwind CSS 原子化 CSS 理念、工程化配置、Tree Shaking 与对比选型
 category: 工程化
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

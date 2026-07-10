@@ -2,9 +2,11 @@
 title: BOM 全景
 description: 浏览器对象模型（BOM）的完整 API 地图：navigator、screen、location、history、Blob/File/FileReader 等
 category: 浏览器
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

@@ -2,9 +2,11 @@
 title: 输入 URL 到页面展示
 description: 从输入 URL 到页面渲染完成的完整流程，覆盖 DNS、TCP、TLS、HTTP、渲染管线等所有关键阶段，是面试中最经典的串联型问题
 category: 浏览器
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

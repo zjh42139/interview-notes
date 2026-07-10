@@ -2,9 +2,11 @@
 title: 手写 bind / call / apply
 description: 手写实现 bind、call、apply，掌握 this 绑定机制
 category: 手写题
+type: exercise
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

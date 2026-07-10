@@ -2,9 +2,11 @@
 title: defineStore
 description: Pinia 定义 Store 的两种方式：Setup Store 和 Options Store，命名规范与实例化时机
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

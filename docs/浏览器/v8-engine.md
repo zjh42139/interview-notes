@@ -2,9 +2,11 @@
 title: V8 引擎与 JIT 编译
 description: V8 引擎的 Ignition 解释器、TurboFan 优化编译器、隐藏类（Hidden Classes）和内联缓存（Inline Cache）如何让 JavaScript 跑得快
 category: 浏览器
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

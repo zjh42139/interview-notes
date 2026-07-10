@@ -2,10 +2,12 @@
 title: Composable 设计
 description: Vue3 Composable / Hook 的设计原则与实践：单一职责、可组合、自动清理，覆盖 useRequest/useTable/usePermission/useDialog 等核心封装
 category: 项目实战
+type: project
+score: 0
 section: 业务场景
 difficulty: 中高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

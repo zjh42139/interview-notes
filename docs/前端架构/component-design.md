@@ -2,9 +2,11 @@
 title: 组件设计
 description: Vue3 组件设计完整方法论：通用组件 vs 业务组件 vs 布局组件、Props 受控非受控、插槽选择、v-model/emit 设计接口
 category: 前端架构
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

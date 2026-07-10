@@ -2,9 +2,11 @@
 title: Monorepo
 description: Monorepo 工程化方案：pnpm workspace + Turborepo/Nx 增量构建、包依赖管理、幽灵依赖防范，vs Multirepo 对比
 category: 前端架构
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

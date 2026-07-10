@@ -2,9 +2,11 @@
 title: merge vs rebase
 description: merge 和 rebase 是 Git 合并代码的两种核心策略，理解它们的原理、区别和适用场景是区分初中高级开发者的关键分水岭
 category: Git
+type: comparison
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

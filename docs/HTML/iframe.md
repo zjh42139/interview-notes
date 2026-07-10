@@ -2,9 +2,11 @@
 title: iframe
 description: iframe 的跨域通信、安全沙箱、性能影响和微前端基础
 category: HTML
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

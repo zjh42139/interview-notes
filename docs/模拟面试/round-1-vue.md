@@ -2,6 +2,8 @@
 title: 一面：Vue 框架
 description: Vue3 响应式原理 + 组合式 API + 组件通信 + Diff 算法 + 手写，45分钟全流程脚本
 category: 模拟面试
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

@@ -2,9 +2,11 @@
 title: transition vs animation
 description: CSS 过渡与动画的触发机制、关键帧设计、性能优化与项目实战对比
 category: CSS
+type: comparison
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

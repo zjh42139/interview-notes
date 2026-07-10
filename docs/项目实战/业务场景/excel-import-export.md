@@ -2,9 +2,11 @@
 title: Excel 导入导出
 description: Excel 导入导出通过 xlsx（SheetJS）库操作文件，涵盖 FileReader 读取、JSON 转换、数据校验、Blob 下载、分 Sheet 大文件策略
 category: 项目实战
+type: project
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

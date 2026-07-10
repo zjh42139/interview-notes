@@ -2,6 +2,8 @@
 title: 二面：项目经验
 description: 项目架构深挖 + 权限系统 + 请求封装 + 性能优化 + 工程化 + 方案设计，60分钟全流程脚本
 category: 模拟面试
+type: interview
+score: 0
 difficulty: 中高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

@@ -2,9 +2,11 @@
 title: 文件上传
 description: 文件上传通过 FormData + Axios 实现，支持分片上传、断点续传、并发控制、进度监控，涵盖大文件优化和秒传机制
 category: 项目实战
+type: project
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

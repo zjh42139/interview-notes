@@ -2,9 +2,11 @@
 title: 动态规划基础
 description: 动态规划面试知识点（前端岗位难度）
 category: 算法
+type: algorithm
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

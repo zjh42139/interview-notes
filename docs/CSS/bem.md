@@ -2,9 +2,11 @@
 title: BEM 命名规范
 description: BEM（Block Element Modifier）是 CSS 命名方法论，通过 block__element--modifier 的命名约定解决全局作用域下的样式冲突问题
 category: CSS
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

@@ -2,6 +2,8 @@
 title: Scheduler
 description: Vue3 异步任务调度器的实现原理与 nextTick 的关联
 category: Vue3
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed

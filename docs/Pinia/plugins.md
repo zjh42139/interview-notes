@@ -2,9 +2,11 @@
 title: 插件
 description: Pinia 插件机制：自定义插件、全局 loading、共享方法与状态、日志埋点
 category: Pinia
+type: api-reference
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

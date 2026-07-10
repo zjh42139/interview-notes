@@ -2,9 +2,11 @@
 title: npm 深入
 description: npm 的 package.json 核心字段、依赖类型、安装原理、node_modules 扁平化、幽灵依赖等核心知识点的完整拆解
 category: 工程化
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

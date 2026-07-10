@@ -2,6 +2,8 @@
 title: 泛型
 description: 泛型（Generics）是 TypeScript 的核心特性，通过类型参数实现组件复用，结合 extends 约束和条件类型构成强大的类型系统
 category: TypeScript
+type: mechanism
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

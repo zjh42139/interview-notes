@@ -2,9 +2,11 @@
 title: bisect
 description: git bisect 使用二分查找算法在提交历史中定位引入 bug 的那个 commit，是最被低估但面试会加分的 Git 调试技能
 category: Git
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

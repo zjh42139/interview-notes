@@ -2,9 +2,11 @@
 title: 垃圾回收
 description: V8 引擎的垃圾回收机制：分代回收（新生代 Scavenge + 老生代 Mark-Sweep/Compact）、增量标记、三色标记法、弱引用和常见内存泄漏场景
 category: 浏览器
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

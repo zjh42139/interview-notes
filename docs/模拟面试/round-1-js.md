@@ -2,6 +2,8 @@
 title: 一面：JS 基础
 description: JavaScript + CSS + 浏览器基础面试模拟，45分钟全流程脚本
 category: 模拟面试
+type: interview
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

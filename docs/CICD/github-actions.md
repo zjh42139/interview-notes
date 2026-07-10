@@ -2,9 +2,11 @@
 title: GitHub Actions
 description: GitHub Actions 是 GitHub 内置的 CI/CD 平台，面试中如果能手写完整的 workflow 文件并解释每一步，就是"有实际项目 CI/CD 经验"的最强信号
 category: CICD
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

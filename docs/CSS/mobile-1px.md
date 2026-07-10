@@ -2,9 +2,11 @@
 title: 移动端 1px 问题
 description: Retina 屏 1px 边框变粗的原理与多种解决方案对比
 category: CSS
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-08
 updated: 2026-07-08
 reviewed: null

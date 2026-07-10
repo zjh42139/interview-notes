@@ -2,9 +2,11 @@
 title: CSS Modules / Scoped
 description: CSS Modules 和 Vue Scoped CSS 是两种主流的样式隔离方案，通过编译时机制自动生成唯一选择器，从根本上解决全局样式污染问题
 category: CSS
+type: comparison
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

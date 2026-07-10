@@ -2,9 +2,11 @@
 title: tag
 description: Git 标签用于标记发布版本，是 CI/CD 自动发布流程的触发器，配合语义化版本规范（Semantic Versioning）形成完整的版本管理闭环
 category: Git
+type: api-reference
+score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:

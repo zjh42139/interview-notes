@@ -2,9 +2,11 @@
 title: Canvas vs SVG
 description: Canvas 位图与 SVG 矢量图的本质区别、性能对比、API 差异和选型指南
 category: HTML
+type: comparison
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-09
 updated: 2026-07-09
 reviewed: null

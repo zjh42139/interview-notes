@@ -2,9 +2,11 @@
 title: 跨 Realm 场景
 description: JavaScript 跨执行上下文（iframe/Worker/VM）的类型判断、数据传递与安全实践
 category: JavaScript
+type: mechanism
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐
-status: drafted
+status: draft
 created: 2026-07-07
 updated: 2026-07-07
 reviewed: null

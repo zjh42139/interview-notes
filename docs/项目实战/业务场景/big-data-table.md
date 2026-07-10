@@ -2,9 +2,11 @@
 title: 大数据表格
 description: 大数据表格通过虚拟滚动 + 后端分页 + 缓存策略实现万级数据流畅渲染，涵盖 Element Plus Table 虚拟化配置、列拖拽、动态高度等实践
 category: 项目实战
+type: project
+score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: completed
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

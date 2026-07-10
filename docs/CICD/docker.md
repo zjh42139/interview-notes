@@ -2,9 +2,11 @@
 title: Docker 基础
 description: Docker 是前端项目容器化部署的核心技术，面试中能写出前端项目的 Dockerfile + 解释多阶段构建的价值，直接证明你有"生产级部署"的经验
 category: CICD
+type: api-reference
+score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: filled
+status: reviewed
 created: 2026-07-06
 updated: 2026-07-06
 tags:
