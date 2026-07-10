@@ -21,6 +21,10 @@ mindmap
       Stack LIFO
       Queue FIFO
       单调栈
+    堆
+      大顶堆
+      小顶堆
+      Top-K
     数组
       双指针
       滑动窗口
@@ -60,7 +64,9 @@ mindmap
 1. ⭐⭐⭐⭐⭐ [数组](./array.md)
 2. ⭐⭐⭐⭐⭐ [哈希表](./hash.md)
 3. ⭐⭐⭐⭐   [栈和队列](./stack-queue.md)
-4. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
+4. ⭐⭐⭐⭐   [堆](./heap.md)
+5. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
+5. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
 5. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
 6. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
 7. ⭐⭐⭐⭐   [树](./tree.md)
@@ -77,6 +83,7 @@ mindmap
 | [数组](./array.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [哈希表](./hash.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [栈和队列](./stack-queue.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
+| [堆](./heap.md) | ⭐⭐⭐⭐ | 高级 | ✅ 小顶堆 | draft |
 | [双指针](./two-pointers.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [滑动窗口](./sliding-window.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [树](./tree.md) | ⭐⭐⭐⭐ | 高级 | — | draft |

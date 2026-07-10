@@ -230,6 +230,7 @@ export default defineConfig({
         { text: '树', link: '/算法/tree' },
         { text: '链表', link: '/算法/linked-list' },
         { text: '栈和队列', link: '/算法/stack-queue' },
+        { text: '堆', link: '/算法/heap' },
         { text: '排序', link: '/算法/sort' },
         { text: '高频题', link: '/算法/common-questions' },
         { text: '哈希表', link: '/算法/hash' },
