@@ -2,7 +2,7 @@
 title: Pinia 知识地图
 description: Pinia 状态管理完整知识体系：从核心概念到项目实战的导航指南
 category: Pinia
-difficulty: 入门
+difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: draft
 created: 2026-07-06

@@ -3,7 +3,7 @@ title: HR 高频面试题
 category: 面试题库
 type: interview
 score: 0
-difficulty: 通用
+difficulty: 中级
 status: reviewed
 tags:
   - HR

@@ -4,7 +4,7 @@ description: TypeScript 声明文件与 declare 关键字全解：.d.ts 文件�
 category: TypeScript
 type: mechanism
 score: 0
-difficulty: 中高级
+difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06

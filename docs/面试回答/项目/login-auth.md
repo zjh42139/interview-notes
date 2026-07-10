@@ -4,7 +4,6 @@ description: 登录鉴权相关的逐字面试回答（登录鉴权方案 / Toke
 category: 面试回答
 type: interview
 score: 0
-section: 项目实战
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

@@ -4,7 +4,6 @@ description: ECharts 实战通过 useECharts composable 封装图表初始化和
 category: 项目实战
 type: project
 score: 0
-section: 业务场景
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

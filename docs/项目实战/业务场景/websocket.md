@@ -4,8 +4,7 @@ description: WebSocket 实战涵盖前端连接管理、心跳检测、断线重
 category: 项目实战
 type: project
 score: 0
-section: 业务场景
-difficulty: 中高级
+difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06

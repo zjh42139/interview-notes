@@ -4,7 +4,6 @@ description: Vue3 响应式原理的逐字面试回答（响应式原理 / 为�
 category: 面试回答
 type: interview
 score: 0
-section: Vue3
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

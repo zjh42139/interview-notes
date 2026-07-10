@@ -4,7 +4,7 @@ description: HTML 高频面试真题，含难度分级和参考答案索引
 category: 面试题库
 type: interview
 score: 0
-difficulty: 全部
+difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: draft
 created: 2026-07-09

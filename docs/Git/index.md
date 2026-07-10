@@ -2,7 +2,7 @@
 title: Git 知识地图
 description: Git 面试知识体系，覆盖从日常高频命令到分支策略的完整面试图谱
 category: Git
-difficulty: 入门
+difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: draft
 created: 2026-07-06
