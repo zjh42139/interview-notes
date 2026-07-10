@@ -4,7 +4,7 @@ description: CI/CD 面试知识体系——从持续集成到容器化部署
 category: CICD
 difficulty: null
 frequency: null
-status: filled
+status: draft
 created: 2026-07-06
 updated: 2026-07-06
 reviewed: null

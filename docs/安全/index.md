@@ -42,5 +42,5 @@ mindmap
 |--------|------|------|------|------|
 | [XSS](./xss.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [CSRF](./csrf.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [CSP 内容安全策略](./csp.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [CSP 内容安全策略](./csp.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [Token 存储安全](./token-storage.md) | ⭐⭐⭐⭐ | 中级 | — | draft |

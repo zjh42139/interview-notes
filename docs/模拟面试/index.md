@@ -13,7 +13,9 @@ description: 完整面试流程模拟
 |------|------|------|------|------|
 | [一面：JS 基础](./round-1-js.md) | JavaScript + CSS + 浏览器 + 手写 | 45min | 中级 | 11题 |
 | [一面：Vue 框架](./round-1-vue.md) | Vue3 原理 + 手写 | 45min | 中级 | 9题 |
+| [一面：网络 + 安全](./round-1-network.md) | HTTP/HTTPS + XSS/CSRF + 缓存 + 跨域 | 45min | 中级 | 10题 |
 | [二面：项目经验](./round-2-project.md) | 项目深挖 + 性能优化 + 方案设计 | 60min | 中高级 | 8题 |
+| [二面：架构设计](./round-2-architecture.md) | 项目架构 + 性能优化 + 方案设计题 | 60min | 高级 | 7题 |
 | [三面：HR](./round-3-hr.md) | 软技能 + 职业规划 + 薪资谈判 | 30min | 中级 | 8题 |
 
 ## 使用方式
@@ -35,8 +37,10 @@ description: 完整面试流程模拟
 
 1. 先练 [一面：JS 基础](./round-1-js.md) —— 确保基础题不丢分
 2. 再练 [一面：Vue 框架](./round-1-vue.md) —— 框架原理是面试核心
-3. 重点练 [二面：项目经验](./round-2-project.md) —— 决定薪资等级的关键
-4. 最后练 [三面：HR](./round-3-hr.md) —— 临门一脚，不要轻敌
+3. 练 [一面：网络 + 安全](./round-1-network.md) —— 网络/安全/缓存是高频一面题
+4. 重点练 [二面：项目经验](./round-2-project.md) —— 决定薪资等级的关键
+5. 练 [二面：架构设计](./round-2-architecture.md) —— 区分 P6/P7 的分界线
+6. 最后练 [三面：HR](./round-3-hr.md) —— 临门一脚，不要轻敌
 
 ## 关联资源
 

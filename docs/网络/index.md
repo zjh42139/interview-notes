@@ -21,6 +21,9 @@ mindmap
     WebSocket
     SSE
     CORS
+    Fetch API
+      AbortController
+      Stream
 ```
 
 ## 推荐学习顺序
@@ -30,7 +33,8 @@ mindmap
 3. ⭐⭐⭐⭐⭐ [CORS](./cors.md)
 4. ⭐⭐⭐⭐   [HTTP2 / HTTP3](./http2-http3.md)
 5. ⭐⭐⭐⭐   [DNS / CDN](./dns-cdn.md)
-6. ⭐⭐⭐     [WebSocket / SSE](./websocket-sse.md)
+6. ⭐⭐⭐⭐   [Fetch API 深度解析](./fetch-api.md)
+7. ⭐⭐⭐     [WebSocket / SSE](./websocket-sse.md)
 
 ## 知识点索引
 
@@ -42,3 +46,4 @@ mindmap
 | [DNS / CDN](./dns-cdn.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [WebSocket / SSE](./websocket-sse.md) | ⭐⭐⭐ | 中级 | — | draft |
 | [CORS](./cors.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [Fetch API 深度解析](./fetch-api.md) | ⭐⭐⭐⭐ | 中级 | — | draft |

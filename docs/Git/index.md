@@ -4,7 +4,7 @@ description: Git 面试知识体系，覆盖从日常高频命令到分支策略
 category: Git
 difficulty: 入门
 frequency: ⭐⭐⭐⭐⭐
-status: filled
+status: draft
 created: 2026-07-06
 updated: 2026-07-06
 tags:
