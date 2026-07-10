@@ -24,6 +24,11 @@ tags:
 ## HTML5 语义化（6 题）
 
 ### 1. HTML5 新增了哪些语义化标签？和 div 有什么区别？
+
+**追问预测**：
+- "article 和 section 的区别" → article 独立完整内容可独立分发；section 是页面中的一个章节需上下文
+- "语义化对 SEO 的影响" → 搜索引擎给 header/nav/main/article 更高权重——理解页面结构
+- "dialog 原生弹窗怎么用" → showModal() 打开+::backdrop 遮罩+form method=dialog 自动关闭
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐⭐
@@ -39,6 +44,11 @@ tags:
 ---
 
 ### 2. DOCTYPE 是干什么的？不写会怎样？
+
+**追问预测**：
+- "怪异模式和标准模式的区别" → 怪异模式模拟 IE5 盒模型 width 含 padding+border
+- "HTML4 和 HTML5 的 DOCTYPE 区别" → HTML4 依赖 DTD(SGML)又臭又长；HTML5 简化
+- "DOCTYPE 必须是第一行吗" → 必须——前面不能有空行或 BOM。否则 IE 可能触发怪异模式
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐
@@ -54,6 +64,11 @@ tags:
 ---
 
 ### 3. meta viewport 是干什么的？怎么写？
+
+**追问预测**：
+- "布局视口和视觉视口的区别" → 布局视口 CSS 布局基准（默认 980px）；视觉视口屏幕可见区域
+- "user-scalable=no 为什么不好" → 违反 WCAG 无障碍标准——视觉障碍用户无法放大页面
+- "viewport 和 @viewport 的区别" → meta viewport 是 HTML；@viewport 是 CSS 已被废弃
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐
@@ -70,6 +85,11 @@ tags:
 ---
 
 ### 4. HTML5 新增了哪些表单特性？
+
+**追问预测**：
+- "Constraint Validation API 怎么用" → checkValidity()/reportValidity()/setCustomValidity()——自定义校验文案
+- "input type=date 的兼容性" → 现代浏览器全部支持。移动端体验更好——弹出原生日期选择器
+- "怎么自定义表单校验样式" → :valid/:invalid/:user-invalid CSS 伪类——无需 JS
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐⭐
@@ -86,6 +106,11 @@ tags:
 ---
 
 ### 5. em 和 i、strong 和 b 有什么区别？
+
+**追问预测**：
+- "bold 和 strong 实际表现一样吗" → 视觉一样——但 strong 语义重要/紧急。读屏器会重读 strong
+- "什么时候用 i 不用 em" → 图标/术语/外来语——视觉斜体无强调语义
+- "b 和 strong 对 SEO 的影响" → SEO 给 strong 更高权重——关键词用 strong 包装有助排名
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐
@@ -103,6 +128,11 @@ tags:
 ## 加载与性能（4 题）
 
 ### 7. script 标签的 defer 和 async 有什么区别？
+
+**追问预测**：
+- "defer 和 async 的执行时机" → defer DOMContentLoaded 前按顺序执行；async 下载完立即执行不保证顺序
+- "type=module 的行为" → 默认行为同 defer——异步下载、等 DOM 完成后执行
+- "多个 async script 的执行顺序" → 不保证——谁先下载完谁先执行
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐⭐
@@ -120,6 +150,11 @@ tags:
 
 
 ### 9. 图片懒加载怎么实现？有哪些方式？
+
+**追问预测**：
+- "loading=lazy 和 IntersectionObserver 怎么选" → loading=lazy 零代码但不可自定义；IO 灵活可控
+- "首屏图片需要懒加载吗" → 不需要——首屏图设 fetchpriority=high 优先加载
+- "懒加载对 SEO 的影响" → loading=lazy 不影响——搜索引擎能看到 src 属性。JS 懒加载需 SSR 兜底
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐
@@ -137,6 +172,11 @@ tags:
 ---
 
 ### 10. preload / prefetch / preconnect / dns-prefetch 是什么？
+
+**追问预测**：
+- "同一资源同时 preload 和 prefetch 会怎样" → 加载两次——浏览器警告。不要同时用
+- "preconnect 和 dns-prefetch 的区别" → preconnect DNS+TCP+TLS 全建连；dns-prefetch 只 DNS——更轻量
+- "preload 的 as 属性为什么重要" → 告诉浏览器资源类型——决定加载优先级
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐
@@ -155,6 +195,11 @@ tags:
 ## 元素与事件（5 题）
 
 ### 11. 块级元素和行内元素有什么区别？
+
+**追问预测**：
+- "替换元素是什么" → img/input/video——行内但可设宽高。有 intrinsic size
+- "inline-block 间隙问题" → HTML 源码换行=空格字符——父元素 font-size:0 或 float 消除
+- "display:flow-root 是什么" → 触发 BFC 的新方案——无 overflow:hidden 的副作用
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐
@@ -171,6 +216,11 @@ tags:
 ---
 
 ### 12. Canvas 和 SVG 有什么区别？
+
+**追问预测**：
+- "Canvas 为什么模糊" → 没有处理 devicePixelRatio——需 ×dpr 放大再缩小
+- "SVG 能做动画吗" → 可以——SMIL 动画或 CSS animation。Canvas 动画需要 JS 逐帧绘制
+- "大量对象用 Canvas 还是 SVG" → Canvas——不创建 DOM 节点。SVG 节点多到 1000+ 会卡
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐
@@ -187,6 +237,11 @@ tags:
 ---
 
 ### 13. iframe 有什么优缺点？如何使用 postMessage 通信？
+
+**追问预测**：
+- "iframe 和微前端的关系" → qiankun/wujie 底层用 iframe 实现隔离——样式和 JS 沙箱
+- "postMessage 怎么保证安全" → 发送方指定 targetOrigin；接收方校验 event.origin
+- "iframe 的 sandbox 属性" → 按需开放权限——allow-scripts/allow-same-origin/allow-forms
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐
@@ -207,6 +262,11 @@ tags:
 ## 路由与架构（3 题）
 
 ### 16. History API 的 pushState 和 replaceState 有什么区别？hash 和 history 模式有什么区别？
+
+**追问预测**：
+- "pushState 和 replaceState 的区别" → pushState 新增一条历史记录；replaceState 替换当前记录不影响前进后退
+- "popstate 什么时候触发" → 前进/后退时——pushState 和 replaceState 本身不触发 popstate
+- "hash 和 history 模式怎么选" → hash 兼容性好不用服务端配置；history URL 干净 SEO 好需服务端 fallback
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐⭐
@@ -223,6 +283,11 @@ tags:
 ---
 
 ### 17. Web Worker 是什么？有哪些类型？
+
+**追问预测**：
+- "Worker 能操作 DOM 吗" → 不能——不能访问 window/document/localStorage。Worker 是独立线程无 UI
+- "Transferable 和 structured clone 的区别" → Transferable 零拷贝转移所有权（更快）；structured clone 复制数据
+- "Shared Worker 和 Dedicated Worker 的区别" → Dedicated 单页面；Shared 同源多页面共享——适合跨 tab 通信
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐
@@ -239,6 +304,11 @@ tags:
 ---
 
 ### 18. Web Components 是什么？和 Vue/React 组件有什么区别？
+
+**追问预测**：
+- "Shadow DOM 的样式隔离怎么穿透" → CSS 变量（继承属性）和 ::part 伪元素——外部可控
+- "Web Components 和 Vue/React 的关系" → WC 是原生标准——跨框架可用。但生态不完整无响应式
+- "实际项目用 Web Components 吗" → 少——多数用框架。跨团队共享基础组件时有场景
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐
@@ -255,6 +325,11 @@ tags:
 ---
 
 ### 19. CSR / SSR / SSG / ISR 分别是什么？怎么选？
+
+**追问预测**：
+- "CSR/SSR/SSG/ISR 各适合什么场景" → CSR 后台系统；SSR 电商/内容；SSG 博客/文档；ISR 需要更新但不用实时
+- "SSR 对 SEO 的影响" → 搜索引擎可直接抓取完整 HTML——不需要 JS 渲染
+- "Next.js 和 Nuxt 的 SSR 区别" → Next React 生态 ISR 最成熟；Nuxt Vue 生态 SSR 开箱即用
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐⭐

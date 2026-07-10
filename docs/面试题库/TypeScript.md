@@ -21,6 +21,11 @@ tags:
 ---
 
 ### Q1: 泛型的使用场景与实践
+
+**追问预测**：
+- "泛型约束怎么实现" → extends——<T extends {length:number}> 限制 T 必须有 length 属性
+- "什么时候不用泛型" → 类型确定不变时——如 sum(a:number,b:number) 不需要泛型化
+- "泛型默认值" → <T=string>——调用时不传类型参数就用默认类型
 > 🏷️ 概念题
 > ⭐⭐⭐⭐⭐ | 难度：中级
 
@@ -39,6 +44,11 @@ tags:
 ---
 
 ### Q2: Utility Types 实现原理
+
+**追问预测**：
+- "Pick 和 Omit 的区别" → Pick 挑选属性；Omit 排除属性——互补操作
+- "Partial 和 Required 的关系" → 互逆——Partial 全可选；Required 全必填
+- "怎么实现 DeepPartial" → 递归映射——T[K] extends object ? DeepPartial<T[K]> : T[K]
 > 🏷️ 手写题
 > ⭐⭐⭐⭐⭐ | 难度：中高级
 
@@ -57,6 +67,11 @@ tags:
 ---
 
 ### Q3: any / unknown / never 的区别
+
+**追问预测**：
+- "unknown 和 any 的本质区别" → unknown 类型安全——使用前必须类型收窄；any 放弃类型检查
+- "never 的使用场景" → 永远不返回的函数（抛异常/死循环）、不可能的分支（exhaustive check）
+- "unknown 怎么转成具体类型" → 类型收窄——typeof/instanceof/自定义 type guard
 > 🏷️ 对比题
 > ⭐⭐⭐⭐ | 难度：中级
 
@@ -74,6 +89,11 @@ tags:
 ---
 
 ### Q4: extends 和 infer 详解
+
+**追问预测**：
+- "extends 在泛型中有几种含义" → 约束（限制 T）、条件类型（三元判断）、继承（class/interface）
+- "infer 只能用在条件类型中吗" → 是——infer 在条件类型的 extends 分支中声明类型变量
+- "infer 的实际使用场景" → 提取函数返回值 ReturnType、提取 Promise 内类型 Awaited、提取数组元素类型
 > 🏷️ 概念题
 > ⭐⭐⭐⭐ | 难度：中高级
 
@@ -91,6 +111,11 @@ tags:
 ---
 
 ### Q5: satisfies 关键字的用法
+
+**追问预测**：
+- "satisfies 和 as 的区别" → satisfies 保留类型推导不做断言；as 强制转换可能丢失类型安全
+- "satisfies 和 : 类型标注的区别" → satisfies 不改变变量类型——保留更精确的推导
+- "什么时候用 satisfies" → 既要类型检查约束又不丢失字面量类型——如调色板对象
 > 🏷️ 概念题
 > ⭐⭐⭐⭐ | 难度：中级
 
@@ -108,6 +133,11 @@ tags:
 ---
 
 ### Q6: keyof + 映射类型 + 条件类型
+
+**追问预测**：
+- "keyof 和 typeof 配合怎么用" → typeof 取值的类型→keyof typeof 取对象键的联合类型
+- "映射类型的 as 子句" → {[K in keyof T as ...]:T[K]}——重映射键名
+- "模板字面量类型" → type EventName = `on${Capitalize<string>}`——字符串拼接类型
 > 🏷️ 概念题
 > ⭐⭐⭐⭐ | 难度：中高级
 
@@ -127,6 +157,11 @@ tags:
 
 
 ### Q8: 类型体操基础
+
+**追问预测**：
+- "DeepReadonly 怎么实现" → 递归映射——T[K] extends object ? DeepReadonly<T[K]> : T[K]
+- "类型体操的实用价值" → 写出更准确的类型定义——让编译器帮你发现错误而不是靠运行时
+- "类型体操的边界" → 不要为了炫技写过于复杂的类型——降低可读性得不偿失
 > 🏷️ 手写题
 > ⭐⭐⭐ | 难度：中高级
 
@@ -145,6 +180,11 @@ tags:
 ---
 
 ### Q9: 声明文件（.d.ts）与 declare
+
+**追问预测**：
+- ".d.ts 和 .ts 的区别" → .d.ts 只有类型声明没有实现——类似 C 的头文件
+- "declare module 怎么用" → 为没有类型的第三方库声明类型——或扩展已有模块类型
+- "declare global 的作用" → 扩展全局类型——如给 Window 加自定义属性
 > 🏷️ 概念题
 > ⭐⭐⭐ | 难度：中级
 
@@ -163,6 +203,11 @@ tags:
 
 
 ### Q11: as const 的用法
+
+**追问预测**：
+- "as const 和 readonly 的区别" → as const 把字面量类型固定为最窄——readonly + literal；readonly 只是只读
+- "as const 对数组的影响" → 变成 readonly tuple——每个元素类型精确到字面量
+- "as const 和 enum 怎么选" → as const + union 类型更轻量——不生成运行时代码
 > 🏷️ 概念题
 > ⭐⭐⭐ | 难度：中级
 
@@ -181,6 +226,11 @@ tags:
 
 
 ### Q13: TypeScript 的类型收窄（Type Narrowing）
+
+**追问预测**：
+- "类型收窄的几种方式" → typeof/instanceof/in/自定义 type guard（is）/switch 穷举
+- "自定义 type guard 怎么写" → 返回值是 arg is SomeType——TS 识别 if 块内自动收窄
+- "never 在穷举检查中的作用" → default: const _:never = value——遗漏分支编译报错
 > 🏷️ 概念题
 > ⭐⭐⭐ | 难度：中级
 
@@ -200,6 +250,11 @@ tags:
 
 
 ### Q15: 项目中的 TypeScript 最佳实践
+
+**追问预测**：
+- "Vue3+TS 项目的最佳实践" → defineProps 用泛型传类型、Pinia store 完整 TS 类型推导、composables 返回类型标注
+- "TS 严格模式开了哪些" → strictNullChecks/noUncheckedIndexedAccess/strictFunctionTypes——逐步开启
+- "any 的使用原则" → 尽量不用——实在不行用 unknown。第三方库没类型用 declare module
 > 🏷️ 场景题
 > ⭐⭐⭐ | 难度：中级
 

@@ -89,6 +89,11 @@ tags:
 ---
 
 ## Q4：`absolute` 相对于谁定位？包含块规则是什么？⭐⭐⭐⭐⭐
+
+**追问预测**：
+- "absolute 相对于谁定位" → 最近的 position 非 static 的祖先；找不到就用初始包含块（视口）
+- "包含块的规则" → absolute 找 position 非 static 祖先；fixed 永远是视口（除 transform 例外）
+- "relative 和 absolute 的区别" → relative 占位不脱离文档流；absolute 脱离文档流不占位
 > 🏷️ 概念题
 
 **考察点**：CSS 定位参照系的精确理解。
@@ -103,6 +108,11 @@ tags:
 ---
 
 ## Q5：`position: sticky` 为什么会失效？⭐⭐⭐⭐
+
+**追问预测**：
+- "sticky 失效的常见原因" → 父元素 overflow:hidden 或高度不够、没设 top/left 值
+- "sticky 和 fixed 的区别" → sticky 在容器内滚动到阈值才固定；fixed 始终固定
+- "sticky 的兼容性" → 现代浏览器全支持。IE 不支持——降级为 relative
 > 🏷️ 排查题
 
 **考察点**：sticky 的边界条件和常见踩坑经验。
@@ -118,6 +128,11 @@ tags:
 ---
 
 ## Q6：CSS 优先级怎么计算？`!important` 一定最高吗？⭐⭐⭐⭐⭐
+
+**追问预测**：
+- "important 一定最高吗" → 用户样式 important > 作者样式 important > 作者普通 > 用户普通 > 浏览器默认
+- "内联样式和 !important 谁高" → 作者 !important > 内联样式。但用户 !important 最高
+- "怎么覆盖 !important" → 更高优先级的 !important——但这是 bad practice。应该修复源头的优先级问题
 > 🏷️ 概念题
 
 **考察点**：选择器特异性计算 + 工程中的样式覆盖策略。
@@ -134,6 +149,11 @@ tags:
 ---
 
 ## Q7：`100vh` 在移动端为什么会有问题？怎么解决？⭐⭐⭐⭐
+
+**追问预测**：
+- "100vh 和 100% 的区别" → vh 是视口高度百分比；% 是父元素高度百分比
+- "移动端 100vh 问题怎么解决" → dvh（动态视口高度）/ svh（小视口）/ lvh（大视口）CSS 新单位
+- "怎么兼容旧浏览器" → JS 动态计算 window.innerHeight 设置 CSS 变量
 > 🏷️ 排查题
 
 **考察点**：移动端视口机制和 CSS 新单位的理解。
@@ -147,6 +167,11 @@ tags:
 ---
 
 ## Q8：`rem`、`vw`、`px` 分别适用于什么场景？⭐⭐⭐⭐
+
+**追问预测**：
+- "rem 和 em 的区别" → rem 根元素 font-size；em 父元素 font-size。rem 更适合全局响应式
+- "vw 和 % 的区别" → vw 视口宽度；% 父元素宽度百分比
+- "移动端适配用什么单位" → postcss-px-to-viewport 自动转 vw——配合 rem 做全局缩放
 > 🏷️ 对比题
 
 **考察点**：CSS 单位的选型判断。
@@ -161,6 +186,11 @@ tags:
 ---
 
 ## Q9：为什么 `margin: auto` 有时候不能居中？⭐⭐⭐⭐
+
+**追问预测**：
+- "margin:auto 水平居中条件" → 块级元素 + 有明确宽度——auto 平分剩余空间
+- "margin:auto 垂直为什么不行" → 垂直方向 auto = 0——规范规定。Flex/Grid 例外
+- "margin:auto 在 Flex 中的行为" → Flex 容器中垂直方向 auto 也有效——可以垂直居中
 > 🏷️ 概念题
 
 **考察点**：margin auto 生效的前提条件。
@@ -175,6 +205,11 @@ tags:
 ---
 
 ## Q10：如何实现水平垂直居中？说出所有方案 ⭐⭐⭐⭐⭐
+
+**追问预测**：
+- "说出 5 种居中方案" → Flexbox/Grid/绝对定位+transform/绝对定位+margin:auto/table-cell
+- "不定宽高怎么居中" → Flexbox 或 Grid——不需要知道宽高。绝对定位+transform 也是
+- "居中方案怎么选" → 脱离文档流→绝对定位；不脱离→Flexbox；一行搞定→Grid place-items
 > 🏷️ 概念题
 
 **考察点**：CSS 居中方案的系统掌握度。
@@ -191,6 +226,11 @@ tags:
 ---
 
 ## Q11：外边距重叠（Margin Collapse）是什么？如何解决？⭐⭐⭐⭐
+
+**追问预测**：
+- "父子 margin 重叠的条件" → 父子间没有 border/padding/inline content/BFC 隔开
+- "怎么解决 margin 重叠" → 触发 BFC——overflow:hidden 或 display:flow-root 隔开
+- "margin 重叠只发生在垂直方向吗" → 是——水平方向不重叠。写模式改变时方向也会变
 > 🏷️ 概念题
 
 **考察点**：盒模型的一个经典反直觉行为。
@@ -206,6 +246,11 @@ tags:
 ---
 
 ## Q12：`z-index` 失效的几种情况？⭐⭐⭐⭐
+
+**追问预测**：
+- "z-index 失效的几种情况" → 元素没设 position、父级创建了层叠上下文且 z-index 更低
+- "层叠上下文怎么创建" → position+z-index、opacity<1、transform、filter、will-change 等
+- "两个层叠上下文之间的 z-index 怎么比" → 比父级层叠上下文的 z-index——子元素 z-index 只在父级内部有效
 > 🏷️ 排查题
 
 **考察点**：层叠上下文的深层理解。
@@ -223,6 +268,11 @@ tags:
 
 
 ## Q15：`transition` 和 `animation` 有什么区别？⭐⭐⭐⭐
+
+**追问预测**：
+- "transition 和 animation 的核心区别" → transition 需要触发条件（hover/focus）且只有两个状态；animation 自动播放多关键帧
+- "哪些属性适合 transition" → transform/opacity——只触发合成不触发重排。width/height 触发回流不适合
+- "animation 的性能优化" → 用 transform 和 opacity 做动画——GPU 加速。避免动画 width/height/left/top
 > 🏷️ 对比题
 
 **考察点**：CSS 动画两种机制的选型判断。
@@ -237,6 +287,11 @@ tags:
 ---
 
 ## Q16：单行/多行文本溢出省略怎么实现？⭐⭐⭐⭐
+
+**追问预测**：
+- "多行省略的核心属性" → display:-webkit-box + -webkit-line-clamp + -webkit-box-orient:vertical
+- "多行省略的兼容性" → -webkit 前缀只 WebKit 内核支持。Firefox 用 JS 截断方案兜底
+- "怎么判断文字是否溢出" → el.scrollWidth > el.clientWidth——JS 检测溢出后显示省略
 > 🏷️ 概念题
 
 **考察点**：文本溢出控制的基础功。
@@ -251,6 +306,11 @@ tags:
 ---
 
 ## Q17：如何清除浮动？clearfix 和 BFC 方案有什么区别？⭐⭐⭐⭐
+
+**追问预测**：
+- "clearfix 的原理" → ::after 伪元素 + clear:both——在浮动元素后插入一个清除浮动的块
+- "BFC 清除浮动的原理" → BFC 计算高度时包含浮动子元素——触发 BFC 即可包裹浮动
+- "现代布局还需要清除浮动吗" → Flexbox/Grid 基本不再需要——浮动在现代布局中已很少使用
 > 🏷️ 概念题
 
 **考察点**：浮动后高度塌陷的解决思路。
@@ -266,6 +326,11 @@ tags:
 ---
 
 ## Q18：CSS 如何实现暗黑模式？⭐⭐⭐⭐
+
+**追问预测**：
+- "暗黑模式的实现方式" → CSS 变量切换、prefers-color-scheme 媒体查询、class 切换
+- "怎么自动跟随系统" → @media (prefers-color-scheme: dark)——自动匹配系统主题
+- "暗黑模式下图片怎么办" → CSS filter 降低亮度、或准备两套图片资源
 > 🏷️ 场景题
 
 **考察点**：主题切换的工程方案。
