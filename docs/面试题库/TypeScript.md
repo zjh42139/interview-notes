@@ -118,21 +118,6 @@ tags:
 
 ---
 
-### Q7: TypeScript 配置文件（tsconfig.json）
-> ⭐⭐⭐ | 难度：中级
-
-**题目**：`tsconfig.json` 中 `strict`、`paths`、`include/exclude`、`references` 分别有什么作用？`strict` 模式具体包含了哪些子选项？
-
-**考察点**：
-- `strict: true` 包含：`strictNullChecks` / `noImplicitAny` / `strictFunctionTypes` / `strictBindCallApply` / `strictPropertyInitialization` / `noImplicitThis` / `alwaysStrict`
-- `paths` + `baseUrl` 实现路径别名
-- `references` 实现项目引用（monorepo 场景）
-- `include` / `exclude` 控制编译范围
-- `target` vs `lib`、`module` vs `moduleResolution` 的区别
-
-> 答案参考：[../TypeScript/index.md](../TypeScript/index.md)
-
----
 
 ### Q8: 类型体操基础
 > ⭐⭐⭐ | 难度：中高级
@@ -167,21 +152,6 @@ tags:
 
 ---
 
-### Q10: Enum vs const enum
-> ⭐⭐⭐ | 难度：中级
-
-**题目**：`enum` 和 `const enum` 有什么区别？`enum` 编译后的 JS 代码是怎样的？项目中一般推荐用 `enum` 还是联合类型？
-
-**考察点**：
-- `enum` 编译为双向映射对象（key->value 和 value->key）
-- `const enum` 编译时内联，不生成运行时代码
-- `const enum` 的限制：不能反向映射、不能在 `isolatedModules` 模式下使用
-- 联合类型 + `as const` 的替代方案：更 JavaScriptic、更好的类型安全
-- 字符串枚举 vs 数字枚举的行为差异
-
-> 答案参考：[../TypeScript/generics.md](../TypeScript/generics.md)
-
----
 
 ### Q11: as const 的用法
 > ⭐⭐⭐ | 难度：中级
@@ -199,27 +169,6 @@ tags:
 
 ---
 
-### Q12: 条件类型的分发（Distributive Conditional Types）
-> ⭐⭐⭐ | 难度：中高级
-
-**题目**：什么是条件类型的分发行为？如何触发分发？如何阻止分发？写出以下类型的结果：
-
-```typescript
-type Test1 = string extends string | number ? true : false;   // ?
-type Test2 = (string | number) extends string ? true : false; // ?
-type Test3 = Exclude<string | number | boolean, string>;      // ?
-```
-
-**考察点**：
-- 联合类型在条件类型中自动分发（`T extends U ? X : Y` 中 T 是裸类型参数时）
-- 阻止分发：用 `[T]` 元组包裹
-- `never` 作为联合类型的空集，分发时结果为空
-- `Exclude<T, U>` 的本质：`T extends U ? never : T`
-- 实际应用：`IsUnion<T>` 工具类型的实现
-
-> 答案参考：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
-
----
 
 ### Q13: TypeScript 的类型收窄（Type Narrowing）
 > ⭐⭐⭐ | 难度：中级
@@ -238,21 +187,6 @@ type Test3 = Exclude<string | number | boolean, string>;      // ?
 
 ---
 
-### Q14: 协变与逆变（Variance）
-> ⭐⭐ | 难度：高级
-
-**题目**：请解释 TypeScript 中的协变（Covariance）和逆变（Contravariance）是什么？函数参数位置是逆变还是协变？为什么？
-
-**考察点**：
-- 协变：子类型可以赋值给父类型（`Array<Cat>` 可以赋值给 `Array<Animal>`）
-- 逆变：父类型可以赋值给子类型（函数参数位置）
-- TypeScript 默认使用"双变"（bivariant），`strictFunctionTypes: true` 强制逆变
-- 函数返回值位置是协变，参数位置是逆变
-- 实际影响：事件处理函数、回调函数的类型兼容性
-
-> 答案参考：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
-
----
 
 ### Q15: 项目中的 TypeScript 最佳实践
 > ⭐⭐⭐ | 难度：中级

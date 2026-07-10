@@ -199,21 +199,6 @@ tags:
 
 ---
 
-### Q12: Teleport + Suspense 组件
-> ⭐⭐⭐ | 难度：中级
-
-**题目**：`<Teleport>` 的原理是什么？`<Suspense>` 如何实现异步组件的加载状态？分别适用于什么场景？
-
-**考察点**：
-- `Teleport` 将组件内容渲染到指定 DOM 节点（to 属性），突破父组件的 overflow/z-index 限制
-- `Teleport` 实现：vnode 的 `target` 属性，patch 时挂载到目标容器
-- `Suspense` 捕获异步依赖（`async setup` 或 `defineAsyncComponent`）
-- `Suspense` 的 `default` 和 `fallback` 插槽切换
-- 场景：Modal/弹窗用 Teleport，代码分割的异步组件用 Suspense
-
-> 答案参考：[../Vue3/teleport-suspense.md](../Vue3/teleport-suspense.md)
-
----
 
 ### Q13: Scheduler 调度器 + 批量更新机制
 > ⭐⭐⭐ | 难度：中高级
@@ -248,21 +233,6 @@ tags:
 
 ---
 
-### Q15: Vue3 编译器优化
-> ⭐⭐⭐ | 难度：中高级
-
-**题目**：Vue3 的模板编译器做了哪些编译时优化？静态提升和预字符串化是什么？
-
-**考察点**：
-- 静态节点提升（HoistStatic）：静态 vnode 提到 render 函数外，避免重复创建
-- 预字符串化：连续的静态节点直接编译为字符串 innerHTML
-- PatchFlags：为动态绑定的节点生成标志位（TEXT/CLASS/STYLE/PROPS 等）
-- Block Tree：动态节点收集到 `dynamicChildren`，跳过静态节点的 diff
-- 缓存事件处理函数：`cacheHandlers` 避免组件更新时重新绑定事件
-
-> 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
-
----
 
 ### Q16: Pinia vs Vuex
 > ⭐⭐⭐ | 难度：中级
@@ -297,16 +267,3 @@ tags:
 
 ---
 
-### Q18: 自定义渲染器（Custom Renderer）
-> ⭐⭐ | 难度：高级
-
-**题目**：Vue3 的自定义渲染器是如何设计的？`createRenderer` 的原理是什么？可以用于哪些跨端场景？
-
-**考察点**：
-- Vue3 将 runtime-core 和平台渲染解耦
-- `createRenderer` 接收自定义的节点操作函数（createElement/patchProp/insert 等）
-- 跨平台方案：Weex、uni-app、小程序渲染到 Canvas
-- 只需实现平台 API：`nodeOps` + `patchProp`
-- 复杂组件的渲染器是可组合的
-
-> 答案参考：[../Vue3/renderer.md](../Vue3/renderer.md)

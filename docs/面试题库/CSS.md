@@ -190,37 +190,7 @@ tags:
 
 ---
 
-## Q13：`line-height` 和 `vertical-align` 的关系？⭐⭐⭐
 
-**考察点**：CSS 内联元素排版的底层原理。
-
-**回答**：
-- `line-height` 定义行框的高度（不是字体的高度），`vertical-align` 定义元素在行框内的对齐方式
-- inline-block 元素底部默认与文字的 baseline 对齐，会产生 3-4px 的"幽灵间隙"
-- 解决方法：`vertical-align: top/middle/bottom`；或 `display: block`；或 `font-size: 0` 再还原
-
-📖 [盒模型](../CSS/box-model.md)
-
----
-
-## Q14：CSS 如何实现三角形？⭐⭐⭐
-
-**考察点**：border 的创造性运用，考察对 CSS 渲染机制的深层理解。
-
-**回答**：
-```css
-.triangle {
-  width: 0; height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 20px solid #3451b2;
-}
-```
-原理：元素的 border 在四边交汇处是 45° 斜角分割。当元素宽高为 0 时，四个 border 各占一个三角形区域。隐藏其中三个方向的 border，剩下那个就是三角形。
-
-📖 [盒模型](../CSS/box-model.md)
-
----
 
 ## Q15：`transition` 和 `animation` 有什么区别？⭐⭐⭐⭐
 
@@ -275,33 +245,7 @@ tags:
 
 ---
 
-## Q19：CSS 继承性——哪些属性会继承？为什么 a 标签颜色不继承？⭐⭐⭐
 
-**考察点**：CSS 继承机制的理解深度。
-
-**回答**：
-- 文字/字体相关属性大多继承（`color`、`font-*`、`line-height`、`text-align`）
-- 盒模型相关属性绝不继承（`width`、`height`、`margin`、`padding`、`border`）
-- a 标签颜色不继承的原因：浏览器 User Agent 样式表已设置 `color: -webkit-link`，阻断了继承链
-- 解决：`a { color: inherit; }`
-
-📖 [CSS 继承性](../CSS/inheritance.md)
-
----
-
-## Q20：为什么要避免 CSS `@import`？⭐⭐⭐
-
-**考察点**：CSS 加载性能的基础认知。
-
-**回答**：
-- `@import` 会造成**串行加载**：浏览器发现 `@import` 后暂停当前 CSS 解析，先去下载导入的文件，回来再继续解析
-- `<link>` 标签支持**并行加载**：多个 `<link>` 同时下载，不互相阻塞
-- `@import` 在 IE/旧浏览器中还会阻塞渲染（FOUC 风险）
-- 生产环境统一用 `<link>` 或打包工具内联 CSS，避免 `@import`
-
-📖 [CSS 渲染性能](../CSS/css-performance.md)
-
----
 
 ## 相关阅读
 

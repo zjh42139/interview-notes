@@ -338,29 +338,6 @@ let b = 2;
 
 ---
 
-### Q15: 手写柯里化函数
-> ⭐⭐⭐⭐ | 难度：中级
-
-**题目**：请实现一个 `curry` 函数，使以下调用等效：
-
-```javascript
-function add(a, b, c) { return a + b + c; }
-const curriedAdd = curry(add);
-curriedAdd(1)(2)(3);    // 6
-curriedAdd(1, 2)(3);    // 6
-curriedAdd(1)(2, 3);    // 6
-```
-
-**考察点**：
-- 闭包缓存参数
-- 参数个数判断（`fn.length`）
-- 递归返回新函数直到参数足够
-- 实际应用：参数复用、延迟执行
-
-> 答案参考：[../JavaScript/closure.md](../JavaScript/closure.md)
-> 延伸：[../手写题/compose-pipe.md](../手写题/compose-pipe.md)
-
----
 
 ### Q16: 浮点数精度问题
 > ⭐⭐⭐ | 难度：中高级

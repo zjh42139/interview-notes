@@ -94,19 +94,6 @@ tags:
 
 ---
 
-### 6. HTML5 的离线存储有哪些方式？
-
-**频率**：&#11088;&#11088;&#11088;
-
-**答题要点**：
-- `localStorage`（5MB，永久） vs `sessionStorage`（5MB，标签页关闭即清除） vs `cookie`（4KB，自动发送）
-- `IndexedDB`（无上限/异步/支持索引/存储结构化数据）
-- Service Worker + Cache API（PWA 离线缓存核心）
-- `Application Cache`（已废弃，`<html manifest>`）
-
-**参考**：见浏览器模块 — Web Storage
-
----
 
 ## 加载与性能（4 题）
 
@@ -125,20 +112,6 @@ tags:
 
 ---
 
-### 8. src 和 href 有什么区别？
-
-**频率**：&#11088;&#11088;&#11088;
-
-**答题要点**：
-- `src` = 嵌入资源（替换当前文档位置），`href` = 关联资源（建立链接）
-- `<script src>` 会阻塞 HTML 解析（因为 JS 可能 `document.write`）
-- `<link href>` 是渲染阻塞而非解析阻塞（防 FOUC）
-- `<img src>` 不阻塞解析，异步下载
-- 提 `preload`/`prefetch`/`preconnect` 的区别加分
-
-**参考**：[src / href](../HTML/src-href.md)
-
----
 
 ### 9. 图片懒加载怎么实现？有哪些方式？
 
@@ -218,32 +191,7 @@ tags:
 
 ---
 
-### 14. a 标签的 target="_blank" 有什么安全风险？
 
-**频率**：&#11088;&#11088;&#11088;
-
-**答题要点**：
-- Tabnabbing：新页面通过 `window.opener.location` 将原页面导航到钓鱼站
-- 修复：`rel="noopener noreferrer"`
-- Chrome 88+ 已默认 noopener，但建议显式写
-- 补充：`download` 同源限制、`rel="nofollow"` 对 SEO 的影响
-
-**参考**：[a 标签全面解析](../HTML/a-tag.md)
-
----
-
-### 15. HTML5 拖拽 API 怎么用？和鼠标事件模拟有什么区别？
-
-**频率**：&#11088;&#11088;
-
-**答题要点**：
-- 原生事件：`dragstart`/`dragover`/`drop`/`dragend`/`dataTransfer.setData()`
-- vs 鼠标事件：原生支持文件从操作系统拖入浏览器、跨窗口拖拽
-- 低代码/可视化编辑器（拖拽画布）是主要场景
-
-**参考**：[拖拽 API](../HTML/) — 内容分布在相关文件中
-
----
 
 ## 路由与架构（3 题）
 
@@ -307,20 +255,6 @@ tags:
 
 ---
 
-### 20. HTML 实体是什么？innerHTML 和 textContent 有什么区别？
-
-**频率**：&#11088;&#11088;&#11088;
-
-**答题要点**：
-- HTML 实体将 `<` `>` `&` 等特殊字符安全显示
-- `innerHTML` 解析 HTML（需手动转义防 XSS）
-- `textContent` 始终当纯文本，天然安全
-- 不同上下文的转义规则不同：HTML 正文、属性值、script 块、URL 参数各不同
-- `encodeURIComponent` 用于 URL 参数编码，`encodeURI` 用于完整 URL
-
-**参考**：[HTML 实体与编码](../HTML/html-entities.md)
-
----
 
 | 模块 | 题目数 | 覆盖文件 |
 |------|--------|----------|
