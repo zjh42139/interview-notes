@@ -3,7 +3,7 @@ title: Web Storage
 description: 浏览器存储方案对比：Cookie、LocalStorage、SessionStorage、IndexedDB 的容量、生命周期、作用域和适用场景
 category: 浏览器
 type: api-reference
-score: 0
+score: 78
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed

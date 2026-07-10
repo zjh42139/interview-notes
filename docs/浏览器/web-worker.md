@@ -3,7 +3,7 @@ title: Web Worker
 description: Web Worker 在独立线程中运行 JavaScript，通过 postMessage 与主线程通信，用于执行耗时计算任务而不阻塞主线程 UI 渲染
 category: 浏览器
 type: api-reference
-score: 0
+score: 82
 difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed
@@ -282,6 +282,13 @@ self.onmessage = async (e) => {
 | "Worker 怎么和主线程通信" | 追问结构化克隆 vs Transferable 零拷贝 |
 | "Shared Worker 和 Dedicated Worker 的区别" | 追问多 Tab 共享 WebSocket 的场景 |
 | "Service Worker 是 Worker 吗" | 追问生命周期差异——SW 独立于页面运行 |
+
+## 易错点
+
+1. **Worker 中 `this` 不是 `window`** —— Worker 全局作用域是 `DedicatedWorkerGlobalScope`，`this === self`。新手常写 `window.xxx` 或 `document.querySelector` 直接报错
+2. **结构化克隆的性能代价** —— 传输 100MB 数据时，结构化克隆本身的耗时可能超过计算本身。大块数据用 Transferable（`postMessage(data, [buffer])`），转移后原线程无法再访问
+3. **Shared Worker 的 `port.start()` 必须手动调用** —— Dedicated Worker 的 message 端口默认开启，Shared Worker 必须显式 `port.start()`，忘了就没法通信
+4. **Service Worker 只能用于 HTTPS（或 localhost）** —— HTTP 下 `navigator.serviceWorker` 为 `undefined`，本地开发时容易忽略
 
 ## 相关阅读
 

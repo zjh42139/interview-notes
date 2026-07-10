@@ -3,7 +3,7 @@ title: Event Loop
 description: 浏览器与 Node.js 中的事件循环机制，宏任务与微任务的区别
 category: JavaScript
 type: mechanism
-score: 0
+score: 91
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

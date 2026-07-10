@@ -3,7 +3,7 @@ title: DNS / CDN
 description: DNS 将域名解析为 IP 地址（递归 + 迭代查询），CDN 通过就近节点分发内容加速用户访问
 category: 网络
 type: mechanism
-score: 0
+score: 83
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
@@ -24,6 +24,24 @@ tags:
 ## 一句话总结
 
 DNS 就像互联网的电话本，把域名翻译成 IP 地址，查找过程是递归 + 迭代的组合；CDN 是在全球各地部署缓存节点，用户访问时 DNS 把他引导到最近的节点，从而加速内容传输、减少源站压力。
+
+```mermaid
+sequenceDiagram
+    participant C as 客户端
+    participant L as 本地DNS
+    participant R as 根DNS
+    participant T as 顶级DNS (.com)
+    participant A as 权威DNS (example.com)
+
+    C->>L: 1. 查询 example.com
+    L->>R: 2. 递归：问根
+    R->>L: 3. 去问 .com
+    L->>T: 4. 递归：问 .com
+    T->>L: 5. 去问 example.com 权威
+    L->>A: 6. 查询权威DNS
+    A->>L: 7. 返回 IP: 93.184.216.34
+    L->>C: 8. 返回 IP 地址
+```
 
 ## 核心机制
 

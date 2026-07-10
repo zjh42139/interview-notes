@@ -3,7 +3,7 @@ title: Service Worker
 description: Service Worker 是独立于页面的后台脚本，能够拦截网络请求、管理缓存、实现离线可用和消息推送，是 PWA 的核心技术
 category: 浏览器
 type: api-reference
-score: 0
+score: 87
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed

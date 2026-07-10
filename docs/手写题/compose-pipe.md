@@ -3,7 +3,7 @@ title: 手写 compose / pipe
 description: 手写实现 compose 和 pipe 函数组合
 category: 手写题
 type: exercise
-score: 0
+score: 82
 difficulty: 初级
 frequency: ⭐⭐⭐
 status: reviewed

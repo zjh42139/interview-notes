@@ -3,7 +3,7 @@ title: Scheduler
 description: Vue3 异步任务调度器的实现原理与 nextTick 的关联
 category: Vue3
 type: mechanism
-score: 0
+score: 85
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
@@ -179,6 +179,13 @@ onUpdated(() => {
 | "为什么不是每次数据变化都立即更新" | 追问批量更新——同一个 tick 内的多次修改合并为一次 DOM 更新 |
 | "scheduler 和 React 的 fiber 有什么区别" | 追问 Vue 精确更新（依赖追踪）vs React 粗粒度（整树 diff） |
 | "nextTick 和 scheduler 是什么关系" | 追问 nextTick 是调度器的对外接口——等当前队列清空后执行回调 |
+
+## 易错点
+
+1. **scheduler 不是独立的线程** —— Vue3 的调度器是主线程上的任务队列管理，不是真正的多线程。不要把 scheduler 和 Web Worker 的概念搞混
+2. **nextTick 不等同于 scheduler** —— nextTick 是暴露给用户的 API，scheduler 是内部实现。很多人面试时说"nextTick 就是调度器"——不是，nextTick 是调度器的一个出口
+3. **effect 的执行顺序不是 FIFO** —— scheduler 会给 effect 分优先级——computed effect > 普通 watcher > 组件渲染 effect。pre 选项的 watch 在 DOM 更新前执行
+4. **不要在 watch 里无限修改数据** —— watch 回调里改了数据又触发 watch，形成死循环。scheduler 会把连续修改合并为一次更新，但逻辑上仍然是死循环，需要用条件守卫
 
 ## 相关阅读
 

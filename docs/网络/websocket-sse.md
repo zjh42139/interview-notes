@@ -3,7 +3,7 @@ title: WebSocket / SSE
 description: WebSocket 是全双工通信协议（双向），SSE 是服务端到客户端的单向推送（基于 HTTP），各有适用场景
 category: 网络
 type: comparison
-score: 0
+score: 72
 difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed

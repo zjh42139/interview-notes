@@ -3,7 +3,7 @@ title: 浏览器多进程架构
 description: Chrome 浏览器的多进程架构设计：Browser/Renderer/GPU/Network/Plugin 各进程职责、沙箱隔离、site isolation 安全机制、进程与线程的关系
 category: 浏览器
 type: mechanism
-score: 0
+score: 85
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

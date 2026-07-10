@@ -3,7 +3,7 @@ title: 生成器 / 迭代器
 description: JavaScript 迭代器协议、生成器函数与异步迭代的核心机制与实战
 category: JavaScript
 type: mechanism
-score: 0
+score: 91
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: draft

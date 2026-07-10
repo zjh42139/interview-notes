@@ -3,7 +3,7 @@ title: 同源策略
 description: 浏览器的同源策略——前端安全的基石，定义了跨域访问的允许与限制
 category: 浏览器
 type: security
-score: 0
+score: 82
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

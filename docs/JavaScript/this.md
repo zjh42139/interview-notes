@@ -3,7 +3,7 @@ title: this
 description: JavaScript 中 this 指向的全面解析
 category: JavaScript
 type: mechanism
-score: 0
+score: 91
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

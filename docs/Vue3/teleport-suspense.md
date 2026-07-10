@@ -3,7 +3,7 @@ title: Teleport / Suspense
 description: Vue3 Teleport 传送门与 Suspense 异步组件的使用场景
 category: Vue3
 type: mechanism
-score: 0
+score: 76
 difficulty: 初级
 frequency: ⭐⭐
 status: reviewed

@@ -3,7 +3,7 @@ title: call / apply / bind
 description: JavaScript 中 call、apply、bind 的实现原理与手写
 category: JavaScript
 type: mechanism
-score: 0
+score: 82
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: draft

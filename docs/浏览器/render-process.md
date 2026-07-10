@@ -3,7 +3,7 @@ title: 渲染流程
 description: 浏览器从接收 HTML 到渲染出页面的完整流程：DOM 树构建、CSSOM 构建、布局、绘制、合成，每个阶段都涉及关键性能优化点
 category: 浏览器
 type: mechanism
-score: 0
+score: 83
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

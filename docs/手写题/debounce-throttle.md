@@ -3,7 +3,7 @@ title: 手写 debounce / throttle
 description: 手写实现防抖和节流函数
 category: 手写题
 type: mechanism
-score: 0
+score: 73
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed

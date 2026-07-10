@@ -3,7 +3,7 @@ title: computed / watch
 description: Vue3 中 computed 与 watch 的实现原理及 scheduler 调度机制
 category: Vue3
 type: mechanism
-score: 0
+score: 86
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

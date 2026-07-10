@@ -3,7 +3,7 @@ title: 手写深拷贝
 description: 手写实现深拷贝，处理循环引用、WeakMap、Date、RegExp 等
 category: 手写题
 type: exercise
-score: 0
+score: 78
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

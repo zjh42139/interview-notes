@@ -3,7 +3,7 @@ title: HTTP2 / HTTP3
 description: HTTP/2 通过多路复用、头部压缩、服务端推送提升性能，HTTP/3 基于 QUIC（UDP）解决队头阻塞问题
 category: 网络
 type: mechanism
-score: 0
+score: 81
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
@@ -24,6 +24,15 @@ tags:
 ## 一句话总结
 
 HTTP/2 在 HTTP/1.1 的基础上通过多路复用、头部压缩、服务端推送等机制大幅提升性能，但仍然跑在 TCP 上，所以存在 TCP 层面的队头阻塞；HTTP/3 直接抛弃 TCP，基于 QUIC（UDP）协议，从根源上解决队头阻塞问题，并且支持 0-RTT 连接恢复和连接迁移。
+
+```mermaid
+flowchart TD
+    H1["HTTP/1.1"] -->|"队头阻塞 + 6连接限制"| H2["HTTP/2"]
+    H2 -->|"TCP 层队头阻塞无解"| H3["HTTP/3 (QUIC)"]
+    H1 --> H1F["单连接串行<br/>6个TCP连接并行"]
+    H2 --> H2F["单连接多路复用<br/>二进制分帧<br/>头部压缩 HPACK<br/>服务端推送"]
+    H3 --> H3F["基于 UDP<br/>0-RTT 恢复连接<br/>连接迁移<br/>无 TCP 队头阻塞"]
+```
 
 ## 核心机制
 

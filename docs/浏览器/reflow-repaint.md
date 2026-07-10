@@ -3,7 +3,7 @@ title: 重绘 / 回流
 description: 回流（reflow）和重绘（repaint）是浏览器渲染性能的核心概念，理解触发条件并利用 will-change、transform 等手段优化可显著提升页面性能
 category: 浏览器
 type: mechanism
-score: 0
+score: 78
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

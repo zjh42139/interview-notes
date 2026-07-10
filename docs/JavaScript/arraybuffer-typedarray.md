@@ -3,7 +3,7 @@ title: ArrayBuffer / TypedArray
 description: JavaScript 二进制数据处理 — ArrayBuffer、TypedArray 与 DataView 的原理与实战
 category: JavaScript
 type: mechanism
-score: 0
+score: 91
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: draft

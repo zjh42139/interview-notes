@@ -3,7 +3,7 @@ title: Cookie 深度解析
 description: Cookie 的全部属性（Domain/Path/Expires/HttpOnly/Secure/SameSite）、安全最佳实践和现代认证方案中的角色
 category: 浏览器
 type: security
-score: 0
+score: 82
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

@@ -3,7 +3,7 @@ title: 浏览器 DevTools
 description: Chrome DevTools 的 Performance/Memory/Network/Coverage 面板实战，以及性能排查和内存泄漏定位的方法论
 category: 浏览器
 type: api-reference
-score: 0
+score: 82
 difficulty: 中级
 frequency: ⭐⭐⭐
 status: draft

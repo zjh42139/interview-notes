@@ -3,7 +3,7 @@ title: 浏览器安全机制
 description: CSP、HSTS、X-Frame-Options、SRI、X-Content-Type-Options 等浏览器安全响应头和防御机制
 category: 浏览器
 type: security
-score: 0
+score: 82
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

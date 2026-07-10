@@ -3,7 +3,7 @@ title: 闭包
 description: JavaScript 闭包的形成原理、应用场景与内存管理
 category: JavaScript
 type: mechanism
-score: 0
+score: 91
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

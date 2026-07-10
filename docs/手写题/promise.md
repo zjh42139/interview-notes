@@ -3,7 +3,7 @@ title: 手写 Promise
 description: 手写实现 Promise/A+ 规范，包含 resolvePromise、all、race 等
 category: 手写题
 type: exercise
-score: 0
+score: 84
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

@@ -3,7 +3,7 @@ title: HTTP / HTTPS
 description: HTTP 是无状态的应用层协议，HTTPS = HTTP + TLS 加密层，保证数据机密性、完整性和身份认证
 category: 网络
 type: mechanism
-score: 0
+score: 87
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

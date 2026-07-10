@@ -3,7 +3,7 @@ title: Proxy / Reflect
 description: JavaScript Proxy 和 Reflect 的核心机制，Vue3 响应式系统的基石
 category: JavaScript
 type: mechanism
-score: 0
+score: 84
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

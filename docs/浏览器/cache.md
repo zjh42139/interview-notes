@@ -3,7 +3,7 @@ title: 浏览器缓存
 description: 浏览器缓存通过强缓存（Cache-Control/Expires）和协商缓存（ETag/Last-Modified）减少网络请求，是前端性能优化的关键手段
 category: 浏览器
 type: mechanism
-score: 0
+score: 87
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed

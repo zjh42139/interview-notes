@@ -3,7 +3,7 @@ title: Renderer
 description: Vue3 自定义渲染器的设计原理与 createRenderer API
 category: Vue3
 type: mechanism
-score: 0
+score: 85
 difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
@@ -169,6 +169,13 @@ canvasRenderer.createApp({
 | "虚拟 DOM 和真实 DOM 怎么同步" | 追问挂载（mount）和更新（patch）的两阶段流程 |
 | "SSR 的渲染器和 DOM 渲染器有什么区别" | 追问 createSSRApp 生成的 renderer 输出 HTML 字符串而非 DOM 操作 |
 | "自定义渲染器怎么用" | 追问 createRenderer 传入自定义 nodeOps 实现跨平台渲染 |
+
+## 易错点
+
+1. **renderer 和 scheduler 不分** —— renderer 负责 DOM 操作（挂载/更新/卸载），scheduler 负责调度（什么时候更新）。面试中说"渲染器负责调度"直接暴露理解模糊
+2. **patch 不是 diff** —— patch 是应用差异到 DOM，diff 是找差异。两个独立步骤，面试时常被混为一谈
+3. **自定义渲染器的 nodeOps 不是随便写** —— createRenderer 传入的 nodeOps 必须实现完整的 insert/create/remove/setText 等接口，漏一个就报错
+4. **SSR 的 renderer 和 DOM renderer 共享同一套 patch 逻辑** —— 差别只在 nodeOps——浏览器 nodeOps 操作 DOM API，SSR nodeOps 拼接 HTML 字符串
 
 ## 相关阅读
 

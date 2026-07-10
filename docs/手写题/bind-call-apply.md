@@ -3,7 +3,7 @@ title: 手写 bind / call / apply
 description: 手写实现 bind、call、apply，掌握 this 绑定机制
 category: 手写题
 type: exercise
-score: 0
+score: 82
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed

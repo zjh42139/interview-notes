@@ -3,7 +3,7 @@ title: new
 description: JavaScript 中 new 关键字的执行过程与手写实现
 category: JavaScript
 type: mechanism
-score: 0
+score: 82
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: draft

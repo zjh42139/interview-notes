@@ -3,7 +3,7 @@ title: XSS 与 CSRF
 description: XSS（跨站脚本）和 CSRF（跨站请求伪造）的攻击原理、常见变种和完整防御方案
 category: 浏览器
 type: security
-score: 0
+score: 87
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: draft

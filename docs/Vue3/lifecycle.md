@@ -3,7 +3,7 @@ title: 生命周期
 description: Vue3 组件生命周期钩子的执行顺序与 setup 中的使用方式
 category: Vue3
 type: mechanism
-score: 0
+score: 85
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed

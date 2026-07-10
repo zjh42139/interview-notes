@@ -3,7 +3,7 @@ title: Composition API
 description: Vue3 Composition API 的设计理念、setup 函数与逻辑复用方案
 category: Vue3
 type: mechanism
-score: 0
+score: 83
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
