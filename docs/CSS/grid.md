@@ -255,6 +255,14 @@ const isCollapsed = ref(false)
 - ❌ **Grid 项目内 `float` 有效** → 错。Grid 项目也在网格格式化上下文中，`float` 不生效。
 - ❌ **`repeat(3, 1fr)` 和 `1fr 1fr 1fr` 完全一样** → 效果一样，但 `repeat()` 可以配合 `auto-fit`/`auto-fill`、`minmax()` 写出更灵活的声明。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Grid 和 Flexbox 有什么区别" | 追问二维布局 vs 一维布局——Grid 同时控制行和列 |
+| "grid-template-areas 怎么用" | 追问命名区域的可视化布局——最直观的 Grid 写法 |
+| "fr 单位是什么" | 追问 fr 按比例分配剩余空间、和百分比的区别 |
+
 ## 相关阅读
 
 - [MDN: CSS Grid Layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout)

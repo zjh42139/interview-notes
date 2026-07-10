@@ -212,6 +212,14 @@ const Dashboard = () => import(/* webpackChunkName: "dashboard" */ "@/views/Dash
 4. **骨架屏让用户等更久** -- 骨架屏不改变真实加载时间，只是改善心理感知。如果加载占了瓶颈，还是要做实质性优化
 5. **defer 脚本完全不阻塞** -- defer 脚本的下载不阻塞 DOM，但执行仍在 DOMContentLoaded 之前，会延迟这个事件
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "首屏加载怎么优化" | 追问关键资源内联 + 非关键延迟 + preload + CDN + SSR/SSG 的组合 |
+| "FCP 和 LCP 有什么区别" | 追问 FCP 是第一个像素渲染——LCP 是最大内容渲染（通常首屏主图/H1） |
+| "白屏时间怎么减少" | 追问骨架屏 + 关键 CSS 内联 + JS 异步加载 |
+
 ## 相关阅读
 
 - [Web Vitals](./web-vitals.md)

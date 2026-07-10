@@ -237,6 +237,14 @@ export const Button: React.FC<Props> = ({ type = 'default', children }) => (
 - ❌ **在 Scoped 的 style 标签里写 `@import`**：导入的 CSS 不会被 scoped 处理，等于裸奔在全局。✅ 用 `<style src="...">` 或改成 JS 动态导入。
 - ❌ **以为 Scoped 能隔离所有样式**：Scoped 只对当前组件模板内的元素生效，通过 `v-html` 插入的内容不会被 scoped 处理。✅ `v-html` 的内容需要用 `:deep()` 或者单独的全局样式覆盖。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "CSS Modules 和 Scoped 有什么区别" | 追问 hash 类名 vs data 属性选择器的实现差异 |
+| "Scoped 的穿透怎么写" | 追问 :deep() 的原理和何时用 |
+| "CSS-in-JS 和 CSS Modules 怎么选" | 追问运行时开销和构建时生成的权衡 |
+
 ## 相关阅读
 
 - [CSS Modules 官方文档](https://github.com/css-modules/css-modules)

@@ -234,6 +234,14 @@ export default defineConfig({
 4. **Element Plus 完整导入体积巨大** -- 必须配置 `unplugin-vue-components` 按需导入，否则打包体积 1.5M+
 5. **proxy 代理在生产环境无效** -- proxy 只在 dev server 生效，生产环境需要 nginx 反向代理
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Vite 为什么快" | 追问原生 ESM dev server + esbuild 预构建 + Rollup 生产打包 |
+| "Vite 和 Webpack 有什么区别" | 追问开发模式——Vite 按需编译、Webpack 全量打包 |
+| "Vite 的预构建做了什么" | 追问把非 ESM 依赖（CommonJS）转为 ESM、合并多个内部模块减少请求数 |
+
 ## 相关阅读
 
 - [工程化 知识地图](./index.md)

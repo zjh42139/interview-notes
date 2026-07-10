@@ -248,6 +248,14 @@ function setRem() {
 - ❌ **`100vw` 包含滚动条宽度**：Windows 滚动条宽 17px，`width: 100vw` 会触发横向滚动条。✅ 用 `width: 100%` 或用新的 `100dvw`（动态视口单位）。
 - ❌ **border 1px 被 `postcss-px-to-viewport` 转成 vw**：在某些低端安卓上，`0.5px` 变成 `0.13333vw`，计算误差导致边框消失。✅ 配置 `minPixelValue: 1` 或 `selectorBlackList` 保留 border 的 px。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "rem 和 em 有什么区别" | 追问 rem 相对根元素、em 相对父元素——嵌套时 em 会累积 |
+| "移动端适配怎么做" | 追问 rem + flexible.js vs vw 方案的优劣 |
+| "vw 和 % 有什么区别" | 追问 vw 相对视口、% 相对包含块——一个有滚动条影响一个没有 |
+
 ## 相关阅读
 
 - [MDN: rem](https://developer.mozilla.org/en-US/docs/Web/CSS/length#rem)

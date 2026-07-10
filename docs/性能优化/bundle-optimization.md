@@ -223,6 +223,14 @@ import debounce from "lodash-es/debounce"
 4. **动态 import 没设置加载状态** -- 组件加载时需要 `<Suspense>` 或骨架屏兜底，否则网络慢时用户看到空白
 5. **压缩只在构建时做** -- 服务端 Nginx 也要开启 Gzip（或预生成 .br 文件），网络传输体积才是用户真正感知的
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "打包体积怎么优化" | 追问 Tree Shaking + 按需引入 + code splitting + gzip 的组合拳 |
+| "webpack-bundle-analyzer 怎么用" | 追问可视化分析每个 chunk 的大小——定位大依赖和重复打包 |
+| "路由懒加载的原理" | 追问 dynamic import 返回 Promise——webpack 自动拆成独立 chunk |
+
 ## 相关阅读
 
 - [首屏优化](./first-screen.md)

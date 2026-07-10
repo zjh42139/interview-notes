@@ -366,6 +366,14 @@ let n2: never = s;    // ❌ string 不能赋给 never
 n = 1 as never;       // ✅ 强制断言可以
 ```
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "any、unknown、never 有什么区别" | 追问 unknown 是类型安全的 any——必须先类型收窄才能用 |
+| "什么时候用 never" | 追问 never 表示永远不可能到达——抛异常或死循环的函数返回值 |
+| "void 和 undefined 有什么区别" | 追问 void 用在函数返回值表示"忽略返回值" |
+
 ## 相关阅读
 
 - [TypeScript Handbook: any](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any)

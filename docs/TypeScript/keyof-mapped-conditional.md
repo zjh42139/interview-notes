@@ -188,6 +188,14 @@ type RouteParams<P extends string> =
 **❌ `-readonly` 能一步到位去掉所有深层只读**
 `-readonly` 只对映射类型当前层的 `readonly` 生效，不会递归。要去掉嵌套对象的只读，需要自己实现 `DeepMutable<T>`。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "keyof、mapped、conditional 怎么组合" | 追问 `[K in keyof T]: T[K]` 的基础模式 |
+| "模板字面量类型是什么" | 追问 `${Prefix}${string}` 实现字符串级别的类型约束 |
+| "as 在 mapped type 中怎么用" | 追问 key remapping——`[K in keyof T as NewKey]: T[K]` |
+
 ## 相关阅读
 
 - [TypeScript Handbook: keyof Type Operator](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html)

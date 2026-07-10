@@ -177,6 +177,14 @@ git reset --hard HEAD~1  # 把 def456 从 main 删除
 - **用 cherry-pick 代替 merge 管理功能分支**：cherry-pick 不记录合并关系，将来 merge 时 Git 不知道这些提交已经存在，容易产生"已被应用的变更再次合并"的冲突
 - **cherry-pick 一个 merge commit**：merge commit 有多个 parent，直接 cherry-pick 需要指定 `-m` 参数告诉 Git 以哪个 parent 为基准，否则会报错。一般不推荐 cherry-pick merge commit，用 merge 代替
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "cherry-pick 怎么用" | 追问 `git cherry-pick <commit>` 把指定提交应用到当前分支 |
+| "cherry-pick 冲突了怎么办" | 追问解决冲突后 `git cherry-pick --continue` |
+| "cherry-pick 和 merge 有什么区别" | 追问 merge 合并整个分支历史——cherry-pick 只挑单个提交 |
+
 ## 相关阅读
 
 - [merge vs rebase](./merge-vs-rebase.md)

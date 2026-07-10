@@ -175,6 +175,14 @@ type ComponentProps<T> = T extends { $props: infer P } ? P : never;
 **❌ `never extends string ? yes : no` 结果是 `no`**
 结果是 `never`。`never` 触发分布式条件类型的"零迭代"——这是面试官的经典陷阱题。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "extends 和 infer 怎么配合" | 追问 extends 做条件类型、infer 在条件中提取类型变量 |
+| "extends 在泛型约束和条件类型中有什么不同" | 追问 `T extends U` 约束 vs `T extends U ? X : Y` 条件 |
+| "infer 能提取哪些类型" | 追问函数返回值、数组元素、Promise 包裹类型都可以提取 |
+
 ## 相关阅读
 
 - [TypeScript Handbook: Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)

@@ -155,6 +155,14 @@ module.exports = {
 3. **忘记配 `content` 路径** —— 没配或配错路径 → Tree Shaking 失效 → 生产的 CSS 缺少用到的 class
 4. **和组件库样式冲突** —— Tailwind 的 preflight（reset）可能会影响 Element Plus 等组件库的基础样式
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Tailwind CSS 的理念是什么" | 追问 Utility-first——用原子类组合代替语义化类名 |
+| "Tailwind 和传统 CSS 框架有什么区别" | 追问 Bootstrap 给你组件——Tailwind 给你构建块 |
+| "Tailwind 的生产包为什么这么小" | 追问 Tree Shaking + JIT 编译——只生成用到的类 |
+
 ## 相关阅读
 
 - [BEM 命名](../CSS/bem.md)

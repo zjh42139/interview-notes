@@ -266,6 +266,14 @@ import ProTable from "@myapp/shared/table"
 4. **硬链接不支持跨磁盘** -- 全局 store 和项目必须在同一磁盘/分区，否则硬链接失败，pnpm 会降级为文件复制
 5. **pnpm 的 node_modules 不是真正的扁平** -- 某些直接操作 node_modules 路径的工具（如某些 webpack plugin）可能找不到深层嵌套的依赖
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "pnpm 和 npm 有什么区别" | 追问硬链接+符号链接的 node_modules 结构——节省磁盘、严格依赖隔离 |
+| "pnpm 为什么能防幽灵依赖" | 追问只有声明的依赖可访问——npm/yarn 的扁平化让未声明依赖也可被 require |
+| "workspace 和 monorepo 怎么配合" | 追问 pnpm workspace 协议——`"lib-a": "workspace:*"` |
+
 ## 相关阅读
 
 - [工程化 知识地图](./index.md)

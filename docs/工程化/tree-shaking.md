@@ -227,6 +227,14 @@ npm install -D webpack-bundle-analyzer
 4. **`export default` 的 Tree Shaking 效果更好** -- 不，`export default` 导出的是一个对象，打包工具很难分析对象内部哪些属性被使用。命名导出 `export const xxx` 更利于 Tree Shaking
 5. **生产构建后仍有 console.log** -- `console.log` 是副作用调用，Terser/Rollup 不会删除。需要手动配置 `drop_console: true` 或在 esbuild 中 `drop: ["console"]`
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Tree Shaking 的原理是什么" | 追问 ES Module 静态导入的依赖图——标记未引用导出→删除 |
+| "为什么 CommonJS 不能 Tree Shake" | 追问 require 是动态的——运行时才能确定导入了什么 |
+| "sideEffects 配置有什么用" | 追问告诉 webpack 哪些文件有副作用不能删——如 CSS/全局注册 |
+
 ## 相关阅读
 
 - [工程化 知识地图](./index.md)

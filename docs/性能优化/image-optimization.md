@@ -230,6 +230,14 @@ async function uploadCropped() {
 4. **懒加载所有图片** -- 首屏图片不要用 `loading="lazy"`（会延迟 LCP），首屏以上正常加载，首屏以下懒加载
 5. **CSS background-image 不优化** -- background-image 也是图片请求，同样需要合适格式和尺寸；可以用 `image-set()` 做响应式
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "图片怎么优化" | 追问 WebP/AVIF 格式 + srcset 响应式 + loading=lazy + CDN + 压缩 |
+| "为什么不能用 PNG 替代 JPEG" | 追问 JPEG 有损压缩适合照片——PNG 无损适合图标/截图 |
+| "渐进式加载怎么实现" | 追问 LQIP 低质量占位→原图加载后过渡替换 |
+
 ## 相关阅读
 
 - [首屏优化](./first-screen.md)

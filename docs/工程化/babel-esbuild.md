@@ -236,6 +236,14 @@ real    0m 32s   # 快了 4 倍
 4. **core-js 版本不匹配** -- `@babel/preset-env` 的 `corejs` 选项必须和实际安装的 `core-js` 版本一致，否则运行时可能报错
 5. **忘记设置 `modules: false`** -- Babel 把 ESM 转成 CJS 后，Webpack/Rollup 的 Tree Shaking 完全失效，包体积可能大 30%
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Babel 和 ESBuild 有什么区别" | 追问 Babel 是转译器（JS→JS）、ESBuild 是打包器+转译器（更快） |
+| "为什么 ESBuild 这么快" | 追问 Go 语言编写、多线程并行、不生成 AST 直接产出的架构优势 |
+| "preset-env 和 plugin 的关系" | 追问 preset 是 plugin 的集合——preset-env 按目标环境自动选插件 |
+
 ## 相关阅读
 
 - [工程化 知识地图](./index.md)

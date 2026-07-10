@@ -176,6 +176,14 @@ git push --force-with-lease origin feature/xxx
 - **混淆 `merge --squash` 和 `rebase -i squash`**：前者是 merge 时压缩，后者是 rebase 时合并
 - **认为 rebase 比 merge 更好/更差**：两者是工具，没有优劣，只有场景区别。团队规范比个人偏好重要
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "merge 和 rebase 有什么区别" | 追问 merge 保留分支历史——rebase 把提交搬到目标分支顶端 |
+| "什么时候用 rebase" | 追问个人分支整理提交历史、同步主分支更新——公共分支不要 rebase |
+| "rebase 后 push 为什么要 --force" | 追问 rebase 重写了提交哈希——远程不知道你是同一条线 |
+
 ## 相关阅读
 
 - [冲突处理](./conflict-resolution.md)

@@ -208,6 +208,14 @@ const config = {
 // api.timeout 类型是 number ✅ 保留了，但 config.api 的嵌套结构并没有被约束
 ```
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "satisfies 和 as 有什么区别" | 追问 satisfies 做类型检查但不改变推导类型——as 是强制断言 |
+| "什么时候用 satisfies 而不是类型注解" | 追问需要保留字面量类型推导的场景 |
+| "satisfies 和 const 断言有什么不同" | 追问 satisfies 做类型校验、as const 做只读收窄 |
+
 ## 相关阅读
 
 - [TypeScript 4.9 Release Notes: satisfies](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator)

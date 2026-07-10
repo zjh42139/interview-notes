@@ -188,6 +188,14 @@ git stash drop  # 手动删除
 - **误以为 stash 是备份机制**：stash 是临时暂存，不是长期存储。换电脑、clone 新仓库、clean 操作都会导致 stash 丢失。重要代码及时 commit
 - **stash 后忘了自己 stash 了什么**：用 `git stash show -p stash@{0}` 查看具体变更内容
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "stash 怎么用" | 追问 `stash push` 暂存、`stash pop` 恢复、`stash list` 查看 |
+| "stash pop 和 stash apply 有什么区别" | 追问 pop 恢复后删除 stash——apply 保留在 stash 列表中 |
+| "怎么 stash 部分文件" | 追问 `stash push -p` 交互式选择或 `stash push -- <file>` 指定文件 |
+
 ## 相关阅读
 
 - [merge vs rebase](./merge-vs-rebase.md)

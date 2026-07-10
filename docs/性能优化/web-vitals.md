@@ -206,6 +206,14 @@ img {
 4. **FID 和 INP 混淆** -- FID 只测首次交互，INP 测全生命周期；Chrome 已用 INP 替代 FID 作为 Core Web Vital
 5. **不上报或全量上报** -- 不上报等于不知道用户真实体验，全量上报消耗大量带宽；建议采样率 10%
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Web Vitals 核心指标有哪些" | 追问 LCP/FID/CLS/INP 各自衡量什么、业界良好阈值 |
+| "CLS 怎么优化" | 追问给图片/iframe/广告预留尺寸——避免布局偏移 |
+| "怎么采集 Web Vitals 数据" | 追问 PerformanceObserver + web-vitals 库 + sendBeacon 上报 |
+
 ## 相关阅读
 
 - [首屏优化](./first-screen.md)

@@ -259,6 +259,14 @@ npx webpack --config webpack.config.ts --json > stats.json
 4. **Element Plus 没有按需导入** -- webpack 中也需要配置 `unplugin-vue-components/webpack`，否则全量导入体积巨大
 5. **开发模式下 CSS 提取** -- `MiniCssExtractPlugin` 应在生产使用，开发用 `style-loader` 支持 HMR
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Webpack 的核心概念" | 追问 entry/output/loader/plugin 的职责和协作 |
+| "loader 和 plugin 有什么区别" | 追问 loader 转换文件内容——plugin 扩展构建流程（钩子系统） |
+| "Webpack 的 HMR 原理" | 追问 WebSocket 推送更新→模块热替换→保留应用状态 |
+
 ## 相关阅读
 
 - [工程化 知识地图](./index.md)

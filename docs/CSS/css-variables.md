@@ -246,6 +246,14 @@ Element Plus 后台的 `styles/variables.css` 典型写法：
 - ❌ **`var()` 可以嵌套**：`var(--a, var(--b, red))` 是合法的——当 `--a` 未定义时取 `--b`，都没有时取 `red`。但嵌套过深会影响可读性。
 - ❌ **忘记 JS 操作的单位**：`el.style.setProperty('--spacing', 20)` 写进去的是字符串 `"20"`，在 `calc(var(--spacing) * 2)` 里无效。✅ 带单位：`el.style.setProperty('--spacing', '20px')`。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "CSS 变量和 Sass 变量有什么区别" | 追问 CSS 变量是运行时的——可被 JS 动态修改、可响应媒体查询 |
+| "CSS 变量怎么实现主题切换" | 追问 :root 上换一套变量值——全局主题瞬间生效 |
+| "CSS 变量的兼容性" | 追问 IE 不支持、现代项目可以放心用的现状 |
+
 ## 相关阅读
 
 - [MDN: Using CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)

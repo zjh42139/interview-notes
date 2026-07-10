@@ -198,6 +198,13 @@ git bisect reset
 - **bisect skip 跳过太多相邻 commit**：如果一连 10 个 commit 都无法测试，bisect 无法继续。这种情况应该先修好构建问题
 - **以为 bisect 只能找 bug**：除了找 bug 回归，也可以找**性能回归**——把测试脚本改成性能基准测试，退出码按性能是否达标返回
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "bisect 怎么用来定位 bug" | 追问二分查找的思想——标记 good/bad 后自动二分到引入 bug 的 commit |
+| "bisect 和 git blame 有什么区别" | 追问 bisect 是"哪次提交引入的"，blame 是"谁写的这行" |
+
 ## 相关阅读
 
 - [Git 官方文档：git-bisect](https://git-scm.com/docs/git-bisect)

@@ -236,6 +236,14 @@ jobs:
 - **feature 分支存在太长时间**：一个 feature 开发了 3 周还没合，和 develop 之间的差异已经几百个 commit。解法：大功能拆成小功能，每个 3 天内合入。如果真需要长期开发，用 feature flag 在 TBD 模式下开发
 - **release 分支上继续加新功能**：release 的唯一任务是修 bug + 更新元信息。加新功能意味着这些功能没有经过 develop 的正常 review 流程，风险极高
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Git Flow 的流程是怎样的" | 追问 main/develop/feature/release/hotfix 分支模型 |
+| "Git Flow 和 Trunk-Based 有什么区别" | 追问长期分支 vs 主干开发 + 短分支的 CI/CD 适配差异 |
+| "你们团队用什么分支策略" | 追问根据团队规模和发布节奏选择——小团队简化版 Git Flow |
+
 ## 相关阅读
 
 - [merge vs rebase](./merge-vs-rebase.md)

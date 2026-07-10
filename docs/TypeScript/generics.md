@@ -183,6 +183,14 @@ function useForm<T extends Record<string, unknown>>(initial: T) {
 **❌ 泛型嵌套越深越好**
 过度抽象让类型难以阅读。项目中泛型嵌套一般不超过两层，复杂的拆成多个有意义的类型别名。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "泛型是什么，为什么需要" | 追问泛型是类型的参数——不损失类型信息的前提下实现复用 |
+| "泛型约束怎么加" | 追问 `<T extends U>` 限制 T 必须满足 U 的形状 |
+| "泛型和 any 有什么区别" | 追问 any 丢了类型信息——泛型保留了入参和返回值的类型关联 |
+
 ## 相关阅读
 
 - [TypeScript Handbook: Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)

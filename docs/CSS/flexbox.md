@@ -234,6 +234,14 @@ graph TB
 - ❌ **Flexbox 可以替代所有布局** → 错。二维对齐（行列同时对齐）用 Grid 更合适，Flex 做不了或者需要很 hack 的实现。
 - ❌ **`gap` 在 Flexbox 中不支持** → 曾经是，但现在所有现代浏览器都支持 `gap`（包括 `row-gap` / `column-gap`）。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "Flexbox 怎么实现两栏布局" | 追问 flex-grow/flex-shrink/flex-basis 三个属性的协作 |
+| "align-items 和 align-content 有什么区别" | 追问单行 vs 多行、主轴 vs 交叉轴 |
+| "Flexbox 和 Grid 怎么选" | 追问一维布局（Flex）vs 二维布局（Grid）的场景分界 |
+
 ## 相关阅读
 
 - [MDN: Flexbox 基本概念](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox)

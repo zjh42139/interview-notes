@@ -216,6 +216,14 @@ rules: {
 - **scope 不要乱写**：scope 应该对应项目的功能模块，不是文件名，不是开发者名字。`fix(utils.js)` 应写成 `fix(common)`
 - **`git commit --no-verify` 绕过校验**：紧急情况可以用，但用完要在下个 commit 中补上规范 message，并在团队规范中说明这种例外场景的处理方式
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "你们的 commit 规范是什么" | 追问 Conventional Commits——feat/fix/docs/refactor 等类型前缀 |
+| "commitlint 怎么配置" | 追问 husky + commitlint 在 git hook 中校验提交信息 |
+| "为什么需要 commit 规范" | 追问 changelog 自动生成 + 语义化版本号的依赖 |
+
 ## 相关阅读
 
 - [Conventional Commits 官方规范](https://www.conventionalcommits.org/zh-hans/v1.0.0/)

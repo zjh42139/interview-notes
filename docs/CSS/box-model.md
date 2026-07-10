@@ -142,6 +142,14 @@ input {
 - ❌ **inline 元素的宽高不生效**：对 `span` 设 `width: 200px` 没反应，然后怀疑盒模型有问题。✅ inline 元素不接受 width/height，换成 `inline-block` 或 `block`。
 - ❌ **忘记 `box-sizing` 不影响 margin**：设了 `border-box` 就以为 `width` 包含了 margin，做间距计算时出错。✅ margin 永远在盒模型最外层，不影响 width。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "标准盒模型和 IE 盒模型有什么区别" | 追问 box-sizing 怎么切换两种模式 |
+| "width: 100% 和 width: auto 有什么区别" | 追问 padding/border/margin 在不同盒模型下的计算 |
+| "怪异模式和标准模式怎么触发" | 追问 DOCTYPE 的作用和两种模式的渲染差异 |
+
 ## 相关阅读
 
 - [MDN: The box model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)

@@ -180,6 +180,15 @@ display: table-cell;   /* 或 table-caption */
 - ❌ **给所有元素加 `overflow: hidden` 是好事** → 错，有裁剪副作用，弹窗/Tooltip 会被切掉。首选 `display: flow-root`。
 - ❌ **BFC 内的浮动不需要清除** → 对，BFC 的高度计算包含浮动元素，但**浮动元素本身仍在 BFC 内部**，不是"清除"了浮动，是 BFC 感知到了它的高度。
 
+## 面试信号表
+
+| 面试官问 | 下一问大概率是 |
+|----------|-------------|
+| "什么是 BFC" | 追问 BFC 的触发条件和解决的实际问题 |
+| "怎么清除浮动" | 追问 clearfix 和 display: flow-root 的原理差异 |
+| "margin 重叠怎么解决" | 追问 BFC 隔断 margin 重叠的机制 |
+| "overflow: hidden 为什么能创建 BFC" | 追问 BFC 的渲染隔离本质 |
+
 ## 相关阅读
 
 - [MDN: Block Formatting Context](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context)
