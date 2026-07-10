@@ -19,11 +19,11 @@ tags:
 ---
 # HTML 面试题库
 
-> 20 道高频 HTML 面试题，按频率排序。每道题标注难度和参考答案索引。
+> 15 道高频 HTML 面试题，按频率排序。每道题标注难度和参考答案索引。
 
-## HTML5 语义化（6 题）
+## HTML5 语义化（5 题）
 
-### 1. HTML5 新增了哪些语义化标签？和 div 有什么区别？
+### Q1: HTML5 新增了哪些语义化标签？和 div 有什么区别？
 
 **30秒答**：header/nav/main/article/section/aside/footer 语义标签替代 div。三个价值：SEO 权重分配、读屏器无障碍导航、代码可读性。article 独立完整可分发；section 需上下文。
 
@@ -45,7 +45,7 @@ tags:
 
 ---
 
-### 2. DOCTYPE 是干什么的？不写会怎样？
+### Q2: DOCTYPE 是干什么的？不写会怎样？
 
 **30秒答**：DOCTYPE 触发标准模式渲染——不写触发怪异模式(IE5 盒模型)。HTML5 简化为 <!DOCTYPE html>。必须文档第一行——前面不能有空行或 BOM。
 
@@ -67,7 +67,7 @@ tags:
 
 ---
 
-### 3. meta viewport 是干什么的？怎么写？
+### Q3: meta viewport 是干什么的？怎么写？
 
 **30秒答**：width=device-width 布局视口=设备宽度。不写默认 980px 缩小塞进屏幕字很小。三个视口：布局视口(CSS 基准)、视觉视口(屏幕可见)、理想视口(设备宽度)。
 
@@ -90,7 +90,7 @@ tags:
 
 ---
 
-### 4. HTML5 新增了哪些表单特性？
+### Q4: HTML5 新增了哪些表单特性？
 
 **30秒答**：新增 input 类型 email/url/number/date/range/color。新增属性 required/pattern/placeholder/autocomplete。Constraint Validation API checkValidity/setCustomValidity。CSS :valid/:invalid 伪类。
 
@@ -113,7 +113,7 @@ tags:
 
 ---
 
-### 5. em 和 i、strong 和 b 有什么区别？
+### Q5: em 和 i、strong 和 b 有什么区别？
 
 **30秒答**：em 语义强调——读屏器改变语调，SEO 给权重。i 纯视觉斜体——无语义。strong 语义重要/紧急，b 纯视觉加粗。SEO 给 strong 更高权重。
 
@@ -135,9 +135,9 @@ tags:
 ---
 
 
-## 加载与性能（4 题）
+## 加载与性能（3 题）
 
-### 7. script 标签的 defer 和 async 有什么区别？
+### Q6: script 标签的 defer 和 async 有什么区别？
 
 **30秒答**：普通 script 阻塞 DOM 解析立即下载执行。defer 异步下载等 DOM 完成后按顺序执行。async 异步下载下载完立即执行不保证顺序。type=module 默认行为同 defer。
 
@@ -161,7 +161,7 @@ tags:
 ---
 
 
-### 9. 图片懒加载怎么实现？有哪些方式？
+### Q7: 图片懒加载怎么实现？有哪些方式？
 
 **30秒答**：loading=lazy 零代码浏览器原生支持。IntersectionObserver 可自定义提前触发距离。首屏图不懒加载——设 fetchpriority=high。响应式 srcset+sizes 配合懒加载。
 
@@ -185,7 +185,7 @@ tags:
 
 ---
 
-### 10. preload / prefetch / preconnect / dns-prefetch 是什么？
+### Q8: preload / prefetch / preconnect / dns-prefetch 是什么？
 
 **30秒答**：preload 当前页立即高优加载(字体/首屏图)。prefetch 下页可能用空闲低优加载。preconnect 提前建连 DNS+TCP+TLS。dns-prefetch 只 DNS 更轻量。同时 preload+prefetch=两次加载。
 
@@ -208,9 +208,9 @@ tags:
 
 ---
 
-## 元素与事件（5 题）
+## 元素与事件（3 题）
 
-### 11. 块级元素和行内元素有什么区别？
+### Q9: 块级元素和行内元素有什么区别？
 
 **30秒答**：块级独占一行可设宽高。行内不换行宽高无效。行内块不换行+可设宽高。替换元素 img/input/video 行内但可设宽高有内在尺寸。inline-block 间隙是 HTML 换行=空格字符。
 
@@ -233,7 +233,7 @@ tags:
 
 ---
 
-### 12. Canvas 和 SVG 有什么区别？
+### Q10: Canvas 和 SVG 有什么区别？
 
 **30秒答**：Canvas 位图无 DOM 节点——大量对象性能好但不支持事件。SVG 矢量图每个图形 DOM 可绑定事件——缩放清晰但 1000+节点会卡。Canvas 需处理 Retina(×dpr)；SVG 天生清晰。
 
@@ -256,7 +256,7 @@ tags:
 
 ---
 
-### 13. iframe 有什么优缺点？如何使用 postMessage 通信？
+### Q11: iframe 有什么优缺点？如何使用 postMessage 通信？
 
 **30秒答**：iframe 天然隔离(独立 window/document)——适合嵌入第三方。postMessage 跨域通信——发送指定 targetOrigin，接收校验 origin。sandbox 按需开放权限。缺点：阻塞父 onload、SEO 差。
 
@@ -281,9 +281,9 @@ tags:
 
 
 
-## 路由与架构（3 题）
+## 路由与架构（4 题）
 
-### 16. History API 的 pushState 和 replaceState 有什么区别？hash 和 history 模式有什么区别？
+### Q12: History API 的 pushState 和 replaceState 有什么区别？hash 和 history 模式有什么区别？
 
 **30秒答**：pushState 新增历史记录不触发 popstate。replaceState 替换当前记录。hash 模式 # 后不发送服务端刷新不 404；history 模式 URL 干净需服务端 fallback。vue-router 两种模式底层都是这两个 API。
 
@@ -306,7 +306,7 @@ tags:
 
 ---
 
-### 17. Web Worker 是什么？有哪些类型？
+### Q13: Web Worker 是什么？有哪些类型？
 
 **30秒答**：Worker 独立线程跑 JS——不能访问 DOM/window/localStorage。Dedicated 单页面；Shared 同源多页面共享；Service Worker PWA 离线。Transferable 零拷贝传大数据。场景：Excel 导出、大 JSON 解析。
 
@@ -329,7 +329,7 @@ tags:
 
 ---
 
-### 18. Web Components 是什么？和 Vue/React 组件有什么区别？
+### Q14: Web Components 是什么？和 Vue/React 组件有什么区别？
 
 **30秒答**：三大标准——Custom Elements 自定义标签、Shadow DOM 样式隔离、HTML Template 内容模板。跨框架可用零依赖。Shadow DOM CSS 变量可穿透、::part 伪元素可选中。无响应式系统生态不完整。
 
@@ -352,7 +352,7 @@ tags:
 
 ---
 
-### 19. CSR / SSR / SSG / ISR 分别是什么？怎么选？
+### Q15: CSR / SSR / SSG / ISR 分别是什么？怎么选？
 
 **30秒答**：CSR 空壳+JS 渲染 SEO 差适合后台。SSR 服务端生成 HTML SEO 好适合电商。SSG 构建时预渲染零服务器适合博客。ISR SSG+按需增量更新。选型：toB→CSR；toC 内容→SSG；toC 动态→SSR。
 
@@ -378,10 +378,9 @@ tags:
 
 | 模块 | 题目数 | 覆盖文件 |
 |------|--------|----------|
-| HTML5 语义化 | 6 | html5-semantic, doctype-meta, form-validation |
-| 加载与性能 | 4 | script-defer-async, src-href, lazy-loading |
-| 元素与事件 | 5 | block-inline, canvas-svg, iframe, a-tag |
-| 路由与架构 | 3 | history-api, web-worker, web-components, seo-ssr |
-| HTML 编码 | 2 | html-entities |
+| HTML5 语义化 | 5 | html5-semantic, doctype-meta, form-validation |
+| 加载与性能 | 3 | script-defer-async, lazy-loading |
+| 元素与事件 | 3 | block-inline, canvas-svg, iframe |
+| 路由与架构 | 4 | history-api, web-worker, web-components, seo-ssr |
 
-**频率分布**：⭐⭐⭐⭐⭐ ×7｜⭐⭐⭐⭐ ×8｜⭐⭐⭐ ×4｜⭐⭐ ×1
+**频率分布**：⭐⭐⭐⭐⭐ ×5｜⭐⭐⭐⭐ ×9｜⭐⭐⭐ ×1

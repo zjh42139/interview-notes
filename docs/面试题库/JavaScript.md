@@ -76,6 +76,8 @@ console.log('7');
 - 原型链关系处理（`new` 操作符场景）
 - 参数合并逻辑
 
+**30秒答**：bind 返回一个永久绑定了 this 的新函数。call 和 apply 的区别只在传参——call 逐个传、apply 数组传。两个关键点：bind 返回的函数再 bind 无效，new 的优先级高于 bind。
+
 > 答案参考：[../JavaScript/call-apply-bind.md](../JavaScript/call-apply-bind.md)
 > 延伸：[../手写题/bind-call-apply.md](../手写题/bind-call-apply.md)
 
@@ -83,7 +85,6 @@ console.log('7');
 
 ### Q3: 闭包 + setTimeout | 输出题 输出题
 
-**30秒答**：bind 返回一个永久绑定了 this 的新函数。call 和 apply 的区别只在传参——call 逐个传、apply 数组传。两个关键点：bind 返回的函数再 bind 无效，new 的优先级高于 bind。
 
 **30秒答**：闭包 = 函数能记住并访问它被创建时所在的作用域——即使外层函数已经执行完了。for + var + setTimeout 全输出 5 是经典题——var 是函数作用域，所有回调共享同一个 i；用 let 或 IIFE 创建独立作用域解决。
 
@@ -167,6 +168,8 @@ obj.foo.call({ name: 'other' }); // ?
 - `process.nextTick` vs `Promise.then` 的执行优先级
 - Node 11+ 版本对微任务的修改
 
+**30秒答**：JS 单线程靠 Event Loop 调度——同步代码执行完→清空微任务(Promise.then/MutationObserver)→取一个宏任务(setTimeout/事件)→再清空微→可能渲染→循环。微任务优先级高于宏任务。
+
 > 答案参考：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
 > 🎤 回答稿：[../面试回答/JavaScript/event-loop.md](../面试回答/JavaScript/event-loop.md)
 > 延伸：[../工程化/Node/node-event-loop.md](../工程化/Node/node-event-loop.md)
@@ -176,7 +179,6 @@ obj.foo.call({ name: 'other' }); // ?
 
 ### Q6: 手写深拷贝 | 手写题
 
-**30秒答**：JS 单线程靠 Event Loop 调度——同步代码执行完→清空微任务(Promise.then/MutationObserver)→取一个宏任务(setTimeout/事件)→再清空微→可能渲染→循环。微任务优先级高于宏任务。
 
 **30秒答**：递归遍历对象——基本类型直接返回，对象创建新容器递归拷贝。三个难点：循环引用用 WeakMap 记录已拷贝对象、Date/RegExp 用 instanceof 判断重新构造、Symbol 用 getOwnPropertySymbols 获取。
 
@@ -274,6 +276,8 @@ console.log(f instanceof Foo);      // ?
 - `instanceof` 的本质：沿着 `__proto__` 查找 `prototype`
 - 动态修改原型的影响
 
+**30秒答**：每个对象都有 __proto__ 指向原型，原型又有自己的原型——串成原型链。函数才有 prototype——new 出来的对象 __proto__ 指向函数的 prototype。instanceof 就是顺着 __proto__ 找 prototype。class 本质是语法糖。
+
 > 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
 > 延伸：[../JavaScript/new.md](../JavaScript/new.md)
 
@@ -298,6 +302,8 @@ let b = 2;
 - `const` 声明必须初始化，且基本类型值不可修改
 - TDZ 的原理：从块开始到声明之间不可访问
 
+**30秒答**：var 函数作用域/可重复声明/有变量提升；let 块作用域/不可重复声明/有 TDZ；const 块作用域/不可重复声明/不可重新赋值（但对象属性可改）。现在默认用 const——需要改的用 let——不用 var。
+
 > 答案参考：[../JavaScript/closure.md](../JavaScript/closure.md)
 > 🎤 回答稿：[../面试回答/JavaScript/closure.md](../面试回答/JavaScript/closure.md)
 
@@ -314,6 +320,8 @@ let b = 2;
 - `debounce` 的 `immediate` 参数（首次立即执行）
 - `throttle` 的时间戳实现 vs 定时器实现
 - 实际场景：搜索框输入（debounce）、滚动加载（throttle）
+
+**30秒答**：防抖——连续触发只执行最后一次（搜索框输入）。节流——连续触发按固定频率执行（页面滚动）。核心都是 setTimeout 控制频率。防抖每次重置计时器，节流一段时间内只执行一次。
 
 > 答案参考：[../JavaScript/debounce-throttle.md](../JavaScript/debounce-throttle.md)
 > 🎤 回答稿：[../面试回答/JavaScript/debounce-throttle.md](../面试回答/JavaScript/debounce-throttle.md)
@@ -332,6 +340,8 @@ let b = 2;
 - 构造函数返回值判断（引用类型 vs 基本类型）
 - `new` 优先级 > 隐式绑定
 
+**30秒答**：new 做四步——创建空对象→设 __proto__ 指向构造函数 prototype→执行构造函数绑定 this→返回对象（构造函数不 return 对象的话）。面试常问：return 一个对象，new 就返回那个对象。
+
 > 答案参考：[../JavaScript/new.md](../JavaScript/new.md)
 > 延伸：[../手写题/new.md](../手写题/new.md)
 
@@ -349,6 +359,8 @@ let b = 2;
 - 安全类型检测：`Object.prototype.toString.call(value).slice(8, -1)`
 - `Array.isArray()` 的实现原理
 
+**30秒答**：基本类型 7 种——string/number/boolean/undefined/null/symbol/bigint。引用类型——Object/Array/Function。typeof null === object 是历史 bug。最可靠判断用 Object.prototype.toString.call。
+
 > 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
 
 ---
@@ -363,6 +375,8 @@ let b = 2;
 - 老生代：标记-清除（Mark-Sweep）+ 标记-整理（Mark-Compact）
 - 增量标记（Incremental Marking）降低 GC 停顿
 - 常见内存泄漏：全局变量、未清除的定时器、闭包引用、游离 DOM
+
+**30秒答**：标记清除——从根对象出发标记所有可达对象，不可达的回收。引用计数——记录每个对象的引用次数，归零回收但解决不了循环引用。V8 分代 GC——新生代 Scavenge 复制，老生代 Mark-Sweep-Compact。
 
 > 答案参考：[../浏览器/reflow-repaint.md](../浏览器/reflow-repaint.md)
 
@@ -379,12 +393,14 @@ let b = 2;
 - `Object.keys()` / `Object.values()` / `Object.entries()` 遍历对象
 - 如何给自定义对象实现 `[Symbol.iterator]` 方法
 
+**30秒答**：for...in 遍历可枚举属性包括原型链——适合对象。for...of 遍历可迭代对象的值——适合数组/Map/Set/字符串。Object.keys/values/entries 遍历对象自身属性不碰原型。自定义迭代器实现 Symbol.iterator。
+
 > 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
 
 ---
 
 
-### Q16: 浮点数 | 概念题精度问题
+### Q15: 浮点数 | 概念题精度问题
 > ⭐⭐⭐ | 难度：中高级
 
 **题目**：为什么 `0.1 + 0.2 !== 0.3`？如何解决 JS 中的浮点数精度问题？项目中如何处理金额计算？
@@ -396,11 +412,13 @@ let b = 2;
 - 第三方库（big.js、decimal.js）实现任意精度
 - 业务常见做法：金额以"分"为单位存储，避免小数运算
 
+**30秒答**：JS 用 IEEE754 双精度存储——0.1+0.2 二进制无限循环导致精度丢失。解决：转整数计算、toFixed 格式化、或用 big.js/Decimal 库。面试说清"二进制不能精确表示十进制小数"就够了。
+
 > 答案参考：[../JavaScript/deep-clone.md](../JavaScript/deep-clone.md)
 
 ---
 
-### Q17: 手写 Promise | 手写题（含链式调用）
+### Q16: 手写 Promise | 手写题（含链式调用）
 > ⭐⭐⭐⭐⭐ | 难度：中高级
 
 **题目**：请按照 Promises/A+ 规范手写一个 Promise，支持 `.then()` 链式调用、`catch`、`finally`、`Promise.resolve`、`Promise.reject`、`Promise.all`、`Promise.race`。
@@ -412,12 +430,14 @@ let b = 2;
 - 发布-订阅模式收集回调
 - `Promise.all` 的失败快速返回 vs `Promise.allSettled`
 
+**30秒答**：构造函数维护三态 pending/fulfilled/rejected——状态不可逆。.then 返回新 Promise——回调返回值决定新 Promise 状态。then 回调异步执行（微任务）。手写核心：状态机 + 回调队列 + then 返回新 Promise。
+
 > 答案参考：[../手写题/promise.md](../手写题/promise.md)
 > 延伸：[../JavaScript/promise.md](../JavaScript/promise.md)
 
 ---
 
-### Q18: 事件委托 | 概念题 / 事件代理
+### Q17: 事件委托 | 概念题 / 事件代理
 > ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：什么是事件委托？请实现一个通用的委托函数。事件委托的原理是什么？
@@ -429,13 +449,15 @@ let b = 2;
 - 动态添加元素无需重新绑定事件
 - 不适合委托的场景：`focus`/`blur` 等不冒泡的事件
 
+**30秒答**：利用事件冒泡——把监听绑在父元素上，通过 e.target 判断真正被点击的子元素。好处：动态新增子元素无需重新绑定、减少内存占用。不冒泡的事件（focus/blur/scroll）不能委托。
+
 > 答案参考：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
 > 🎤 回答稿：[../面试回答/JavaScript/event-loop.md](../面试回答/JavaScript/event-loop.md)
 > 延伸：[../手写题/event-emitter.md](../手写题/event-emitter.md)
 
 ---
 
-### Q19: class | 对比题 与 ES5 构造函数的区别
+### Q18: class | 对比题 与 ES5 构造函数的区别
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：ES6 的 `class` 和 ES5 的构造函数写法有什么区别？`class` 的本质是什么？
@@ -448,12 +470,14 @@ let b = 2;
 - `class` 必须用 `new` 调用，构造函数可普通调用
 - `extends` 和 `super` 的实现原理
 
+**30秒答**：class 是 prototype 的语法糖。区别：class 必须 new、内部自动严格模式、方法不可枚举、有 TDZ。extends 同时设置了 constructor.prototype 和 __proto__ 两条继承链——比 ES5 寄生组合继承更简洁。
+
 > 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
 > 延伸：[../JavaScript/new.md](../JavaScript/new.md)
 
 ---
 
-### Q20: Map vs WeakMap | 对比题 / Set vs WeakSet
+### Q19: Map vs WeakMap | 对比题 / Set vs WeakSet
 > ⭐⭐⭐ | 难度：中级
 
 **题目**：Map 和 WeakMap 有什么区别？WeakMap 有哪些典型使用场景？
@@ -465,11 +489,13 @@ let b = 2;
 - 使用场景：DOM 节点关联的元数据、私有属性实现、缓存系统
 - `WeakSet` 只能存对象，弱引用
 
+**30秒答**：Map key 可以是任意类型且保持插入顺序；WeakMap key 只能是对象且是弱引用——key 被回收后 value 自动 GC。WeakMap 不可迭代、没有 size——因为 key 随时可能被 GC。场景：DOM 节点关联数据、私有属性。
+
 > 答案参考：[../JavaScript/deep-clone.md](../JavaScript/deep-clone.md)
 
 ---
 
-### Q21: Promise.all / allSettled / any / race 对比
+### Q20: Promise.all / allSettled / any / race 对比
 > ⭐⭐⭐⭐⭐ | 难度：中级
 > 🏷️ 对比题
 
@@ -482,27 +508,16 @@ let b = 2;
 - any：第一个成功的，全失败抛 AggregateError。场景：多 CDN 降级——哪个快用哪个
 - 共同点：都接收 Promise 数组，返回 Promise
 
-**30秒答**：每个对象都有 __proto__ 指向原型，原型又有自己的原型——串成原型链。函数才有 prototype——new 出来的对象 __proto__ 指向函数的 prototype。instanceof 就是顺着 __proto__ 找 prototype。class 本质是语法糖。
 
-**30秒答**：var 函数作用域/可重复声明/有变量提升；let 块作用域/不可重复声明/有 TDZ；const 块作用域/不可重复声明/不可重新赋值（但对象属性可改）。现在默认用 const——需要改的用 let——不用 var。
 
-**30秒答**：防抖——连续触发只执行最后一次（搜索框输入）。节流——连续触发按固定频率执行（页面滚动）。核心都是 setTimeout 控制频率。防抖每次重置计时器，节流一段时间内只执行一次。
 
-**30秒答**：new 做四步——创建空对象→设 __proto__ 指向构造函数 prototype→执行构造函数绑定 this→返回对象（构造函数不 return 对象的话）。面试常问：return 一个对象，new 就返回那个对象。
 
-**30秒答**：基本类型 7 种——string/number/boolean/undefined/null/symbol/bigint。引用类型——Object/Array/Function。typeof null === object 是历史 bug。最可靠判断用 Object.prototype.toString.call。
 
-**30秒答**：标记清除——从根对象出发标记所有可达对象，不可达的回收。引用计数——记录每个对象的引用次数，归零回收但解决不了循环引用。V8 分代 GC——新生代 Scavenge 复制，老生代 Mark-Sweep-Compact。
 
-**30秒答**：JS 用 IEEE754 双精度存储——0.1+0.2 二进制无限循环导致精度丢失。解决：转整数计算、toFixed 格式化、或用 big.js/Decimal 库。面试说清"二进制不能精确表示十进制小数"就够了。
 
-**30秒答**：构造函数维护三态 pending/fulfilled/rejected——状态不可逆。.then 返回新 Promise——回调返回值决定新 Promise 状态。then 回调异步执行（微任务）。手写核心：状态机 + 回调队列 + then 返回新 Promise。
 
-**30秒答**：利用事件冒泡——把监听绑在父元素上，通过 e.target 判断真正被点击的子元素。好处：动态新增子元素无需重新绑定、减少内存占用。不冒泡的事件（focus/blur/scroll）不能委托。
 
-**30秒答**：class 是 prototype 的语法糖。区别：class 必须 new、内部自动严格模式、方法不可枚举、有 TDZ。extends 同时设置了 constructor.prototype 和 __proto__ 两条继承链——比 ES5 寄生组合继承更简洁。
 
-**30秒答**：Map key 可以是任意类型且保持插入顺序；WeakMap key 只能是对象且是弱引用——key 被回收后 value 自动 GC。WeakMap 不可迭代、没有 size——因为 key 随时可能被 GC。场景：DOM 节点关联数据、私有属性。
 
 **30秒答**：all 全成功才 resolve/一个失败就 reject。allSettled 等全部 settle 不管成败。race 取第一个 settle 的结果。any 取第一个成功的——全失败才抛 AggregateError。场景：all 批量请求；race 超时控制；any 多 CDN 降级。
 
@@ -516,7 +531,7 @@ let b = 2;
 
 ---
 
-### Q22: null 和 undefined 的区别
+### Q21: null 和 undefined 的区别
 > ⭐⭐⭐⭐ | 难度：初级
 > 🏷️ 对比题
 
@@ -536,7 +551,7 @@ let b = 2;
 
 ---
 
-### Q23: 数组去重方法
+### Q22: 数组去重方法
 > ⭐⭐⭐⭐ | 难度：初级
 > 🏷️ 概念题
 

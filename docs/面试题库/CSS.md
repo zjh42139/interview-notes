@@ -291,7 +291,7 @@ tags:
 
 
 
-## Q15：`transition` 和 `animation` 有什么区别？⭐⭐⭐⭐
+## Q13：`transition` 和 `animation` 有什么区别？⭐⭐⭐⭐
 
 **30秒答**：transition 需要触发条件(hover/focus)只有两个状态——适合简单过渡。animation 自动播放多关键帧——适合复杂动画。性能：用 transform/opacity 做动画 GPU 加速，避免 width/height/top/left 触发回流。
 
@@ -312,7 +312,7 @@ tags:
 
 ---
 
-## Q16：单行/多行文本溢出省略怎么实现？⭐⭐⭐⭐
+## Q14：单行/多行文本溢出省略怎么实现？⭐⭐⭐⭐
 
 **30秒答**：单行 text-overflow:ellipsis+white-space:nowrap+overflow:hidden 三件套。多行 -webkit-line-clamp+display:-webkit-box+overflow:hidden。多行兼容性差——Firefox 不支持。
 
@@ -333,7 +333,7 @@ tags:
 
 ---
 
-## Q17：如何清除浮动？clearfix 和 BFC 方案有什么区别？⭐⭐⭐⭐
+## Q15：如何清除浮动？clearfix 和 BFC 方案有什么区别？⭐⭐⭐⭐
 
 **30秒答**：clearfix ::after+clear:both 在浮动元素后插入清除块。BFC 触发后计算高度包含浮动子元素。现代 Flexbox/Grid 基本不再需要清除浮动。
 
@@ -355,7 +355,7 @@ tags:
 
 ---
 
-## Q18：CSS 如何实现暗黑模式？⭐⭐⭐⭐
+## Q16：CSS 如何实现暗黑模式？⭐⭐⭐⭐
 
 **30秒答**：CSS 变量切换主题色值+prefers-color-scheme 媒体查询自动跟随系统+class 切换手动控制。图片用 CSS filter 降低亮度或准备两套资源。
 
