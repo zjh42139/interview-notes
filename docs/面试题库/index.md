@@ -14,8 +14,10 @@ description: 前端面试高频真题
 | [HTML](./HTML.md) | 15 |
 | [CSS](./CSS.md) | 16 |
 | [JavaScript](./JavaScript.md) | 22 |
-| [Vue3](./Vue3.md) | 15 |
+| [Vue3](./Vue3.md) | 17 |
+| [Vue Router](./VueRouter.md) | 7 |
 | [TypeScript](./TypeScript.md) | 11 |
+| [Pinia](./Pinia.md) | 7 |
 | [浏览器](./浏览器.md) | 18 |
 | [网络](./网络.md) | 14 |
 | [工程化](./工程化.md) | 12 |
@@ -25,4 +27,4 @@ description: 前端面试高频真题
 | [项目实战](./项目.md) | 14 |
 | [HR](./HR.md) | 14 |
 
-> 共 177 道高频面试题。日常刷题 + 配合 [面试回答](../面试回答/) 练习脱稿。
+> 共 193 道高频面试题。日常刷题 + 配合 [面试回答](../面试回答/) 练习脱稿。

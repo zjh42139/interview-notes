@@ -7,6 +7,33 @@ description: 知识库变更记录
 
 ## 2026-07-11
 
+### Vue3 生态三模块重构
+
+**Vue3 模块**：
+- 题库题号重排（Q13→Q12, Q14→Q13, Q16→Q14, Q17→Q15）+ Q12 补 30秒答+追问预测
+- +2 题库题：v-model（Q16）+ 组件通信（Q17），覆盖了此前知识文件有但题库无的高频题
+- 交叉引用修正：Q8（Vue3 vs Vue2）index.md→reactivity+composition-api，Q14（Pinia）composition-api→Pinia/vs-vuex
+- 题库 15→17 题
+- +5 回答稿：nextTick / 生命周期 / computed-watch / Composition API / v-model（3→8 篇）
+- +2 知识文件：插槽深入 / Composables 实战
+- v-model.md 补 defineModel 段落（Vue 3.4+）
+- index.md 补相关阅读区（链向 VueRouter/Pinia/题库/回答稿）
+
+**VueRouter 模块**：
+- 新建 面试题库/VueRouter.md（7 题）——路由守卫/动态路由/history vs hash/懒加载/KeepAlive Router/导航故障/scrollBehavior
+- sidebar + 题库 index + config.mts 全量同步
+
+**Pinia 模块**：
+- 新建 面试题库/Pinia.md（7 题）——vs Vuex/storeToRefs/Setup vs Options/持久化/$patch/$onAction/插件
+- index.md status draft→reviewed
+- sidebar + 题库 index + config.mts 全量同步
+
+**其他**：
+- +1 工程化知识文件：testing.md（Vitest+Vue Test Utils+Playwright）
+- VueRouter index.md 补相关阅读区
+- HTML Q12 / 项目 Q1 Q5 交叉引用补链
+- 题库总数 177→193 题，回答稿 24→29 篇
+
 ### 安全模块重构
 
 - **删除重复文件**：`浏览器/xss-csrf.md`（内容已拆分在 `安全/xss.md` + `安全/csrf.md`）、`浏览器/browser-security.md`（内容分布到新文件）

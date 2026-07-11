@@ -96,3 +96,17 @@ mindmap
 | [Renderer](./renderer.md) | ⭐⭐⭐ | 高级 | — | reviewed |
 | [Scheduler](./scheduler.md) | ⭐⭐⭐ | 高级 | — | reviewed |
 | [Teleport / Suspense](./teleport-suspense.md) | ⭐⭐ | 初级 | — | reviewed |
+
+## 相关阅读
+
+- [Vue Router 知识地图](../VueRouter/index.md) — 路由守卫、动态路由、history vs hash
+- [Pinia 知识地图](../Pinia/index.md) — 状态管理、defineStore、持久化
+- [面试题库：Vue3](../面试题库/Vue3.md) — 17 道 Vue3 高频真题
+- [面试题库：Vue Router](../面试题库/VueRouter.md) — 7 道路由高频真题
+- [面试题库：Pinia](../面试题库/Pinia.md) — 7 道状态管理高频真题
+- [面试回答：Vue3 响应式](../面试回答/Vue3/reactivity.md) — 9 篇 Vue3 逐字回答稿
+
+## 更新记录
+
+- 2026-07-11：补"相关阅读"区——链向 VueRouter/Pinia/题库/回答稿
+- 2026-07-05：初始创建

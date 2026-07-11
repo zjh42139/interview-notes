@@ -232,6 +232,27 @@ function handleInput(e) {
 | "v-model 怎么在组件上绑定多个值" | 追问 v-model:title + v-model:content 的写法 |
 | "v-model 的修饰符怎么自定义" | 追问 modelModifiers prop + 在 update:modelValue 中处理 |
 
+### Vue 3.4+ defineModel — 更简洁的双向绑定
+
+```vue
+<!-- Vue 3.4 之前 -->
+<script setup>
+const props = defineProps(['modelValue'])
+const emit = defineEmits(['update:modelValue'])
+// 每次都要写这两行
+</script>
+
+<!-- Vue 3.4+ defineModel -->
+<script setup>
+const model = defineModel()          // 自动生成 modelValue prop + update:modelValue emit
+const title = defineModel('title')   // 命名 v-model:title
+const count = defineModel('count', { required: true, default: 0 })
+// model.value 直接读写——不再需要 emit('update:modelValue', val)
+</script>
+```
+
+`defineModel` 是编译宏——编译时展开为等价的手写 prop+emit 代码，运行时无额外开销。
+
 ## 相关阅读
 
 - [响应式原理](./reactivity.md) —— v-model 背后的响应式系统如何工作

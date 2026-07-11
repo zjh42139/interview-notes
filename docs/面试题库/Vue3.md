@@ -207,8 +207,7 @@ tags:
 - TypeScript 支持从"可以写"到"一等公民"
 - Fragment / Teleport / Suspense 新内置组件
 
-> 答案参考：[../Vue3/index.md](../Vue3/index.md)
-> 延伸：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+> 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md) · [../Vue3/composition-api.md](../Vue3/composition-api.md)
 > 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
 
 ---
@@ -283,7 +282,14 @@ tags:
 ---
 
 
-### Q13: Scheduler 调度器 + 批量更新机制
+### Q12: Scheduler 调度器 + 批量更新机制
+
+**30秒答**：Scheduler 把同步修改合并成一次异步更新——用微任务队列延迟执行。queueJob 把 effect 推入队列并去重，queueFlush 在下一个微任务里批量执行。这就是"改三次 data，DOM 只更新一次"的根本原因。
+
+**追问预测**：
+- "为什么用微任务不用 setTimeout" → 微任务在当前事件循环结束前执行——更快、更早、用户看不到中间状态
+- "一个 effect 失败会影响其他吗" → 不会——Vue3 用 try/catch 包裹每个 effect，一个挂了其他继续
+- "allowRecurse 是干什么的" → 控制 effect 是否允许在自身执行中再次触发自身——防止死循环
 > ⭐⭐⭐ | 难度：中高级
 
 **题目**：Vue3 的调度器（Scheduler）是如何实现批量异步更新的？`queueJob` 和 `queueFlush` 的流程是怎样的？
@@ -300,7 +306,7 @@ tags:
 
 ---
 
-### Q14: 自定义指令 | 概念题（Custom Directive）
+### Q13: 自定义指令 | 概念题（Custom Directive）
 
 **30秒答**：指令是对 DOM 元素的底层操作——mounted/updated/unmounted 等 7 个钩子。v-permission 权限指令——mounted 时检查权限数组，无权限则 removeChild。适合跨组件复用的 DOM 行为。
 
@@ -324,7 +330,7 @@ tags:
 ---
 
 
-### Q16: Pinia | 对比题 vs Vuex
+### Q14: Pinia | 对比题 vs Vuex
 
 **30秒答**：Pinia 无 mutations——actions 直接改 state、完整 TS 类型推导、去 modules 改为多 store。Vuex 需要 commit mutation 才能改 state、TypeScript 支持弱。持久化用 pinia-plugin-persistedstate。
 
@@ -344,11 +350,11 @@ tags:
 - 更轻量（~1KB）、去除了 `commit` / `dispatch` 的概念
 - 支持 Composition API 风格定义 store
 
-> 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+> 答案参考：[../Pinia/vs-vuex.md](../Pinia/vs-vuex.md)
 
 ---
 
-### Q17: `<script setup>` 语法糖
+### Q15: `<script setup>` 语法糖
 
 **30秒答**：script setup 是语法糖——顶层绑定自动暴露给模板、无需 return、更好的 TS 推导。defineProps/defineEmits 是编译宏无需 import。defineExpose 显式声明对外暴露的属性。
 
@@ -370,4 +376,50 @@ tags:
 > 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
 
 ---
+
+### Q16: v-model | 概念题 原理与组件通信
+
+**30秒答**：v-model 本质是 prop + event 语法糖。原生元素上——value 属性 + input 事件。组件上——modelValue prop + update:modelValue 事件。Vue3 支持多个 v-model、自定义修饰符、v-model 参数——替代了 Vue2 的 .sync 修饰符。
+
+**追问预测**：
+- "v-model 和 .sync 的关系" → Vue3 把 .sync 合并进了 v-model——`v-model:title` 等价于 Vue2 的 `:title.sync`
+- "怎么实现自定义 v-model 修饰符" → 通过 prop `modelModifiers` 接收修饰符对象——访问 `modelModifiers.capitalize` 判断是否启用
+- "多个 v-model 怎么用" → `v-model:firstName` + `v-model:lastName`——组件 emit `update:firstName` 和 `update:lastName`
+> ⭐⭐⭐⭐⭐ | 难度：中级
+
+**题目**：请解释 v-model 的语法糖原理。Vue3 的 v-model 相比 Vue2 有哪些变化？如何实现多个 v-model 和自定义修饰符？
+
+**考察点**：
+- 原生元素 v-model：`value` + `input` 的语法糖展开
+- 组件 v-model：`modelValue` prop + `update:modelValue` emit 的默认约定
+- Vue3 多个 v-model：`v-model:propName` + `update:propName`
+- Vue3 移除 `.sync`，合并到 v-model 参数语法
+- 自定义修饰符：通过 `modelModifiers` / `xxxModifiers` prop 接收
+- Vue 3.4+ `defineModel` 宏：更简洁的双向绑定写法
+
+> 答案参考：[../Vue3/v-model.md](../Vue3/v-model.md)
+
+---
+
+### Q17: Vue3 组件通信 | 对比题 8 种方式
+
+**30秒答**：父子 props+emits、provide+inject 跨层级、Pinia 全局、ref+defineExpose 父子互访、v-model 双向、mitt 事件总线（Vue3 去掉 $on 后的替代）、$attrs 透传、slot 内容分发。按场景选：父子用 props/emits、祖孙用 provide/inject、全局用 Pinia。
+
+**追问预测**：
+- "provide/inject 和 Pinia 选哪个" → provide/inject 适合组件树内局部共享；Pinia 适合全局跨模块。provide 的数据不自动响应式——需要传 ref/reactive
+- "Vue3 为什么去掉 $on/$off" → 事件总线模式不利于维护——数据流不清晰。官方推荐 Pinia 或 provide/inject 替代
+- "defineExpose 的使用场景" → 父组件通过 ref 获取子组件实例——访问子组件暴露的方法或状态。不推荐滥用——破坏组件封装
+> ⭐⭐⭐⭐⭐ | 难度：中级
+
+**题目**：Vue3 中组件通信有哪些方式？分别在什么场景下使用？provide/inject 的响应式如何实现？
+
+**考察点**：
+- 8 种通信方式：props/emits、v-model、provide/inject、Pinia、ref/defineExpose、$attrs、slot、mitt
+- provide/inject 配合 ref/reactive 实现响应式注入
+- Vue3 移除 $on/$off/$once 事件总线，推荐 Pinia 替代
+- slot 默认插槽、具名插槽、作用域插槽的数据传递方向
+- 选型决策：层级距离 + 数据生命周期 + 是否需要响应式
+
+> 答案参考：[../Vue3/component-communication.md](../Vue3/component-communication.md)
+> 🎤 回答稿：[../面试回答/Vue3/component-communication.md](../面试回答/Vue3/component-communication.md)
 
