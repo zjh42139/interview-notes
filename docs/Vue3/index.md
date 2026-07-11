@@ -2,6 +2,10 @@
 title: Vue3 知识地图
 description: Vue3 面试知识体系
 category: Vue3
+difficulty: null
+frequency: null
+status: reviewed
+created: 2026-07-05
 ---
 
 # Vue3 知识地图
@@ -79,6 +83,11 @@ mindmap
 10. ⭐⭐⭐     [Renderer](./renderer.md)
 11. ⭐⭐⭐     [Scheduler](./scheduler.md)
 12. ⭐⭐      [Teleport / Suspense](./teleport-suspense.md)
+13. ⭐⭐⭐⭐⭐ [Vue3 vs Vue2 对比](./vue3-vs-vue2.md)
+14. ⭐⭐⭐⭐   [插槽深入](./slots-deep.md)
+15. ⭐⭐⭐⭐   [Composables 实战](./composables-practice.md)
+16. ⭐⭐⭐     [Transition 动画](./transition-animation.md)
+17. ⭐⭐⭐⭐   [性能优化 Checklist](./vue3-performance.md)
 
 ## 知识点索引
 
@@ -96,6 +105,11 @@ mindmap
 | [Renderer](./renderer.md) | ⭐⭐⭐ | 高级 | — | reviewed |
 | [Scheduler](./scheduler.md) | ⭐⭐⭐ | 高级 | — | reviewed |
 | [Teleport / Suspense](./teleport-suspense.md) | ⭐⭐ | 初级 | — | reviewed |
+| [Vue3 vs Vue2 对比](./vue3-vs-vue2.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [插槽深入](./slots-deep.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [Composables 实战](./composables-practice.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [Transition 动画](./transition-animation.md) | ⭐⭐⭐ | 中级 | — | draft |
+| [性能优化 Checklist](./vue3-performance.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
 
 ## 相关阅读
 

@@ -180,6 +180,66 @@ function getSequence(arr: number[]): number[] {
 // getSequence([4, 2, 3, 0]) → [1, 2]（c, d 的索引），表示 c,d 不用移动
 ```
 
+## 编译时优化
+
+> 面试中"Vue3 为什么比 Vue2 快"的第二层答案——PatchFlag、Block Tree、静态提升。
+
+Vue3 编译器的三项核心优化，让 Diff 从"遍历整个模板"变为"只遍历动态节点"：
+
+### PatchFlag — 靶向更新
+
+编译时给每个带有动态绑定的 vnode 打上 PatchFlag——一个数字标记位，告诉运行时"这个节点有哪些东西会变"：
+
+| Flag | 值 | 含义 |
+|------|---|------|
+| TEXT | 1 | 文本内容动态 |
+| CLASS | 2 | class 动态 |
+| STYLE | 4 | style 动态 |
+| PROPS | 8 | 非 class/style 的动态属性 |
+| FULL_PROPS | 16 | 有动态 key 的属性 |
+| HYDRATE_EVENTS | 32 | 有事件监听 |
+| STABLE_FRAGMENT | 64 | 子节点顺序稳定 |
+| KEYED_FRAGMENT | 128 | 子节点有 key |
+
+多个 flag 通过位运算组合：`1 | 2 | 4 = 7`。运行时只需 `vnode.patchFlag & PatchFlags.CLASS` 判断是否比对该项。
+
+### Block Tree — 跳过静态子树
+
+每个 Block 额外维护一个 `dynamicChildren` 数组——只收集所有动态后代节点到 flat list。Diff 时直接遍历 `dynamicChildren`，跳过整个静态子树。
+
+```
+Vue2 Diff:  遍历整棵树——静态节点也逐个比对
+Vue3 Diff:  遍历 dynamicChildren flat array——只更新动态节点
+           静态节点通过"静态提升"提到 render 外，永不参与 Diff
+```
+
+### 静态提升 — 减少 createVNode
+
+```javascript
+// Vue2 render：每次 re-render 都重新创建静态 VNode
+function render() {
+  return h('div', [
+    h('span', 'static text')  // ← 每次都创建新的 VNode 对象
+  ])
+}
+
+// Vue3 render：静态 VNode 提到 render 函数外——只创建一次
+const _hoisted_1 = h('span', 'static text')  // ← 提到外面！
+function render() {
+  return h('div', [_hoisted_1])  // ← 复用同一个 VNode 引用
+}
+```
+
+大量静态节点的页面——静态提升减少 30%+ 的 VNode 创建 + GC 开销。
+
+### 预字符串化 — 连续静态节点合并
+
+```javascript
+// 连续 20 个静态 <li> 编译为一个 innerHTML
+const _hoisted_1 = '<li>A</li><li>B</li>...<li>T</li>'
+// 一次 innerHTML 操作替代 20 个 createVNode + DOM 插入
+```
+
 ## 深度拓展
 
 ### 追问1：Vue2 双端对比 vs Vue3 五步法

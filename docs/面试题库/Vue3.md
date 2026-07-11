@@ -90,7 +90,7 @@ tags:
 
 > 答案参考：[../Vue3/computed-watch.md](../Vue3/computed-watch.md)
 > 延伸：[../Vue3/reactivity.md](../Vue3/reactivity.md)
-> 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
+> 🎤 回答稿：[../面试回答/Vue3/computed-watch.md](../面试回答/Vue3/computed-watch.md)
 
 ---
 
@@ -114,6 +114,7 @@ tags:
 
 > 答案参考：[../Vue3/nextTick.md](../Vue3/nextTick.md)
 > 延伸：[../Vue3/scheduler.md](../Vue3/scheduler.md)
+> 🎤 回答稿：[../面试回答/Vue3/nextTick.md](../面试回答/Vue3/nextTick.md)
 
 ---
 
@@ -160,6 +161,7 @@ tags:
 - 更好的 TypeScript 类型推导支持
 
 > 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+> 🎤 回答稿：[../面试回答/Vue3/composition-api.md](../面试回答/Vue3/composition-api.md)
 
 ---
 
@@ -207,7 +209,7 @@ tags:
 - TypeScript 支持从"可以写"到"一等公民"
 - Fragment / Teleport / Suspense 新内置组件
 
-> 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md) · [../Vue3/composition-api.md](../Vue3/composition-api.md)
+> 答案参考：[../Vue3/vue3-vs-vue2.md](../Vue3/vue3-vs-vue2.md) · [../Vue3/reactivity.md](../Vue3/reactivity.md)
 > 🎤 回答稿：[../面试回答/Vue3/reactivity.md](../面试回答/Vue3/reactivity.md)
 
 ---
@@ -231,6 +233,7 @@ tags:
 - 原因：父组件的挂载需要子组件先完成（递归渲染），更新也需要子组件先更新完才能确认父组件更新完
 
 > 答案参考：[../Vue3/lifecycle.md](../Vue3/lifecycle.md)
+> 🎤 回答稿：[../面试回答/Vue3/lifecycle.md](../面试回答/Vue3/lifecycle.md)
 
 ---
 
@@ -398,6 +401,7 @@ tags:
 - Vue 3.4+ `defineModel` 宏：更简洁的双向绑定写法
 
 > 答案参考：[../Vue3/v-model.md](../Vue3/v-model.md)
+> 🎤 回答稿：[../面试回答/Vue3/v-model.md](../面试回答/Vue3/v-model.md)
 
 ---
 
