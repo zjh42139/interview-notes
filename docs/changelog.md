@@ -14,8 +14,8 @@ description: 知识库变更记录
 - **🎤 链接修复**：Q3→computed-watch、Q4→nextTick、Q6→composition-api、Q9→lifecycle、Q16→v-model（此前创建回答稿后忘回链题库）
 - **Q8 知识引用**：Vue3 vs Vue2 答案参考指向新增的 `vue3-vs-vue2.md`
 - **diff-patch.md**：新增 `## 编译时优化` 章节（PatchFlag/Block Tree/静态提升/预字符串化）
-- **composition-api.md**：新增 `## Vue3 + TypeScript` 章节（defineProps<T>/泛型组件/defineModel 类型）
-- Vue3/index.md 学习顺序 + 知识点索引补全 5 个新条��
+- **composition-api.md**：新增 `## Vue3 + TypeScript` 章节（defineProps 泛型 / 泛型组件 / defineModel 类型）
+- Vue3/index.md 学习顺序 + 知识点索引补全 5 个新条目
 - frontmatter：Vue3/index.md 补字段；slots-deep+composables-practice draft→reviewed
 - HTML Q12 / 项目 Q1 Q10 补 VueRouter 交叉引用
 - Vue3 模块 14→17 篇知识文件，sidebar 18 条目全对齐
