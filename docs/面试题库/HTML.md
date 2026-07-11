@@ -303,6 +303,7 @@ tags:
 - 提 `history.state` 持久化 + `scrollRestoration` 加分
 
 **参考**：[History API](../HTML/history-api.md)
+> 📖 延伸：[Vue Router history vs hash](../VueRouter/history-vs-hash.md)
 
 ---
 
