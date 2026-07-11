@@ -41,7 +41,7 @@ description: 按阶段和目标的复习路径
 
 **学习路径**：URL 到页面 → 渲染流程 → 重绘/回流 → 缓存 → 安全（XSS/CSRF/同源）→ 性能优化 → 网络
 
-**如果时间不够，只看这 4 篇**：[URL 到页面](浏览器/url-to-page.md) · [XSS/CSRF](浏览器/xss-csrf.md) · [浏览器缓存](浏览器/cache.md) · [首屏优化](性能优化/first-screen.md)
+**如果时间不够，只看这 4 篇**：[URL 到页面](浏览器/url-to-page.md) · [XSS/CSRF](浏览器/安全/xss.md) · [浏览器缓存](浏览器/cache.md) · [首屏优化](性能优化/first-screen.md)
 
 **完成标准**：
 - [ ] 从 URL 到页面展示，能一口气说出全部阶段（网络 + 渲染，不含糊）

@@ -7,6 +7,19 @@ description: 知识库变更记录
 
 ## 2026-07-11
 
+### 安全模块重构
+
+- **删除重复文件**：`浏览器/xss-csrf.md`（内容已拆分在 `安全/xss.md` + `安全/csrf.md`）、`浏览器/browser-security.md`（内容分布到新文件）
+- **+3 知识文件**：
+  - `安全/clickjacking.md`：点击劫持 + X-Frame-Options + iframe sandbox + X-Content-Type-Options
+  - `安全/https-security.md`：HSTS + 证书链 + Mixed Content + TLS 握手 + mkcert
+  - `安全/supply-chain-security.md`：SRI + npm audit + 原型污染 + lockfile + CI 安全集成
+- **+2 回答稿**：`csp.md`（CSP 白名单+nonce/hash+灰度部署）、`token-storage.md`（Cookie vs LocalStorage+双Token策略）
+- **安全/index.md 重写**：mindmap 4→7 节点、学习顺序 4→7 篇、交叉引用补全
+- 浏览器模块 `config.mts` / `index.md` / 交叉引用全量同步（URL 重定向到新文件）
+- 题库安全 Q5/Q6/Q7 交叉引用指向新知识文件
+- 回答稿清单 22→24 篇
+
 ### 题库编号修复
 
 - CSS 题库：Q12→Q15 题号跳跃修复，重排为 Q13→Q16（16 题连续编号）

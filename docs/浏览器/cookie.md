@@ -191,9 +191,9 @@ Set-Cookie: lang=zh-CN; Path=/; Max-Age=31536000; SameSite=Lax
 ## 相关阅读
 
 - [Web Storage](./storage.md)
-- [XSS / CSRF](./xss-csrf.md)
+- [XSS](./安全/xss.md) · [CSRF](./安全/csrf.md)
 - [同源策略](./same-origin-policy.md)
-- [浏览器安全机制](./browser-security.md)
+- [浏览器安全机制](./安全/index.md)
 
 ## 更新记录
 

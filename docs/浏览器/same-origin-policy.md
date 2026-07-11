@@ -212,10 +212,10 @@ fetch('https://api.example.com/user', {
 
 ## 相关阅读
 
-- [XSS / CSRF](./xss-csrf.md)
+- [XSS](./安全/xss.md) · [CSRF](./安全/csrf.md)
 - [跨域 CORS](../网络/cors.md)
 - [iframe](../HTML/iframe.md)
-- [浏览器安全机制](./browser-security.md)
+- [CSP](./安全/csp.md) · [HTTPS 安全](./安全/https-security.md)
 
 ## 更新记录
 

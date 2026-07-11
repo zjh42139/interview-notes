@@ -227,7 +227,7 @@ tags:
 
 - [HTTP / HTTPS](../网络/http-https.md)
 - [HTTP2 / HTTP3](../网络/http2-http3.md)
-- [XSS / CSRF](../浏览器/xss-csrf.md)
+- [XSS / CSRF](../浏览器/安全/xss.md)
 - [同源策略](../浏览器/same-origin-policy.md)
 - [CORS](../网络/cors.md)
 - [浏览器缓存](../浏览器/cache.md)
