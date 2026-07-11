@@ -6,7 +6,7 @@ difficulty: null
 frequency: null
 status: draft
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-11
 reviewed: null
 tags:
   - 算法
@@ -17,46 +17,22 @@ tags:
 ```mermaid
 mindmap
   root((算法))
-    栈和队列
-      Stack LIFO
-      Queue FIFO
-      单调栈
-    堆
-      大顶堆
-      小顶堆
-      Top-K
-    数组
+    基础数据结构
+      数组
+      哈希表
+      栈和队列
+      堆
+      链表
+      树
+    核心算法思想
       双指针
       滑动窗口
-    哈希表
-      Map
-      Set
-    双指针
-      对撞指针
-      快慢指针
-      分离指针
-    滑动窗口
-      固定窗口
-      可变窗口
-    树
-      二叉树
-      DFS
-      BFS
-    链表
-      反转
-      环检测
-    排序
-      快排
-      归并
-    动态规划
-      爬楼梯
-      打家劫舍
-      最长递增子序列
-    二分查找
-      基础二分
-      左右边界
-    高频题
-      Top 30
+      二分查找
+      排序
+      DFS / BFS
+      动态规划
+    面试实战
+      高频题 Top 30
 ```
 
 ## 推荐学习顺序
@@ -66,15 +42,14 @@ mindmap
 3. ⭐⭐⭐⭐   [栈和队列](./stack-queue.md)
 4. ⭐⭐⭐⭐   [堆](./heap.md)
 5. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
-5. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
-5. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
-6. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
-7. ⭐⭐⭐⭐   [树](./tree.md)
-8. ⭐⭐⭐⭐   [链表](./linked-list.md)
+6. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
+7. ⭐⭐⭐⭐   [链表](./linked-list.md)
+8. ⭐⭐⭐⭐   [树](./tree.md)
 9. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md)
-10. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md)
-11. ⭐⭐⭐⭐   [二分查找](./binary-search.md)
+10. ⭐⭐⭐⭐   [二分查找](./binary-search.md)
+11. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md)
 12. ⭐⭐⭐     [排序](./sort.md)
+13. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
 
 ## 知识点索引
 
@@ -86,10 +61,15 @@ mindmap
 | [堆](./heap.md) | ⭐⭐⭐⭐ | 高级 | ✅ 小顶堆 | draft |
 | [双指针](./two-pointers.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [滑动窗口](./sliding-window.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
-| [树](./tree.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
 | [链表](./linked-list.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [排序](./sort.md) | ⭐⭐⭐ | 中级 | — | drafted |
+| [树](./tree.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
 | [DFS / BFS](./dfs-bfs.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
-| [动态规划](./dynamic-programming.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
 | [二分查找](./binary-search.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [动态规划](./dynamic-programming.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
+| [排序](./sort.md) | ⭐⭐⭐ | 中级 | — | drafted |
 | [高频题](./common-questions.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+
+## 更新记录
+
+- 2026-07-11：学习顺序编号去重（修复 #5 出现三次的 bug）；mindmap 三组缩并（数据结构/算法思想/实战）；去重 双指针/滑动窗口 的 mindmap 重复节点
+- 2026-07-05：初始创建
