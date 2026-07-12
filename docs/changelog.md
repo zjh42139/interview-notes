@@ -7,6 +7,13 @@ description: 知识库变更记录
 
 ## 2026-07-12
 
+### JS 模块深度修复
+
+- **题库交叉引用修复**：6 处错误链接修正——Q12(数据类型→type-coercion)、Q13(GC→浏览器/gc)、Q14(for-in-of→for-of-for-in)、Q15(浮点数→type-coercion)、Q17(事件委托→浏览器/dom-event-delegation，移除错误🎤)、Q19(Map/WeakMap→set-map-weakmap)
+- **🎤 链接补挂**：Q4(this→this-bind)、Q8(原型链→prototype-chain)、Q16(手写Promise→promise) 回链已有回答稿
+- **学习顺序补全**：class-extends/for-of-for-in/generator-iterator 3 个文件从 sidebar 补入学习顺序（15→18 篇）
+- **Mindmap 补漏**：for-of-for-in 加入进阶工具分支
+
 ### 学习顺序 + Sidebar 对齐
 
 - **Vue3 sidebar 重排**：config.mts 中 18 个条目按学习顺序三组重排（核心机制→组件开发→模式与优化），sidebar 本身成为学习路径

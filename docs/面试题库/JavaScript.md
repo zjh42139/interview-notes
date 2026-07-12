@@ -158,6 +158,7 @@ obj.foo.call({ name: 'other' }); // ?
 - "严格模式下 this 是什么" → 默认绑定为 undefined（非严格为 window）
 
 > 答案参考：[../JavaScript/this.md](../JavaScript/this.md)
+> 🎤 回答稿：[../面试回答/JavaScript/this-bind.md](../面试回答/JavaScript/this-bind.md)
 
 ---
 
@@ -295,6 +296,7 @@ console.log(f instanceof Foo);      // ?
 **30秒答**：每个对象都有 __proto__ 指向原型，原型又有自己的原型——串成原型链。函数才有 prototype——new 出来的对象 __proto__ 指向函数的 prototype。instanceof 就是顺着 __proto__ 找 prototype。class 本质是语法糖。
 
 > 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
+> 🎤 回答稿：[../面试回答/JavaScript/prototype-chain.md](../面试回答/JavaScript/prototype-chain.md)
 > 延伸：[../JavaScript/new.md](../JavaScript/new.md)
 
 ---
@@ -401,7 +403,7 @@ let b = 2;
 
 **30秒答**：基本类型 7 种——string/number/boolean/undefined/null/symbol/bigint。引用类型——Object/Array/Function。typeof null === object 是历史 bug。最可靠判断用 Object.prototype.toString.call。
 
-> 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
+> 答案参考：[../JavaScript/type-coercion.md](../JavaScript/type-coercion.md)
 
 ---
 
@@ -424,7 +426,7 @@ let b = 2;
 
 **30秒答**：标记清除——从根对象出发标记所有可达对象，不可达的回收。引用计数——记录每个对象的引用次数，归零回收但解决不了循环引用。V8 分代 GC——新生代 Scavenge 复制，老生代 Mark-Sweep-Compact。
 
-> 答案参考：[../浏览器/reflow-repaint.md](../浏览器/reflow-repaint.md)
+> 答案参考：[../浏览器/gc.md](../浏览器/gc.md)
 
 ---
 
@@ -447,7 +449,7 @@ let b = 2;
 
 **30秒答**：for...in 遍历可枚举属性包括原型链——适合对象。for...of 遍历可迭代对象的值——适合数组/Map/Set/字符串。Object.keys/values/entries 遍历对象自身属性不碰原型。自定义迭代器实现 Symbol.iterator。
 
-> 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
+> 答案参考：[../JavaScript/for-of-for-in.md](../JavaScript/for-of-for-in.md)
 
 ---
 
@@ -471,7 +473,7 @@ let b = 2;
 
 **30秒答**：JS 用 IEEE754 双精度存储——0.1+0.2 二进制无限循环导致精度丢失。解决：转整数计算、toFixed 格式化、或用 big.js/Decimal 库。面试说清"二进制不能精确表示十进制小数"就够了。
 
-> 答案参考：[../JavaScript/deep-clone.md](../JavaScript/deep-clone.md)
+> 答案参考：[../JavaScript/type-coercion.md](../JavaScript/type-coercion.md)
 
 ---
 
@@ -496,6 +498,7 @@ let b = 2;
 **30秒答**：构造函数维护三态 pending/fulfilled/rejected——状态不可逆。.then 返回新 Promise——回调返回值决定新 Promise 状态。then 回调异步执行（微任务）。手写核心：状态机 + 回调队列 + then 返回新 Promise。
 
 > 答案参考：[../手写题/promise.md](../手写题/promise.md)
+> 🎤 回答稿：[../面试回答/JavaScript/promise.md](../面试回答/JavaScript/promise.md)
 > 延伸：[../JavaScript/promise.md](../JavaScript/promise.md)
 
 ---
@@ -520,8 +523,7 @@ let b = 2;
 
 **30秒答**：利用事件冒泡——把监听绑在父元素上，通过 e.target 判断真正被点击的子元素。好处：动态新增子元素无需重新绑定、减少内存占用。不冒泡的事件（focus/blur/scroll）不能委托。
 
-> 答案参考：[../JavaScript/event-loop.md](../JavaScript/event-loop.md)
-> 🎤 回答稿：[../面试回答/JavaScript/event-loop.md](../面试回答/JavaScript/event-loop.md)
+> 答案参考：[../浏览器/dom-event-delegation.md](../浏览器/dom-event-delegation.md)
 > 延伸：[../手写题/event-emitter.md](../手写题/event-emitter.md)
 
 ---
@@ -572,7 +574,7 @@ let b = 2;
 
 **30秒答**：Map key 可以是任意类型且保持插入顺序；WeakMap key 只能是对象且是弱引用——key 被回收后 value 自动 GC。WeakMap 不可迭代、没有 size——因为 key 随时可能被 GC。场景：DOM 节点关联数据、私有属性。
 
-> 答案参考：[../JavaScript/deep-clone.md](../JavaScript/deep-clone.md)
+> 答案参考：[../JavaScript/set-map-weakmap.md](../JavaScript/set-map-weakmap.md)
 
 ---
 

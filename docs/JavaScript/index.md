@@ -45,6 +45,9 @@ mindmap
         WeakMap 缓存
       防抖 / 节流
         闭包实战
+      for...of vs for...in
+        Symbol.iterator 协议
+        for...in 原型链遍历
       迭代器 / 生成器
         Symbol.iterator
         yield
@@ -58,23 +61,26 @@ mindmap
 2. ⭐⭐⭐⭐   [call / apply / bind](./call-apply-bind.md)
 3. ⭐⭐⭐⭐   [new](./new.md)
 4. ⭐⭐⭐⭐   [原型链](./prototype-chain.md)
-5. ⭐⭐⭐⭐⭐ [闭包](./closure.md)
-6. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
+5. ⭐⭐⭐⭐⭐ [class / extends / super](./class-extends.md)
+6. ⭐⭐⭐⭐⭐ [闭包](./closure.md)
+7. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
 
 ### 二、异步编程
 
-7. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
-8. ⭐⭐⭐⭐   [async / await](./async-await.md)
-9. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
+8. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
+9. ⭐⭐⭐⭐   [async / await](./async-await.md)
+10. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
 
 ### 三、进阶工具
 
-10. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
-11. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
-12. ⭐⭐⭐     [深拷贝](./deep-clone.md)
-13. ⭐⭐⭐     [防抖 / 节流](./debounce-throttle.md)
-14. ⭐⭐⭐     [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
-15. ⭐⭐⭐     [跨 Realm 场景](./cross-realm.md)
+11. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
+12. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
+13. ⭐⭐⭐     [深拷贝](./deep-clone.md)
+14. ⭐⭐⭐     [防抖 / 节流](./debounce-throttle.md)
+15. ⭐⭐⭐⭐   [for...of vs for...in](./for-of-for-in.md)
+16. ⭐⭐⭐     [生成器 / 迭代器](./generator-iterator.md)
+17. ⭐⭐⭐     [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
+18. ⭐⭐⭐     [跨 Realm 场景](./cross-realm.md)
 
 ## 知识点索引
 
@@ -104,6 +110,6 @@ mindmap
 
 ## 更新记录
 
-- 2026-07-12：学习顺序三组分类（核心基础/异步编程/进阶工具），类型转换归入核心基础
+- 2026-07-12：学习顺序三组分类（核心基础/异步编程/进阶工具），类型转换归入核心基础；补 class-extends/for-of-for-in/generator-iterator 入学习顺序；mindmap 补 for-of-for-in
 - 2026-07-11：学习顺序编号修复（补 #13）；mindmap 三组缩并（核心基础/异步编程/进阶工具）；学习顺序微调（原型链提到闭包前）
 - 2026-07-05：初始创建
