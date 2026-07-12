@@ -59,14 +59,22 @@ mindmap
 
 ## 推荐学习顺序
 
+### 一、包管理与模块
+
 1. ⭐⭐⭐⭐⭐ [npm 深入](./npm-deep.md)
-2. ⭐⭐⭐⭐⭐ [Vite](./vite.md)
-3. ⭐⭐⭐⭐⭐ [Vite 深入](./vite-deep.md)
-4. ⭐⭐⭐⭐   [Webpack](./webpack.md)
-5. ⭐⭐⭐⭐   [pnpm](./pnpm.md)
-6. ⭐⭐⭐⭐   [Tree Shaking](./tree-shaking.md)
-7. ⭐⭐⭐⭐   [ESM / CommonJS](./esm-module.md)
-8. ⭐⭐⭐     [Babel / ESBuild](./babel-esbuild.md)
+2. ⭐⭐⭐⭐   [pnpm](./pnpm.md)
+3. ⭐⭐⭐⭐   [ESM / CommonJS](./esm-module.md)
+
+### 二、构建工具
+
+4. ⭐⭐⭐⭐⭐ [Vite](./vite.md)
+5. ⭐⭐⭐⭐⭐ [Vite 深入](./vite-deep.md)
+6. ⭐⭐⭐⭐   [Webpack](./webpack.md)
+7. ⭐⭐⭐     [Babel / ESBuild](./babel-esbuild.md)
+8. ⭐⭐⭐⭐   [Tree Shaking](./tree-shaking.md)
+
+### 三、样式与质量
+
 9. ⭐⭐⭐     [Tailwind CSS](./tailwindcss.md)
 10. ⭐⭐⭐     [前端测试体系](./testing.md)
 
@@ -95,5 +103,6 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-12：学习顺序三组分类（包管理与模块/构建工具/样式与质量），pnpm+ESM归入包管理
 - 2026-07-11：补 vite.md / testing.md / esm-module.md 到学习顺序和知识点索引；mindmap 扩大覆盖 Node.js/测试/日志/监控
 - 2026-07-05：初始创建

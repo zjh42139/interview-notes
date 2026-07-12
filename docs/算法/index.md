@@ -37,18 +37,26 @@ mindmap
 
 ## 推荐学习顺序
 
+### 一、基础数据结构
+
 1. ⭐⭐⭐⭐⭐ [数组](./array.md)
 2. ⭐⭐⭐⭐⭐ [哈希表](./hash.md)
 3. ⭐⭐⭐⭐   [栈和队列](./stack-queue.md)
 4. ⭐⭐⭐⭐   [堆](./heap.md)
-5. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
-6. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
-7. ⭐⭐⭐⭐   [链表](./linked-list.md)
-8. ⭐⭐⭐⭐   [树](./tree.md)
+5. ⭐⭐⭐⭐   [链表](./linked-list.md)
+6. ⭐⭐⭐⭐   [树](./tree.md)
+
+### 二、核心算法思想
+
+7. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
+8. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
 9. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md)
 10. ⭐⭐⭐⭐   [二分查找](./binary-search.md)
 11. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md)
 12. ⭐⭐⭐     [排序](./sort.md)
+
+### 三、面试实战
+
 13. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
 
 ## 知识点索引
@@ -71,5 +79,6 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-12：学习顺序三组分类（基础数据结构/核心算法思想/面试实战），链表+树归入数据结构
 - 2026-07-11：学习顺序编号去重（修复 #5 出现三次的 bug）；mindmap 三组缩并（数据结构/算法思想/实战）；去重 双指针/滑动窗口 的 mindmap 重复节点
 - 2026-07-05：初始创建

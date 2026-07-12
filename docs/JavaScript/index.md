@@ -52,15 +52,23 @@ mindmap
 
 ## 推荐学习顺序
 
+### 一、核心基础
+
 1. ⭐⭐⭐⭐⭐ [this](./this.md)
 2. ⭐⭐⭐⭐   [call / apply / bind](./call-apply-bind.md)
 3. ⭐⭐⭐⭐   [new](./new.md)
 4. ⭐⭐⭐⭐   [原型链](./prototype-chain.md)
 5. ⭐⭐⭐⭐⭐ [闭包](./closure.md)
-6. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
-7. ⭐⭐⭐⭐   [async / await](./async-await.md)
-8. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
-9. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
+6. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
+
+### 二、异步编程
+
+7. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
+8. ⭐⭐⭐⭐   [async / await](./async-await.md)
+9. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
+
+### 三、进阶工具
+
 10. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
 11. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
 12. ⭐⭐⭐     [深拷贝](./deep-clone.md)
@@ -96,5 +104,6 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-12：学习顺序三组分类（核心基础/异步编程/进阶工具），类型转换归入核心基础
 - 2026-07-11：学习顺序编号修复（补 #13）；mindmap 三组缩并（核心基础/异步编程/进阶工具）；学习顺序微调（原型链提到闭包前）
 - 2026-07-05：初始创建

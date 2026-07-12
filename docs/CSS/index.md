@@ -39,26 +39,43 @@ mindmap
 
 ## 推荐学习顺序
 
+### 一、基础
+
 1. ⭐⭐⭐⭐⭐ [盒模型](./box-model.md)
 2. ⭐⭐⭐⭐⭐ [选择器优先级](./specificity.md)
-3. ⭐⭐⭐⭐⭐ [position 定位](./position.md)
-4. ⭐⭐⭐⭐⭐ [BFC](./bfc.md)
-5. ⭐⭐⭐⭐⭐ [Flexbox](./flexbox.md)
-6. ⭐⭐⭐⭐⭐ [居中方案](./center-layout.md)
-7. ⭐⭐⭐⭐   [CSS 继承性](./inheritance.md)
+3. ⭐⭐⭐⭐   [CSS 继承性](./inheritance.md)
+
+### 二、布局
+
+4. ⭐⭐⭐⭐⭐ [position 定位](./position.md)
+5. ⭐⭐⭐⭐⭐ [BFC](./bfc.md)
+6. ⭐⭐⭐⭐⭐ [Flexbox](./flexbox.md)
+7. ⭐⭐⭐⭐⭐ [居中方案](./center-layout.md)
 8. ⭐⭐⭐⭐   [Grid](./grid.md)
 9. ⭐⭐⭐⭐   [三栏布局](./three-column-layout.md)
 10. ⭐⭐⭐⭐   [层叠上下文](./stacking-context.md)
+
+### 三、适配
+
 11. ⭐⭐⭐⭐   [rem / vw 移动端适配](./rem-vw.md)
 12. ⭐⭐⭐⭐   [移动端 1px 问题](./mobile-1px.md)
-13. ⭐⭐⭐⭐   [文本溢出省略](./text-overflow.md)
-14. ⭐⭐⭐⭐   [transition vs animation](./transition-animation.md)
-15. ⭐⭐⭐⭐   [伪类 vs 伪元素](./pseudo.md)
-16. ⭐⭐⭐⭐   [CSS 渲染性能](./css-performance.md)
-17. ⭐⭐⭐⭐   [CSS 变量](./css-variables.md)
-18. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
-19. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
-20. ⭐⭐⭐     [响应式](./responsive.md)
+13. ⭐⭐⭐     [响应式](./responsive.md)
+
+### 四、细节
+
+14. ⭐⭐⭐⭐   [文本溢出省略](./text-overflow.md)
+15. ⭐⭐⭐⭐   [transition vs animation](./transition-animation.md)
+16. ⭐⭐⭐⭐   [伪类 vs 伪元素](./pseudo.md)
+
+### 五、性能
+
+17. ⭐⭐⭐⭐   [CSS 渲染性能](./css-performance.md)
+
+### 六、工程化
+
+18. ⭐⭐⭐⭐   [CSS 变量](./css-variables.md)
+19. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
+20. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
 
 ## 知识点索引
 
@@ -84,3 +101,13 @@ mindmap
 | [BEM 命名](./bem.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
 | [CSS Modules / Scoped](./css-modules-scoped.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [响应式](./responsive.md) | ⭐⭐⭐ | 中级 | — | draft |
+
+## 相关阅读
+
+- [面试题库：CSS](../面试题库/CSS.md) — 16 道 CSS 高频真题
+- [面试回答：CSS](../面试回答/CSS/box-model-bfc.md) — 2 篇 CSS 逐字回答稿
+
+## 更新记录
+
+- 2026-07-12：学习顺序六组分类（基础/布局/适配/细节/性能/工程化），继承性归入基础、响应式归入适配
+- 2026-07-05：初始创建
