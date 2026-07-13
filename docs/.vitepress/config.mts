@@ -29,7 +29,7 @@ export default defineConfig({
         { text: 'JavaScript 知识地图', link: '/JavaScript/' },
         {
           text: '核心基础',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'this', link: '/JavaScript/this' },
             { text: 'call / apply / bind', link: '/JavaScript/call-apply-bind' },
@@ -42,7 +42,7 @@ export default defineConfig({
         },
         {
           text: '异步编程',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'Promise', link: '/JavaScript/promise' },
             { text: 'async / await', link: '/JavaScript/async-await' },
@@ -51,7 +51,7 @@ export default defineConfig({
         },
         {
           text: '进阶工具',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'Set / Map / WeakMap', link: '/JavaScript/set-map-weakmap' },
             { text: 'Proxy / Reflect', link: '/JavaScript/proxy-reflect' },
@@ -68,7 +68,7 @@ export default defineConfig({
         { text: 'CSS 知识地图', link: '/CSS/' },
         {
           text: '基础',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '盒模型', link: '/CSS/box-model' },
             { text: '选择器优先级', link: '/CSS/specificity' },
@@ -77,7 +77,7 @@ export default defineConfig({
         },
         {
           text: '布局',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'position 定位', link: '/CSS/position' },
             { text: 'BFC', link: '/CSS/bfc' },
@@ -90,7 +90,7 @@ export default defineConfig({
         },
         {
           text: '适配',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'rem / vw', link: '/CSS/rem-vw' },
             { text: '移动端 1px', link: '/CSS/mobile-1px' },
@@ -99,7 +99,7 @@ export default defineConfig({
         },
         {
           text: '细节',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '文本溢出省略', link: '/CSS/text-overflow' },
             { text: 'transition vs animation', link: '/CSS/transition-animation' },
@@ -108,14 +108,14 @@ export default defineConfig({
         },
         {
           text: '性能',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'CSS 渲染性能', link: '/CSS/css-performance' },
           ],
         },
         {
           text: '工程化',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'CSS 变量', link: '/CSS/css-variables' },
             { text: 'BEM 命名', link: '/CSS/bem' },
@@ -127,7 +127,7 @@ export default defineConfig({
         { text: 'HTML 知识地图', link: '/HTML/' },
         {
           text: '语义与结构',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'HTML5 语义化', link: '/HTML/html5-semantic' },
             { text: 'DOCTYPE / Meta', link: '/HTML/doctype-meta' },
@@ -137,7 +137,7 @@ export default defineConfig({
         },
         {
           text: '资源与加载',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'defer / async', link: '/HTML/script-defer-async' },
             { text: 'src / href', link: '/HTML/src-href' },
@@ -148,7 +148,7 @@ export default defineConfig({
         },
         {
           text: '进阶主题',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'Canvas vs SVG', link: '/HTML/canvas-svg' },
             { text: 'History API', link: '/HTML/history-api' },
@@ -175,7 +175,7 @@ export default defineConfig({
         { text: 'Vue3 知识地图', link: '/Vue3/' },
         {
           text: '核心机制',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'Vue3 vs Vue2 对比', link: '/Vue3/vue3-vs-vue2' },
             { text: '响应式原理', link: '/Vue3/reactivity' },
@@ -189,7 +189,7 @@ export default defineConfig({
         },
         {
           text: '组件开发',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '组件通信', link: '/Vue3/component-communication' },
             { text: 'v-model', link: '/Vue3/v-model' },
@@ -202,7 +202,7 @@ export default defineConfig({
         },
         {
           text: '模式与优化',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'Composition API', link: '/Vue3/composition-api' },
             { text: 'Composables 实战', link: '/Vue3/composables-practice' },
@@ -281,7 +281,7 @@ export default defineConfig({
         { text: '网络 知识地图', link: '/网络/' },
         {
           text: '协议与模型',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'OSI 七层 / TCP/IP 四层', link: '/网络/osi-model' },
             { text: 'TCP', link: '/网络/tcp' },
@@ -291,7 +291,7 @@ export default defineConfig({
         },
         {
           text: '缓存与安全',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'HTTP 缓存', link: '/网络/http-cache' },
             { text: 'CORS', link: '/网络/cors' },
@@ -299,14 +299,14 @@ export default defineConfig({
         },
         {
           text: '基础设施',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'DNS / CDN', link: '/网络/dns-cdn' },
           ],
         },
         {
           text: '数据交互',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'WebSocket / SSE', link: '/网络/websocket-sse' },
             { text: 'Fetch API 深度解析', link: '/网络/fetch-api' },
@@ -351,7 +351,7 @@ export default defineConfig({
         { text: '算法 知识地图', link: '/算法/' },
         {
           text: '基础数据结构',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '数组', link: '/算法/array' },
             { text: '哈希表', link: '/算法/hash' },
@@ -363,7 +363,7 @@ export default defineConfig({
         },
         {
           text: '核心算法思想',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '双指针', link: '/算法/two-pointers' },
             { text: '滑动窗口', link: '/算法/sliding-window' },
@@ -375,7 +375,7 @@ export default defineConfig({
         },
         {
           text: '面试实战',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '高频题', link: '/算法/common-questions' },
           ],
@@ -423,7 +423,7 @@ export default defineConfig({
         {
           text: '基础设施',
           link: '/项目实战/基础设施/axios-encapsulation',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: 'Axios 封装', link: '/项目实战/基础设施/axios-encapsulation' },
             { text: '防重复请求', link: '/项目实战/基础设施/request-dedup' },
@@ -433,7 +433,7 @@ export default defineConfig({
         {
           text: '认证鉴权',
           link: '/项目实战/认证鉴权/login-auth',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '登录鉴权', link: '/项目实战/认证鉴权/login-auth' },
             { text: 'Token 刷新', link: '/项目实战/认证鉴权/token-refresh' },
@@ -442,7 +442,7 @@ export default defineConfig({
         {
           text: '权限系统',
           link: '/项目实战/权限系统/dynamic-route',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '动态路由', link: '/项目实战/权限系统/dynamic-route' },
             { text: '权限 RBAC', link: '/项目实战/权限系统/permission-rbac' },
@@ -451,7 +451,7 @@ export default defineConfig({
         {
           text: '业务场景',
           link: '/项目实战/业务场景/file-upload',
-          collapsed: false,
+          collapsible: false,
           items: [
             { text: '文件上传', link: '/项目实战/业务场景/file-upload' },
             { text: 'Excel 导入导出', link: '/项目实战/业务场景/excel-import-export' },
