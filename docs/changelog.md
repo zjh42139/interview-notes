@@ -9,6 +9,16 @@ description: 知识库变更记录
 
 - **setup 执行时机精确化**：4 处 "创建组件实例之前/组件实例尚未创建" 修正——setup 时内部实例已存在（props 已挂上），不可用的是 Options API 上下文（`this`），不是实例本身。涉及 `lifecycle.md` / `composition-api.md` / `round-1-vue.md`
 
+### 网络模块覆盖率补强
+
+- **+2 知识文件**：`osi-model.md`（OSI 七层/TCP-IP 四层/TCP vs UDP）、`http-cache.md`（从 http-https.md 独立——强缓存+协商缓存+项目策略）
+- **+2 回答稿**：`面试回答/网络/tcp.md`、`面试回答/网络/http2-http3.md`
+- **mindmap 四组重排**：协议与模型/缓存与安全/基础设施/数据交互
+- **学习顺序分组**：四组 9 篇（7→9）
+- **题库修复**：Q4 🎤 修正（http-https→cors）；Q14 补 OSI 七层模型（编号连续 15 题）；Q9 答案参考更新（http-https→http-cache）
+- **同步**：sidebar + 回答稿 index(29→31) + http-https.md 交叉引用补链
+- **文件清单**：`osi-model.md` / `http-cache.md` / `面试回答/网络/tcp.md` / `面试回答/网络/http2-http3.md` / `网络/index.md` / `面试回答/index.md` / `网络/http-https.md` / `面试题库/网络.md` / `config.mts`
+
 ### 全链路渲染流程
 
 - **新增 `vue3-full-pipeline.md`**：7 阶段全链路——模板编译→应用初始化→首次渲染→数据变更→异步调度→Diff+Patch→浏览器渲染管线。串联 Compiler/Reactivity/Scheduler/Renderer/Diff/Patch/生命周期/nextTick/浏览器渲染 8 大知识领域。sidebar + mindmap + 学习顺序(核心机制#8) + 知识点索引全量同步

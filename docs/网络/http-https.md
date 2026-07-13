@@ -195,6 +195,7 @@ location /api/v2/ { proxy_pass http://backend-v2:3000; }
 - [MDN: HTTP overview](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
 - [MDN: HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS)
 - [Cloudflare: What is TLS?](https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/)
+- [http-cache](./http-cache.md) — HTTP 缓存策略（强缓存 + 协商缓存）
 - [http2-http3](./http2-http3.md) — HTTP/2 和 HTTP/3 的演进
 - [tcp](./tcp.md) — HTTP 的底层传输协议
 - [cors](./cors.md) — 跨域资源共享
