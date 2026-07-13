@@ -189,15 +189,39 @@ export default defineConfig({
       ],
       '/网络/': [
         { text: '网络 知识地图', link: '/网络/' },
-        { text: 'OSI 七层 / TCP/IP 四层', link: '/网络/osi-model' },
-        { text: 'TCP', link: '/网络/tcp' },
-        { text: 'HTTP / HTTPS', link: '/网络/http-https' },
-        { text: 'HTTP2 / HTTP3', link: '/网络/http2-http3' },
-        { text: 'HTTP 缓存', link: '/网络/http-cache' },
-        { text: 'CORS', link: '/网络/cors' },
-        { text: 'DNS / CDN', link: '/网络/dns-cdn' },
-        { text: 'WebSocket / SSE', link: '/网络/websocket-sse' },
-        { text: 'Fetch API 深度解析', link: '/网络/fetch-api' },
+        {
+          text: '协议与模型',
+          collapsed: false,
+          items: [
+            { text: 'OSI 七层 / TCP/IP 四层', link: '/网络/osi-model' },
+            { text: 'TCP', link: '/网络/tcp' },
+            { text: 'HTTP / HTTPS', link: '/网络/http-https' },
+            { text: 'HTTP2 / HTTP3', link: '/网络/http2-http3' },
+          ],
+        },
+        {
+          text: '缓存与安全',
+          collapsed: false,
+          items: [
+            { text: 'HTTP 缓存', link: '/网络/http-cache' },
+            { text: 'CORS', link: '/网络/cors' },
+          ],
+        },
+        {
+          text: '基础设施',
+          collapsed: false,
+          items: [
+            { text: 'DNS / CDN', link: '/网络/dns-cdn' },
+          ],
+        },
+        {
+          text: '数据交互',
+          collapsed: false,
+          items: [
+            { text: 'WebSocket / SSE', link: '/网络/websocket-sse' },
+            { text: 'Fetch API 深度解析', link: '/网络/fetch-api' },
+          ],
+        },
       ],
       '/工程化/': [
         { text: '工程化 知识地图', link: '/工程化/' },
