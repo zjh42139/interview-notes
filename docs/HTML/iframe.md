@@ -171,9 +171,9 @@ window.addEventListener('message', (e) => {
   防御：X-Frame-Options HTTP 响应头
     X-Frame-Options: DENY          — 禁止任何页面嵌入此页面
     X-Frame-Options: SAMEORIGIN    — 只允许同源页面嵌入
-    X-Frame-Options: ALLOW-FROM https://trusted.com  — 仅允许指定源
+    X-Frame-Options: ALLOW-FROM https://trusted.com  — 仅允许指定源（已废弃，Chrome 不支持）
 
-  升级方案：CSP frame-ancestors（比 X-Frame-Options 更灵活）
+  升级方案：CSP frame-ancestors（比 X-Frame-Options 更灵活，推荐使用）
     Content-Security-Policy: frame-ancestors 'self' https://trusted.com
 
 攻击方向 2：iframe 内恶意页面劫持父页面

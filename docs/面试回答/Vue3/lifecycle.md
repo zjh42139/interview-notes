@@ -54,7 +54,7 @@ tags:
 
 ### 30 秒版本
 
-"onUnmounted 是清理时机——清除定时器、取消 DOM 事件监听、停止 watch/effect 追踪、断开 WebSocket。和 destroyed 功能一样但时机不同——destroyed 在实例销毁后，unmounted 在 DOM 移除后、组件销毁前。"
+"onUnmounted 是清理时机——清除定时器、取消 DOM 事件监听、停止 watch/effect 追踪、断开 WebSocket。和 destroyed 功能一样——都是在组件实例销毁后调用。区别只是 Vue3 的命名更明确：unmounted = 已卸载。此时 DOM 已移除、响应式已停、实例已销毁——你的清理代码不会触发响应式更新，也不会有任何意外。"
 
 ### 追问预判
 

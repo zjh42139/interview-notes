@@ -5,7 +5,20 @@ description: 知识库变更记录
 
 # Changelog
 
-## 2026-07-12
+## 2026-07-13
+
+### 全文档事实性审计 + 修复（21 处）
+
+6 路 agent 并行审计 ~230 个文件，发现并修复 21 处技术事实性错误：
+
+- **🔴 严重误导**（7 处）：`promise.md` setTimeout 不是微任务；`reactivity.md` ref 不是 Proxy；`Pinia.md` $onAction true 含义反了；`Vue3.md` nextTick 降级链是 Vue2 的、KeepAlive keys 是 Set 不是数组；`bfc.md` flex/grid 不是 BFC；`this.md` `[[ThisMode]]` 归属说反
+- **🟡 不准确**（13 处）：async/await 非 Generator 语法糖；provide/inject 响应式表述；Observer 回调时机；frame-src 未废弃；TCP 慢启动/TIME_WAIT；SSR 括号标注错误；内联元素/文本节点混淆；ALLOW-FROM 废弃未标注；falsy 计数；parseInt 旧规则；ArrayBuffer 越界；hash 注释错误
+- **修复文件**：`面试回答/JavaScript/promise.md`、`面试回答/Vue3/reactivity.md`、`面试回答/Vue3/component-communication.md`、`面试题库/Pinia.md`、`面试题库/Vue3.md`、`CSS/bfc.md`、`JavaScript/this.md`、`JavaScript/type-coercion.md`、`JavaScript/arraybuffer-typedarray.md`、`浏览器/observer-api.md`、`浏览器/安全/csp.md`、`网络/tcp.md`、`Vue3/lifecycle.md`、`HTML/lazy-loading.md`、`HTML/iframe.md`、`VueRouter/history-vs-hash.md`
+
+### 生命周期描述修正
+
+- **setup 执行时机**：`lifecycle.md` / `composition-api.md` / `模拟面试/round-1-vue.md` 共 5 处 "beforeCreate 和 created 之间" → "beforeCreate 之前"（Vue 3 官方：setup is called before beforeCreate）
+- **unmounted 时机**：`面试回答/Vue3/lifecycle.md` "DOM 移除后、组件销毁前" → "组件实例销毁后"（Vue 3 官方：called after the component has been unmounted）
 
 ### JS 模块深度修复
 

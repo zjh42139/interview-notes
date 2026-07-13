@@ -147,13 +147,13 @@ tags:
 - `$onAction` 回调的三个阶段：`before`（action 开始前）、`after`（成功后）、`error`（失败后）
 - 全局 loading：before 显示 loading、after/error 隐藏
 - 埋点上报：after 中记录 actionName + storeId + duration
-- 销毁时机：第二个参数 `true` 绑定组件生命周期
+- 销毁时机：默认绑定组件生命周期（组件卸载自动取消），传入 `true` 脱离（detached）
 
-**30秒答**：$onAction 订阅 store 中所有 action 的执行——before/after/error 三个回调。适合全局 loading 自动管理、埋点上报（记录哪个 action 花了多长时间）、错误统一处理。`$onAction(() => {}, true)` 第二个参数 true 可从组件卸载后自动取消订阅。
+**30秒答**：$onAction 订阅 store 中所有 action 的执行——before/after/error 三个回调。适合全局 loading 自动管理、埋点上报（记录哪个 action 花了多长时间）、错误统一处理。`$onAction(() => {}, true)` 第二个参数 true 表示 detached——组件卸载后不会自动取消订阅（适合全局监控场景）。
 **追问预测**：
 - "$onAction 和 $subscribe 的区别" → $onAction 监听 action 执行过程（异步操作）；$subscribe 监听 state 变化（数据层面）
 - "怎么用 $onAction 做埋点" → after 回调中上报 `{ storeId, actionName, duration }`——记录所有 action 的调用频率和耗时
-- "$onAction 第二个参数为 true 做什么" → 订阅绑定到组件实例——组件卸载自动取消。防止内存泄漏
+- "$onAction 第二个参数为 true 做什么" → detached 模式——订阅脱离组件生命周期。组件卸载后不会自动取消订阅。防止内存泄漏需要在合适时机手动取消
 
 > 答案参考：[../Pinia/actions.md](../Pinia/actions.md)
 

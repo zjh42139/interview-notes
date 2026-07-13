@@ -63,7 +63,7 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.examp
 | `img-src` | 图片来源 | `img-src 'self' data: https:` |
 | `connect-src` | XHR/WebSocket/EventSource 等请求目标 | `connect-src 'self' https://api.example.com` |
 | `font-src` | 字体来源 | `font-src 'self' https://fonts.gstatic.com` |
-| `frame-src` | iframe 来源（已废弃，改用 `child-src`） | `frame-src 'self'` |
+| `frame-src` | iframe 来源 | `frame-src 'self'` |
 | `frame-ancestors` | 哪些页面可以嵌入当前页面（防点击劫持） | `frame-ancestors 'none'` |
 | `form-action` | 表单提交目标 | `form-action 'self'` |
 | `base-uri` | `<base>` 标签的 href | `base-uri 'self'` |

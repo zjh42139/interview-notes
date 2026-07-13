@@ -35,7 +35,7 @@ tags:
 
 **链式断裂**：如果 `.then` 回调里没有 return（返回 undefined），下一个 `.then` 收到的就是 undefined——链断了但不报错。这是最常见的 Promise 使用错误。
 
-**async/await 的区别**：async/await 是 Promise + Generator 的语法糖。async 函数返回 Promise；await 暂停函数执行等 Promise settle。`try/catch` 替代了 `.catch()`，代码看起来像同步的。但本质上还是 Promise——await 后面接非 Promise 值时，JS 内部用 `Promise.resolve()` 包装。"
+**async/await 的区别**：async/await 可以理解为 Promise 模式的语法封装。async 函数始终返回 Promise；await 暂停函数执行等待 Promise settle。`try/catch` 替代了 `.catch()`，代码读起来像同步。但本质上还是 Promise——await 后面接非 Promise 值时，JS 内部用 `Promise.resolve()` 包装。"
 
 ### 追问预判
 
@@ -55,7 +55,7 @@ tags:
 
 "手写 Promise 的骨架——构造函数里维护三种状态（pending/fulfilled/rejected），resolve 把状态改为 fulfilled 并执行成功回调，reject 改 rejected 执行失败回调。`.then` 返回新 Promise——如果当前 promise 已经 settled，直接用返回值 resolve 或 reject 新 promise；如果还在 pending，把回调存进队列。
 
-三个关键细节：1) 状态不可逆——`pending → fulfilled` 之后不能再变；2) resolve 的值为另一个 Promise 时——需要递归等待；3) `.then` 的回调是异步执行的——用 `setTimeout(fn, 0)` 模拟微任务。
+三个关键细节：1) 状态不可逆——`pending → fulfilled` 之后不能再变；2) resolve 的值为另一个 Promise 时——需要递归等待；3) `.then` 的回调是异步执行的——用 `queueMicrotask(fn)`（或 `Promise.resolve().then(fn)`）模拟微任务。
 
 面试不要求手写完整 Promises/A+ 规范——能把构造函数 + `.then` + 链式调用写清楚就够了。"
 

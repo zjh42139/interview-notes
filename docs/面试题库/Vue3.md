@@ -102,13 +102,13 @@ tags:
 
 **考察点**：
 - DOM 更新是异步的，`nextTick` 在 DOM 更新后执行回调
-- 内部使用微任务（Promise.then）优先，降级方案（MutationObserver -> setImmediate -> setTimeout）
+- 内部使用微任务（Promise.then），Vue3 不再需要降级方案
 - Vue 的调度队列（scheduler job queue）确保更新只执行一次
 - 典型场景：获取更新后的 DOM 元素
 
 **30秒答**：nextTick 把回调推入微任务队列——在当前 DOM 更新完成后执行。场景：修改数据后立刻读取 DOM。Vue 内部响应式更新是异步批量的——多次改同一个数据只触发一次更新。
 **追问预测**：
-- "nextTick 的原理" → 回调推入微任务队列——Promise.then 优先，降级 setImmediate/setTimeout
+- "nextTick 的原理" → 回调推入微任务队列——Vue3 直接用 Promise.then，不再需要降级
 - "什么时候必须用 nextTick" → 修改数据后立即读取 DOM 状态——此时 DOM 还未更新
 - "nextTick 和 setTimeout 区别" → nextTick 微任务当前 tick 结束执行，setTimeout 宏任务下一个 tick
 
@@ -125,7 +125,7 @@ tags:
 **题目**：`<KeepAlive>` 组件的实现原理是什么？它的缓存策略是怎样的？如何使用 LRU 算法管理缓存？
 
 **考察点**：
-- 组件实例缓存到 `cache` Map 中，`keys` 数组记录访问顺序
+- 组件实例缓存到 `cache` Map 中，`keys` Set 记录访问顺序
 - LRU（最近最少使用）：超过 `max` 时淘汰最久未访问的组件
 - `activated` / `deactivated` 生命周期钩子
 - 虚拟 DOM 层面：渲染缓存的 vnode 而非创建新 vnode

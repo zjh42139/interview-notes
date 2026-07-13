@@ -37,7 +37,7 @@ tags:
 
 **派发更新——trigger**。修改响应式数据 → 触发 Proxy 的 set → set 里调 trigger → 从依赖表查到所有依赖此属性的 effect → 全部重新执行。更新是异步批量的——同一个 tick 内多次修改，effect 只执行一次。scheduler 用 `Promise.resolve()` 创建微任务队列——等当前同步代码跑完再批量执行所有 effect。
 
-**ref vs reactive**：ref 内部也是 Proxy——`.value` 取值时 track、赋值时 trigger。ref 适合基本类型和重新赋值场景，reactive 适合对象。ref 在模板中自动解包 `.value`。"
+**ref vs reactive**：ref 对基本类型值使用 class 存取器（getter/setter）实现 track/trigger；当 ref 的值是对象时，内部委托给 reactive（Proxy）处理。ref 适合基本类型和重新赋值场景，reactive 适合对象。ref 在模板中自动解包 `.value`。"
 
 ### 追问预判
 

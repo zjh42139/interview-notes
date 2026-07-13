@@ -383,7 +383,7 @@ requestAnimationFrame(() => {
 **考点：**
 
 - 父子组件生命周期钩子的执行先后顺序（挂载是子先完成父后完成，更新也是子先完成父后完成，卸载前钩子父先触发子后触发）
-- setup 的执行时机（beforeCreate 和 created 之间）
+- setup 的执行时机（beforeCreate 之前）
 - Vue3 取消 beforeCreate/created 的设计理由
 - KeepAlive 下的 onActivated/onDeactivated 与 mounted/unmounted 的区别
 
@@ -410,7 +410,7 @@ requestAnimationFrame(() => {
 
 **记忆口诀：挂载和更新都是"子先完成，父后完成"；卸载则是"父先触发卸载前，但子先卸载完"。**
 
-**setup 的执行时机：** 在解析完 props 之后、创建组件实例之前执行，正好处于 Options API 的 `beforeCreate` 和 `created` 之间。这也是为什么 setup 中不能使用 `this` —— 组件实例尚未完全创建。
+**setup 的执行时机：** 在解析完 props 之后、创建组件实例之前执行，处于 Options API 的 `beforeCreate` 之前。这也是为什么 setup 中不能使用 `this` —— 组件实例尚未创建。
 
 **为什么取消 beforeCreate/created：** `setup()` 本身替代了这两个钩子的功能。在 Options API 时代，`beforeCreate` 和 `created` 的主要用途是初始化非响应式数据和调用 API，现在这些逻辑直接写在 `setup()` 函数体中即可。保留它们只会造成 API 冗余。Vue3 依然可以在 Options API 中使用这两个钩子，但 Composition API 中用 `setup()` 替代。
 
@@ -435,7 +435,7 @@ requestAnimationFrame(() => {
 | 级别 | 表现描述 |
 |------|---------|
 | 初级 | 只能列出 8 个钩子的名字，说不出父子顺序 |
-| 中级 | 能正确说出挂载/更新的父子顺序（子先完成父后完成），知道 setup 在 beforeCreate/created 之间 |
+| 中级 | 能正确说出挂载/更新的父子顺序（子先完成父后完成），知道 setup 在 beforeCreate 之前 |
 | 高级 | 能同时说清卸载阶段的顺序（父先触发 onBeforeUnmount），清楚 KeepAlive 下 activated 和 mounted 的触发差异 + 清理时机的双重保障 |
 
 ---

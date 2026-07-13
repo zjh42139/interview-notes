@@ -123,8 +123,9 @@ true == '1'                // true（true → 1 → '1' → 1）
 ### Boolean 转换：8 个 falsy 值
 
 ```js
-// 只有这 8 个值转布尔为 false，其他一切都是 true
-false, 0, -0, 0n, '', null, undefined, NaN, document.all
+// 只有这 8 个值转布尔为 false（document.all 是浏览器额外例外），其他一切都是 true
+false, 0, -0, 0n, '', null, undefined, NaN
+// 注意：document.all 转布尔也是 false（历史遗留）
 
 !!{}                 // true  — 空对象也是 true
 !![]                 // true  — 空数组也是 true
@@ -143,7 +144,7 @@ parseInt('42px')   // 42  — 逐字符解析，遇非数字停
 Number(null)       // 0
 parseInt(null)     // NaN
 
-// parseInt 第二个参数 radix 必传，否则 '08' 行为不确定
+// ES5 起 parseInt 不传 radix 默认按十进制解析，但仍建议总传第二个参数
 parseInt('10', 2)  // 2（二进制）
 ```
 

@@ -200,7 +200,7 @@ window.addEventListener('scroll', () => {
 <img src="hero.jpg" fetchpriority="high" alt="首屏横幅" />
 ```
 
-### 3. IntersectionObserver 不能观察内联元素
+### 3. IntersectionObserver 不能观察文本节点
 
 `IntersectionObserver` 必须观察 DOM 元素（Element），不能观察文本节点或伪元素。
 

@@ -45,10 +45,9 @@ position: fixed;
 
 /* display 的值 */
 display: inline-block;
-display: flex;         /* 弹性容器 */
-display: grid;         /* 网格容器 */
 display: flow-root;    /* 专门用来创建 BFC，无副作用！ */
 display: table-cell;   /* 或 table-caption */
+/* 注意：display: flex 和 grid 分别创建 FFC 和 GFC，非 BFC */
 ```
 
 实际上手项目里最常用的三种：`overflow: hidden`（清除浮动）、`display: flex`（布局）、`display: flow-root`（现代写法，无裁剪风险）。

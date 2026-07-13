@@ -134,7 +134,7 @@ console.log(instance.name) // "newObj" — new 覆盖了 bind 的 this
 
 ### 追问：箭头函数的 lexical this 到底怎么理解？
 
-箭头函数没有 `[[ThisMode]]` 内部属性（普通函数是 `lexical`），这意味着它的 this 在**定义时**就确定了，从外层作用域"偷"过来。这让它在回调场景非常有用：
+箭头函数的 `[[ThisMode]]` 内部属性为 `lexical`（普通函数是 `global` 或 `strict`），这意味着它的 this 在**定义时**就确定了，从外层作用域"偷"过来。这让它在回调场景非常有用：
 
 ```ts
 // 经典问题：setTimeout 里的 this 为什么指向 window？

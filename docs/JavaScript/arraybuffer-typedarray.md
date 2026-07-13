@@ -95,7 +95,7 @@ normal[1] = -50     // → 206（-50 → 256-50）
 ### DataView — 需要控制字节序时用它
 
 ```js
-const buf = new ArrayBuffer(4)
+const buf = new ArrayBuffer(8)
 const view = new DataView(buf)
 
 // setInt32(byteOffset, value, littleEndian)

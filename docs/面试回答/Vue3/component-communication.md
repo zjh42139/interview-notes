@@ -45,7 +45,7 @@ tags:
 
 | 面试官追问 | 你的回答 |
 |-----------|---------|
-| "provide/inject 是响应式的吗" | 默认不是。如果要响应式——provide 传 `computed(() => value)` 或传一个 reactive 对象。inject 端拿到的是响应式引用 |
+| "provide/inject 是响应式的吗" | 取决于你 provide 的值——传 ref 就是响应式的、传普通字符串就不是。provide/inject 本身只是透传，不创造也不剥离响应式 |
 | "Pinia 和 Vuex 有什么区别" | Pinia 更轻量——没有 mutations（actions 直接改 state）、完全 TS 类型推导、去掉了 modules（用多个 store 替代）、支持 Composition API 风格 |
 | "Vue3 为什么移除 $on/$off" | EventBus 模式容易导致事件名冲突、事件流不清晰、难以 debug。Pinia 的状态管理是更可预测的替代方案 |
 

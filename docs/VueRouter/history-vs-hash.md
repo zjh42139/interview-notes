@@ -38,7 +38,7 @@ window.addEventListener('hashchange', (e) => {
   // URL 从 /#/foo 变成 /#/bar 时触发
   const { oldURL, newURL } = e
   // 提取 # 后面的路径进行路由匹配
-  const path = window.location.hash.slice(1)  // '/foo' → '/foo'
+  const path = window.location.hash.slice(1)  // '#/foo' → '/foo'
   router.match(path)
 })
 

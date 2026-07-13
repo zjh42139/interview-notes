@@ -24,7 +24,7 @@ tags:
 
 ## 一句话总结
 
-**浏览器原生提供了四种观察者——MutationObserver（观察 DOM 变化）、IntersectionObserver（观察元素可见性）、ResizeObserver（观察元素尺寸）、PerformanceObserver（观察性能指标）。它们都在微任务时机回调，不阻塞主线程，比传统轮询方案性能高几个数量级。**
+**浏览器原生提供了四种观察者——MutationObserver（观察 DOM 变化，微任务回调）、IntersectionObserver（观察元素可见性，渲染阶段回调）、ResizeObserver（观察元素尺寸，渲染阶段回调）、PerformanceObserver（观察性能指标，普通任务回调）。它们异步回调不阻塞主线程，比传统轮询方案性能高几个数量级。**
 
 ## 核心机制
 
