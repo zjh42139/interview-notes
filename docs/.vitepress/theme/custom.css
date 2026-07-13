@@ -63,6 +63,15 @@ body {
   background-color: var(--vp-nav-bg-color) !important;
 }
 
+/* 标题和内容区底线合并为一条 */
+.VPNavBar {
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.VPNavBarTitle.has-sidebar .title {
+  border-bottom: none !important;
+}
+
 .VPNavBarMenuLink {
   font-size: 14px;
   font-weight: 500;
