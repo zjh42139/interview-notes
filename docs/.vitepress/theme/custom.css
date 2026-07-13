@@ -63,9 +63,9 @@ body {
   background-color: var(--vp-nav-bg-color) !important;
 }
 
-/* 标题和内容区底线合并为一条 */
+/* 标题和内容区底线合并为一条——内阴影比border更融入暗色背景 */
 .VPNavBar {
-  border-bottom: 1px solid var(--vp-c-divider);
+  box-shadow: inset 0 -1px rgba(255, 255, 255, 0.08);
 }
 
 .VPNavBarTitle.has-sidebar .title {
