@@ -27,6 +27,8 @@ mindmap
         Diff / Patch
         Renderer
         编译优化（PatchFlag / Block Tree）
+      全链路渲染流程
+        Compiler → Reactivity → Renderer → 浏览器
     组件体系
       组件通信
         props / emits / provide / inject / Pinia
@@ -62,22 +64,23 @@ mindmap
 5. ⭐⭐⭐     [Scheduler](./scheduler.md)
 6. ⭐⭐⭐⭐⭐ [Diff / Patch](./diff-patch.md)
 7. ⭐⭐⭐     [Renderer](./renderer.md)
+8. ⭐⭐⭐⭐⭐ [全链路渲染流程](./vue3-full-pipeline.md)
 
 ### 二、组件开发（日常写组件需要的知识）
 
-8.  ⭐⭐⭐⭐⭐ [组件通信](./component-communication.md)
-9.  ⭐⭐⭐⭐⭐ [v-model 原理](./v-model.md)
-10. ⭐⭐⭐⭐   [插槽深入](./slots-deep.md)
-11. ⭐⭐⭐⭐   [生命周期](./lifecycle.md)
-12. ⭐⭐⭐⭐   [KeepAlive](./keepalive.md)
-13. ⭐⭐       [Teleport / Suspense](./teleport-suspense.md)
-14. ⭐⭐⭐     [Transition 动画](./transition-animation.md)
+9.  ⭐⭐⭐⭐⭐ [组件通信](./component-communication.md)
+10. ⭐⭐⭐⭐⭐ [v-model 原理](./v-model.md)
+11. ⭐⭐⭐⭐   [插槽深入](./slots-deep.md)
+12. ⭐⭐⭐⭐   [生命周期](./lifecycle.md)
+13. ⭐⭐⭐⭐   [KeepAlive](./keepalive.md)
+14. ⭐⭐       [Teleport / Suspense](./teleport-suspense.md)
+15. ⭐⭐⭐     [Transition 动画](./transition-animation.md)
 
 ### 三、模式与优化（进阶）
 
-15. ⭐⭐⭐⭐   [Composition API](./composition-api.md)
-16. ⭐⭐⭐⭐   [Composables 实战](./composables-practice.md)
-17. ⭐⭐⭐⭐   [性能优化 Checklist](./vue3-performance.md)
+16. ⭐⭐⭐⭐   [Composition API](./composition-api.md)
+17. ⭐⭐⭐⭐   [Composables 实战](./composables-practice.md)
+18. ⭐⭐⭐⭐   [性能优化 Checklist](./vue3-performance.md)
 
 ## 知识点索引
 
@@ -90,6 +93,7 @@ mindmap
 | [Scheduler](./scheduler.md) | ⭐⭐⭐ | 高级 | — | reviewed |
 | [Diff / Patch](./diff-patch.md) | ⭐⭐⭐⭐⭐ | 高级 | [✅ LIS](./diff-patch.md) | reviewed |
 | [Renderer](./renderer.md) | ⭐⭐⭐ | 高级 | — | reviewed |
+| [全链路渲染流程](./vue3-full-pipeline.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |
 | [组件通信](./component-communication.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [v-model 原理](./v-model.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [插槽深入](./slots-deep.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
@@ -109,9 +113,11 @@ mindmap
 - [面试题库：Vue Router](../面试题库/VueRouter.md) — 7 道路由高频真题
 - [面试题库：Pinia](../面试题库/Pinia.md) — 7 道状态管理高频真题
 - [面试回答：Vue3 响应式](../面试回答/Vue3/reactivity.md) — 8 篇 Vue3 逐字回答稿
+- [全链路渲染流程](./vue3-full-pipeline.md) — 从模板编译到屏幕更新的全景串联
 
 ## 更新记录
 
+- 2026-07-13：新增 [全链路渲染流程](./vue3-full-pipeline.md)——串联 Compiler/Reactivity/Scheduler/Renderer/Diff/Patch/生命周期/nextTick/浏览器渲染管线
 - 2026-07-12：sidebar 顺序同步学习顺序三组
 - 2026-07-11：学习顺序三组分组（核心机制→组件开发→模式与优化）；mindmap 缩并为 3 大分支（17→3 一级节点）；补全新增文件的 mindmap 节点
 - 2026-07-05：初始创建

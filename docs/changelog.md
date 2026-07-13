@@ -9,6 +9,10 @@ description: 知识库变更记录
 
 - **setup 执行时机精确化**：4 处 "创建组件实例之前/组件实例尚未创建" 修正——setup 时内部实例已存在（props 已挂上），不可用的是 Options API 上下文（`this`），不是实例本身。涉及 `lifecycle.md` / `composition-api.md` / `round-1-vue.md`
 
+### 全链路渲染流程
+
+- **新增 `vue3-full-pipeline.md`**：7 阶段全链路——模板编译→应用初始化→首次渲染→数据变更→异步调度→Diff+Patch→浏览器渲染管线。串联 Compiler/Reactivity/Scheduler/Renderer/Diff/Patch/生命周期/nextTick/浏览器渲染 8 大知识领域。sidebar + mindmap + 学习顺序(核心机制#8) + 知识点索引全量同步
+
 ### 全文档事实性审计 + 修复（21 处）
 
 6 路 agent 并行审计 ~230 个文件，发现并修复 21 处技术事实性错误：

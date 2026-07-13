@@ -108,6 +108,7 @@ export default defineConfig({
         { text: 'Scheduler', link: '/Vue3/scheduler' },
         { text: 'Diff / Patch', link: '/Vue3/diff-patch' },
         { text: 'Renderer', link: '/Vue3/renderer' },
+        { text: '全链路渲染流程', link: '/Vue3/vue3-full-pipeline' },
         { text: '组件通信', link: '/Vue3/component-communication' },
         { text: 'v-model', link: '/Vue3/v-model' },
         { text: '插槽深入', link: '/Vue3/slots-deep' },
