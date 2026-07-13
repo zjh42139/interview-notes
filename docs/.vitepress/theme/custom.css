@@ -1,9 +1,9 @@
 /* ============================================
-   Monograph —— 一本没有装订线的平装书
-
-   石白纸色 + 衬线标题 + 灰度层次 + 首字下沉
-   签名元素：h2 后首段首字放大下沉
+   Monograph —— 石白纸色 + 衬线标题 + 灰度层次
+   正文 Inter（屏幕最优）+ 标题 Charter/Georgia（书卷气）
    ============================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..600&display=swap");
 
 /* ===== 1. 配色 Token ===== */
 :root {
@@ -69,8 +69,9 @@
 
 /* ===== 2. 字体 ===== */
 :root {
-  --vp-font-family-base: "Charter", "Georgia", "Times New Roman", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --vp-font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   --vp-font-family-mono: "JetBrains Mono", "Fira Code", Menlo, Monaco, Consolas,
     "Courier New", monospace;
 }
@@ -89,12 +90,12 @@ body {
 
 .vp-doc p,
 .vp-doc li {
-  line-height: 1.8;
+  line-height: 1.85;
   color: var(--vp-c-text-1);
 }
 
 .vp-doc p {
-  margin-bottom: 1.3em;
+  margin-bottom: 1.4em;
 }
 
 /* ===== 3. 导航栏 ===== */
