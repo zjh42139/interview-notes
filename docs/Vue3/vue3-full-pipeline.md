@@ -122,9 +122,9 @@ app.mount('#app')
 
 ```
 initProps()    → 解析 props 到实例
+initSlots()    → 初始化插槽（处理父组件传入的 slot 内容）
 setup()        → 执行 <script setup> 或 setup() 函数
                   在这里创建 ref() / reactive() / computed() / watch()
-initSlots()    → 初始化插槽（处理父组件传入的 slot 内容）
 ```
 
 5. **创建 `ReactiveEffect`**——组件的 render 被包装为 effect：
