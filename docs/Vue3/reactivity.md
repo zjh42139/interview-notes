@@ -39,7 +39,7 @@ function reactive<T extends object>(target: T): T {
   return new Proxy(target, mutableHandlers)
 }
 
-// ref: 对基本类型包裹成 { value: xxx }，再走 reactive
+// ref: class 存取器（getter/setter）实现 track/trigger，值为对象时内部委托给 reactive
 class RefImpl<T> {
   private _value: T
   public readonly __v_isRef = true
@@ -59,7 +59,7 @@ class RefImpl<T> {
 }
 ```
 
-**关键结论：`reactive` 只能代理对象，`ref` 本质是用对象 `{ value }` 包装基本类型，让基本类型也能走 Proxy。**
+**关键结论：`reactive` 只能代理对象，`ref` 通过 class 存取器统一了 track/trigger 机制——值为基本类型时走 getter/setter，值为对象时内部委托给 reactive（Proxy）。**
 
 ### 2. Proxy 拦截了什么
 
