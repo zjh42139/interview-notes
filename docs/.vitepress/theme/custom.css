@@ -1,10 +1,4 @@
-/* ===== Mermaid SVG 居中 ===== */
-.mermaid-svg {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
-}
-
-.mermaid-svg svg {
-  max-width: 100%;
+/* sidebar 不可折叠分组——去掉组间分隔线 */
+.VPSidebar .group .VPSidebarItem {
+  border-top: none;
 }
