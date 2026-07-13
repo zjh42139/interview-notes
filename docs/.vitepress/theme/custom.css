@@ -1,4 +1,5 @@
 /* sidebar 不可折叠分组——去掉组间分隔线 */
-.VPSidebar .group .VPSidebarItem {
-  border-top: none;
+.VPSidebar .group + .group {
+  border-top: none !important;
+  padding-top: 0 !important;
 }
