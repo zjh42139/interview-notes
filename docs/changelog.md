@@ -7,6 +7,8 @@ description: 知识库变更记录
 
 ## 2026-07-13
 
+- **setup 执行时机精确化**：4 处 "创建组件实例之前/组件实例尚未创建" 修正——setup 时内部实例已存在（props 已挂上），不可用的是 Options API 上下文（`this`），不是实例本身。涉及 `lifecycle.md` / `composition-api.md` / `round-1-vue.md`
+
 ### 全文档事实性审计 + 修复（21 处）
 
 6 路 agent 并行审计 ~230 个文件，发现并修复 21 处技术事实性错误：

@@ -111,7 +111,7 @@ onErrorCaptured((err, instance, info) => {
 
 ### 追问1：为什么取消了 beforeCreate / created？
 
-在 Options API 中，`beforeCreate` 和 `created` 的主要用途是初始化非响应式数据和调用 API。但有了 `setup()` 之后，这两个钩子的逻辑直接写在 `setup` 函数体内即可 —— **setup 的执行时机在 beforeCreate 之前**（这也是为什么 `setup` 中拿不到 `this`——组件实例尚未创建）。保持它们只会造成 API 冗余。
+在 Options API 中，`beforeCreate` 和 `created` 的主要用途是初始化非响应式数据和调用 API。但有了 `setup()` 之后，这两个钩子的逻辑直接写在 `setup` 函数体内即可 —— **setup 的执行时机在 beforeCreate 之前**（这也是为什么 `setup` 中拿不到 `this`——options API 上下文尚未建立，组件内部实例虽已创建但未暴露）。保持它们只会造成 API 冗余。
 
 ### 追问2：KeepAlive 的额外生命周期
 

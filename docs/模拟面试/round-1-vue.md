@@ -410,7 +410,7 @@ requestAnimationFrame(() => {
 
 **记忆口诀：挂载和更新都是"子先完成，父后完成"；卸载则是"父先触发卸载前，但子先卸载完"。**
 
-**setup 的执行时机：** 在解析完 props 之后、创建组件实例之前执行，处于 Options API 的 `beforeCreate` 之前。这也是为什么 setup 中不能使用 `this` —— 组件实例尚未创建。
+**setup 的执行时机：** 在解析完 props 之后执行，早于 Options API 的 `beforeCreate` 钩子。这也是为什么 setup 中不能使用 `this` —— Options API 上下文尚未建立。
 
 **为什么取消 beforeCreate/created：** `setup()` 本身替代了这两个钩子的功能。在 Options API 时代，`beforeCreate` 和 `created` 的主要用途是初始化非响应式数据和调用 API，现在这些逻辑直接写在 `setup()` 函数体中即可。保留它们只会造成 API 冗余。Vue3 依然可以在 Options API 中使用这两个钩子，但 Composition API 中用 `setup()` 替代。
 
