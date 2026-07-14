@@ -165,13 +165,39 @@ graph TB
 |--------|------|------|
 | `obj.__proto__` | `Foo.prototype` | 实例指向构造函数的 prototype |
 | `Foo.prototype.__proto__` | `Object.prototype` | 原型对象本身也是普通对象 |
-| `Foo.__proto__` | `Function.prototype` | 函数也是对象，由 Function 构造 |
+| `Foo.__proto__` | `Function.prototype` | 普通函数由 Function 构造（async/生成器函数例外见下文） |
 | `Function.__proto__` | `Function.prototype` | Function 自己是函数，所以指向自己的 prototype |
 | `Object.__proto__` | `Function.prototype` | Object 构造函数也是函数 |
 | `Function.prototype.__proto__` | `Object.prototype` | 一切原型对象最终都是对象 |
 | `Object.prototype.__proto__` | `null` | 原型链终点 |
 
 **记忆口诀**：所有 `__proto__` 最终汇入 `Object.prototype`，然后指向 `null`。函数走 `Function.prototype` 中转，Object.prototype 是万川归海的那一点。
+
+**特殊情况：异步函数和生成器函数**
+
+上面说"所有函数的 `__proto__` 都指向 `Function.prototype`"，但对两种函数不直接成立：
+
+```ts
+// 普通函数 —— 直接指向 Function.prototype
+function foo() {}
+foo.__proto__ === Function.prototype           // true ✅
+
+// async 函数 —— 指向 AsyncFunction.prototype
+async function bar() {}
+bar.__proto__ === Function.prototype           // false ❌
+bar.__proto__ === (async function(){}).constructor.prototype  // true
+// bar.__proto__ → AsyncFunction.prototype → Function.prototype → Object.prototype
+
+// 生成器函数 —— 指向 GeneratorFunction.prototype
+function* baz() {}
+baz.__proto__ === Function.prototype           // false ❌
+baz.__proto__ === (function*(){}).constructor.prototype  // true
+// baz.__proto__ → GeneratorFunction.prototype → Function.prototype → Object.prototype
+```
+
+`AsyncFunction` 和 `GeneratorFunction` 不是全局变量（不能直接用名字访问），但可以通过各自实例的 `.constructor` 获取。它们的 `prototype.__proto__` 仍然指向 `Function.prototype`——多绕了一层但最终汇入同一条链。
+
+**面试加分点**：说完完整原型链后，如果面试官追问"那异步函数的原型链呢"，能补充这一层中转 + 指出 `AsyncFunction`/`GeneratorFunction` 不直接暴露为全局，会让面试官觉得你真的扣过细节。
 
 **面试中的问法**："`Function instanceof Object` 和 `Object instanceof Function` 结果分别是什么？"
 
