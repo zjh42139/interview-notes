@@ -86,6 +86,83 @@ map.hasOwnProperty // TypeError — 没有任何 Object.prototype 的方法
 
 ## 深度拓展
 
+### 完整的原型链 —— Function 和 Object 的特殊关系
+
+面试中画完三角关系后，面试官常追问："那 Function 和 Object 自己的 `__proto__` 指向哪？"这道题区分"背了三角关系"和"真正理解原型链"。
+
+**三条反直觉的等式**：
+
+```ts
+// ① 函数的原型对象也是对象 —— 所以指向 Object.prototype
+Function.prototype.__proto__ === Object.prototype   // true
+
+// ② Function 是自己的实例 —— 因为 Function 本身也是函数
+Function.__proto__ === Function.prototype           // true
+
+// ③ Object 构造函数也是函数 —— 所以指向 Function.prototype
+Object.__proto__ === Function.prototype             // true
+```
+
+**完整的原型链图**：
+
+```mermaid
+graph TB
+    subgraph "实例层"
+        OBJ["普通对象 obj<br/>(new Foo / 字面量)"]
+        FUNC_OBJ["函数对象<br/>function Foo() {}"]
+        ARR["数组 []"]
+    end
+
+    subgraph "原型层"
+        FOO_PROTO["Foo.prototype<br/>(普通对象)"]
+        FUNC_PROTO["Function.prototype<br/>(函数.prototype → 对象)"]
+        OBJ_PROTO["Object.prototype<br/>(原型链终点)"]
+    end
+
+    subgraph "终点"
+        NULL["null"]
+    end
+
+    OBJ -- "__proto__" --> FOO_PROTO
+    FOO_PROTO -- "__proto__" --> OBJ_PROTO
+    OBJ_PROTO -- "__proto__" --> NULL
+
+    FUNC_OBJ -- "__proto__" --> FUNC_PROTO
+    FUNC_PROTO -- "__proto__" --> OBJ_PROTO
+
+    ARR -- "__proto__" --> Array.prototype
+    Array.prototype -- "__proto__" --> OBJ_PROTO
+
+    FOO_PROTO -- "constructor" --> FUNC_OBJ
+    FUNC_OBJ -- "prototype" --> FOO_PROTO
+```
+
+**一张表记住所有特殊指向**：
+
+| 表达式 | 结果 | 原因 |
+|--------|------|------|
+| `obj.__proto__` | `Foo.prototype` | 实例指向构造函数的 prototype |
+| `Foo.prototype.__proto__` | `Object.prototype` | 原型对象本身也是普通对象 |
+| `Foo.__proto__` | `Function.prototype` | 函数也是对象，由 Function 构造 |
+| `Function.__proto__` | `Function.prototype` | Function 自己是函数，所以指向自己的 prototype |
+| `Object.__proto__` | `Function.prototype` | Object 构造函数也是函数 |
+| `Function.prototype.__proto__` | `Object.prototype` | 一切原型对象最终都是对象 |
+| `Object.prototype.__proto__` | `null` | 原型链终点 |
+
+**记忆口诀**：所有 `__proto__` 最终汇入 `Object.prototype`，然后指向 `null`。函数走 `Function.prototype` 中转，Object.prototype 是万川归海的那一点。
+
+**面试中的问法**："`Function instanceof Object` 和 `Object instanceof Function` 结果分别是什么？"
+
+```ts
+Function instanceof Object   // true
+// Function.__proto__ === Function.prototype → Function.prototype.__proto__ === Object.prototype ✅
+
+Object instanceof Function   // true
+// Object.__proto__ === Function.prototype ✅
+```
+
+两个都返回 `true`——这就是"鸡生蛋蛋生鸡"的原型链体现，面试官用这道题判断你是否真的画过完整的图。
+
 ### 追问：instanceof 原理
 
 **`A instanceof B` 就是沿着 `A.__proto__` 链往上找，看能不能找到 `B.prototype`**：
@@ -193,6 +270,7 @@ const SecuredUserApi = withPermission(UserApi)
 3. **class 和 function 的继承机制完全不同** -- 底层都是原型链，class 只是语法糖
 4. **`Object.getPrototypeOf()` 和 `__proto__` 完全等价** -- 功能等价但前者是标准方法，后者是历史遗留属性
 5. **构造函数的 `prototype.constructor` 一定准确** -- 可以被人为修改，不可靠；用 `Object.getPrototypeOf()` 更好
+6. **`Function.__proto__` 等于 `Function.prototype` 是设计错误** -- 这是 ECMAScript 规范明确定义的，不是 bug。它保证了 `Function instanceof Function` 为 true——逻辑上函数当然是函数的实例
 
 ## 面试信号表
 
@@ -202,6 +280,8 @@ const SecuredUserApi = withPermission(UserApi)
 | "画完三角关系" | instanceof 原理 → 手写 instanceof |
 | "手写 instanceof" | "那 Object.create(null) 呢" |
 | "class 继承和原型继承" | class extends 底层实现 |
+| "Function 和 Object 的 __proto__ 指向哪" | Function.__proto__ === Function.prototype / Object.__proto__ === Function.prototype |
+| "Function instanceof Object 和反过来" | 两个都返回 true——原型链的鸡生蛋蛋生鸡 |
 
 ## 相关阅读
 
