@@ -3,7 +3,11 @@ import { onMounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vitepress'
 import './custom.css'
 
-// --- Mermaid rendering ---
+// --- Mermaid 按需渲染 ---
+function hasMermaidBlocks() {
+  return document.querySelectorAll('div.language-mermaid').length > 0
+}
+
 function renderAll() {
   if (typeof window.mermaid === 'undefined') return
   const blocks = document.querySelectorAll(
@@ -66,6 +70,9 @@ export default {
     // 注：Ctrl+K 搜索快捷键由 VitePress 原生支持
 
     onMounted(async () => {
+      // 只在页面包含 Mermaid 代码块时才加载 Mermaid 库
+      if (!hasMermaidBlocks()) return
+
       await ensureMermaid()
       window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
       renderAll()
@@ -77,7 +84,13 @@ export default {
 
     watch(
       () => router.route.path,
-      () => nextTick().then(renderAll)
+      () => {
+        nextTick().then(() => {
+          if (hasMermaidBlocks()) {
+            renderAll()
+          }
+        })
+      }
     )
   },
 }
