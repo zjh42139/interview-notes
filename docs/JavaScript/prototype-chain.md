@@ -69,9 +69,11 @@ obj.toString() // ① obj 自身没有 → ② Foo.prototype 没有 → ③ Obje
 
 | 概念 | 是什么 | 谁有 |
 |------|--------|------|
-| `prototype` | 构造函数的属性，指向原型对象 | 只有函数有 |
+| `prototype` | 构造函数的属性，指向原型对象 | 普通函数和 class 有，**箭头函数没有** |
 | `__proto__` | 对象的内部属性，指向构造函数的 prototype | 所有对象有（除了 `Object.create(null)`） |
 | `constructor` | 原型对象上的属性，指回构造函数 | prototype 上的默认属性 |
+
+> ⚠️ **箭头函数没有 `prototype`**：`(() => {}).prototype` 是 `undefined`，所以箭头函数不能当构造函数用 `new`，`new (() => {})` 直接报 `TypeError: () => {} is not a constructor`。这也是箭头函数不能用作 Vue 组件中 `defineComponent({})` 的 `setup` 之外的原因之一。
 
 ### Object.create(null) -- 为什么没有原型？
 
