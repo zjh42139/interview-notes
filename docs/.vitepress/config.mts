@@ -563,6 +563,11 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: '泛型 / 工具类型', link: '/面试回答/TypeScript/generics-utility' },
+            { text: 'any / unknown / never', link: '/面试回答/TypeScript/any-unknown-never-answer' },
+            { text: '类型收窄', link: '/面试回答/TypeScript/type-narrowing-answer' },
+            { text: 'as const / satisfies', link: '/面试回答/TypeScript/as-const-satisfies-answer' },
+            { text: '声明文件 / declare', link: '/面试回答/TypeScript/declaration-answer' },
+            { text: 'Vue3 + TS 最佳实践', link: '/面试回答/TypeScript/vue3-ts-answer' },
           ],
         },
         {
