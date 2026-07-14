@@ -85,8 +85,12 @@ export default {
     watch(
       () => router.route.path,
       () => {
-        nextTick().then(() => {
+        nextTick().then(async () => {
           if (hasMermaidBlocks()) {
+            await ensureMermaid()
+            if (typeof window.mermaid !== 'undefined') {
+              window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose' })
+            }
             renderAll()
           }
         })

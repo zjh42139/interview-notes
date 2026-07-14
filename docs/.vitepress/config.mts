@@ -7,9 +7,6 @@ export default defineConfig({
   lang: 'zh-CN',
   lastUpdated: true,
   cleanUrls: true,
-  // MPA 模式：每个页面是独立 HTML，不预取其他页面的 JS
-  // SPA 模式下 ~200 个页面的 JS 模块全部预取，多标签页时内存占用过大
-  mpa: true,
 
   // favicon 通过 transformHead 注入，确保 href 使用 VitePress
   // 已解析的 base（包括 --base CLI 覆盖），跨平台可靠
