@@ -69,18 +69,32 @@ mindmap
 
 ## 推荐学习顺序
 
+### 一、类型基础
+
 1.  ⭐⭐⭐⭐⭐  [基础类型 / 类型注解](./basic-types.md) 🆕 — 类型推断 + 字面量 + 函数重载 + interface vs type
 2.  ⭐⭐⭐⭐    [any / unknown / never](./any-unknown-never.md)
 3.  ⭐⭐⭐       [类型兼容性](./structural-typing.md) 🆕 — 结构型 vs 标称型
 4.  ⭐⭐⭐       [enum / class 类型](./enum-class.md) 🆕
+
+### 二、类型收窄 & 断言
+
 5.  ⭐⭐⭐⭐     [类型收窄](./type-narrowing.md) 🆕 — typeof / instanceof / in / is / asserts
 6.  ⭐⭐⭐       [as const / const assertion](./as-const.md) 🆕
 7.  ⭐⭐⭐       [satisfies](./satisfies.md)
+
+### 三、类型操作
+
 8.  ⭐⭐⭐⭐⭐   [泛型](./generics.md)
 9.  ⭐⭐⭐⭐⭐   [Utility Types](./utility-types.md)
 10. ⭐⭐⭐       [keyof / mapped / conditional](./keyof-mapped-conditional.md)
 11. ⭐⭐⭐⭐     [extends / infer](./extends-infer.md)
+
+### 四、类型声明
+
 12. ⭐⭐⭐⭐⭐   [声明文件 / declare](./declaration.md)
+
+### 五、工程化
+
 13. ⭐⭐⭐       [tsconfig.json 配置](./tsconfig.md) 🆕 — 含模块解析
 14. ⭐⭐⭐⭐⭐   [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕
 

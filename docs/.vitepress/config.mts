@@ -232,20 +232,50 @@ export default defineConfig({
       ],
       '/TypeScript/': [
         { text: 'TypeScript 知识地图', link: '/TypeScript/' },
-        { text: '基础类型 / 类型注解', link: '/TypeScript/basic-types' },
-        { text: 'any / unknown / never', link: '/TypeScript/any-unknown-never' },
-        { text: '类型兼容性', link: '/TypeScript/structural-typing' },
-        { text: 'enum / class 类型', link: '/TypeScript/enum-class' },
-        { text: '类型收窄', link: '/TypeScript/type-narrowing' },
-        { text: 'as const', link: '/TypeScript/as-const' },
-        { text: 'satisfies', link: '/TypeScript/satisfies' },
-        { text: '泛型', link: '/TypeScript/generics' },
-        { text: 'Utility Types', link: '/TypeScript/utility-types' },
-        { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
-        { text: 'extends / infer', link: '/TypeScript/extends-infer' },
-        { text: '声明文件 / declare', link: '/TypeScript/declaration' },
-        { text: 'tsconfig.json 配置', link: '/TypeScript/tsconfig' },
-        { text: 'Vue3 + TS 最佳实践', link: '/TypeScript/vue3-ts-practice' },
+        {
+          text: '类型基础',
+          collapsible: false,
+          items: [
+            { text: '基础类型 / 类型注解', link: '/TypeScript/basic-types' },
+            { text: 'any / unknown / never', link: '/TypeScript/any-unknown-never' },
+            { text: '类型兼容性', link: '/TypeScript/structural-typing' },
+            { text: 'enum / class 类型', link: '/TypeScript/enum-class' },
+          ],
+        },
+        {
+          text: '类型收窄 & 断言',
+          collapsible: false,
+          items: [
+            { text: '类型收窄', link: '/TypeScript/type-narrowing' },
+            { text: 'as const', link: '/TypeScript/as-const' },
+            { text: 'satisfies', link: '/TypeScript/satisfies' },
+          ],
+        },
+        {
+          text: '类型操作',
+          collapsible: false,
+          items: [
+            { text: '泛型', link: '/TypeScript/generics' },
+            { text: 'Utility Types', link: '/TypeScript/utility-types' },
+            { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
+            { text: 'extends / infer', link: '/TypeScript/extends-infer' },
+          ],
+        },
+        {
+          text: '类型声明',
+          collapsible: false,
+          items: [
+            { text: '声明文件 / declare', link: '/TypeScript/declaration' },
+          ],
+        },
+        {
+          text: '工程化',
+          collapsible: false,
+          items: [
+            { text: 'tsconfig.json 配置', link: '/TypeScript/tsconfig' },
+            { text: 'Vue3 + TS 最佳实践', link: '/TypeScript/vue3-ts-practice' },
+          ],
+        },
       ],
       '/浏览器/': [
         { text: '浏览器 知识地图', link: '/浏览器/' },
