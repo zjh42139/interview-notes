@@ -107,34 +107,56 @@ Object.__proto__ === Function.prototype             // true
 
 ```mermaid
 graph TB
-    subgraph "实例层"
-        OBJ["普通对象 obj<br/>(new Foo / 字面量)"]
-        FUNC_OBJ["函数对象<br/>function Foo() {}"]
-        ARR["数组 []"]
+    subgraph "构造函数（也是对象）"
+        FOO["function Foo() {}"]
+        FUNC["Function 构造函数"]
+        OBJ_CTOR["Object 构造函数"]
+        ARR_CTOR["Array 构造函数"]
     end
 
-    subgraph "原型层"
-        FOO_PROTO["Foo.prototype<br/>(普通对象)"]
-        FUNC_PROTO["Function.prototype<br/>(函数.prototype → 对象)"]
-        OBJ_PROTO["Object.prototype<br/>(原型链终点)"]
+    subgraph "原型对象"
+        FOO_PROTO["Foo.prototype"]
+        FUNC_PROTO["Function.prototype"]
+        OBJ_PROTO["Object.prototype"]
+        ARR_PROTO["Array.prototype"]
+    end
+
+    subgraph "实例"
+        OBJ["obj = new Foo()"]
+        ARR["[] = new Array()"]
     end
 
     subgraph "终点"
         NULL["null"]
     end
 
+    %% 实例 → 原型
     OBJ -- "__proto__" --> FOO_PROTO
+    ARR -- "__proto__" --> ARR_PROTO
+
+    %% 原型 → 上层原型
     FOO_PROTO -- "__proto__" --> OBJ_PROTO
+    ARR_PROTO -- "__proto__" --> OBJ_PROTO
+    FUNC_PROTO -- "__proto__" --> OBJ_PROTO
     OBJ_PROTO -- "__proto__" --> NULL
 
-    FUNC_OBJ -- "__proto__" --> FUNC_PROTO
-    FUNC_PROTO -- "__proto__" --> OBJ_PROTO
+    %% 构造函数 → 自己的 prototype
+    FOO -- "prototype" --> FOO_PROTO
+    FUNC -- "prototype" --> FUNC_PROTO
+    OBJ_CTOR -- "prototype" --> OBJ_PROTO
+    ARR_CTOR -- "prototype" --> ARR_PROTO
 
-    ARR -- "__proto__" --> Array.prototype
-    Array.prototype -- "__proto__" --> OBJ_PROTO
+    %% 构造函数.__proto__ → Function.prototype（所有函数都是 Function 的实例）
+    FOO -- "__proto__" --> FUNC_PROTO
+    FUNC -- "__proto__" --> FUNC_PROTO
+    OBJ_CTOR -- "__proto__" --> FUNC_PROTO
+    ARR_CTOR -- "__proto__" --> FUNC_PROTO
 
-    FOO_PROTO -- "constructor" --> FUNC_OBJ
-    FUNC_OBJ -- "prototype" --> FOO_PROTO
+    %% constructor 回指
+    FOO_PROTO -- "constructor" --> FOO
+    FUNC_PROTO -- "constructor" --> FUNC
+    OBJ_PROTO -- "constructor" --> OBJ_CTOR
+    ARR_PROTO -- "constructor" --> ARR_CTOR
 ```
 
 **一张表记住所有特殊指向**：
