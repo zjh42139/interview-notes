@@ -139,6 +139,7 @@ tags:
 - "什么时候用 satisfies" → 既要类型检查约束又不丢失字面量类型——如调色板对象
 
 > 答案参考：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
+> 🆕 延伸：[../TypeScript/as-const.md](../TypeScript/as-const.md)
 
 ---
 
@@ -212,7 +213,7 @@ tags:
 - "declare module 怎么用" → 为没有类型的第三方库声明类型——或扩展已有模块类型
 - "declare global 的作用" → 扩展全局类型——如给 Window 加自定义属性
 
-> 答案参考：[../TypeScript/index.md](../TypeScript/index.md)
+> 答案参考：[../TypeScript/declaration.md](../TypeScript/declaration.md)
 
 ---
 
@@ -236,7 +237,8 @@ tags:
 - "as const 对数组的影响" → 变成 readonly tuple——每个元素类型精确到字面量
 - "as const 和 enum 怎么选" → as const + union 类型更轻量——不生成运行时代码
 
-> 答案参考：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
+> 答案参考：[../TypeScript/as-const.md](../TypeScript/as-const.md)
+> 🆕 延伸：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
 
 ---
 
@@ -262,6 +264,7 @@ tags:
 - "never 在穷举检查中的作用" → default: const _:never = value——遗漏分支编译报错
 
 > 答案参考：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
+> 🆕 延伸：[../TypeScript/type-narrowing.md](../TypeScript/type-narrowing.md)
 
 ---
 

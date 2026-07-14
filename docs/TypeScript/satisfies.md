@@ -199,13 +199,18 @@ const keys = ['id', 'name', 'email'] as const satisfies readonly string[];
 // typeof keys => readonly ['id', 'name', 'email']
 ```
 
-❌ **satisfies 不递归**：它只在顶层做检查，不会深入到嵌套对象里去验证。
+❌ **误以为 `satisfies` 只检查顶层**：`satisfies` 本身会递归检查嵌套结构。下面例子中嵌套结构没被约束，是因为 `Record<string, object>` 的值类型 `object` 太宽泛了——任何对象都满足它，不是 `satisfies` 不递归。
 
 ```typescript
+// 用具体类型就能看到递归检查效果：
 const config = {
   api: { baseURL: 'https://api.example.com', timeout: 5000 },
-} satisfies Record<string, object>;
-// api.timeout 类型是 number ✅ 保留了，但 config.api 的嵌套结构并没有被约束
+} satisfies { api: { baseURL: string; timeout: string } };
+//                                     ^^^^^^^ 报错！number 不能赋给 string
+// ✅ 证明 satisfies 确实递归检查了嵌套结构
+
+// 之前示例中的 Record<string, object> 之所以不报错，
+// 是因为 object 类型不约束任何属性——任何对象都满足 object
 ```
 
 ## 面试信号表

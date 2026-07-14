@@ -74,32 +74,23 @@ declare global {
 // .d.ts → 仅类型检查，不产生输出，可以被其他文件引用类型
 ```
 
-### interface vs type（高频对比）
+### interface vs type 在声明文件语境中
 
-这是 TypeScript 面试中最高频的问题之一。只有说清楚以下三个核心区别才算过关：
+> interface vs type 的完整三区别对比（声明合并 / 表达能力 / extends 语法）见[基础类型 / 类型注解](./basic-types.md#5-interface-vs-type高频对比)。
+
+在声明文件的语境中，**声明合并**是 interface 最不可替代的能力：
 
 ```ts
-// 区别一：声明合并 —— interface 可以，type 不行
-interface User { name: string }
-interface User { age: number }             // 自动合并：User = { name: string; age: number }
-// 这在扩展第三方库类型时极其有用
-
-// type User = { name: string }
-// type User = { age: number }             // ❌ 报错：Duplicate identifier
-
-// 区别二：type 可以定义联合/交叉/映射类型，interface 只能描述对象形状
-type Status = 'pending' | 'success' | 'error'           // 联合类型
-type Response<T> = { data: T } & { code: number }        // 交叉类型
-type Readonly<T> = { readonly [K in keyof T]: T[K] }     // 映射类型
-// interface 都做不到
-
-// 区别三：extends 方式不同
-interface Admin extends User { role: string }            // interface 用 extends
-type Admin = User & { role: string }                     // type 用 & 交叉
-
-// 推荐实践：
-// 描述对象形状 → interface（声明合并 + extends 语义清晰）
-// 联合/交叉/映射/工具类型 → type（type 原生能力）
+// .d.ts 中多个同名 interface 自动合并 —— type 做不到
+// 这就是为什么第三方库的类型扩展必须用 interface
+interface Window {
+  __ADMIN_CONFIG__: { apiBaseUrl: string }
+}
+// 另一个 .d.ts 文件中可以继续扩展
+interface Window {
+  $message: (msg: string) => void
+}
+// 最终 Window 同时拥有 __ADMIN_CONFIG__ 和 $message
 ```
 
 ## 深度拓展
@@ -251,6 +242,7 @@ declare module 'vue' {
 
 ## 相关阅读
 
+- [基础类型 / 类型注解](./basic-types.md) 🆕 — interface vs type 完整对比
 - [泛型](./generics.md) — 声明文件中的泛型类型声明
 - [extends / infer](./extends-infer.md) — 条件类型与类型推断（interface 无法实现）
 - [Utility Types](./utility-types.md) — 用 type 实现的工具类型
