@@ -50,7 +50,7 @@ tags:
 > 🏷️ 手写题
 > ⭐⭐⭐⭐⭐ | 难度：中高级
 
-**题目**：请手写实现 `Partial`、`Required`、`Readonly`、`Pick`、`Omit`、`Record`、`Exclude`、`Extract`、`ReturnType`，并说明它们之间的关系。
+**题目**：请手写实现 `Partial`、`Required`、`Readonly`、`Pick`、`Omit`、`Record`、`Exclude`、`Extract`、`ReturnType`、`Parameters`，并说明它们之间的关系。其中 `ReturnType` 和 `Parameters` 涉及 `infer` 关键字——是面试中最容易单独抽出来考的 infer 实战题。
 
 **考察点**：
 - `keyof` 获取对象所有 key 的联合类型
@@ -121,7 +121,7 @@ tags:
 ### Q5: satisfies 关键字的用法
 
 > 🏷️ 概念题
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：TypeScript 4.9 引入的 `satisfies` 关键字解决了什么问题？与类型标注（`: Type`）和 `as` 断言有什么区别？
 
@@ -165,6 +165,31 @@ tags:
 
 > 答案参考：[../TypeScript/keyof-mapped-conditional.md](../TypeScript/keyof-mapped-conditional.md)
 > 延伸：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
+
+---
+
+### Q7: TypeScript 和 JavaScript 的区别
+
+> 🏷️ 概念题
+> ⭐⭐⭐⭐⭐ | 难度：初级
+
+**题目**：TypeScript 和 JavaScript 的核心区别是什么？为什么要用 TypeScript？项目中引入 TS 带来了哪些实际收益？
+
+**考察点**：
+- 静态类型检查 vs 动态类型——编译期发现错误而非运行时
+- 类型系统带来的 IDE 体验提升——智能补全、重构、查找引用
+- 工程化收益——类型即文档、接口契约、减少低级 bug
+- 代价——学习曲线、类型声明编写/维护、编译时间
+- TS 不是替代 JS 而是在 JS 上加了一层类型系统
+
+**30秒答**：TS 在 JS 上加了一层静态类型系统——编译期检查类型错误，IDE 有完整的智能提示和重构。代价是学习成本和类型维护。核心价值：bug 提前到编译期发现、代码即文档、重构有底气——项目的可维护性显著提升。
+**追问预测**：
+- "TS 的缺点是什么" → 学习曲线、类型体操过度抽象化、三方库缺类型需要写 declare module、编译时间
+- "什么项目不适合 TS" → 快速原型、一次性脚本、小项目——类型维护成本可能超过收益
+- "TS 编译后是什么" → 纯 JS——所有类型注解和 TS 特有语法在编译时全部消失
+
+> 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
+> 🎤 回答稿：[../面试回答/TypeScript/generics-utility.md](../面试回答/TypeScript/generics-utility.md)
 
 ---
 
@@ -217,10 +242,35 @@ tags:
 
 ---
 
+### Q10: interface 和 type 的深度区别
+
+> 🏷️ 对比题
+> ⭐⭐⭐⭐⭐ | 难度：中级
+
+**题目**：`interface` 和 `type` 有什么区别？什么时候用 interface、什么时候用 type？为什么 interface 能声明合并而 type 不能？
+
+**考察点**：
+- 区别一：声明合并——interface 同名自动合并（扩展第三方类型的关键能力），type 不行
+- 区别二：表达能力——type 能定义联合/交叉/映射类型，interface 只能描述对象形状
+- 区别三：extends 方式——interface 用 `extends`，type 用 `&`
+- 声明合并的设计意图——让 `.d.ts` 文件可以分散扩展同一个 interface
+- 实际选择：描述对象形状→interface；联合/交叉/映射/工具类型→type
+
+**30秒答**：三个核心区别——声明合并（interface 同名自动合并，type 不行）、表达能力（type 能做联合/交叉/映射类型，interface 只能描述对象形状）、extends 方式（interface 用 extends，type 用 &）。推荐：描述对象形状用 interface，需要联合/交叉/映射能力时用 type。
+**追问预测**：
+- "为什么 interface 能声明合并" → TS 有意为之——.d.ts 中多个 interface Window 分散在不同库的类型文件中，最终自动合并为完整类型
+- "type 为什么不支持声明合并" → 类型别名定义后固定，不允许隐式修改——保证类型来源的单一性
+- "项目中怎么选" → 团队定一个默认（推荐 interface），只在需要联合/交叉/映射时切 type
+
+> 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
+> 延伸：[../TypeScript/declaration.md](../TypeScript/declaration.md)
+
+---
+
 ### Q11: as const 的用法
 
 > 🏷️ 概念题
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐ | 难度：中级
 
 **题目**：`as const`（const assertion）有什么作用？在项目中有哪些典型应用场景？
 
@@ -239,6 +289,29 @@ tags:
 
 > 答案参考：[../TypeScript/as-const.md](../TypeScript/as-const.md)
 > 🆕 延伸：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
+
+---
+
+### Q12: void 和 never 的区别
+
+> 🏷️ 对比题
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：`void` 和 `never` 分别表示什么？它们在函数返回值、类型系统层次中各有什么区别？各有什么使用场景？
+
+**考察点**：
+- `void`：函数正常返回但返回值无意义（仍可以 return 或不 return）
+- `never`：函数永远不会返回到调用点（抛异常或死循环）
+- 类型层次：void 不是 bottom type，never 是
+- `void` 的调用方不能依赖返回值（strictNullChecks 下）
+- `never` 在联合类型中自动消失、穷举检查中做编译期守卫
+
+**30秒答**：void=函数返回了但返回值没意义——调用方不能用返回值。never=函数不会返回到调用点——抛异常或死循环。never 是 bottom type——可以赋给任何类型；void 不是。穷举检查用 never 做编译期守卫。
+**追问预测**：
+- "void 和 undefined 的区别" → void 表示"别用返回值"——函数可以返回任何东西但 TS 阻止调用方使用。undefined 表示"返回的就是 undefined"——调用方可以安全使用
+- "never 的实际应用" → 穷举检查——default 分支赋值给 never 确保所有联合成员都处理了；条件类型中过滤掉不想要的类型
+
+> 答案参考：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
 
 ---
 
@@ -269,10 +342,34 @@ tags:
 
 ---
 
+### Q14: typeof / keyof 在类型位置的用法
+
+> 🏷️ 概念题
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：TypeScript 中 `typeof` 和 `keyof` 在类型位置（type context）如何配合使用？请举例说明如何从值推导类型，以及如何提取对象键的联合类型。
+
+**考察点**：
+- `typeof` 在 type context 中提取变量的类型（不同于 JS 的运行时 typeof）
+- `keyof` 提取对象类型所有键的联合类型
+- `keyof typeof` 组合：从值提取键的联合类型（如从常量对象提取 key union）
+- `T[K]` 索引访问类型——从对象类型中取某个属性的类型
+- 实际场景：从路由配置、权限字典等常量中自动推导类型
+
+**30秒答**：typeof 在类型位置取变量的类型、keyof 取对象键的联合类型。keyof typeof 组合从常量值提取键的字面量联合——`type Role = keyof typeof ROLES`。T[K] 索引访问——从对象类型里取某个属性的类型。
+**追问预测**：
+- "typeof 在 JS 和 TS 中有什么区别" → JS 的 typeof 是运行时操作符返回字符串；TS 的 typeof 在 type context 中提取变量的类型，编译后消失
+- "keyof typeof 的实际应用" → 从 as const 常量/路由配置/权限字典中自动提取类型，消除值和类型的手动同步
+
+> 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
+> 延伸：[../TypeScript/keyof-mapped-conditional.md](../TypeScript/keyof-mapped-conditional.md)
+
+---
+
 ### Q15: 项目中的 TypeScript 最佳实践
 
 > 🏷️ 场景题
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：在 Vue3 + TypeScript 项目中，你有哪些最佳实践？如何为组件的 props、emits、template ref、provide/inject 提供类型？
 
@@ -292,3 +389,74 @@ tags:
 
 > 答案参考：[../TypeScript/vue3-ts-practice.md](../TypeScript/vue3-ts-practice.md)
 > 🎤 回答稿：[../面试回答/TypeScript/vue3-ts-answer.md](../面试回答/TypeScript/vue3-ts-answer.md)
+
+---
+
+### Q16: 协变与逆变
+
+> 🏷️ 概念题
+> ⭐⭐⭐⭐ | 难度：高级
+
+**题目**：请解释 TypeScript 中的协变（Covariance）和逆变（Contravariance）。函数参数为什么是逆变的？`strictFunctionTypes` 开启后有什么影响？
+
+**考察点**：
+- 协变：子类型可以赋值给父类型（返回值——`Dog` 可赋给 `Animal`）
+- 逆变：父类型可以赋值给子类型（参数——回调参数必须能接受所有可能传入的值）
+- `strictFunctionTypes` 开启后方法参数变为逆变检查
+- 实际场景：事件回调的类型安全、Array 方法签名中的逆变应用
+
+**30秒答**：协变=返回值可以更具体（Dog→Animal），逆变=参数可以更宽泛（Animal→Dog的同位）。strictFunctionTypes 开启后回调参数必须能接受所有可能传入的值——避免运行时类型错误。
+**追问预测**：
+- "为什么函数参数是逆变的" → 回调调用方传入 Animal，回调实现如果只接受 Dog 就会对 Cat 炸掉
+- "strictFunctionTypes 什么时候开启" → strict 模式下默认开启——双向协变是旧版本的兼容行为
+
+> 答案参考：[../TypeScript/structural-typing.md](../TypeScript/structural-typing.md)
+> 延伸：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
+
+---
+
+### Q17: 函数重载
+
+> 🏷️ 概念题
+> ⭐⭐⭐ | 难度：中级
+
+**题目**：TypeScript 的函数重载和 Java/C++ 有什么不同？请写出一个函数重载的完整例子，并说明重载签名和实现签名的关系。
+
+**考察点**：
+- TS 重载=多个类型签名+一个实现签名（不是多个实现）
+- 实现签名对外部调用者不可见
+- 实现签名的参数必须覆盖所有重载签名的参数类型
+- 重载签名的返回值可以不同——这是它相比联合类型的核心优势
+- 入参类型和返回值有一一对应关系时用重载
+
+**30秒答**：TS 重载不是多个实现——是多个类型签名+一个实现签名。实现签名参数必须是所有重载签名的超集。重载的最大价值：不同入参类型→不同返回值类型有精确映射，联合类型做不到。
+**追问预测**：
+- "重载和联合类型怎么选" → 入参→返回值有一一对应映射时用重载；入参不同但返回值相同时联合类型就够了
+- "实现签名为什么对外部不可见" → 因为 TS 只根据重载签名匹配调用——实现签名是内部细节
+
+> 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
+
+---
+
+### Q18: enum 和 const enum
+
+> 🏷️ 对比题
+> ⭐⭐⭐ | 难度：中级
+
+**题目**：TypeScript 中普通 enum、字符串 enum、const enum 有什么区别？社区为什么不推荐 enum？项目中用什么替代方案？
+
+**考察点**：
+- 数字 enum 有反向映射、字符串 enum 无反查、const enum 编译时内联
+- enum 编译产物的运行时开销（IIFE ~200 字节/每个）
+- const enum 在 Babel/ESBuild isolatedModules 下的兼容问题
+- `as const` + `typeof` 替代方案——零运行时开销
+- 需要反向映射时数字 enum 仍有用
+
+**30秒答**：enum 有运行时开销——每个生成 IIFE 代码。const enum 跨文件在 Babel 下失效。社区推荐 as const + typeof 替代——零运行时、tree-shaking 友好。唯一例外：需要反向映射时用数字 enum。
+**追问预测**：
+- "enum 和 as const 怎么选" → as const 零运行时开销、tree-shaking 友好——新项目首选
+- "const enum 为什么有问题" → Babel/ESBuild 单文件转译无法获取跨文件枚举值做内联
+- "数字 enum 的反向映射是什么" → Direction[0] → "Up"——数字枚举编译后同时生成键→值和值→键的双向映射
+
+> 答案参考：[../TypeScript/enum-class.md](../TypeScript/enum-class.md)
+> 延伸：[../TypeScript/as-const.md](../TypeScript/as-const.md)

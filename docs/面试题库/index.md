@@ -16,7 +16,7 @@ description: 前端面试高频真题
 | [JavaScript](./JavaScript.md) | 22 |
 | [Vue3](./Vue3.md) | 17 |
 | [Vue Router](./VueRouter.md) | 7 |
-| [TypeScript](./TypeScript.md) | 11 |
+| [TypeScript](./TypeScript.md) | 18 |
 | [Pinia](./Pinia.md) | 7 |
 | [浏览器](./浏览器.md) | 18 |
 | [网络](./网络.md) | 14 |
