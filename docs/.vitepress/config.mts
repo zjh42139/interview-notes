@@ -620,6 +620,7 @@ export default defineConfig({
             { text: 'XSS / CSRF', link: '/面试回答/浏览器/xss-csrf' },
             { text: 'URL 到页面', link: '/面试回答/浏览器/url-to-page' },
             { text: '浏览器缓存', link: '/面试回答/浏览器/cache' },
+            { text: '浏览器存储方案', link: '/面试回答/浏览器/storage' },
           ],
         },
         {
@@ -628,6 +629,7 @@ export default defineConfig({
           items: [
             { text: 'HTTP / HTTPS', link: '/面试回答/网络/http-https' },
             { text: '跨域 CORS', link: '/面试回答/网络/cors' },
+            { text: 'DNS / CDN', link: '/面试回答/网络/dns-cdn' },
           ],
         },
         {
@@ -636,6 +638,7 @@ export default defineConfig({
           items: [
             { text: 'Vite / Webpack', link: '/面试回答/工程化/vite-webpack' },
             { text: '构建优化实战', link: '/面试回答/工程化/build-optimization' },
+            { text: 'Tree Shaking / HMR', link: '/面试回答/工程化/tree-shaking-hmr' },
           ],
         },
         {
