@@ -564,6 +564,12 @@ export default defineConfig({
             { text: '原型链', link: '/面试回答/JavaScript/prototype-chain' },
             { text: 'this / call / apply / bind', link: '/面试回答/JavaScript/this-bind' },
             { text: '防抖 / 节流', link: '/面试回答/JavaScript/debounce-throttle' },
+            { text: 'async/await', link: '/面试回答/JavaScript/async-await' },
+            { text: '深拷贝', link: '/面试回答/JavaScript/deep-clone' },
+            { text: 'new 操作符', link: '/面试回答/JavaScript/new-operator' },
+            { text: 'var / let / const', link: '/面试回答/JavaScript/var-let-const' },
+            { text: 'Promise 并发调度', link: '/面试回答/JavaScript/promise-scheduler' },
+            { text: 'defineProperty vs Proxy', link: '/面试回答/JavaScript/defineproperty-proxy' },
           ],
         },
         {
@@ -572,6 +578,8 @@ export default defineConfig({
           items: [
             { text: '盒模型 / BFC', link: '/面试回答/CSS/box-model-bfc' },
             { text: 'Flex / Grid / 居中', link: '/面试回答/CSS/flexbox-grid-layout' },
+            { text: '水平垂直居中', link: '/面试回答/CSS/centering' },
+            { text: '选择器优先级', link: '/面试回答/CSS/specificity' },
           ],
         },
         {
@@ -627,6 +635,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: 'Vite / Webpack', link: '/面试回答/工程化/vite-webpack' },
+            { text: '构建优化实战', link: '/面试回答/工程化/build-optimization' },
           ],
         },
         {
