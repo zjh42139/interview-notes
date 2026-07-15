@@ -643,6 +643,20 @@ export default defineConfig({
           ],
         },
         {
+          text: 'Vue Router',
+          collapsed: true,
+          items: [
+            { text: '路由守卫 / 动态路由', link: '/面试回答/VueRouter/route-guards' },
+          ],
+        },
+        {
+          text: 'Pinia',
+          collapsed: true,
+          items: [
+            { text: 'Pinia vs Vuex', link: '/面试回答/Pinia/pinia-vs-vuex' },
+          ],
+        },
+        {
           text: '项目实战',
           collapsed: true,
           items: [
