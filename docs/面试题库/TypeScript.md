@@ -115,6 +115,7 @@ tags:
 - "infer 的实际使用场景" → 提取函数返回值 ReturnType、提取 Promise 内类型 Awaited、提取数组元素类型
 
 > 答案参考：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
+> 🎤 回答稿：[../面试回答/TypeScript/extends-infer-answer.md](../面试回答/TypeScript/extends-infer-answer.md)
 
 ---
 
@@ -164,6 +165,7 @@ tags:
 - "模板字面量类型" → type EventName = `on${Capitalize<string>}`——字符串拼接类型
 
 > 答案参考：[../TypeScript/keyof-mapped-conditional.md](../TypeScript/keyof-mapped-conditional.md)
+> 🎤 回答稿：[../面试回答/TypeScript/keyof-mapped-conditional-answer.md](../面试回答/TypeScript/keyof-mapped-conditional-answer.md)
 > 延伸：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
 
 ---
@@ -189,8 +191,6 @@ tags:
 - "TS 编译后是什么" → 纯 JS——所有类型注解和 TS 特有语法在编译时全部消失
 
 > 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
-> 🎤 回答稿：[../面试回答/TypeScript/generics-utility.md](../面试回答/TypeScript/generics-utility.md)
-
 ---
 
 ### Q8: 类型体操基础
@@ -214,6 +214,7 @@ tags:
 - "类型体操的边界" → 不要为了炫技写过于复杂的类型——降低可读性得不偿失
 
 > 答案参考：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
+> 🎤 回答稿：[../面试回答/TypeScript/type-gymnastics-answer.md](../面试回答/TypeScript/type-gymnastics-answer.md)
 > 延伸：[../TypeScript/utility-types.md](../TypeScript/utility-types.md)
 
 ---
@@ -263,6 +264,7 @@ tags:
 - "项目中怎么选" → 团队定一个默认（推荐 interface），只在需要联合/交叉/映射时切 type
 
 > 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
+> 🎤 回答稿：[../面试回答/TypeScript/interface-type-answer.md](../面试回答/TypeScript/interface-type-answer.md)
 > 延伸：[../TypeScript/declaration.md](../TypeScript/declaration.md)
 
 ---
@@ -411,6 +413,7 @@ tags:
 - "strictFunctionTypes 什么时候开启" → strict 模式下默认开启——双向协变是旧版本的兼容行为
 
 > 答案参考：[../TypeScript/structural-typing.md](../TypeScript/structural-typing.md)
+> 🎤 回答稿：[../面试回答/TypeScript/covariance-contravariance-answer.md](../面试回答/TypeScript/covariance-contravariance-answer.md)
 > 延伸：[../TypeScript/extends-infer.md](../TypeScript/extends-infer.md)
 
 ---

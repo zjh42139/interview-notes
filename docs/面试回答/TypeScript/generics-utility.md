@@ -74,8 +74,8 @@ const user = await request<User>('/api/user/1')
 
 | 面试官追问 | 你的回答 |
 |-----------|---------|
-| "泛型约束是什么" | 用 `extends` 限制 T 必须满足某个条件。比如 `<T extends { length: number }>` 限制 T 必须有 length 属性——这样函数体内可以安全访问 `arg.length`。 |
-| "泛型默认值怎么用" | `<T = string>`——调用时不传类型参数就默认 string。常用在工具函数中减少调用方的模板代码。 |
+| "泛型约束是什么" | 用 `extends` 限制 T 必须满足某个条件。比如 `&lt;T extends { length: number }>` 限制 T 必须有 length 属性——这样函数体内可以安全访问 `arg.length`。 |
+| "泛型默认值怎么用" | `&lt;T = string>`——调用时不传类型参数就默认 string。常用在工具函数中减少调用方的模板代码。 |
 | "什么时候不用泛型" | 当类型确实是固定的——不要为了泛型而泛型。比如 `function sum(a: number, b: number)` 没必要泛型化——它只处理 number。 |
 
 ---
@@ -92,10 +92,10 @@ const user = await request<User>('/api/user/1')
 
 | 工具类型 | 效果 | 实际场景 |
 |---------|------|---------|
-| `Pick<T, K>` | 从 T 中**挑选** K 指定的属性 | API 返回全量 User，但编辑表单只需要 name + email |
-| `Omit<T, K>` | 从 T 中**排除** K 指定的属性 | 列表查询参数排除 page/pageSize（单独处理） |
-| `Partial<T>` | 所有属性**变可选** | 更新接口——只传改动的字段 |
-| `Required<T>` | 所有属性**变必填** | 构造函数参数——确保初始化时所有字段都有值 |
+| `Pick&lt;T, K>` | 从 T 中**挑选** K 指定的属性 | API 返回全量 User，但编辑表单只需要 name + email |
+| `Omit&lt;T, K>` | 从 T 中**排除** K 指定的属性 | 列表查询参数排除 page/pageSize（单独处理） |
+| `Partial&lt;T>` | 所有属性**变可选** | 更新接口——只传改动的字段 |
+| `Required&lt;T>` | 所有属性**变必填** | 构造函数参数——确保初始化时所有字段都有值 |
 
 **怎么实现的——核心是映射类型**：
 
@@ -120,9 +120,68 @@ type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 | 面试官追问 | 你的回答 |
 |-----------|---------|
-| "`Record` 和 `Pick` 有什么区别" | `Record<K, V>` 是创建新对象类型——K 是键的联合类型，V 是值的类型。`Pick` 是从已有类型中挑选。`Record` 是新建，`Pick` 是过滤。 |
-| "`Exclude` 和 `Omit` 有什么区别" | `Exclude<T, U>` 作用于联合类型（排除 union 的成员），`Omit<T, K>` 作用于对象类型（排除对象的属性）。domain 不同。 |
-| "`DeepPartial` 怎么实现" | 递归——`type DeepPartial<T> = { [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K] }`。但要注意循环引用和数组的处理。 |
+| "`Record` 和 `Pick` 有什么区别" | `Record&lt;K, V>` 是创建新对象类型——K 是键的联合类型，V 是值的类型。`Pick` 是从已有类型中挑选。`Record` 是新建，`Pick` 是过滤。 |
+| "`Exclude` 和 `Omit` 有什么区别" | `Exclude&lt;T, U>` 作用于联合类型（排除 union 的成员），`Omit&lt;T, K>` 作用于对象类型（排除对象的属性）。domain 不同。 |
+| "`DeepPartial` 怎么实现" | 递归——`type DeepPartial&lt;T> = { [K in keyof T]?: T[K] extends object ? DeepPartial&lt;T[K]> : T[K] }`。但要注意循环引用和数组的处理。 |
+
+---
+
+## Q3: Readonly / Record / Exclude / Extract / ReturnType / Parameters 怎么理解？
+
+### 30 秒版本
+
+"Readonly 用映射类型给所有属性加 readonly。Record 根据键的联合类型构造对象类型。Exclude/Extract 利用分布式条件类型过滤联合类型。ReturnType/Parameters 用 infer 从函数签名里提取返回值类型和参数元组——这是 infer 最经典的实战。"
+
+### 2 分钟版本
+
+**Readonly**——跟 Partial 同一家族，映射类型加 `readonly` 修饰符：
+
+```typescript
+type MyReadonly<T> = { readonly [K in keyof T]: T[K] };
+```
+
+**Record**——创建新对象类型，键是联合类型 K 的每个成员，值统一为 V：
+
+```typescript
+type MyRecord<K extends keyof any, V> = { [P in K]: V };
+type StatusMap = Record<'pending' | 'success' | 'error', { label: string; color: string }>;
+// { pending: { label; color }; success: { label; color }; error: { label; color } }
+```
+
+Record 和映射类型的区别：Record 创建新类型（值类型统一），映射类型改造已有类型（值类型保留原始）。
+
+**Exclude / Extract**——分布式条件类型的最佳示例：
+
+```typescript
+type MyExclude<T, U> = T extends U ? never : T;  // 排除 T 中可赋值给 U 的成员
+type MyExtract<T, U> = T extends U ? T : never;   // 提取 T 中可赋值给 U 的成员
+
+// Exclude<'a' | 'b' | 'c', 'a' | 'b'> → 'c'
+// 原理：联合类型分发到每个成员——'a'/'b'命中变never消掉，'c'保留
+```
+
+**ReturnType / Parameters**——infer 的核心应用。面试中经常被单独抽出来考：
+
+```typescript
+type MyReturnType<T extends (...args: any) => any> =
+  T extends (...args: any) => infer R ? R : never;
+
+type MyParameters<T extends (...args: any) => any> =
+  T extends (...args: infer P) => any ? P : never;
+
+// ReturnType<typeof fetchUser> → Promise<User>
+// Parameters<typeof fetchUser> → [id: number]
+```
+
+infer 在条件类型的 extends 右侧声明类型变量，TS 自动从匹配的模式中推断出具体类型。ReturnType 匹配 `(...args: any) => infer R` 模式，infer R 捕获返回值位置的具体类型。"
+
+### 追问预判
+
+| 面试官追问 | 你的回答 |
+|-----------|---------|
+| "ReturnType 返回 any 和 never 的区别" | 泛型约束用了 `extends (...args: any) => any` 保证 T 是函数。不匹配时条件类型走 false 分支——用 `any` 返回 any 丢了类型安全，用 `never` 让调用方编译报错更安全 |
+| "Exclude 为什么能过滤联合类型" | 分布式条件类型——裸泛型参数 T 是联合类型时，extends 分发到每个成员分别求值。命中的变 never，never 在联合类型中自动消失——像筛子 |
+| "Record 的 key 可以用哪些类型" | `string | number | symbol`。不能传对象或数组——那需要 Map 类型 |
 
 ---
 
@@ -132,7 +191,7 @@ type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 2. **只列举不解释** —— 面试官问"你知道哪些工具类型"，不是说 10 个名字就完了。挑 3 个最常用的，解释场景 + 手写实现。
 
-3. **Omit 的类型安全陷阱** —— `Omit<T, K>` 在 K 不存在于 T 时不会报错（`Omit<User, 'nonexistent'>` 合法）。这是 TS 的设计选择——Omit 是宽松的。面试时如果你能指出这个细节是加分项。
+3. **Omit 的类型安全陷阱** —— `Omit&lt;T, K>` 在 K 不存在于 T 时不会报错（`Omit&lt;User, 'nonexistent'>` 合法）。这是 TS 的设计选择——Omit 是宽松的。面试时如果你能指出这个细节是加分项。
 
 ## 相关阅读
 
