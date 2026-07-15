@@ -263,8 +263,9 @@ tags:
 - "自定义 type guard 怎么写" → 返回值是 arg is SomeType——TS 识别 if 块内自动收窄
 - "never 在穷举检查中的作用" → default: const _:never = value——遗漏分支编译报错
 
-> 答案参考：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
-> 🆕 延伸：[../TypeScript/type-narrowing.md](../TypeScript/type-narrowing.md)
+> 答案参考：[../TypeScript/type-narrowing.md](../TypeScript/type-narrowing.md)
+> 🎤 回答稿：[../面试回答/TypeScript/type-narrowing-answer.md](../面试回答/TypeScript/type-narrowing-answer.md)
+> 延伸：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
 
 ---
 
@@ -289,5 +290,5 @@ tags:
 - "TS 严格模式开了哪些" → strictNullChecks/noUncheckedIndexedAccess/strictFunctionTypes——逐步开启
 - "any 的使用原则" → 尽量不用——实在不行用 unknown。第三方库没类型用 declare module
 
-> 答案参考：[../TypeScript/generics.md](../TypeScript/generics.md)
-> 🎤 回答稿：[../面试回答/TypeScript/generics-utility.md](../面试回答/TypeScript/generics-utility.md)
+> 答案参考：[../TypeScript/vue3-ts-practice.md](../TypeScript/vue3-ts-practice.md)
+> 🎤 回答稿：[../面试回答/TypeScript/vue3-ts-answer.md](../面试回答/TypeScript/vue3-ts-answer.md)

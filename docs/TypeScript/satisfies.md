@@ -69,18 +69,21 @@ const colors = {
 } satisfies Record<string, string>;
 
 // 类型检查：值不符合 string 会报错
-// 类型推断：typeof colors['red'] 仍然是 '#ff0000'，不是 string
-type Red = typeof colors['red']; // '#ff0000' ✅ 精确！
+// 类型推断：结构保留，但值类型按原始推断——不加 as const 时 '#ff0000' 已被扩宽为 string
+type Red = typeof colors['red']; // string（不是 '#ff0000'）
 ```
 
-`satisfies` 的工作方式是：TypeScript 检查 `colors` 是否满足 `Record<string, string>`，但**不把 `colors` 的类型收窄为那个宽类型**。推断结果依然是原始的对象字面量类型。
+`satisfies` 的工作方式是：TypeScript 检查 `colors` 是否满足 `Record<string, string>`，但**不把 `colors` 的类型收窄为那个宽类型**。推断结果依然是 TS 从原始值推导出的 `{ red: string; green: string; blue: string; }`——属性名精确，值类型按正常推断规则（不加 `as const` 则扩宽为 `string`）。
+
+> **要保留值字面量类型**：用 `as const satisfies` 组合。`as const` 负责收窄到字面量，`satisfies` 负责类型检查——两者叠加才同时拥有"精确值类型"和"类型约束"。
 
 ### satisfies vs 类型注解 vs as const 的对比表
 
 | 特性 | 类型注解 | as const | satisfies |
 |------|----------|----------|-----------|
 | 类型安全检查 | ✅ | ❌ | ✅ |
-| 保留字面量类型 | ❌ 扩宽 | ✅ 定死 | ✅ 保留 |
+| 保留属性名精确度 | ❌ 扩宽为宽类型 | ✅ 定死 | ✅ 保留 |
+| 保留值字面量类型 | ❌ | ✅ | ❌（除非配合 as const） |
 | 允许后续修改值 | ✅ | ❌ readonly | ✅ |
 | 约束值类型 | ✅ | ❌ | ✅ |
 
@@ -97,7 +100,8 @@ const permissions = {
 } satisfies Record<string, RolePermissions[]>;
 
 // 即使写错了也不会被悄悄吞掉：
-// permissions.admin[0] 类型是 'create'（字面量），不是 string
+// permissions.admin[0] 类型是 RolePermissions（即 'create' | 'read' | 'update' | 'delete'），不是 string
+// 要拿到单字面量 'create' 需配合 as const
 
 // 更重要的是：访问 permissions.admin 时，属性名也是精确的
 // 编辑器自动补全会提示 'admin' | 'editor' | 'viewer'

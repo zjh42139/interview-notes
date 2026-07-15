@@ -82,7 +82,7 @@ const bg = Color.Red;
 // const bg = "#ff0000";  ← Color 不存在了，直接被替换为值
 ```
 
-但 `const enum` 有兼容性问题——Babel 和 ESBuild 无法内联跨文件的 const enum（它们不读取 `.d.ts` 中不存在的常量），在 `isolatedModules` 下行为不一致。**新项目建议避免 const enum**。
+但 `const enum` 有兼容性问题——Babel 和 ESBuild 以单文件为单位转译（`isolatedModules` 语义），无法获取其他文件中 const enum 成员的具体值来做内联，在 `isolatedModules` 下行为不一致。**新项目建议避免 const enum**。
 
 ### 为什么不推荐 enum？选择建议
 
@@ -157,7 +157,7 @@ emp.name;       // ✅
 |---|---|---|
 | 检查时机 | 编译时 | 运行时 |
 | 运行时可绕过 | ✅ `obj['field']` | ❌ 无法访问 |
-| 编译产物 | 完全消失 | 保留 WeakMap 兼容 |
+| 编译产物 | 完全消失 | target ≥ ES2022 保留原生语法，target < ES2022 降级为 WeakMap |
 | 继承后可见 | ❌ | ❌ |
 
 面试中说到"封装"时，明确区分 TS 的 soft private 和 JS 的 hard private——TS 的 `private` 是"建议你不要碰"，`#` 是"你碰不到"。

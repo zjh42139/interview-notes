@@ -173,7 +173,8 @@ type ComponentProps<T> = T extends { $props: infer P } ? P : never;
 `infer` 只能在条件类型的 `extends` 右侧使用，别处写会报错。
 
 **❌ `never extends string ? yes : no` 结果是 `no`**
-结果是 `never`。`never` 触发分布式条件类型的"零迭代"——这是面试官的经典陷阱题。
+
+这个结论只对**裸泛型参数**成立（`Test<never>` 触发分发，结果 `never`）。直接写 `never extends string ? "yes" : "no"` 时 never 是具体类型不是裸参数，不触发分发，结果是 `"yes"`（never 是所有类型的子类型）。面试时说这个陷阱题一定要区分"泛型参数传入 never"和"直接对 never 写条件类型"两种场景。
 
 ## 面试信号表
 

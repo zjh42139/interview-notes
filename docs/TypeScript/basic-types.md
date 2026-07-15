@@ -66,7 +66,7 @@ function greet(name: string, title?: string): string {
 }
 ```
 
-**`?` 和 `undefined` 的区别**：`title?: string` 等价于 `title: string | undefined`，但 `?` 允许调用时不传这个参数，而 `| undefined` 必须显式传 `undefined`。
+**`?` 和 `undefined` 的区别**：`title?: string` 允许调用时不传这个参数，而 `title: string | undefined` 必须显式传值（可以传 `undefined`）。类型层面两者近似但不完全等价——开启 `exactOptionalPropertyTypes` 后，`?` 表示"属性可缺失"，`| undefined` 表示"属性存在但值可能是 undefined"，语义不同。
 
 ### 2. 类型推断（Type Inference）
 
@@ -238,7 +238,7 @@ function fn2(): void { return; }      // ✅
 function fn3(): undefined { return; } // ✅ return; 等价于 return undefined;
 
 // 真正的区别在这里：
-const v1 = fn1();  // typeof v1 = void，不能赋值给任何类型
+const v1 = fn1();  // typeof v1 = void，不能赋值给 string/number 等具体类型
 const v3 = fn3();  // typeof v3 = undefined，可以赋值给 undefined 类型
 
 let u: undefined;

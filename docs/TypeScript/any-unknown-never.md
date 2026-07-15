@@ -30,7 +30,7 @@ tags:
 ### any：类型系统的"逃生舱"
 
 ```typescript
-// any 的双向协变 —— 可以赋给任何类型，也可以接收任何类型的赋值
+// any 的类型兼容是双向的 —— 可以赋给任何类型，也可以接收任何类型的赋值
 let a: any = 42;
 let str: string = a;    // ✅ any 赋给 string，不报错
 let num: number = a;    // ✅ any 赋给 number，不报错
@@ -93,16 +93,13 @@ type C = never | never;        // never
 
 ### 三者的层次关系
 
-从类型系统的角度，这三个类型形成了一个"允许范围"的递进：
+从类型系统的角度，这三个类型形成了不同的安全层级：
 
 ```
-any        —— 放弃一切检查（最不安全）
-  ↑
-unknown    —— 需要类型收窄才能用（安全）
-  ↑
+any        —— 放弃一切检查，双向兼容所有类型（不在正常类型层次中）
+unknown    —— top type，所有类型都可赋值给它，但它只能赋值给 any 和 unknown
 具体类型    —— 如 string、number、自定义 interface
-  ↑
-never      —— 什么都没有（bottom type，可以赋给任何类型）
+never      —— bottom type，可以赋值给任何类型，但没有任何值能赋给它
 ```
 
 面试加分点：TypeScript 的类型系统中，`unknown` 是 top type（所有类型都是 unknown 的子类型），`never` 是 bottom type（never 是所有类型的子类型）。这和集合论的"全集"与"空集"的概念对应。
@@ -360,10 +357,11 @@ if (isValidResponse(response)) {
 ❌ **`never` 不能赋值给其他类型（方向反了）**：never 可以赋值给任何类型（因为它是 bottom type），但没有值可以赋给 never（除非你断言或抛异常）。
 
 ```typescript
-let n: never;
-let s: string = n;    // ✅ never 赋给 string
-let n2: never = s;    // ❌ string 不能赋给 never
-n = 1 as never;       // ✅ 强制断言可以
+function throwError(): never { throw new Error(); }
+
+let s: string = throwError();    // ✅ never 可以赋给 string（函数抛异常，不会正常返回）
+// let n: never = 'hello';       // ❌ string 不能赋给 never
+let n: never = 1 as never;       // ✅ 强制断言可以
 ```
 
 ## 面试信号表

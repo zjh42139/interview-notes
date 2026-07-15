@@ -73,7 +73,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 ```ts
 <script setup lang="ts">
-// 3.3+ 新语法：用函数签名描述事件
+// 写法一：函数调用签名（Vue 3.2+）
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
   (e: 'change', id: number, name: string): void;
@@ -86,7 +86,7 @@ const emit = defineEmits<{
 </script>
 ```
 
-**3.2- 旧语法**（仍然常见）：
+**写法二：命名元组（Vue 3.3+，更简洁）**：
 
 ```typescript
 const emit = defineEmits<{
