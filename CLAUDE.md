@@ -4,7 +4,7 @@
 
 VitePress 前端面试知识库，Vue3 生态为主，以真实面试为标准。
 
-- **路径**：`docs/` 下有 20+ 模块，~200 篇知识文件，~36 篇回答稿
+- **路径**：`docs/` 下有 16 个模块，~200 篇知识文件，60 篇回答稿，~200 道题库题
 - **技术栈**：VitePress 1.6.4 + Mermaid mindmap + GitHub Pages
 - **仓库**：`https://github.com/zjh42139/interview-notes`（main 分支）
 
