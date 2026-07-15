@@ -425,3 +425,29 @@ tags:
 > 答案参考：[../Vue3/component-communication.md](../Vue3/component-communication.md)
 > 🎤 回答稿：[../面试回答/Vue3/component-communication.md](../面试回答/Vue3/component-communication.md)
 
+---
+
+### Q18: Teleport / Suspense 内置组件
+
+> ⭐⭐⭐ | 难度：中级
+
+**题目**：Vue3 的 Teleport 和 Suspense 分别解决了什么问题？Teleport 如何突破父组件 CSS 限制？
+
+**30秒答**：Teleport 把 DOM 传送到 body——Modal 不怕父组件 overflow:hidden。Suspense 给异步 setup 加 loading 骨架。两者都是内置组件。
+**追问预测**：
+- "Teleport 和 position:fixed 区别" → fixed 突破不了 overflow:hidden，Teleport 直接挂到 body 不受限制
+
+> 答案参考：[../Vue3/teleport-suspense.md](../Vue3/teleport-suspense.md)
+
+---
+
+### Q19: Vue 事件总线手写 ($on/$emit/$off/$once)
+
+> ⭐⭐⭐ | 难度：中级
+
+**题目**：手写 Vue 事件机制，并说明 Vue3 为什么移除 `$on/$off`？
+
+**30秒答**：events 对象存 `{name: Set<fn>}`——$on 加、$emit 遍历执行、$off 删、$once 包一层自毁。Vue3 移除因为事件总线让数据流不可追踪——推荐 Pinia 替代。
+
+> ✍️ 手写参考：[EventEmitter](../手写题/event-emitter.md)
+

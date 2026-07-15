@@ -377,5 +377,32 @@ tags:
 
 ## 相关阅读
 
-- [CSS 知识地图](../CSS/index.md) —— 所有 CSS 知识点索引
-- [面试题库总览](./index.md)
+---
+
+### Q17: 层叠上下文（Stacking Context）
+
+> ⭐⭐⭐⭐ | 难度：中高级
+
+**题目**：什么是层叠上下文？哪些属性会触发新的层叠上下文？`z-index` 在什么情况下失效？
+
+**30秒答**：层叠上下文是 z 轴上的渲染层级——决定谁盖谁。触发条件：`position` 非 static + z-index 非 auto、`opacity < 1`、`transform/filter/perspective` 非 none、`will-change: transform/opacity`。z-index 只在同一层叠上下文内比较——跨了不看。
+
+**追问预测**：
+- "z-index 设 9999 为什么还是被挡住" → 不在同一层叠上下文——父元素的层叠顺序决定了子元素的整体位置
+
+> 答案参考：[../CSS/stacking-context.md](../CSS/stacking-context.md)
+
+---
+
+### Q18: @layer 层叠规则
+
+> ⭐⭐⭐ | 难度：中级
+
+**题目**：CSS `@layer` 规则解决了什么问题？和传统的选择器优先级叠加有什么区别？
+
+**30秒答**：@layer 让开发者声明样式优先级层次——后声明的 layer 覆盖先声明的，不受选择器权重影响。解决了组件库样式覆盖的噩梦——不用靠 `!important` 或提高选择器权重。
+
+**追问预测**：
+- "@layer 和 !important 在同一个 layer 里谁赢" → !important 永远最高——但跨 layer 时后声明的 layer 中的 !important 优先
+
+> 答案参考：[../CSS/grid.md](../CSS/grid.md)

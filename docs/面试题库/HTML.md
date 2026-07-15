@@ -384,4 +384,28 @@ tags:
 | 元素与事件 | 3 | block-inline, canvas-svg, iframe |
 | 路由与架构 | 4 | history-api, web-worker, web-components, seo-ssr |
 
-**频率分布**：⭐⭐⭐⭐⭐ ×5｜⭐⭐⭐⭐ ×9｜⭐⭐⭐ ×1
+---
+
+### Q16: `<dialog>` / Popover API
+
+> ⭐⭐⭐ | 难度：初级
+
+**题目**：HTML5 的 `<dialog>` 元素和 Popover API 如何使用？和手写 Modal 组件比有什么优势？
+
+**30秒答**：`<dialog>` 原生支持模态框——`showModal()` 自动加 backdrop + 焦点管理 + ESC 关闭，不需要手写。Popover API 用 `popover` 属性实现悬浮层——自动顶层渲染 + 点击外部关闭。
+
+> 答案参考：[../HTML/html5-semantic.md](../HTML/html5-semantic.md)
+
+---
+
+### Q17: SEO 相关 meta 标签
+
+> ⭐⭐⭐ | 难度：初级
+
+**题目**：前端可以做哪些 SEO 优化？关键的 meta 标签有哪些？
+
+**30秒答**：`<title>` 页面标题、`<meta name="description">` 描述、Open Graph 标签控制社交分享预览、`<link rel="canonical">` 避免重复内容、语义化 HTML 让搜索引擎理解内容结构、`<img alt>` 图片文本。
+
+> 答案参考：[../HTML/doctype-meta.md](../HTML/doctype-meta.md)
+
+**频率分布**：⭐⭐⭐⭐⭐ ×5｜⭐⭐⭐⭐ ×9｜⭐⭐⭐ ×3
