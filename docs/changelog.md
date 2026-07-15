@@ -5,6 +5,45 @@ description: 知识库变更记录
 
 # Changelog
 
+## 2026-07-15
+
+### TypeScript 模块 5 阶段审计
+
+- **Phase 1 真题校验**：11→18 题（新增 Q7 TS vs JS / Q10 interface vs type / Q12 void vs never / Q14 typeof/keyof / Q16 协变逆变 / Q17 函数重载 / Q18 enum；Q2/Q5/Q11/Q15 调权）
+- **Phase 2 覆盖率**：知识文件 7→14 篇（basic-types/structural-typing/type-narrowing/as-const/enum-class/tsconfig/vue3-ts-practice）；回答稿 1→11 篇（新增 interface-type/extends-infer/keyof-mapped/type-gymnastics/covariance；扩展 generics-utility Q3）
+- **Phase 3 事实审计**：4 agent 并行，发现并修复 15 处问题（4 错误+6 存疑+3 satisfies 字面量类型+2 题库链接）
+- **Phase 5 结构收尾**：sidebar 5 组分类 + 学习顺序分组 + 首页计数同步
+
+### JavaScript 模块
+
+- **Phase 1 真题校验**：22→32 题（新增 Q23 隐式类型转换 / Q24 Promise 并发调度 / Q25 函数柯里化 / Q26 数组扁平化 / Q27 EventEmitter / Q28 LRU 缓存 / Q29 继承方式 / Q30 defineProperty vs Proxy / Q31 迭代器 / Q32 AJAX/fetch；拆 Q12 + 增强 Q20）
+- **Phase 2 回答稿**：6→12 篇（新增 async-await/深拷贝/new-operator/var-let-const/promise-scheduler/defineproperty-proxy）
+
+### 其余 7 模块 Phase 1 真题校验
+
+- Vue3 +2 题（Teleport/Suspense、事件总线）、浏览器 +2（DOM事件流、跨标签页通信）、网络 +1（HTTPS中间人攻击）、CSS +2（层叠上下文、@layer）、HTML +2（dialog/Popover、SEO meta）、工程化 +1（npm安全审计）、性能优化 +1（长任务拆分）
+- 回答稿补齐：CSS +2（水平垂直居中、选择器优先级）、工程化 +2（构建优化实战、TreeShaking/HMR）、浏览器 +1（存储方案）、网络 +1（DNS/CDN）
+- 回答稿总计 53 篇
+
+### 项目基础设施
+
+- **CLAUDE.md**：项目规范+模板+5阶段审计流程+已知坑
+- **全局 CLAUDE.md**：`~/.claude/CLAUDE.md`——思维原则+沟通方式+红线+工程纪律
+- **性能优化**：Mermaid 按需加载（页面无脑图跳过 ~1MB 库加载）
+- **memory/project-overview.md**：计数同步（2026-07-15）
+
+### 技术事实修复（TS 模块）
+
+- any-unknown-never: `let n: never` 不初始化编译不通过 → throwError()
+- extends-infer: `never extends string` 直接写不触发分发，结果为 yes 非 never
+- tsconfig: skipLibCheck 跳过所有 .d.ts，typeRoots 不能绕过
+- vue3-ts-practice: defineEmits 版本标注颠倒（3.2 函数签名 / 3.3 命名元组）
+- satisfies: typeof colors.red 不加 as const 时为 string 非字面量
+
+### 原型链知识补全
+
+- 完整原型链图（Function/Object 构造函数节点 + async/生成器函数例外 + 箭头函数无 prototype）
+
 ## 2026-07-13
 
 - **setup 执行时机精确化**：4 处 "创建组件实例之前/组件实例尚未创建" 修正——setup 时内部实例已存在（props 已挂上），不可用的是 Options API 上下文（`this`），不是实例本身。涉及 `lifecycle.md` / `composition-api.md` / `round-1-vue.md`
