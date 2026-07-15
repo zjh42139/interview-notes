@@ -13,7 +13,7 @@ description: 前端面试高频真题
 |------|--------|
 | [HTML](./HTML.md) | 15 |
 | [CSS](./CSS.md) | 16 |
-| [JavaScript](./JavaScript.md) | 22 |
+| [JavaScript](./JavaScript.md) | 32 |
 | [Vue3](./Vue3.md) | 17 |
 | [Vue Router](./VueRouter.md) | 7 |
 | [TypeScript](./TypeScript.md) | 18 |

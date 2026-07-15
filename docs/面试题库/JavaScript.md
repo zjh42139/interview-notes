@@ -383,25 +383,25 @@ let b = 2;
 
 ---
 
-### Q12: JS 数据类型 | 概念题 + 类型检测
-> ⭐⭐⭐⭐ | 难度：初级-中级
+### Q12: JS 类型检测方式
 
-**题目**：JS 中有哪些数据类型？`typeof` 和 `Object.prototype.toString.call()` 各有什么优缺点？如何判断一个变量是数组？
+> ⭐⭐⭐⭐ | 难度：初级-中级
+> 🏷️ 概念题
+
+**题目**：JS 中 `typeof`、`instanceof`、`Object.prototype.toString.call()` 各有什么优缺点？如何安全判断一个变量是数组？`Array.isArray()` 的实现原理是什么？
 
 **考察点**：
-- 基本类型（7种） vs 引用类型
-- `typeof null === 'object'` 的历史原因
-- `instanceof` 的跨 iframe 问题
-- 安全类型检测：`Object.prototype.toString.call(value).slice(8, -1)`
-- `Array.isArray()` 的实现原理
+- `typeof` 的返回值映射 + `typeof null === 'object'` 历史原因
+- `instanceof` 沿原型链查找 + 跨 iframe 失效
+- `Object.prototype.toString.call()` 的万能检测
+- `Array.isArray()` 原理——ES5 引入的 Object.prototype.toString 判断 + ES6 后检查内部 [[IsArray]] slot
+
+**30秒答**：typeof 基础类型够用但 null 误判为 object。instanceof 检查原型链但跨 iframe 失效。Object.prototype.toString.call 最可靠——返回 [object Type] 格式。Array.isArray 是 ES5 标准方法——比 instanceof 安全、比 toString 简洁。
 
 **追问预测**：
-- "typeof null 为什么是 object" → JS 历史 bug——null 的类型标签是 0，和对象标签相同
-- "怎么判断数组" → Array.isArray() 解决 instanceof 的跨 iframe 问题
-- "bigint 和 number 能混算吗" → 不能——TypeError。需要显式转换：BigInt(num) 或 Number(big)
-
-
-**30秒答**：基本类型 7 种——string/number/boolean/undefined/null/symbol/bigint。引用类型——Object/Array/Function。typeof null === object 是历史 bug。最可靠判断用 Object.prototype.toString.call。
+- "typeof null 为什么是 object" → JS 底层用 3 位二进制标记类型，对象是 000，null 全零也碰上是 000——历史 bug
+- "怎么判断数组" → Array.isArray()——解决 instanceof 跨 iframe 问题
+- "bigint 和 number 能混算吗" → 不能——TypeError。需要显式转换
 
 > 答案参考：[../JavaScript/type-coercion.md](../JavaScript/type-coercion.md)
 
@@ -582,7 +582,7 @@ let b = 2;
 > ⭐⭐⭐⭐⭐ | 难度：中级
 > 🏷️ 对比题
 
-**题目**：Promise.all、allSettled、any、race 有什么区别？各适用什么场景？
+**题目**：Promise.all、allSettled、any、race 有什么区别？各适用什么场景？请手写实现 `Promise.all` 和 `Promise.race`。
 
 **考察点**：
 - all：全部成功才 resolve，一个失败就 reject。场景：批量请求——一个失败全停
@@ -639,3 +639,230 @@ let b = 2;
 4. 对象数组按某字段去重：`Map` 以该字段为 key —— O(n)
 
 > 📖 答案参考：[Set / Map / WeakMap](../JavaScript/set-map-weakmap.md)
+
+---
+
+### Q23: JS 隐式类型转换
+
+> ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 对比题
+
+**题目**：JS 的隐式类型转换规则是什么？请解释 `[] == ![]`、`[] + {}` vs `{} + []`、`true + true` 的结果和原理。
+
+**考察点**：
+- `==` 的抽象相等比较算法（ToPrimitive → valueOf → toString）
+- 对象的 ToPrimitive 转换规则
+- 运算符触发的类型转换（`+` 的字符串拼接优先 vs `-` 的数学运算优先）
+- `!` 操作符优先触发 Boolean 转换
+
+**30秒答**：`==` 比较走 ToPrimitive 规则——对象先调 valueOf 再调 toString。`[] == ![]`——`![]` 先转 false，然后 `[] == false`→ToPrimitive([])→""→""==false→0==0→true。`[] + {}`→""+"[object Object]"→字符串。`true + true` → 1+1=2。
+
+**追问预测**：
+- "[] == ![] 结果是 true，为什么" → ![] 是 false，[] 转原始值是 ""，最终 0==0
+- "什么时候用 == 什么时候用 ===" → 永远用 ===，除非你知道自己在比较 null/undefined（`x == null` 同时检查 null 和 undefined）
+
+> 答案参考：[../JavaScript/type-coercion.md](../JavaScript/type-coercion.md)
+
+---
+
+### Q24: Promise 并发调度器
+
+> ⭐⭐⭐⭐⭐ | 难度：高级
+> 🏷️ 手写题
+
+**题目**：实现一个 `PromiseScheduler` 类，能控制 Promise 的并发执行数量。如传入 10 个请求函数，每次最多并发 3 个，一个完成立即启动下一个，直到全部完成。
+
+**考察点**：
+- 异步流程控制——不依赖第三方库实现并发限制
+- Promise 链式调用 + 队列管理
+- `Promise.race` 或递归驱动的并发窗口滑动
+- 错误处理——单个失败是否影响其他任务
+
+**30秒答**：维护一个执行队列和当前并发计数。初始启动 N 个任务，每个任务完成后从队列取下一个。核心是递归驱动——`run()` 函数：while 当前并发 < 上限 且 队列非空 → 并发+1 → 执行任务 → .finally 并发-1 → 递归 run()。
+
+**追问预测**：
+- "单个任务失败了怎么处理" → 取决于场景——批量上传失败一个不影响其他的用 catch 吞掉继续；全成功才 resolve 的用 all 逻辑
+- "怎么获取每个任务的结果" → 返回 Promise.all 或维护结果数组按索引填入
+
+---
+
+### Q25: 函数柯里化 curry
+
+> ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
+
+**题目**：请实现一个 `curry` 函数，将多参数函数转化为可多次调用的柯里化形式。如 `curry(add)(1)(2)(3)` 和 `curry(add)(1, 2)(3)` 都能正确执行。
+
+**考察点**：
+- 闭包保存已收集的参数
+- 参数个数达到原函数形参数量时执行，否则返回新函数
+- 与偏函数（partial application）的区别
+
+**30秒答**：curry 收集每次调用的参数，累计达到原函数参数个数时调用 fn.apply(this, args)，否则返回新函数继续收集。核心：`fn.length` 判断参数个数、闭包持有 args 数组。
+
+**追问预测**：
+- "curry 和 partial application 的区别" → curry 每次传一个参数直到全部传入；partial 一次传部分参数立即返回固定了部分参数的新函数
+- "fn.length 的局限性" → 不包含默认参数和剩余参数——`function(a, b=1){}` 的 length 是 1
+
+---
+
+### Q26: 数组扁平化 flat
+
+> ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
+
+**题目**：请用至少 3 种方法实现数组扁平化（flatten），并说明各种方法的优缺点。如何控制扁平化的深度？
+
+**考察点**：
+- `Array.prototype.flat(depth)` 原生方法
+- 递归 + concat/reduce——最直观的实现
+- `toString().split(',')`——仅适用于数字/字符串数组的取巧方法
+- 迭代 + 栈——避免递归爆栈
+- `[].concat(...arr)` 的一层替代
+
+**30秒答**：原生 `arr.flat(Infinity)` 一行搞定。手写版：递归 `[].concat(...arr.map(v => Array.isArray(v) ? flatten(v) : v))`。迭代版用栈：while 栈非空 pop 出来——是数组展开 push 回栈，不是数组 push 结果。栈版不会递归爆栈。
+
+**追问预测**：
+- "怎么控制深度" → 递归时传 depth-1，depth 为 0 时直接 push
+- "flat 的兼容性" → ES2019 引入。旧环境用 polyfill
+
+---
+
+### Q27: 发布订阅 EventEmitter
+
+> ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
+
+**题目**：请手写实现一个 EventEmitter（事件总线），支持 `on`、`off`、`once`、`emit` 方法。one 注册的监听器触发一次后自动移除。
+
+**考察点**：
+- 事件注册表数据结构——`Map<eventName, Set<handler>>`
+- once 用包装函数——触发后自动调用 off
+- off 时注意删除空集合
+- emit 时复制监听器列表避免"在监听器中移除其他监听器"导致的问题
+
+**30秒答**：events 对象存 `{[name]: Set<fn>}`。on 就 add，emit 就 forEach 执行，off 就 delete。once 用包装函数——触发时先 off 再调原 fn。关键坑：emit 时要复制 Set 再遍历——防止回调里 off 导致遍历中 Set 变化。
+
+**追问预测**：
+- "once 怎么实现" → 包一层——`const wrapper = (...args) => { this.off(name, wrapper); fn(...args) }`
+- "emit 时为什么要复制 Set" → 防止回调中 off 其他监听器导致当前 Set 在 forEach 中变化——JS 的 Set 在遍历过程中被修改会跳过元素
+
+> ✍️ 手写参考：[EventEmitter / 发布订阅](../手写题/event-emitter.md)
+
+---
+
+### Q28: LRU 缓存
+
+> ⭐⭐⭐⭐ | 难度：中高级
+> 🏷️ 手写题
+
+**题目**：请实现一个 LRU（Least Recently Used）缓存类，支持 `get(key)` 和 `put(key, value)` 操作，时间复杂度 O(1)。超出容量时淘汰最久未使用的数据。
+
+**考察点**：
+- Hash + 双向链表——O(1) 查找 + O(1) 移动节点
+- 虚拟头尾节点简化边界处理
+- get/put 都将节点移到链表头部（最新）
+- 超出容量时删除尾部节点（最旧）
+
+**30秒答**：Map 存 key→node 实现 O(1) 查找，双向链表维护访问顺序。每次 get/put 把节点移到头部，put 超出容量时删尾部节点。虚构头尾两个哨兵节点——`addToHead` 和 `removeNode` 不用判空。前端场景：KeepAlive 组件缓存就是 LRU。
+
+**追问预测**：
+- "为什么不用数组" → 数组的 unshift/splice 是 O(n)，LRU 要求 O(1)
+- "为什么需要双向链表" → 单向链表删节点需要前驱——O(n)。双向 O(1)
+- "KeepAlive 是怎么用 LRU 的" → Vue3 的 KeepAlive 用 LRU 算法管理组件缓存——超出 max 属性时淘汰最久未访问的组件
+
+> ✍️ 手写参考：[LRU 缓存](../手写题/lru-cache.md)
+
+---
+
+### Q29: JS 继承方式全对比
+
+> ⭐⭐⭐⭐ | 难度：中高级
+> 🏷️ 对比题
+
+**题目**：JS 有哪些继承方式？请写出原型链继承、构造函数继承、组合继承、寄生组合继承、ES6 class extends 的代码，并对比优缺点。为什么寄生组合继承是最优解？
+
+**考察点**：
+- 原型链继承：`Child.prototype = new Parent()`——共享引用类型缺陷
+- 构造函数继承：`Parent.call(this)`——无法继承原型方法
+- 组合继承：call + prototype = new Parent()——调两次父类构造函数
+- 寄生组合继承：call + `Object.create(Parent.prototype)`——最优
+- ES6 class extends：语法糖，底层仍是寄生组合 + 静态属性继承
+
+**30秒答**：6 种方式。原型链共享引用、构造函数无法继承原型、组合继承调两次、寄生组合最优——call 继承实例属性 + Object.create 继承原型。ES6 class 是寄生组合的语法糖——多了 `Child.__proto__ === Parent` 静态继承。
+
+**追问预测**：
+- "为什么寄生组合是最优的" → 只调一次父类构造函数，不引入多余的父类实例属性在原型上
+- "class extends 和寄生组合有什么区别" → 本质相同，class 多了静态属性继承（`Child.__proto__ === Parent`）和内置类继承支持（`class MyArray extends Array`）
+
+> 答案参考：[../JavaScript/prototype-chain.md](../JavaScript/prototype-chain.md)
+
+---
+
+### Q30: Object.defineProperty vs Proxy
+
+> ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 对比题
+
+**题目**：`Object.defineProperty` 和 `Proxy` 有什么区别？为什么 Vue3 从 defineProperty 迁移到了 Proxy？
+
+**考察点**：
+- defineProperty：劫持对象已有属性——新增/删除属性无感知，需 $set/$delete
+- Proxy：代理整个对象——13 种拦截操作，包括新增/删除/数组索引/for...in
+- 性能：Proxy 在大量属性场景下更优（不需要递归遍历每个属性）
+- 兼容性：Proxy 不支持 IE，defineProperty 支持 IE9+
+
+**30秒答**：defineProperty 只监听已有属性的 get/set——新增/删除属性无感知、数组索引变更无感知、需要递归遍历每个属性。Proxy 代理整个对象——所有 13 种操作全拦截、新增删除数组变更全捕获、惰性不递归。Vue3 用 Proxy 解决了 Vue2 响应式的 3 大缺陷——数组、动态属性、性能。
+
+**追问预测**：
+- "Proxy 的缺点" → IE 完全不支持、Proxy 对象不等于原对象（`proxy !== target`）、嵌套对象只在访问时才代理（延迟但初次访问慢于 defineProperty 的全量递归）
+- "defineProperty 能监听数组吗" → 可以劫持数组索引但性能差——而且 push/pop 等修改方法不会触发 setter
+
+> 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+
+---
+
+### Q31: 迭代器协议 / Symbol.iterator / Generator
+
+> ⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
+
+**题目**：什么是迭代器协议？如何让一个普通对象支持 `for...of` 遍历？Generator 函数和迭代器有什么关系？
+
+**考察点**：
+- 迭代器协议：对象有 `next()` 方法，返回 `{ value, done }`
+- 可迭代协议：对象有 `Symbol.iterator` 方法——返回迭代器
+- for...of 调用对象的 Symbol.iterator 获取迭代器
+- Generator 函数自动返回迭代器对象——`yield` 语法糖
+
+**30秒答**：`Symbol.iterator` 方法返回 `{ next: () => { value, done } }`。实现了这个接口，对象就能被 for...of 遍历。Generator 函数内部用 yield 暂停，调用后自动返回迭代器——比手写 next 更简洁。`[...obj]`、`Array.from(obj)`、`for...of obj` 都依赖 Symbol.iterator。
+
+**追问预测**：
+- "for...of 和 for...in 的区别" → for...of 遍历值（走迭代器协议），for...in 遍历键（包括原型链上的可枚举属性）
+- "Generator 的返回值是什么" → 迭代器对象——有 next/return/throw 三个方法
+
+> 答案参考：[../JavaScript/generator-iterator.md](../JavaScript/generator-iterator.md)
+
+---
+
+### Q32: AJAX / fetch 封装
+
+> ⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
+
+**题目**：请封装一个 `ajax` 函数，支持 GET/POST、超时、重试、取消请求。说明 fetch 和 XMLHttpRequest 的核心区别。
+
+**考察点**：
+- XMLHttpRequest 的状态管理——`onreadystatechange` + `xhr.readyState`
+- fetch 的 Response 对象——`.json()` / `.text()` / `.blob()`
+- fetch 不 reject 非 200 状态码——需要手动 `if (!res.ok) throw`
+- 超时实现：XHR 用 `xhr.timeout`，fetch 用 `AbortController` + `setTimeout`
+- 取消请求：XHR 用 `xhr.abort()`，fetch 用 `AbortController.signal`
+
+**30秒答**：XHR 用 onreadystatechange 监听状态——4 表示完成。fetch 基于 Promise——.json() 解析响应体。关键区别：fetch 不 reject HTTP 错误状态码（404/500），只看网络错误——需要手动检查 res.ok。超时用 AbortController + setTimeout——超时后 controller.abort()。
+
+**追问预测**：
+- "fetch 为什么 404 不 reject" → fetch 只在网络层错误（无法连接/DNS 失败）时 reject。HTTP 状态码是应用层——404 也是成功的 HTTP 响应
+- "AbortController 可以取消已发出的请求吗" → 浏览器会断开连接——但服务端可能已经收到并处理了
+
+> 答案参考：[../网络/fetch-api.md](../网络/fetch-api.md)
