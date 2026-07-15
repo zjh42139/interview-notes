@@ -230,13 +230,23 @@ let status: Status = 'pending';  // 收窄为字面量联合类型，不是 stri
 
 ❌ **把 TypeScript 的类型注解当成运行时检查**：`const n: number = parseInt('abc')` 编译不报错，但运行时 `n` 是 `NaN`。类型注解不是 schema 验证——运行时数据仍然需要用类型守卫验证。
 
-❌ **混淆 `void` 和 `undefined`**：函数声明 `(): void` 时，可以 `return undefined` 或不 return，但声明 `(): undefined` 时必须 `return undefined`。
+❌ **混淆 `void` 和 `undefined` 的行为**：区别不在函数体内——两者都可以 `return;` 或不 return——而在**调用方**能否使用返回值。
 
 ```typescript
 function fn1(): void { }              // ✅
 function fn2(): void { return; }      // ✅
-function fn3(): undefined { return; } // ❌ 必须显式 return undefined
+function fn3(): undefined { return; } // ✅ return; 等价于 return undefined;
+
+// 真正的区别在这里：
+const v1 = fn1();  // typeof v1 = void，不能赋值给任何类型
+const v3 = fn3();  // typeof v3 = undefined，可以赋值给 undefined 类型
+
+let u: undefined;
+u = fn3();   // ✅ undefined 类型兼容
+// u = fn1(); // ❌ void 不能赋值给 undefined（strictNullChecks 下）
 ```
+
+> `void` 的语义是"这个返回值你别用"——函数可以返回任何东西，但 TS 会阻止调用方依赖它。`undefined` 的语义是"返回的就是 undefined"——调用方可以安全使用。所以声明回调函数返回值时优先用 `void`（兼容各种实现），只有真的需要调用方拿到 `undefined` 时才用 `undefined`。
 
 ❌ **字面量类型收窄被类型断言覆盖**：`const n = 10 as number` 会强制扩宽为 `number` 类型，覆盖了字面量推导——很少需要这样做。
 
