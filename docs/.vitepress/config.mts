@@ -639,6 +639,7 @@ export default defineConfig({
             { text: 'Vite / Webpack', link: '/面试回答/工程化/vite-webpack' },
             { text: '构建优化实战', link: '/面试回答/工程化/build-optimization' },
             { text: 'Tree Shaking / HMR', link: '/面试回答/工程化/tree-shaking-hmr' },
+            { text: 'ESM / CJS 模块化', link: '/面试回答/工程化/esm-cjs' },
           ],
         },
         {
@@ -649,6 +650,16 @@ export default defineConfig({
             { text: '权限系统设计', link: '/面试回答/项目/permission-rbac' },
             { text: '大文件上传', link: '/面试回答/项目/big-file-upload' },
             { text: '项目性能优化', link: '/面试回答/项目/project-optimization' },
+          ],
+        },
+        {
+          text: '性能优化',
+          collapsed: true,
+          items: [
+            { text: '首屏优化', link: '/面试回答/性能优化/first-screen' },
+            { text: 'Web Vitals', link: '/面试回答/性能优化/web-vitals' },
+            { text: '虚拟列表', link: '/面试回答/性能优化/virtual-list' },
+            { text: '缓存策略', link: '/面试回答/性能优化/caching-strategy' },
           ],
         },
       ],
