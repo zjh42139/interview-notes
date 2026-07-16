@@ -335,6 +335,8 @@ export default defineConfig({
             { text: 'HTTPS 与传输安全', link: '/浏览器/安全/https-security' },
             { text: 'Token 存储安全', link: '/浏览器/安全/token-storage' },
             { text: '前端依赖安全', link: '/浏览器/安全/supply-chain-security' },
+            { text: '认证/授权安全(JWT/OAuth)', link: '/浏览器/安全/auth-security' },
+            { text: '数据泄露/postMessage 安全', link: '/浏览器/安全/data-leak-postmessage' },
           ],
         },
       ],

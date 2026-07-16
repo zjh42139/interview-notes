@@ -52,6 +52,14 @@ mindmap
       npm audit
       原型污染
       lockfile
+    认证授权安全
+      JWT 最佳实践
+      OAuth 2.0 + PKCE
+      Refresh Token Rotation
+    数据泄露防护
+      敏感数据脱敏
+      Sentry 数据过滤
+      postMessage 安全
 ```
 
 ## 推荐学习顺序
@@ -63,6 +71,8 @@ mindmap
 5. ⭐⭐⭐⭐ [点击劫持与 iframe 安全](./clickjacking.md) —— X-Frame-Options / frame-ancestors / sandbox
 6. ⭐⭐⭐⭐ [HTTPS 与传输安全](./https-security.md) —— HSTS / 证书链 / Mixed Content / TLS 握手
 7. ⭐⭐⭐ [前端依赖安全](./supply-chain-security.md) —— SRI / npm audit / 原型污染
+8. ⭐⭐⭐ [认证/授权安全](./auth-security.md) —— JWT 最佳实践 / OAuth 2.0 + PKCE / Refresh Token Rotation
+9. ⭐⭐⭐ [数据泄露防护/postMessage 安全](./data-leak-postmessage.md) —— 敏感数据脱敏 / Sentry 数据过滤 / postMessage 安全
 
 ## 知识点索引
 
@@ -75,6 +85,8 @@ mindmap
 | [点击劫持 / iframe 安全](./clickjacking.md) | ⭐⭐⭐⭐ | 中级 | draft |
 | [HTTPS 与传输安全](./https-security.md) | ⭐⭐⭐⭐ | 中级 | draft |
 | [前端依赖安全](./supply-chain-security.md) | ⭐⭐⭐ | 中级 | draft |
+| [认证/授权安全](./auth-security.md) | ⭐⭐⭐ | 中高级 | draft |
+| [数据泄露/postMessage](./data-leak-postmessage.md) | ⭐⭐⭐ | 中级 | draft |
 
 ## 相关模块
 
