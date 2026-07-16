@@ -5,6 +5,22 @@ description: 知识库变更记录
 
 # Changelog
 
+## 2026-07-16（续 8）
+
+### Vue3+TS 文件泛型显示修复
+
+**问题**：`vue3-ts-practice.md` 和 `vue3-ts-answer.md` 中 `defineProps&lt;T&gt;()` 在 backtick 内显示为转义符号文本（`&lt;T&gt;` 而非 `<T>`）。
+
+**根因**：早期为规避 Vue SFC 对 `<T>` 的解析，全局使用 HTML 实体。但实体在 backtick inline code 内不会被浏览器解码为 `<`——直接显示 `&lt;` 文本。
+
+**修复策略**：
+- Heading 内 `\&lt;`（破转义）→ `<`：backtick 已保护，无需实体
+- Inline backtick code 内 `&lt;T&gt;` → `<T>`：backtick 已保护，无需实体
+- Fenced code block 内：原本就是 `<T>`，无需改动
+- Bold/plain text 内：保留 `&lt;T&gt;` 实体（不在 backtick 保护范围内，Vue SFC 会解析为 HTML 标签）
+
+修复过程发现 Python `re.sub` 中 `[^\x60]` 会跨行匹配——从一行 backtick 跨越到另一行的 `&lt;`，误改 plain text 实体。修复为 `[^\x60\n]` 限制同行匹配。
+
 ## 2026-07-16（续 7）
 
 ### 阅读指南 v2 + 复习路线重构

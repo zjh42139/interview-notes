@@ -25,11 +25,11 @@ tags:
 
 ## 一句话总结
 
-**Vue3 的 TypeScript 支持是从"可以写"变成"一等公民"——`defineProps&lt;T&gt;()` 纯类型语法传 props 类型、`defineEmits&lt;T&gt;()` 精确控制 emit 事件、`ref&lt;T&gt;()` 自动推导出正确类型、`InjectionKey&lt;T&gt;` 让 provide/inject 有完整类型安全。面试中被问到"项目里怎么用 TS"，从这五个入口切入就能覆盖全部场景。**
+**Vue3 的 TypeScript 支持是从"可以写"变成"一等公民"——`defineProps<T>()` 纯类型语法传 props 类型、`defineEmits<T>()` 精确控制 emit 事件、`ref<T>()` 自动推导出正确类型、`InjectionKey<T>` 让 provide/inject 有完整类型安全。面试中被问到"项目里怎么用 TS"，从这五个入口切入就能覆盖全部场景。**
 
 ## 核心机制
 
-### 1. `defineProps\&lt;T\>()` —— 用泛型传 props 类型
+### 1. `defineProps<T>()` —— 用泛型传 props 类型
 
 ```ts
 <script setup lang="ts">
@@ -69,7 +69,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 **关键点**：`withDefaults` 的第二个参数中的默认值会**消除对应属性的 `undefined`**，因为调用方不传时它一定有默认值。
 
-### 2. `defineEmits\&lt;T\>()` —— 精确控制事件签名
+### 2. `defineEmits<T>()` —— 精确控制事件签名
 
 ```ts
 <script setup lang="ts">
@@ -96,7 +96,7 @@ const emit = defineEmits<{
 // 等价于上面的写法，只是语法不同
 ```
 
-### 3. `ref\&lt;T\>()` / `reactive\&lt;T\>()` —— 类型自动推导
+### 3. `ref<T>()` / `reactive<T>()` —— 类型自动推导
 
 ```typescript
 import { ref, reactive } from 'vue';
@@ -118,7 +118,7 @@ const form = reactive({
 // const n = reactive(1);  // ❌ 报错！reactive 只接受对象
 ```
 
-**ref 的类型推导陷阱**：`ref(null)` 默认推断为 `Ref&lt;null&gt;`，没有显式泛型就无法赋其他值。解决方案——显式写 `ref&lt;User | null&gt;(null)`。
+**ref 的类型推导陷阱**：`ref(null)` 默认推断为 `Ref<null>`，没有显式泛型就无法赋其他值。解决方案——显式写 `ref<User | null>(null)`。
 
 ### 4. Template Ref —— 获取组件实例类型
 
@@ -142,7 +142,7 @@ const inputRef = ref<HTMLInputElement>();
 </script>
 ```
 
-### 5. `InjectionKey\&lt;T\>` —— Provide/Inject 类型安全
+### 5. `InjectionKey<T>` —— Provide/Inject 类型安全
 
 ```typescript
 // types/injection-keys.ts —— 集中管理所有注入 Key
@@ -277,7 +277,7 @@ const { data, loading, error, execute } = useRequest<DashboardStats>(
 // data.value?.totalUsers —— 有自动补全
 ```
 
-**建议**：composable 的返回类型**显式标注**（`UseRequestReturn&lt;T&gt;`），而非依赖类型推断——给调用方一个清晰的可读入口。但内部变量（ref 等）放给 TS 自动推断即可。
+**建议**：composable 的返回类型**显式标注**（`UseRequestReturn<T>`），而非依赖类型推断——给调用方一个清晰的可读入口。但内部变量（ref 等）放给 TS 自动推断即可。
 
 ### defineExpose —— 暴露给父组件的方法类型
 
@@ -343,17 +343,17 @@ const selectedRows = computed(() => {
 </script>
 ```
 
-**`generic="T"`** 是 Vue 3.3+ 的特性——让 `&lt;script setup&gt;` 支持泛型参数。表格组件接受任何数据类型的数组，`columns[].prop` 自动关联到 `T` 的属性。
+**`generic="T"`** 是 Vue 3.3+ 的特性——让 `<script setup>` 支持泛型参数。表格组件接受任何数据类型的数组，`columns[].prop` 自动关联到 `T` 的属性。
 
 ## 易错点
 
-❌ **`defineProps` 不用泛型而用运行时声明**：`defineProps({ name: String })` 是 Vue2 的包袱写法——类型推断弱、无法处理复杂类型。Vue3 已推荐全用泛型 `defineProps&lt;Props&gt;()`。
+❌ **`defineProps` 不用泛型而用运行时声明**：`defineProps({ name: String })` 是 Vue2 的包袱写法——类型推断弱、无法处理复杂类型。Vue3 已推荐全用泛型 `defineProps<Props>()`。
 
-❌ **忘记给 ref 显式泛型导致 `Ref&lt;null&gt;`**：`const user = ref(null)` → TS 推断为 `Ref&lt;null&gt;`，后续赋值 `user.value = { ... }` 报错。方案：`const user = ref&lt;User | null&gt;(null)`。
+❌ **忘记给 ref 显式泛型导致 `Ref<null>`**：`const user = ref(null)` → TS 推断为 `Ref<null>`，后续赋值 `user.value = { ... }` 报错。方案：`const user = ref<User | null>(null)`。
 
 ❌ **reactive 用于原始类型**：`const n = reactive(1)` 直接报错。reactive 只接受对象——原始类型用 `ref`。
 
-❌ **provide/inject 不用 InjectionKey 丢类型**：不用 `InjectionKey&lt;T&gt;` 的话，inject 拿到的值是 `unknown` 或你手写的类型（可能跟 provide 端不一致）。InjectionKey 是唯一保证两端类型一致的机制。
+❌ **provide/inject 不用 InjectionKey 丢类型**：不用 `InjectionKey<T>` 的话，inject 拿到的值是 `unknown` 或你手写的类型（可能跟 provide 端不一致）。InjectionKey 是唯一保证两端类型一致的机制。
 
 ❌ **InstanceType&lt;typeof Component&gt; 拿到的是组件实例类型，不是 props 类型**：如果你需要子组件的 props 类型，应该从子组件导出 Props interface 供外部引用，而非用 InstanceType。
 
@@ -361,7 +361,7 @@ const selectedRows = computed(() => {
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
-| "Vue3 中怎么给 props 加 TS 类型" | 追问 `defineProps&lt;T&gt;()` + `withDefaults` 消除 undefined |
+| "Vue3 中怎么给 props 加 TS 类型" | 追问 `defineProps<T>()` + `withDefaults` 消除 undefined |
 | "emits 怎么声明类型" | 追问 3.3+ 函数签名语法 vs 3.2- 元组语法 |
 | "provide/inject 怎么类型安全" | 追问 InjectionKey 让两端类型同步 |
 | "project 里 TS 的最佳实践" | 追问 composable 显式返回类型 + ref 泛型 + strict 全开 |
