@@ -52,21 +52,21 @@ mindmap
 
 ## 推荐学习顺序
 
-### 一、核心机制
+### 一、核心机制（从基础到高级）
 
-1. ⭐⭐⭐⭐⭐ [history / hash 模式](./history-vs-hash.md)
-2. ⭐⭐⭐⭐⭐ [路由守卫](./route-guards.md)
-3. ⭐⭐⭐⭐⭐ [动态路由](./dynamic-routing.md)
+1. ⭐⭐⭐⭐⭐ [history / hash 模式](./history-vs-hash.md) — 先理解两种模式怎么工作
+2. ⭐⭐⭐⭐⭐ [路由守卫](./route-guards.md) — 在模式基础上控制导航
+3. ⭐⭐⭐⭐⭐ [动态路由](./dynamic-routing.md) — 守卫的进阶应用
 
-### 二、进阶与集成
+### 二、进阶与集成（依赖核心机制）
 
 4. ⭐⭐⭐⭐ [路由懒加载](./lazy-loading.md)
 5. ⭐⭐⭐⭐ [KeepAlive + Router](./keepalive-integration.md)
 
 ### 三、辅助功能
 
-6. ⭐⭐⭐ [scrollBehavior](./scroll-behavior.md)
-7. ⭐⭐⭐ [导航故障处理](./navigation-failures.md)
+6. ⭐⭐⭐ [导航故障处理](./navigation-failures.md)
+7. ⭐⭐⭐ [scrollBehavior](./scroll-behavior.md)
 8. ⭐⭐⭐ [路由元信息/传参](./route-meta-props.md)
 9. ⭐⭐⭐ [命名视图/过渡动画](./named-views-transition.md)
 

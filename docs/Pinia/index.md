@@ -64,22 +64,22 @@ mindmap
 
 ## 推荐学习顺序
 
-### 一、核心概念
+### 一、核心概念（从定义到使用）
 
-1. ⭐⭐⭐⭐⭐ [defineStore](./defineStore.md) — Setup Store vs Options Store、命名规范
-2. ⭐⭐⭐⭐⭐ [state](./state.md) — 响应式定义、storeToRefs、$patch、$subscribe
-3. ⭐⭐⭐⭐⭐ [actions](./actions.md) — 异步 action、$onAction 订阅埋点
-4. ⭐⭐⭐⭐ [getters](./getters.md) — computed 封装、传参 getter、跨 store 访问
+1. ⭐⭐⭐⭐⭐ [defineStore](./defineStore.md) — 先创建一个 store
+2. ⭐⭐⭐⭐⭐ [state](./state.md) — 定义数据、读取、修改
+3. ⭐⭐⭐⭐ [getters](./getters.md) — 在 state 上做派生
+4. ⭐⭐⭐⭐⭐ [actions](./actions.md) — 编写业务逻辑
 
-### 二、生态与对比
+### 二、生态与对比（理解核心后对比）
 
-5. ⭐⭐⭐⭐⭐ [vs-vuex](./vs-vuex.md) — Pinia vs Vuex 核心差异、迁移策略
+5. ⭐⭐⭐⭐⭐ [vs-vuex](./vs-vuex.md) — 和 Vuex 有什么区别
 
-### 三、工程化
+### 三、工程化（生产和维护）
 
-6. ⭐⭐⭐⭐⭐ [persist](./persist.md) — 持久化插件、localStorage/sessionStorage 选型
-7. ⭐⭐⭐ [plugins](./plugins.md) — 自定义插件、全局行为封装
-8. ⭐⭐⭐ [进阶(组件外/TS/SSR)](./advanced.md) — 组件外用 store、SSR 序列化
+6. ⭐⭐⭐⭐⭐ [persist](./persist.md) — 数据持久化
+7. ⭐⭐⭐ [plugins](./plugins.md) — 封装复用逻辑
+8. ⭐⭐⭐ [进阶(组件外/TS/SSR)](./advanced.md) — 边缘场景
 
 ## 知识点索引
 

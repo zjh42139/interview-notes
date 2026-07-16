@@ -84,10 +84,11 @@ mindmap
 
 ### 三、类型操作
 
-8.  ⭐⭐⭐⭐⭐   [泛型](./generics.md)
-9.  ⭐⭐⭐⭐⭐   [Utility Types](./utility-types.md)
-10. ⭐⭐⭐       [keyof / mapped / conditional](./keyof-mapped-conditional.md)
-11. ⭐⭐⭐⭐     [extends / infer](./extends-infer.md)
+8.  ⭐⭐⭐⭐⭐   [泛型](./generics.md) — 先理解泛型的基础语法
+9.  ⭐⭐⭐⭐     [extends / infer](./extends-infer.md) — extends 是 conditional types 的基础
+10. ⭐⭐⭐       [keyof / mapped / conditional](./keyof-mapped-conditional.md) — 再用三板斧组合
+11. ⭐⭐⭐⭐⭐   [Utility Types](./utility-types.md) — 标准库就是前三者的封装应用
+12. ⭐⭐⭐       [模板字面量类型](./template-literal-types.md) — 字符串类型操作
 
 ### 四、类型声明
 
@@ -97,9 +98,8 @@ mindmap
 
 13. ⭐⭐⭐       [tsconfig.json 配置](./tsconfig.md) 🆕 — 含模块解析
 14. ⭐⭐⭐⭐⭐   [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕
-15. ⭐⭐⭐       [模板字面量类型](./template-literal-types.md) 🆕
-16. ⭐⭐⭐       [模块系统](./module-system.md) 🆕
-17. ⭐⭐⭐⭐     [T[K] / typeof](./indexed-access-typeof.md) 🆕
+15. ⭐⭐⭐       [模块系统](./module-system.md) 🆕
+16. ⭐⭐⭐⭐     [T[K] / typeof](./indexed-access-typeof.md) 🆕
 
 ## 知识点索引
 

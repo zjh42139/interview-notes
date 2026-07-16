@@ -48,12 +48,12 @@ mindmap
 
 ### 二、核心算法思想
 
-7. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md)
-8. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md)
-9. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md)
-10. ⭐⭐⭐⭐   [二分查找](./binary-search.md)
-11. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md)
-12. ⭐⭐⭐     [排序](./sort.md)
+7. ⭐⭐⭐⭐⭐ [双指针](./two-pointers.md) — 很多算法的基础
+8. ⭐⭐⭐     [排序](./sort.md) — 二分查找的前置（需要有序数组）
+9. ⭐⭐⭐⭐   [二分查找](./binary-search.md) — 依赖排序
+10. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md) — 双指针的变体
+11. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md) — 图/树遍历
+12. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md) — 进阶思想
 
 ### 三、面试实战
 

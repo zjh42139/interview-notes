@@ -77,9 +77,9 @@ mindmap
 
 ### 二、异步编程
 
-11. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
-12. ⭐⭐⭐⭐   [async / await](./async-await.md)
-13. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
+11. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md) — 先理解 JS 怎么调度异步任务
+12. ⭐⭐⭐⭐⭐ [Promise](./promise.md) — 再学最核心的异步模式
+13. ⭐⭐⭐⭐   [async / await](./async-await.md) — Promise 的语法糖
 
 ### 三、进阶工具
 

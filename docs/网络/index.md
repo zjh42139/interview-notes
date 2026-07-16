@@ -48,15 +48,15 @@ mindmap
 
 7. ⭐⭐⭐⭐   [DNS / CDN](./dns-cdn.md)
 
-### 四、数据交互（按优先级）
+### 四、数据交互
 
-8. ⭐⭐⭐⭐   [Fetch API 深度解析](./fetch-api.md)
-9. ⭐⭐⭐     [WebSocket / SSE](./websocket-sse.md)
-10. ⭐⭐       [UDP 协议](./udp.md)
-11. ⭐⭐       [HTTP 请求方法](./http-methods.md)
-12. ⭐⭐       [代理/负载均衡](./proxy-lb.md)
+8. ⭐⭐       [HTTP 请求方法](./http-methods.md) — GET/POST/PUT/DELETE 基础
+9. ⭐⭐⭐⭐   [Fetch API 深度解析](./fetch-api.md) — 浏览器端 HTTP 编程
+10. ⭐⭐⭐     [WebSocket / SSE](./websocket-sse.md) — 实时通信进阶
+11. ⭐⭐       [UDP 协议](./udp.md) — HTTP3/QUIC 底层
+12. ⭐⭐       [代理/负载均衡](./proxy-lb.md) — 网络架构
 
-> 说明：UDP/代理/负载均衡 偏基础设施，前端面试深挖概率低。理解基本概念（UDP 无连接、正向/反向代理区别、Nginx 负载均衡基础）即可，不需要和 HTTP/TCP/CORS 同等深度。
+> 说明：HTTP 方法在前（基础），Fetch API 会用 HTTP 方法，WebSocket 是进阶方向。UDP/代理/负载均衡 偏基础设施，理解概念即可。
 
 ## 知识点索引
 

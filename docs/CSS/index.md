@@ -47,13 +47,14 @@ mindmap
 
 ### 二、布局
 
-4. ⭐⭐⭐⭐⭐ [position 定位](./position.md)
-5. ⭐⭐⭐⭐⭐ [BFC](./bfc.md)
-6. ⭐⭐⭐⭐⭐ [Flexbox](./flexbox.md)
-7. ⭐⭐⭐⭐⭐ [居中方案](./center-layout.md)
-8. ⭐⭐⭐⭐   [Grid](./grid.md)
-9. ⭐⭐⭐⭐   [三栏布局](./three-column-layout.md)
-10. ⭐⭐⭐⭐   [层叠上下文](./stacking-context.md)
+4. ⭐⭐⭐⭐⭐ [包含块/边界合并](./containing-block-margin-collapse.md) — 理解 CSS 定位的基础
+5. ⭐⭐⭐⭐⭐ [position 定位](./position.md)
+6. ⭐⭐⭐⭐⭐ [BFC](./bfc.md)
+7. ⭐⭐⭐⭐⭐ [Flexbox](./flexbox.md)
+8. ⭐⭐⭐⭐⭐ [居中方案](./center-layout.md)
+9. ⭐⭐⭐⭐   [Grid](./grid.md)
+10. ⭐⭐⭐⭐   [三栏布局](./three-column-layout.md)
+11. ⭐⭐⭐⭐   [层叠上下文](./stacking-context.md)
 
 ### 三、适配
 
@@ -77,8 +78,7 @@ mindmap
 19. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
 20. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
 21. ⭐⭐⭐⭐   [@layer 级联层](./at-layer.md)
-22. ⭐⭐⭐⭐   [包含块/边界合并](./containing-block-margin-collapse.md)
-23. ⭐⭐⭐     [:has() / 嵌套 / 容器查询](./has-nesting-container.md)
+22. ⭐⭐⭐     [:has() / 嵌套 / 容器查询](./has-nesting-container.md)
 
 ## 知识点索引
 

@@ -47,9 +47,9 @@ export default defineConfig({
           text: '异步编程',
           collapsible: false,
           items: [
+            { text: 'Event Loop', link: '/JavaScript/event-loop' },
             { text: 'Promise', link: '/JavaScript/promise' },
             { text: 'async / await', link: '/JavaScript/async-await' },
-            { text: 'Event Loop', link: '/JavaScript/event-loop' },
           ],
         },
         {
@@ -84,6 +84,7 @@ export default defineConfig({
           text: '布局',
           collapsible: false,
           items: [
+            { text: '包含块/边界合并', link: '/CSS/containing-block-margin-collapse' },
             { text: 'position 定位', link: '/CSS/position' },
             { text: 'BFC', link: '/CSS/bfc' },
             { text: 'Flexbox', link: '/CSS/flexbox' },
@@ -126,7 +127,6 @@ export default defineConfig({
             { text: 'BEM 命名', link: '/CSS/bem' },
             { text: 'CSS Modules / Scoped', link: '/CSS/css-modules-scoped' },
             { text: '@layer 级联层', link: '/CSS/at-layer' },
-            { text: '包含块/边界合并', link: '/CSS/containing-block-margin-collapse' },
             { text: ':has() / 嵌套 / 容器查询', link: '/CSS/has-nesting-container' },
           ],
         },
@@ -275,9 +275,9 @@ export default defineConfig({
           collapsible: false,
           items: [
             { text: '泛型', link: '/TypeScript/generics' },
-            { text: 'Utility Types', link: '/TypeScript/utility-types' },
-            { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
             { text: 'extends / infer', link: '/TypeScript/extends-infer' },
+            { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
+            { text: 'Utility Types', link: '/TypeScript/utility-types' },
             { text: '模板字面量类型', link: '/TypeScript/template-literal-types' },
           ],
         },
@@ -371,10 +371,10 @@ export default defineConfig({
           text: '数据交互',
           collapsible: false,
           items: [
-            { text: 'WebSocket / SSE', link: '/网络/websocket-sse' },
-            { text: 'Fetch API 深度解析', link: '/网络/fetch-api' },
-            { text: 'UDP 协议', link: '/网络/udp' },
             { text: 'HTTP 请求方法', link: '/网络/http-methods' },
+            { text: 'Fetch API 深度解析', link: '/网络/fetch-api' },
+            { text: 'WebSocket / SSE', link: '/网络/websocket-sse' },
+            { text: 'UDP 协议', link: '/网络/udp' },
             { text: '代理/负载均衡', link: '/网络/proxy-lb' },
           ],
         },
@@ -435,11 +435,11 @@ export default defineConfig({
           collapsible: false,
           items: [
             { text: '双指针', link: '/算法/two-pointers' },
+            { text: '排序', link: '/算法/sort' },
+            { text: '二分查找', link: '/算法/binary-search' },
             { text: '滑动窗口', link: '/算法/sliding-window' },
             { text: 'DFS / BFS', link: '/算法/dfs-bfs' },
-            { text: '二分查找', link: '/算法/binary-search' },
             { text: '动态规划', link: '/算法/dynamic-programming' },
-            { text: '排序', link: '/算法/sort' },
           ],
         },
         {

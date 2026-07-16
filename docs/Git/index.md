@@ -40,27 +40,27 @@ mindmap
 
 ## 推荐学习顺序
 
-按面试出现频率和知识依赖关系排序：
+按知识依赖排序，⭐ 标注面试频率：
 
-### 一、核心操作
+### 一、核心操作（日常必须）
 
-1. ⭐⭐⭐⭐⭐ [Commit 规范](./commit-spec.md) — 团队协作基础，CI/CD 第一步
-2. ⭐⭐⭐⭐⭐ [merge vs rebase](./merge-vs-rebase.md) — 面试必问，区分初中高级
-3. ⭐⭐⭐⭐⭐ [冲突处理](./conflict-resolution.md) — 日常痛点，实操考查重点
-4. ⭐⭐⭐⭐ [reset vs revert](./reset-vs-revert.md) — 代码回滚，撤销操作必考
+1. ⭐⭐⭐⭐⭐ [Commit 规范](./commit-spec.md) — 提交是一切操作的基础
+2. ⭐⭐⭐⭐⭐ [merge vs rebase](./merge-vs-rebase.md) — 分支合并的核心操作
+3. ⭐⭐⭐⭐⭐ [冲突处理](./conflict-resolution.md) — 合并的自然延伸
+4. ⭐⭐⭐⭐ [reset vs revert](./reset-vs-revert.md) — 撤销是另一面
+5. ⭐⭐⭐⭐ [stash](./stash.md) — 未提交代码的管理
 
-### 二、高级操作
+### 二、分支操作（建立在核心操作上）
 
-5. ⭐⭐⭐⭐ [cherry-pick](./cherry-pick.md) — hotfix 高频使用
-6. ⭐⭐⭐⭐ [stash](./stash.md) — 临时切换分支，日常必备
-7. ⭐⭐⭐ [tag](./tag.md) — 发布管理，CI/CD 相关
+6. ⭐⭐⭐⭐ [cherry-pick](./cherry-pick.md) — 跨分支选择提交
+7. ⭐⭐⭐ [tag](./tag.md) — 为提交打标记
 
-### 三、工具链与策略
+### 三、工作流与调试
 
-8. ⭐⭐⭐⭐ [Git Flow](./git-flow.md) — 分支策略选型，架构方向问题
-9. ⭐⭐⭐ [bisect](./bisect.md) — 调试利器，加分项
-10. ⭐⭐ [reflog/rebase -i/内部原理](./reflog-rebase-interactive.md)
-11. ⭐⭐ [diff/log/blame/hooks](./diff-log-blame-hooks.md)
+8. ⭐⭐⭐⭐ [Git Flow](./git-flow.md) — 在核心操作上的流程组织
+9. ⭐⭐ [reflog/rebase -i/内部原理](./reflog-rebase-interactive.md) — 理解内部机制
+10. ⭐⭐ [diff/log/blame/hooks](./diff-log-blame-hooks.md) — 调试和自动化
+11. ⭐⭐⭐ [bisect](./bisect.md) — 调试大杀器
 
 ## 知识点索引
 

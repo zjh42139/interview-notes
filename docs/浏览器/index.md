@@ -86,38 +86,38 @@ mindmap
 
 ## 推荐学习顺序
 
-### 一、页面加载与渲染
+### 一、页面加载与渲染（从整体到细节）
 
-1. ⭐⭐⭐⭐⭐ [输入 URL 到页面展示](./url-to-page.md)
-2. ⭐⭐⭐⭐⭐ [渲染流程](./render-process.md)
-3. ⭐⭐⭐⭐⭐ [重绘 / 回流](./reflow-repaint.md)
-4. ⭐⭐⭐⭐ [浏览器多进程架构](./browser-architecture.md)
-5. ⭐⭐⭐⭐ [页面生命周期](./page-lifecycle.md)
-6. ⭐⭐⭐⭐ [浏览器缓存](./cache.md)
-7. ⭐⭐⭐⭐ [requestAnimationFrame](./request-animation-frame.md)
-8. ⭐⭐⭐⭐ [Performance API](./performance-api.md)
+1. ⭐⭐⭐⭐⭐ [浏览器多进程架构](./browser-architecture.md) — 先理解浏览器怎么组织
+2. ⭐⭐⭐⭐⭐ [输入 URL 到页面展示](./url-to-page.md) — 全景串联
+3. ⭐⭐⭐⭐⭐ [渲染流程](./render-process.md) — DOM/CSSOM/Layout/Paint/Composite
+4. ⭐⭐⭐⭐⭐ [重绘 / 回流](./reflow-repaint.md) — 渲染的更深一层
+5. ⭐⭐⭐⭐ [浏览器缓存](./cache.md) — 加载中的缓存机制
+6. ⭐⭐⭐⭐ [页面生命周期](./page-lifecycle.md) — 页面从打开到卸载
+7. ⭐⭐⭐⭐ [requestAnimationFrame](./request-animation-frame.md) — 渲染循环中的钩子
+8. ⭐⭐⭐⭐ [Performance API](./performance-api.md) — 测量工具
 
-### 二、安全与存储
+### 二、安全与存储（依赖页面加载基础）
 
-9. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md)（含 XSS / CSRF / CSP / Clickjacking / HTTPS / Token 存储 / 依赖安全 / JWT / 数据泄露 9 篇）
-10. ⭐⭐⭐⭐⭐ [同源策略](./same-origin-policy.md)
-11. ⭐⭐⭐⭐⭐ [Cookie 深度解析](./cookie.md)
-12. ⭐⭐⭐⭐ [Web Storage](./storage.md)
+9. ⭐⭐⭐⭐⭐ [同源策略](./same-origin-policy.md) — 安全体系的基石
+10. ⭐⭐⭐⭐⭐ [Cookie 深度解析](./cookie.md) — 认证与存储的核心
+11. ⭐⭐⭐⭐ [Web Storage](./storage.md) — Cookie 的补充
+12. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md) — 综合安全体系
 13. ⭐⭐⭐⭐ [DOM 事件机制 / 事件委托](./dom-event-delegation.md)
 14. ⭐⭐⭐ [跨标签页通信](./cross-tab-communication.md)
 
-### 三、引擎与性能
+### 三、引擎与性能（依赖渲染基础）
 
-15. ⭐⭐⭐⭐ [V8 引擎 / JIT 编译](./v8-engine.md)
-16. ⭐⭐⭐⭐ [垃圾回收 GC](./gc.md)
-17. ⭐⭐⭐⭐ [内存泄漏排查](./memory-leak.md)
-18. ⭐⭐⭐⭐ [Service Worker](./service-worker.md)
+15. ⭐⭐⭐⭐ [V8 引擎 / JIT 编译](./v8-engine.md) — JS 怎么跑起来的
+16. ⭐⭐⭐⭐ [垃圾回收 GC](./gc.md) — 内存管理
+17. ⭐⭐⭐⭐ [内存泄漏排查](./memory-leak.md) — GC 的实践应用
+18. ⭐⭐⭐⭐ [Service Worker](./service-worker.md) — 离线与缓存进阶
 
-### 四、工具与扩展
+### 四、工具与扩展（前面模块的补充）
 
 19. ⭐⭐⭐ [浏览器 DevTools](./devtools.md)
-20. ⭐⭐⭐ [BOM 全景](./bom.md)
-21. ⭐⭐⭐ [Observer API](./observer-api.md)
+20. ⭐⭐⭐ [Observer API](./observer-api.md)
+21. ⭐⭐⭐ [BOM 全景](./bom.md)
 22. ⭐⭐⭐ [Web Worker](./web-worker.md)
 23. ⭐⭐⭐ [IndexedDB](./indexeddb.md)
 
