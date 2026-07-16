@@ -59,6 +59,7 @@ mindmap
 6. ⭐⭐⭐⭐   [网络传输优化](./network-optimization.md)
 7. ⭐⭐⭐⭐   [虚拟列表](./virtual-list.md)
 8. ⭐⭐⭐     [图片优化](./image-optimization.md)
+9. ⭐⭐⭐     [关键渲染路径](./critical-rendering-path.md)
 
 ## 知识点索引
 

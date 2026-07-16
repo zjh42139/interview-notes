@@ -30,13 +30,24 @@ mindmap
 
 ## 推荐练习顺序
 
+### 一、P0（必能手写——占考察 80%）
+
 1. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
-2. ⭐⭐⭐⭐⭐ [bind / call / apply](./bind-call-apply.md)
-3. ⭐⭐⭐⭐⭐ [深拷贝](./deep-clone.md)
-4. ⭐⭐⭐⭐   [EventEmitter](./event-emitter.md)
-5. ⭐⭐⭐⭐   [debounce / throttle](./debounce-throttle.md)
-6. ⭐⭐⭐⭐   [new](./new.md)
-7. ⭐⭐⭐     [compose / pipe](./compose-pipe.md)
+2. ⭐⭐⭐⭐⭐ [Promise.all / allSettled / any / race](./promise-static.md)
+3. ⭐⭐⭐⭐⭐ [bind / call / apply](./bind-call-apply.md)
+4. ⭐⭐⭐⭐⭐ [深拷贝](./deep-clone.md)
+5. ⭐⭐⭐⭐⭐ [debounce / throttle](./debounce-throttle.md)
+6. ⭐⭐⭐⭐⭐ [new](./new.md)
+
+### 二、P1（熟练——字节/阿里高频）
+
+7. ⭐⭐⭐⭐ [EventEmitter](./event-emitter.md)
+8. ⭐⭐⭐⭐ [LRU Cache](./lru-cache.md)
+9. ⭐⭐⭐⭐ [批量请求并发控制](./concurrency-control.md)
+
+### 三、P2（掌握思路）
+
+10. ⭐⭐⭐ [compose / pipe](./compose-pipe.md)
 
 ## 知识点索引
 

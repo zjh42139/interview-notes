@@ -76,6 +76,9 @@ mindmap
 18. ⭐⭐⭐⭐   [CSS 变量](./css-variables.md)
 19. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
 20. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
+21. ⭐⭐⭐⭐   [@layer 级联层](./at-layer.md)
+22. ⭐⭐⭐⭐   [包含块/边界合并](./containing-block-margin-collapse.md)
+23. ⭐⭐⭐     [:has() / 嵌套 / 容器查询](./has-nesting-container.md)
 
 ## 知识点索引
 
@@ -100,6 +103,9 @@ mindmap
 | [CSS 变量](./css-variables.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [BEM 命名](./bem.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
 | [CSS Modules / Scoped](./css-modules-scoped.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [@layer 级联层](./at-layer.md) | ⭐⭐⭐⭐ | 中高级 | — | draft |
+| [包含块/边界合并](./containing-block-margin-collapse.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
+| [:has() / 嵌套 / 容器查询](./has-nesting-container.md) | ⭐⭐⭐ | 中级 | — | draft |
 | [响应式](./responsive.md) | ⭐⭐⭐ | 中级 | — | draft |
 
 ## 相关阅读

@@ -71,26 +71,28 @@ mindmap
 5. ⭐⭐⭐⭐⭐ [class / extends / super](./class-extends.md)
 6. ⭐⭐⭐⭐⭐ [闭包](./closure.md)
 7. ⭐⭐⭐⭐⭐ [var / let / const](./var-let-const.md)
-8. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
+8. ⭐⭐⭐⭐   [数组方法大全](./array-methods.md)
+9. ⭐⭐⭐⭐   [JS 模块化](./modules.md)
+10. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
 
 ### 二、异步编程
 
-9.  ⭐⭐⭐⭐⭐ [Promise](./promise.md)
-10. ⭐⭐⭐⭐   [async / await](./async-await.md)
-11. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
+11. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
+12. ⭐⭐⭐⭐   [async / await](./async-await.md)
+13. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
 
 ### 三、进阶工具
 
-12. ⭐⭐⭐⭐   [数组方法大全](./array-methods.md)
-13. ⭐⭐⭐⭐   [JS 模块化](./modules.md)
 14. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
-15. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
-16. ⭐⭐⭐     [深拷贝](./deep-clone.md)
-17. ⭐⭐⭐     [防抖 / 节流](./debounce-throttle.md)
-18. ⭐⭐⭐⭐   [for...of vs for...in](./for-of-for-in.md)
-19. ⭐⭐⭐     [生成器 / 迭代器](./generator-iterator.md)
-20. ⭐⭐⭐     [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
-21. ⭐⭐⭐     [跨 Realm 场景](./cross-realm.md)
+15. ⭐⭐⭐⭐   [Symbol](./symbol.md)
+16. ⭐⭐⭐⭐   [Object 系列 API](./object-api.md)
+17. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
+18. ⭐⭐⭐     [深拷贝](./deep-clone.md)
+19. ⭐⭐⭐     [防抖 / 节流](./debounce-throttle.md)
+20. ⭐⭐⭐⭐   [for...of vs for...in](./for-of-for-in.md)
+21. ⭐⭐⭐     [生成器 / 迭代器](./generator-iterator.md)
+22. ⭐⭐⭐     [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
+23. ⭐⭐⭐     [跨 Realm 场景](./cross-realm.md)
 
 ## 知识点索引
 

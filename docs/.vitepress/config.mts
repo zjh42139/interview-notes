@@ -499,6 +499,10 @@ export default defineConfig({
           ],
         },
         {
+          text: '错误处理 / 前端监控体系',
+          link: '/项目实战/基础设施/error-monitoring',
+        },
+        {
           text: '认证鉴权',
           link: '/项目实战/认证鉴权/login-auth',
           collapsible: false,

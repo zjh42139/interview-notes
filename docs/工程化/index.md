@@ -77,6 +77,14 @@ mindmap
 
 9. ⭐⭐⭐     [Tailwind CSS](./tailwindcss.md)
 10. ⭐⭐⭐     [前端测试体系](./testing.md)
+11. ⭐⭐⭐     [ESLint / Husky](./eslint-husky.md)
+
+### 四、优化与扩展
+
+12. ⭐⭐⭐⭐   [Code Splitting](./code-splitting.md)
+13. ⭐⭐⭐     [Rollup / Prettier / SourceMap](./rollup-prettier-sourcemap.md)
+
+> Node 子模块和日志监控子模块参见 [Node 知识地图](./Node/index.md) 和 [日志监控 知识地图](./日志监控/index.md)
 
 ## 知识点索引
 

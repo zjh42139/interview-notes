@@ -92,7 +92,7 @@ mindmap
 2. ⭐⭐⭐⭐⭐ [渲染流程](./render-process.md)
 3. ⭐⭐⭐⭐⭐ [重绘 / 回流](./reflow-repaint.md)
 4. ⭐⭐⭐⭐⭐ [同源策略](./same-origin-policy.md)
-5. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md)
+5. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md)（含 XSS / CSRF / CSP / Clickjacking / HTTPS / Token存储 / 依赖安全 7 篇）
 6. ⭐⭐⭐⭐⭐ [Cookie 深度解析](./cookie.md)
 7. ⭐⭐⭐⭐⭐ [浏览器缓存](./cache.md)
 
