@@ -70,18 +70,18 @@ mindmap
 
 ### 一、语义与结构
 
-1.  &#11088;&#11088;&#11088;&#11088;&#11088; [HTML5 语义化](./html5-semantic.md)
-2.  &#11088;&#11088;&#11088;&#11088; [DOCTYPE / Meta](./doctype-meta.md)
-3.  &#11088;&#11088;&#11088;&#11088; [块级 / 行内元素](./block-inline.md)
-4.  &#11088;&#11088;&#11088; [HTML 实体与编码](./html-entities.md)
+1.  ⭐⭐⭐⭐⭐ [HTML5 语义化](./html5-semantic.md)
+2.  ⭐⭐⭐⭐ [DOCTYPE / Meta](./doctype-meta.md)
+3.  ⭐⭐⭐⭐ [块级 / 行内元素](./block-inline.md)
+4.  ⭐⭐⭐ [HTML 实体与编码](./html-entities.md)
 
 ### 二、资源与加载
 
-5.  &#11088;&#11088;&#11088;&#11088; [defer / async](./script-defer-async.md)
-6.  &#11088;&#11088;&#11088; [src / href](./src-href.md)
-7.  &#11088;&#11088;&#11088;&#11088; [a 标签全面解析](./a-tag.md)
-8.  &#11088;&#11088;&#11088;&#11088;&#11088; [HTML5 表单与约束验证](./form-validation.md)
-9.  &#11088;&#11088;&#11088;&#11088; [图片懒加载](./lazy-loading.md)
+5.  ⭐⭐⭐⭐ [defer / async](./script-defer-async.md)
+6.  ⭐⭐⭐ [src / href](./src-href.md)
+7.  ⭐⭐⭐⭐ [a 标签全面解析](./a-tag.md)
+8.  ⭐⭐⭐⭐⭐ [HTML5 表单与约束验证](./form-validation.md)
+9.  ⭐⭐⭐⭐ [图片懒加载](./lazy-loading.md)
 
 ### 三、进阶主题
 
@@ -98,21 +98,21 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 状态 |
 |--------|------|------|------|
-| [HTML5 语义化](./html5-semantic.md) | &#11088;&#11088;&#11088;&#11088;&#11088; | 初级 | filled |
-| [DOCTYPE / Meta](./doctype-meta.md) | &#11088;&#11088;&#11088;&#11088; | 初级 | filled |
-| [块级 / 行内元素](./block-inline.md) | &#11088;&#11088;&#11088;&#11088; | 初级 | filled |
-| [defer / async](./script-defer-async.md) | &#11088;&#11088;&#11088;&#11088; | 中级 | filled |
-| [src / href](./src-href.md) | &#11088;&#11088;&#11088; | 初级 | filled |
-| [a 标签全面解析](./a-tag.md) | &#11088;&#11088;&#11088; | 初级 | drafted |
-| [HTML 实体与编码](./html-entities.md) | &#11088;&#11088;&#11088; | 初级 | drafted |
-| [HTML5 表单与约束验证](./form-validation.md) | &#11088;&#11088;&#11088;&#11088;&#11088; | 中级 | drafted |
-| [图片懒加载](./lazy-loading.md) | &#11088;&#11088;&#11088; | 中级 | filled |
-| [Canvas vs SVG](./canvas-svg.md) | &#11088;&#11088;&#11088;&#11088; | 中级 | drafted |
-| [History API 与 SPA 路由](./history-api.md) | &#11088;&#11088;&#11088;&#11088;&#11088; | 中级 | drafted |
-| [iframe](./iframe.md) | &#11088;&#11088;&#11088;&#11088; | 中级 | drafted |
-| [Web Worker](./web-worker.md) | &#11088;&#11088;&#11088;&#11088; | 高级 | drafted |
-| [Web Components](./web-components.md) | &#11088;&#11088;&#11088;&#11088; | 高级 | drafted |
-| [SEO / SSR / CSR / Hydration](./seo-ssr.md) | &#11088;&#11088;&#11088;&#11088;&#11088; | 高级 | filled |
+| [HTML5 语义化](./html5-semantic.md) | ⭐⭐⭐⭐⭐ | 初级 | filled |
+| [DOCTYPE / Meta](./doctype-meta.md) | ⭐⭐⭐⭐ | 初级 | filled |
+| [块级 / 行内元素](./block-inline.md) | ⭐⭐⭐⭐ | 初级 | filled |
+| [defer / async](./script-defer-async.md) | ⭐⭐⭐⭐ | 中级 | filled |
+| [src / href](./src-href.md) | ⭐⭐⭐ | 初级 | filled |
+| [a 标签全面解析](./a-tag.md) | ⭐⭐⭐ | 初级 | drafted |
+| [HTML 实体与编码](./html-entities.md) | ⭐⭐⭐ | 初级 | drafted |
+| [HTML5 表单与约束验证](./form-validation.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
+| [图片懒加载](./lazy-loading.md) | ⭐⭐⭐ | 中级 | filled |
+| [Canvas vs SVG](./canvas-svg.md) | ⭐⭐⭐⭐ | 中级 | drafted |
+| [History API 与 SPA 路由](./history-api.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
+| [iframe](./iframe.md) | ⭐⭐⭐⭐ | 中级 | drafted |
+| [Web Worker](./web-worker.md) | ⭐⭐⭐⭐ | 高级 | drafted |
+| [Web Components](./web-components.md) | ⭐⭐⭐⭐ | 高级 | drafted |
+| [SEO / SSR / CSR / Hydration](./seo-ssr.md) | ⭐⭐⭐⭐⭐ | 高级 | filled |
 
 ## 相关阅读
 
