@@ -20,7 +20,7 @@ tags:
 # CSRF
 > 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
-> ⭐⭐⭐⭐⭐｜难度：中级｜项目：★★★
+> ⭐⭐⭐⭐⭐｜难度：中级
 
 **CSRF（跨站请求伪造）利用用户已登录的身份，在用户不知情的情况下伪造跨站请求，核心防御是 SameSite Cookie + CSRF Token + Referer 校验三道防线。**
 

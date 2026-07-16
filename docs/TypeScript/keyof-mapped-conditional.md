@@ -18,7 +18,7 @@ tags:
 
 # keyof / mapped / conditional
 
-> ⭐⭐⭐｜难度：高级｜项目：★★
+> ⭐⭐⭐｜难度：高级
 
 ## 一句话总结
 

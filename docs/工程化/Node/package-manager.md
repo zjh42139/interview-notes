@@ -19,7 +19,7 @@ tags:
 
 # npm / pnpm
 
-> ⭐⭐⭐⭐｜难度：初级｜项目：★★★
+> ⭐⭐⭐⭐｜难度：初级
 
 **包管理器是每个项目的基石，但大多数人只停留在 `npm install`。** 面试中要能说清 package.json 各字段的职责、semver 规则、lock 文件的作用和 peerDependencies 的正确用法。
 

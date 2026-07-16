@@ -21,7 +21,7 @@ tags:
 
 # Composable 设计
 
-> ⭐⭐⭐⭐⭐｜难度：中高级｜项目：★★★★★
+> ⭐⭐⭐⭐⭐｜难度：中高级
 
 **面试官问"你们项目里怎么复用逻辑"，如果你只说 Mixin 或复制粘贴，直接挂。** Composable 是 Vue3 逻辑复用的核心范式——和 React Hooks 同理念，但基于 Vue 的响应式系统。能把 useRequest、useTable、usePermission 的设计讲清楚，说明你具备了中高级工程师的核心能力：抽象和封装。
 

@@ -21,7 +21,7 @@ tags:
 
 # 声明文件 / declare
 
-> ⭐⭐⭐⭐⭐｜难度：中高级｜项目：★★★★
+> ⭐⭐⭐⭐⭐｜难度：中高级
 
 **面试官问"interface 和 type 有什么区别"，80% 的人只能说"interface 能 extends"，然后卡住。** 声明文件是 TypeScript 工程化的基石——能让 JS 库有类型提示、能为 Vue 插件扩展类型、能让 `window.__ADMIN_CONFIG__` 有智能提示。今天把 declare 全家桶和 interface vs type 三个核心区别讲透。
 

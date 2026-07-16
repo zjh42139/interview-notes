@@ -20,7 +20,7 @@ tags:
 
 # Node Event Loop
 
-> ⭐⭐⭐⭐⭐｜难度：高级｜项目：★★★
+> ⭐⭐⭐⭐⭐｜难度：高级
 
 **Node Event Loop 和浏览器 Event Loop 是两套完全不同的模型。** 面试必问"Node 的 6 个阶段分别做什么"和"process.nextTick 和 Promise 谁先执行"。答对这两题，Event Loop 就过关了。
 

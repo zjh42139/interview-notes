@@ -21,7 +21,7 @@ tags:
 # XSS
 > 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
-> ⭐⭐⭐⭐⭐｜难度：中级｜项目：★★★
+> ⭐⭐⭐⭐⭐｜难度：中级
 
 **XSS（跨站脚本攻击）是注入恶意脚本的前端安全漏洞，分反射型（URL 参数回显）、存储型（数据库持久化）和 DOM 型（客户端 JS 拼接）三种，核心防御是输出编码 + CSP + HttpOnly Cookie。**
 
