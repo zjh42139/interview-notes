@@ -221,6 +221,35 @@ flowchart TD
 
 ---
 
+## 跨模块连线——从 URL 到像素
+
+```mermaid
+flowchart TD
+  A["输入 URL"] --> B["DNS 解析<br/>网络/dns-cdn.md"]
+  B --> C["TCP 三次握手<br/>网络/tcp.md"]
+  C --> D["TLS 握手<br/>网络/http-https.md"]
+  D --> E["HTTP 请求 → 响应"]
+  E --> F{"浏览器缓存<br/>浏览器/cache.md"}
+  F -->|"命中强缓存"| G["直接返回本地资源"]
+  F -->|"协商缓存 304"| H["验证后返回"]
+  F -->|"未命中"| I["下载响应体"]
+  I --> J["解析 HTML → DOM 树"]
+  J --> K["解析 CSS → CSSOM 树"]
+  K --> L["合并 → Render Tree"]
+  L --> M["Layout 布局计算"]
+  M --> N["Paint 绘制"]
+  N --> O["Composite 合成显示"]
+  G --> O
+  H --> O
+  O --> P["LCP 性能指标<br/>性能优化/web-vitals.md"]
+```
+
+> **面试怎么用**：输入 URL 到页面展示是面试最经典的串联题。DNS→TCP→TLS→HTTP→浏览器缓存→渲染管线→性能指标，按这个链一口气讲下来，面试官能看到你从网络到浏览器的完整知识体系。
+
+参见：[OSI 七层](../网络/osi-model.md) · [TCP](../网络/tcp.md) · [HTTPS](../网络/http-https.md) · [浏览器缓存](./cache.md) · [渲染流程](./render-process.md) · [Web Vitals](../性能优化/web-vitals.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-06：完成完整内容，覆盖 15 个阶段和 4 个深度追问（Phase 2）

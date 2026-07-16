@@ -341,6 +341,27 @@ const SecuredUserApi = withPermission(UserApi)
 - [this](./this.md)
 - [手写题：深拷贝](../手写题/deep-clone.md)（利用原型链保留构造函数类型）
 
+## 跨模块连线——原型链知识网络
+
+```mermaid
+flowchart TD
+  A["Object.create(proto)<br/>JavaScript/object-api.md"] --> B["new 四步骤<br/>JavaScript/new.md"]
+  B --> C["obj.__proto__ → Fn.prototype<br/>JavaScript/prototype-chain.md"]
+  C --> D["class / extends<br/>JavaScript/class-extends.md"]
+  D --> E["寄生组合继承<br/>Child.prototype = Object.create(Parent.prototype)"]
+  C --> F["Symbol.hasInstance<br/>JavaScript/symbol.md"]
+  F --> G["自定义 instanceof 行为"]
+  C --> H["Proxy / Reflect<br/>JavaScript/proxy-reflect.md"]
+  H --> I["Vue3 reactive 的 get/set 拦截"]
+  I --> J["Vue3 响应式原理<br/>Vue3/reactivity.md"]
+```
+
+> **面试怎么用**：原型链不是孤立概念——Object.create 是入口、new 是执行流程、class 是语法糖、Symbol.hasInstance 是元编程扩展、Vue3 响应式是工程应用。一条链串起 JS 面向对象的全部核心。
+
+参见：[Object API](./object-api.md) · [new](./new.md) · [class/extends](./class-extends.md) · [Symbol](./symbol.md) · [Vue3 响应式](../Vue3/reactivity.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-05：Phase 2 深度填充（三角关系图 + instanceof 手写 + 项目实战 + Mermaid）

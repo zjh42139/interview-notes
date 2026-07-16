@@ -424,6 +424,30 @@ t~16ms 屏幕变化可见 🎉
 - [浏览器渲染流程](../浏览器/render-process.md) — Style/Layout/Paint/Composite
 - [重绘/回流](../浏览器/reflow-repaint.md) — 避免渲染性能陷阱
 
+## 跨模块连线——组件生命周期全景
+
+```mermaid
+flowchart TD
+  A["createApp / mount 入口"] --> B["setup() 执行<br/>Vue3/composition-api.md"]
+  B --> C["创建响应式数据<br/>Vue3/reactivity.md"]
+  C --> D["beforeMount → 编译 template<br/>Vue3/lifecycle.md"]
+  D --> E["子组件递归挂载"]
+  E --> F["父 mounted"]
+  F --> G["路由守卫触发<br/>VueRouter/route-guards.md"]
+  G --> H["beforeEach → beforeEnter → beforeResolve"]
+  H --> I["数据变化 → effect 触发"]
+  I --> J["Scheduler 微任务批量<br/>Vue3/scheduler.md"]
+  J --> K["Patch → DOM 更新<br/>Vue3/diff-patch.md"]
+  K --> L["nextTick 回调<br/>Vue3/nextTick.md"]
+  L --> M["KeepAlive 缓存<br/>activated / deactivated"]
+```
+
+> **面试怎么用**：从 createApp 到 DOM 更新的完整函数调用链。面试官问"Vue3 组件从创建到销毁经历了什么"，你按这个链从 setup 讲到 KeepAlive。
+
+参见：[响应式原理](./reactivity.md) · [生命周期](./lifecycle.md) · [路由守卫](../VueRouter/route-guards.md) · [Diff/Patch](./diff-patch.md) · [KeepAlive](./keepalive.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-13：新建——7 阶段全链路，串联 Compiler/Reactivity/Scheduler/Renderer/Diff/Patch/生命周期/nextTick/浏览器渲染

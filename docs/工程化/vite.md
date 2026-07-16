@@ -250,6 +250,27 @@ export default defineConfig({
 - [Tree Shaking](./tree-shaking.md)
 - [pnpm](./pnpm.md)
 
+## 跨模块连线——构建链路全景
+
+```mermaid
+flowchart TD
+  A["ESM 模块化<br/>工程化/esm-module.md"] --> B["Vite 开发环境<br/>esbuild 预构建 + 原生 ESM"]
+  B --> C["HMR 热模块替换<br/>WebSocket 推送 + 精确替换"]
+  C --> D["Vite 生产构建<br/>Rollup 打包"]
+  D --> E["Tree Shaking<br/>工程化/tree-shaking.md"]
+  E --> F["Code Splitting<br/>工程化/code-splitting.md"]
+  F --> G["Bundle 分析<br/>性能优化/bundle-optimization.md"]
+  G --> H["Gzip/Brotli 压缩<br/>性能优化/network-optimization.md"]
+  H --> I["CDN 部署<br/>网络/dns-cdn.md"]
+  I --> J["HTTP/2 多路复用<br/>网络/http2-http3.md"]
+```
+
+> **面试怎么用**：面试官问"你们的构建流程是怎样的"——从开发到生产的完整链路。ESM 是理论前提，Vite 是工具实现，Tree Shaking + Code Splitting 是优化手段，CDN + HTTP2 是部署层加速。
+
+参见：[ESM 模块化](./esm-module.md) · [Vite 深入](./vite-deep.md) · [Tree Shaking](./tree-shaking.md) · [Code Splitting](./code-splitting.md) · [打包优化](../性能优化/bundle-optimization.md) · [HTTP/2](../网络/http2-http3.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-05：Phase 2 深度填充（ESM 机制 + esbuild 预构建 + HMR + 配置实战 + Vite vs Webpack）

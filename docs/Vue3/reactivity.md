@@ -330,6 +330,28 @@ const count = reactive(1)  // ❌ Proxy 只能代理对象
 - [Composables 实战](./composables-practice.md) — effectScope 如何支撑 composable 的自动清理
 - [Renderer](./renderer.md) — effect 执行后如何更新 DOM
 
+## 跨模块连线——从数据变化到 DOM 更新
+
+```mermaid
+flowchart TD
+  A["修改响应式数据"] --> B["Proxy set trap 触发"]
+  B --> C["trigger(effect)"]
+  C --> D["ReactiveEffect.scheduler"]
+  D --> E["queueJob / queueFlush<br/>Scheduler 调度器"]
+  E --> F["微任务 Promise.then()<br/>JS Event Loop"]
+  F --> G["flushJobs 批量执行"]
+  G --> H["组件 render 函数调用"]
+  H --> I["Patch / Diff<br/>对比新旧 VNode"]
+  I --> J["DOM 更新到浏览器"]
+  J --> K["浏览器渲染管线<br/>Layout → Paint → Composite"]
+```
+
+> **面试怎么用**：Vue3 响应式原理 → Scheduler 批量更新 → Event Loop 微任务 → 浏览器渲染，四个问题可以串成一条完整链路回答。"为什么 Vue3 改数据不会立刻更新 DOM？因为 Scheduler 把 effect 推到微任务队列，等当前同步代码执行完才批量执行——这背后是 JS Event Loop 机制。"
+
+参见：[Scheduler](./scheduler.md) · [nextTick](./nextTick.md) · [Diff/Patch](./diff-patch.md) · [Event Loop](../JavaScript/event-loop.md) · [浏览器渲染](../浏览器/render-process.md)
+
+---
+
 ## 更新记录
 
 - 2026-07：完整填充（Phase 2），加入 Mermaid 全链路图、源码简化实现、项目实战

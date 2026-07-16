@@ -267,6 +267,28 @@ function createHandler(hugeData) {
 
 ---
 
+## 跨模块连线——GC 与内存管理全景
+
+```mermaid
+flowchart TD
+  A["V8 引擎架构<br/>浏览器/v8-engine.md"] --> B["Ignition 解释器 → TurboFan 编译器"]
+  B --> C["分代 GC<br/>浏览器/gc.md"]
+  C --> D["新生代 Scavenge<br/>From/To 复制"]
+  C --> E["老生代 Mark-Sweep<br/>增量标记 + 三色法"]
+  D --> F["内存泄漏排查<br/>浏览器/memory-leak.md"]
+  E --> F
+  F --> G["Chrome DevTools<br/>Heap Snapshot 对比"]
+  F --> H["WeakMap 弱引用防御<br/>JavaScript/set-map-weakmap.md"]
+  H --> I["Vue3 KeepAlive LRU<br/>Vue3/keepalive.md"]
+  H --> J["Object.freeze/seal<br/>JavaScript/object-api.md"]
+```
+
+> **面试怎么用**：V8 架构 → 分代 GC → 泄漏排查 → 弱引用防御 → 框架应用。GC 不是孤立的底层知识——它直接决定了你怎么写不泄漏的 Vue 组件。
+
+参见：[V8 引擎](./v8-engine.md) · [内存泄漏](./memory-leak.md) · [WeakMap](../JavaScript/set-map-weakmap.md) · [Object API](../JavaScript/object-api.md) · [KeepAlive](../Vue3/keepalive.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-06：完成完整内容，补充分代回收 Mermaid 图、三色标记法详解、内存泄漏场景表和 DevTools 排查方法

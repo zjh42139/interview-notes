@@ -235,6 +235,29 @@ el.style.transform = `translateY(${newY - originalY}px)`
 - [transition vs animation](./transition-animation.md)
 - [性能优化总览](../性能优化/index.md)
 
+## 跨模块连线——CSS 渲染管线
+
+```mermaid
+flowchart TD
+  A["CSS 属性分类<br/>Layout / Paint / Composite"] --> B["回流 Reflow<br/>浏览器/reflow-repaint.md"]
+  A --> C["重绘 Repaint"]
+  A --> D["合成 Composite<br/>GPU 加速"]
+  B --> E["层叠上下文<br/>CSS/stacking-context.md"]
+  E --> F["z-index 管理 / 隐式创建"]
+  D --> G["animations / transitions<br/>CSS/transition-animation.md"]
+  G --> H["性能优化<br/>CSS/css-performance.md"]
+  H --> I["will-change<br/>提前通知浏览器"]
+  H --> J["contain 属性<br/>隔离重排范围"]
+  H --> K["content-visibility<br/>跳过视口外渲染"]
+  I --> L["@layer / :has() / 容器查询<br/>CSS/has-nesting-container.md"]
+```
+
+> **面试怎么用**：CSS 不是"写样式"——是"控制浏览器渲染管线"。Layout→Paint→Composite 三阶段是理论基础，回流/重绘/合成是面试高频，will-change/contain 是性能优化手段，@layer/:has() 是现代特性。整条链串起 CSS 从书写到屏幕的完整路径。
+
+参见：[回流/重绘](../浏览器/reflow-repaint.md) · [层叠上下文](./stacking-context.md) · [transition/animation](./transition-animation.md) · [:has()/嵌套/容器查询](./has-nesting-container.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-08：新建（CSS Triggers 三阶段 + 动画黄金法则 + will-change/contain/content-visibility + Layout Thrashing 实战）

@@ -251,6 +251,27 @@ watch(provinceCode, async (code) => {
 - [async/await](./async-await.md)
 - [Node Event Loop](../工程化/Node/node-event-loop.md)
 
+## 跨模块连线——异步编程全景
+
+```mermaid
+flowchart TD
+  A["Promise<br/>JavaScript/promise.md"] --> B["then 链 + 微任务"]
+  B --> C["async/await<br/>JavaScript/async-await.md"]
+  C --> D["Generator 语法糖 + try/catch"]
+  D --> E["Event Loop<br/>宏任务 → 清空微任务 → 可能渲染"]
+  E --> F["requestAnimationFrame<br/>浏览器/request-animation-frame.md"]
+  F --> G["渲染前执行 / 60fps"]
+  E --> H["requestIdleCallback<br/>帧末尾空闲时间"]
+  E --> I["Node.js Event Loop<br/>工程化/Node/node-event-loop.md"]
+  I --> J["6 阶段：timer → poll → check"]
+```
+
+> **面试怎么用**：Promise → async/await → Event Loop → rAF → Node Event Loop。面试官从"Promise 执行顺序"问起，顺着链能讲到浏览器渲染时机和 Node 的差异。整条链的核心：微任务优先级。
+
+参见：[Promise](./promise.md) · [async/await](./async-await.md) · [浏览器 rAF](../浏览器/request-animation-frame.md) · [Node Event Loop](../工程化/Node/node-event-loop.md)
+
+---
+
 ## 更新记录
 
 - 2026-07-05：Phase 2 深度填充（执行模型 + 必考输出题 + nextTick + rAF 分片 + Mermaid）
