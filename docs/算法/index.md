@@ -54,10 +54,11 @@ mindmap
 10. ⭐⭐⭐⭐⭐ [滑动窗口](./sliding-window.md) — 双指针的变体
 11. ⭐⭐⭐⭐   [DFS / BFS](./dfs-bfs.md) — 图/树遍历
 12. ⭐⭐⭐⭐   [动态规划](./dynamic-programming.md) — 进阶思想
+13. ⭐⭐⭐⭐   [回溯算法](./backtracking.md) — 全排列/组合/N皇后
 
 ### 三、面试实战
 
-13. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
+14. ⭐⭐⭐⭐⭐ [高频题](./common-questions.md)
 
 ## 知识点索引
 

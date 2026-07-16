@@ -541,6 +541,8 @@ export default defineConfig({
           ],
         },
         { text: '项目优化', link: '/项目实战/项目优化/project-optimization' },
+        { text: '错误处理/前端监控', link: '/项目实战/基础设施/error-monitoring' },
+        { text: '白屏排查方法论', link: '/项目实战/质量保障/white-screen-troubleshoot' },
       ],
       '/手写题/': [
         { text: '手写题 知识地图', link: '/手写题/' },
@@ -552,8 +554,14 @@ export default defineConfig({
         { text: 'new', link: '/手写题/new' },
         { text: 'debounce / throttle', link: '/手写题/debounce-throttle' },
         { text: '深拷贝', link: '/手写题/deep-clone' },
+        { text: '函数柯里化', link: '/手写题/curry' },
+        { text: '数组扁平化+去重+排序', link: '/手写题/flatten-unique-sort' },
+        { text: '列表转树/树转列表', link: '/手写题/tree-conversion' },
+        { text: 'instanceof 手写', link: '/手写题/instanceof' },
         { text: 'EventEmitter', link: '/手写题/event-emitter' },
         { text: 'compose / pipe', link: '/手写题/compose-pipe' },
+        { text: '版本号/LazyMan/寄生组合继承', link: '/手写题/version-compare' },
+        { text: '对象扁平化/数组原型方法', link: '/手写题/object-flatten' },
       ],
       '/面试题库/': [
         { text: '面试题库 总览', link: '/面试题库/' },
