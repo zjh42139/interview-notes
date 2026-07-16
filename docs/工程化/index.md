@@ -4,7 +4,7 @@ description: 前端工程化面试知识体系
 category: 工程化
 difficulty: null
 frequency: null
-status: draft
+status: filled
 created: 2026-07-05
 updated: 2026-07-11
 reviewed: null

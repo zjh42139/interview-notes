@@ -4,7 +4,7 @@ category: 面试题库
 type: interview
 score: 0
 difficulty: 中级
-status: draft
+status: filled
 created: 2026-07-16
 tags:
   - CI/CD

@@ -6,7 +6,7 @@ type: practice
 score: 85
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-16
 tags:
   - SSE

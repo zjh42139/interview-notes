@@ -6,7 +6,7 @@ type: mechanism
 score: 0
 difficulty: 中高级
 frequency: ⭐⭐⭐
-status: draft
+status: reviewed
 created: 2026-07-14
 updated: 2026-07-14
 reviewed: null

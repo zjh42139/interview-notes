@@ -4,7 +4,7 @@ description: 前端性能优化面试知识体系
 category: 性能优化
 difficulty: null
 frequency: null
-status: draft
+status: filled
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

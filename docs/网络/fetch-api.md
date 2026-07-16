@@ -6,7 +6,7 @@ type: api-reference
 score: 72
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-16
 tags:
   - Fetch

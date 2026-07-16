@@ -42,6 +42,9 @@ type OnRejected<R> = ((reason: any) => R | MyPromise<R>) | null | undefined;
 const enum STATE { PENDING, FULFILLED, REJECTED }
 
 // ========== resolvePromise：Promise/A+ 的核心 ==========
+// 注意：第三个参数在 constructor 中传入的是 fulfill（直接设值），
+// 在 then 中传入的是新 Promise 的 resolve（带类型检查）。
+// 这样设计保证：非 thenable 值（如数组结果）不会在 resolve → resolvePromise → resolve 间无限循环。
 function resolvePromise<T>(
   promise2: MyPromise<T>,
   x: any,
@@ -94,7 +97,7 @@ function resolvePromise<T>(
           reject(error);
         }
       } else {
-        // 2.3.3.4 then 不是函数，直接 resolve
+        // 2.3.3.4 then 不是函数，不是 thenable——直接 fulfill
         resolve(x);
       }
     } catch (error) {
@@ -104,7 +107,7 @@ function resolvePromise<T>(
       reject(error);
     }
   } else {
-    // 2.3.4 x 不是对象也不是函数，直接 resolve
+    // 2.3.4 x 不是对象也不是函数，直接 fulfill
     resolve(x);
   }
 }
@@ -120,28 +123,51 @@ class MyPromise<T = unknown> {
   private onRejectedCallbacks: Array<() => void> = [];
 
   constructor(executor: Executor<T>) {
-    // 定义 resolve —— 只能从 PENDING 转换一次
-    const resolve: Resolve<T> = (value?) => {
+    // fulfill：直接设值，不做类型检查（resolvePromise 已确认 value 不是 thenable）
+    const fulfill = (value: T) => {
       if (this.state !== STATE.PENDING) return;
-
-      // 如果 value 是对象或函数（MyPromise 或任意 thenable），
-      // 走完整的 Promise Resolution Procedure（Promise/A+ 2.3）
-      if (value !== null && (typeof value === 'object' || typeof value === 'function')) {
-        resolvePromise(this, value, resolve, reject);
-        return;
-      }
-
       this.state = STATE.FULFILLED;
-      this.value = value as T;
+      this.value = value;
       this.onFulfilledCallbacks.forEach((cb) => cb());
     };
 
-    // 定义 reject
+    // reject：直接设值
     const reject: Reject = (reason?) => {
       if (this.state !== STATE.PENDING) return;
       this.state = STATE.REJECTED;
       this.reason = reason;
       this.onRejectedCallbacks.forEach((cb) => cb());
+    };
+
+    // resolve：检查 value 是否是 thenable，是则走 Promise Resolution Procedure，
+    // 不是则直接 fulfill。注意这里传给 resolvePromise 的是 fulfill 而非 resolve
+    // ——因为 resolvePromise 确认 value 非 thenable 后会直接 fulfill(value)，
+    // 如果传 resolve 则会对普通对象（如数组结果）无限循环调用 resolvePromise。
+    const resolve: Resolve<T> = (value?) => {
+      if (this.state !== STATE.PENDING) return;
+
+      // 快速路径：MyPromise 实例——直接订阅其状态
+      if (value instanceof MyPromise) {
+        value.then(fulfill, reject);
+        return;
+      }
+
+      // Thenable 检测：只有确实有 then 方法才走 Resolution Procedure
+      if (value !== null && (typeof value === 'object' || typeof value === 'function')) {
+        try {
+          const then = (value as any).then;
+          if (typeof then === 'function') {
+            resolvePromise(this, value as any, fulfill, reject);
+            return;
+          }
+        } catch (error) {
+          reject(error);
+          return;
+        }
+      }
+
+      // 非 thenable：直接 fulfill
+      fulfill(value as T);
     };
 
     // 立即执行 executor，try-catch 兜底

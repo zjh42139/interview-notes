@@ -6,7 +6,7 @@ type: interview
 score: 0
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-15
 updated: 2026-07-15
 reviewed: null

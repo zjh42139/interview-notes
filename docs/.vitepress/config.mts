@@ -20,6 +20,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '复习路线', link: '/roadmap' },
+      { text: '阅读指南', link: '/阅读指南' },
       { text: '写作规范', link: '/writing-rules' },
       { text: '更新日志', link: '/changelog' },
     ],

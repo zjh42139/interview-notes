@@ -5,6 +5,32 @@ description: 知识库变更记录
 
 # Changelog
 
+## 2026-07-16（续 6）
+
+### 阅读指南 + 手写题验证 + 状态清理
+
+**新增阅读指南**：
+- 创建 [阅读指南](阅读指南.md)——基于四档优先级分档体系（🔴精读/🟡理解/⚪速览/⚫可砍），以差异化优势（项目实战+Vue3/TS深度）为核心定位
+- 首页 + 导航栏增加入口
+
+**手写题 P0 代码验证（51/51 通过）**：
+- 完整测试：Promise（16项）/ bind-call-apply / new / deepClone / debounce-throttle / EventEmitter / compose-pipe / LRU / concurrency-control
+- **修复 2 个真实 bug**：
+  - `promise.md`：`resolve` 和 `fulfill` 未分离——对数组等非 thenable 对象调用 `Promise.all()` 时 `resolve(results)` 无限递归（`resolve` → `resolvePromise` → `resolve` 循环）。修复：构造函数中拆分 `fulfill`（直接设值）和 `resolve`（检查 thenable 后调用 `fulfill`），`resolvePromise` 在非 thenable 分支调用 `fulfill` 而非 `resolve`
+  - `debounce-throttle.md`：`leading=true, trailing=false` 模式缺冷却定时器——每帧都触发 leading 回调退化成了 throttle。修复：始终设置定时器作为冷却期，`trailing` 仅控制冷却结束后是否补执行
+
+**手写题题库更新**：
+- 新增 7 题：curry / flatten-unique-sort / tree-conversion / instanceof / version-compare(LazyMan+继承) / object-flatten / Promise.allSettled+any
+- 12→19 题，P0/P1/P2 计数更新
+
+**状态字段清理**：
+- `status: draft` → `reviewed`（≥200行，237篇）
+- `status: draft` → `filled`（100-199行或内容完整的短篇，141篇）
+- 0 篇残留 draft——无空占位文件
+
+**TODO 误报确认**：
+- 之前 grep 到的 ~30 个 "TODO/待补充" 全部是误报：代码示例中的 `placeholder` 属性/CSS 伪类、curry 占位符功能、模拟面试中故意的练习题模板
+
 ## 2026-07-16（续 5）
 
 ### 回答稿补齐 + 结构修复（问题 1-8）

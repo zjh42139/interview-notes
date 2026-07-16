@@ -6,7 +6,7 @@ type: practice
 score: 72
 difficulty: 中高级
 frequency: ⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-16
 tags:
   - 水印

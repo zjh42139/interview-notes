@@ -6,7 +6,7 @@ type: practice
 score: 78
 difficulty: 高级
 frequency: ⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-16
 tags:
   - 白屏

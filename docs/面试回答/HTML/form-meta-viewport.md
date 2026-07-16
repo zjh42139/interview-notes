@@ -6,7 +6,7 @@ type: interview
 score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-16
 tags:
   - HTML

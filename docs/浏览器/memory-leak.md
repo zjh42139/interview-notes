@@ -6,7 +6,7 @@ type: api-reference
 score: 82
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: draft
+status: reviewed
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

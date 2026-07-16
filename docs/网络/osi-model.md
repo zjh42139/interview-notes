@@ -6,7 +6,7 @@ type: mechanism
 score: 85
 difficulty: 中级
 frequency: ⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-13
 updated: 2026-07-13
 reviewed: null

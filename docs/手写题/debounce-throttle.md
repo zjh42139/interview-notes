@@ -57,11 +57,6 @@ function debounce<T extends (...args: any[]) => any>(
   let lastThis: any = null;
   let result: ReturnType<T> | undefined;
 
-  // 启动 trailing 计时器
-  const startTimer = (invokeFn: () => void) => {
-    timer = setTimeout(invokeFn, delay);
-  };
-
   // 执行 fn（trailing 回调）
   const invoke = () => {
     timer = null;
@@ -92,7 +87,7 @@ function debounce<T extends (...args: any[]) => any>(
     lastArgs = args;
     lastThis = this;
 
-    // leading：首次触发立即执行
+    // leading：首次触发立即执行（timer 为 null 说明不在冷却期）
     if (leading && timer === null) {
       result = fn.apply(lastThis, lastArgs);
       lastArgs = null;
@@ -104,10 +99,12 @@ function debounce<T extends (...args: any[]) => any>(
       clearTimeout(timer);
     }
 
-    // trailing：延迟后执行
-    if (trailing) {
-      startTimer(invoke);
-    }
+    // 始终设置定时器——即使 trailing=false 也需要冷却期防止 leading 重复触发
+    // trailing 控制的是冷却结束后是否补执行一次
+    timer = setTimeout(() => {
+      timer = null;
+      if (trailing) invoke();
+    }, delay);
 
     return result;
   }

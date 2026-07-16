@@ -6,7 +6,7 @@ type: mechanism
 score: 91
 difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
-status: draft
+status: reviewed
 created: 2026-07-05
 updated: 2026-07-05
 reviewed: null

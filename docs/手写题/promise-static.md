@@ -6,7 +6,7 @@ type: exercise
 score: 0
 difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
-status: draft
+status: reviewed
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null

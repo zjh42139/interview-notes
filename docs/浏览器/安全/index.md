@@ -4,7 +4,7 @@ description: Web 安全面试知识体系——XSS、CSRF、CSP、HTTPS、Clickj
 category: 安全
 difficulty: null
 frequency: null
-status: draft
+status: filled
 created: 2026-07-05
 updated: 2026-07-11
 reviewed: null

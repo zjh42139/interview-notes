@@ -6,7 +6,7 @@ type: comparison
 score: 0
 difficulty: 初级
 frequency: ⭐⭐⭐⭐
-status: draft
+status: filled
 created: 2026-07-10
 updated: 2026-07-10
 reviewed: null
