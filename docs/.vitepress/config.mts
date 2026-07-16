@@ -172,17 +172,35 @@ export default defineConfig({
       ],
       '/Git/': [
         { text: 'Git 知识地图', link: '/Git/' },
-        { text: 'Commit 规范', link: '/Git/commit-spec' },
-        { text: 'merge vs rebase', link: '/Git/merge-vs-rebase' },
-        { text: '冲突处理', link: '/Git/conflict-resolution' },
-        { text: 'reset vs revert', link: '/Git/reset-vs-revert' },
-        { text: 'stash', link: '/Git/stash' },
-        { text: 'cherry-pick', link: '/Git/cherry-pick' },
-        { text: 'tag', link: '/Git/tag' },
-        { text: 'Git Flow', link: '/Git/git-flow' },
-        { text: 'reflog/rebase -i/内部原理', link: '/Git/reflog-rebase-interactive' },
-        { text: 'diff/log/blame/hooks', link: '/Git/diff-log-blame-hooks' },
-        { text: 'bisect', link: '/Git/bisect' },
+        {
+          text: '核心操作',
+          collapsible: false,
+          items: [
+            { text: 'Commit 规范', link: '/Git/commit-spec' },
+            { text: 'merge vs rebase', link: '/Git/merge-vs-rebase' },
+            { text: '冲突处理', link: '/Git/conflict-resolution' },
+            { text: 'reset vs revert', link: '/Git/reset-vs-revert' },
+          ],
+        },
+        {
+          text: '分支操作',
+          collapsible: false,
+          items: [
+            { text: 'stash', link: '/Git/stash' },
+            { text: 'cherry-pick', link: '/Git/cherry-pick' },
+            { text: 'tag', link: '/Git/tag' },
+          ],
+        },
+        {
+          text: '工作流与调试',
+          collapsible: false,
+          items: [
+            { text: 'Git Flow', link: '/Git/git-flow' },
+            { text: 'reflog/rebase -i/内部原理', link: '/Git/reflog-rebase-interactive' },
+            { text: 'diff/log/blame/hooks', link: '/Git/diff-log-blame-hooks' },
+            { text: 'bisect', link: '/Git/bisect' },
+          ],
+        },
       ],
       '/Vue3/': [
         { text: 'Vue3 知识地图', link: '/Vue3/' },
@@ -229,26 +247,62 @@ export default defineConfig({
       ],
       '/VueRouter/': [
         { text: 'Vue Router 知识地图', link: '/VueRouter/' },
-        { text: 'history / hash', link: '/VueRouter/history-vs-hash' },
-        { text: '路由守卫', link: '/VueRouter/route-guards' },
-        { text: '动态路由', link: '/VueRouter/dynamic-routing' },
-        { text: '路由懒加载', link: '/VueRouter/lazy-loading' },
-        { text: 'KeepAlive 集成', link: '/VueRouter/keepalive-integration' },
-        { text: '导航故障处理', link: '/VueRouter/navigation-failures' },
-        { text: 'scrollBehavior', link: '/VueRouter/scroll-behavior' },
+        {
+          text: '核心机制',
+          collapsible: false,
+          items: [
+            { text: 'history / hash', link: '/VueRouter/history-vs-hash' },
+            { text: '路由守卫', link: '/VueRouter/route-guards' },
+            { text: '动态路由', link: '/VueRouter/dynamic-routing' },
+            { text: '路由懒加载', link: '/VueRouter/lazy-loading' },
+          ],
+        },
+        {
+          text: '进阶与集成',
+          collapsible: false,
+          items: [
+            { text: 'KeepAlive 集成', link: '/VueRouter/keepalive-integration' },
+            { text: '导航故障处理', link: '/VueRouter/navigation-failures' },
+            { text: 'scrollBehavior', link: '/VueRouter/scroll-behavior' },
+          ],
+        },
+        {
+          text: '辅助功能',
+          collapsible: false,
+          items: [
             { text: '路由元信息/传参', link: '/VueRouter/route-meta-props' },
             { text: '命名视图/过渡动画', link: '/VueRouter/named-views-transition' },
+          ],
+        },
       ],
       '/Pinia/': [
         { text: 'Pinia 知识地图', link: '/Pinia/' },
-        { text: 'defineStore', link: '/Pinia/defineStore' },
-        { text: 'state', link: '/Pinia/state' },
-        { text: 'getters', link: '/Pinia/getters' },
-        { text: 'actions', link: '/Pinia/actions' },
-        { text: 'vs Vuex', link: '/Pinia/vs-vuex' },
-        { text: '持久化', link: '/Pinia/persist' },
-        { text: '插件', link: '/Pinia/plugins' },
+        {
+          text: '核心概念',
+          collapsible: false,
+          items: [
+            { text: 'defineStore', link: '/Pinia/defineStore' },
+            { text: 'state', link: '/Pinia/state' },
+            { text: 'getters', link: '/Pinia/getters' },
+            { text: 'actions', link: '/Pinia/actions' },
+          ],
+        },
+        {
+          text: '生态与对比',
+          collapsible: false,
+          items: [
+            { text: 'vs Vuex', link: '/Pinia/vs-vuex' },
+            { text: '持久化', link: '/Pinia/persist' },
+          ],
+        },
+        {
+          text: '工程化',
+          collapsible: false,
+          items: [
+            { text: '插件', link: '/Pinia/plugins' },
             { text: '进阶(组件外/TS/SSR)', link: '/Pinia/advanced' },
+          ],
+        },
       ],
       '/TypeScript/': [
         { text: 'TypeScript 知识地图', link: '/TypeScript/' },
@@ -406,19 +460,43 @@ export default defineConfig({
       ],
       '/工程化/': [
         { text: '工程化 知识地图', link: '/工程化/' },
-        { text: 'npm 深入', link: '/工程化/npm-deep' },
-        { text: 'pnpm', link: '/工程化/pnpm' },
-        { text: 'ESM 模块化', link: '/工程化/esm-module' },
-        { text: 'Vite', link: '/工程化/vite' },
-        { text: 'Vite 深入', link: '/工程化/vite-deep' },
-        { text: 'Webpack', link: '/工程化/webpack' },
-        { text: 'Babel / ESBuild', link: '/工程化/babel-esbuild' },
-        { text: 'Tree Shaking', link: '/工程化/tree-shaking' },
-        { text: 'Tailwind CSS', link: '/工程化/tailwindcss' },
-        { text: '前端测试体系', link: '/工程化/testing' },
+        {
+          text: '包管理与模块',
+          collapsible: false,
+          items: [
+            { text: 'npm 深入', link: '/工程化/npm-deep' },
+            { text: 'pnpm', link: '/工程化/pnpm' },
+            { text: 'ESM 模块化', link: '/工程化/esm-module' },
+          ],
+        },
+        {
+          text: '构建工具',
+          collapsible: false,
+          items: [
+            { text: 'Vite', link: '/工程化/vite' },
+            { text: 'Vite 深入', link: '/工程化/vite-deep' },
+            { text: 'Webpack', link: '/工程化/webpack' },
+            { text: 'Babel / ESBuild', link: '/工程化/babel-esbuild' },
+            { text: 'Tree Shaking', link: '/工程化/tree-shaking' },
+          ],
+        },
+        {
+          text: '样式与质量',
+          collapsible: false,
+          items: [
+            { text: 'Tailwind CSS', link: '/工程化/tailwindcss' },
+            { text: '前端测试体系', link: '/工程化/testing' },
             { text: 'ESLint / Husky', link: '/工程化/eslint-husky' },
+          ],
+        },
+        {
+          text: '优化与扩展',
+          collapsible: false,
+          items: [
             { text: 'Code Splitting', link: '/工程化/code-splitting' },
             { text: 'Rollup/Prettier/SourceMap', link: '/工程化/rollup-prettier-sourcemap' },
+          ],
+        },
         {
           text: 'Node',
           collapsed: true,
@@ -479,15 +557,33 @@ export default defineConfig({
       ],
       '/性能优化/': [
         { text: '性能优化 知识地图', link: '/性能优化/' },
-        { text: 'Web Vitals', link: '/性能优化/web-vitals' },
-        { text: '性能分析工具', link: '/性能优化/performance-devtools' },
-        { text: '首屏优化', link: '/性能优化/first-screen' },
-        { text: '缓存策略体系', link: '/性能优化/caching-strategy' },
-        { text: '网络传输优化', link: '/性能优化/network-optimization' },
-        { text: '打包优化', link: '/性能优化/bundle-optimization' },
+        {
+          text: '核心指标与工具',
+          collapsible: false,
+          items: [
+            { text: 'Web Vitals', link: '/性能优化/web-vitals' },
+            { text: '性能分析工具', link: '/性能优化/performance-devtools' },
+          ],
+        },
+        {
+          text: '加载优化',
+          collapsible: false,
+          items: [
+            { text: '首屏优化', link: '/性能优化/first-screen' },
+            { text: '缓存策略体系', link: '/性能优化/caching-strategy' },
+            { text: '网络传输优化', link: '/性能优化/network-optimization' },
+            { text: '打包优化', link: '/性能优化/bundle-optimization' },
+          ],
+        },
+        {
+          text: '运行时优化',
+          collapsible: false,
+          items: [
             { text: '关键渲染路径', link: '/性能优化/critical-rendering-path' },
-        { text: '图片优化', link: '/性能优化/image-optimization' },
-        { text: '虚拟列表', link: '/性能优化/virtual-list' },
+            { text: '图片优化', link: '/性能优化/image-optimization' },
+            { text: '虚拟列表', link: '/性能优化/virtual-list' },
+          ],
+        },
       ],
       '/前端架构/': [
         { text: '前端架构 知识地图', link: '/前端架构/' },
