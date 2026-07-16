@@ -58,27 +58,27 @@ mindmap
 
 ### 三、适配
 
-11. ⭐⭐⭐⭐   [rem / vw 移动端适配](./rem-vw.md)
-12. ⭐⭐⭐⭐   [移动端 1px 问题](./mobile-1px.md)
-13. ⭐⭐⭐     [响应式](./responsive.md)
+12. ⭐⭐⭐⭐   [rem / vw 移动端适配](./rem-vw.md)
+13. ⭐⭐⭐⭐   [移动端 1px 问题](./mobile-1px.md)
+14. ⭐⭐⭐     [响应式](./responsive.md)
 
 ### 四、细节
 
-14. ⭐⭐⭐⭐   [文本溢出省略](./text-overflow.md)
-15. ⭐⭐⭐⭐   [transition vs animation](./transition-animation.md)
-16. ⭐⭐⭐⭐   [伪类 vs 伪元素](./pseudo.md)
+15. ⭐⭐⭐⭐   [文本溢出省略](./text-overflow.md)
+16. ⭐⭐⭐⭐   [transition vs animation](./transition-animation.md)
+17. ⭐⭐⭐⭐   [伪类 vs 伪元素](./pseudo.md)
 
 ### 五、性能
 
-17. ⭐⭐⭐⭐   [CSS 渲染性能](./css-performance.md)
+18. ⭐⭐⭐⭐   [CSS 渲染性能](./css-performance.md)
 
 ### 六、工程化
 
-18. ⭐⭐⭐⭐   [CSS 变量](./css-variables.md)
-19. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
-20. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
-21. ⭐⭐⭐⭐   [@layer 级联层](./at-layer.md)
-22. ⭐⭐⭐     [:has() / 嵌套 / 容器查询](./has-nesting-container.md)
+19. ⭐⭐⭐⭐   [CSS 变量](./css-variables.md)
+20. ⭐⭐⭐⭐   [BEM 命名规范](./bem.md)
+21. ⭐⭐⭐⭐   [CSS Modules / Scoped](./css-modules-scoped.md)
+22. ⭐⭐⭐⭐   [@layer 级联层](./at-layer.md)
+23. ⭐⭐⭐     [:has() / 嵌套 / 容器查询](./has-nesting-container.md)
 
 ## 知识点索引
 

@@ -92,14 +92,14 @@ mindmap
 
 ### 四、类型声明
 
-12. ⭐⭐⭐⭐⭐   [声明文件 / declare](./declaration.md)
+13. ⭐⭐⭐⭐⭐   [声明文件 / declare](./declaration.md)
 
 ### 五、工程化
 
-13. ⭐⭐⭐       [tsconfig.json 配置](./tsconfig.md) 🆕 — 含模块解析
-14. ⭐⭐⭐⭐⭐   [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕
-15. ⭐⭐⭐       [模块系统](./module-system.md) 🆕
-16. ⭐⭐⭐⭐     [T[K] / typeof](./indexed-access-typeof.md) 🆕
+14. ⭐⭐⭐       [tsconfig.json 配置](./tsconfig.md) 🆕 — 含模块解析
+15. ⭐⭐⭐⭐⭐   [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕
+16. ⭐⭐⭐       [模块系统](./module-system.md) 🆕
+17. ⭐⭐⭐⭐     [T[K] / typeof](./indexed-access-typeof.md) 🆕
 
 ## 知识点索引
 
