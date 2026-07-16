@@ -238,6 +238,54 @@ function findHighlightRanges(
 4. **前缀和下标偏移**：`preSum[0] = 0` 是哨兵，区间和是 `preSum[R+1] - preSum[L]`，不是 `preSum[R] - preSum[L]`。
 5. **哈希表 key 选错**：有时需要存的是"前缀和的值"作为 key，"出现次数"作为 value，有时需要存"值到下标"的映射，混淆导致 WA。
 
+## 补充题型
+
+### 版本号比较
+
+字符串分割后逐段比较数字大小，处理不同长度的版本号（如 `1.0.0` vs `1.0.0.1`）：
+
+```ts
+function compareVersion(v1: string, v2: string): number {
+  const arr1 = v1.split('.').map(Number)
+  const arr2 = v2.split('.').map(Number)
+  const len = Math.max(arr1.length, arr2.length)
+
+  for (let i = 0; i < len; i++) {
+    const n1 = arr1[i] || 0  // 缺位补 0
+    const n2 = arr2[i] || 0
+    if (n1 > n2) return 1    // v1 > v2
+    if (n1 < n2) return -1   // v1 < v2
+  }
+  return 0  // 相等
+}
+```
+
+时间 O(n)，空间 O(n)。面试追问："1.0.0" 和 "1.0.0.0" 是否相等？上述代码返回 0（缺位补 0）。
+
+### 大数相加
+
+两个字符串数字逐位相加，处理进位。不能在 JS 中用 `BigInt` 或 `Number` 直接加（可能溢出或精度丢失）：
+
+```ts
+function addStrings(num1: string, num2: string): string {
+  let i = num1.length - 1, j = num2.length - 1
+  let carry = 0
+  const result: number[] = []
+
+  while (i >= 0 || j >= 0 || carry > 0) {
+    const d1 = i >= 0 ? +num1[i] : 0
+    const d2 = j >= 0 ? +num2[j] : 0
+    const sum = d1 + d2 + carry
+    result.push(sum % 10)       // 当前位
+    carry = Math.floor(sum / 10) // 进位
+    i--; j--
+  }
+  return result.reverse().join('')
+}
+```
+
+时间 O(max(m,n))，空间 O(max(m,n))。面试追问：如果输入可能是小数？先对齐小数点再逐位加。如果是任意进制？把 `%10` 和 `/10` 替换为 `%base` 和 `/base`。
+
 ## 相关阅读
 
 - [算法 知识地图](./index.md)

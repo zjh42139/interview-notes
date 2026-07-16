@@ -239,6 +239,8 @@ import debounce from "lodash-es/debounce"
 
 - [首屏优化](./first-screen.md)
 - [Web Vitals](./web-vitals.md)
+- [Code Splitting（工程化）](../工程化/code-splitting.md)
+- [Tree Shaking](../工程化/tree-shaking.md)
 - [Vite 工程化](../工程化/vite.md)
 - [Tree Shaking 原理](../工程化/tree-shaking.md)
 - [性能优化知识地图](./index.md)

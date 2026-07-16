@@ -33,6 +33,8 @@ mindmap
       大文件上传
     项目优化
       性能优化
+    质量保障
+      错误监控
 ```
 
 ## 关于本文档中的"项目"
@@ -71,15 +73,30 @@ mindmap
 
 ## 推荐学习顺序
 
-### 业务场景模块（10 篇）
+### 基础设施 + 认证鉴权 + 权限系统（7 篇）—— 先看这个
 
-1. [文件上传](./业务场景/file-upload.md) — 基础文件上传方案，理解 FormData + Axios 模式
-2. [Excel 导入导出](./业务场景/excel-import-export.md) — 表格数据的批量处理
-3. [大数据表格](./业务场景/big-data-table.md) — 虚拟滚动与大数据渲染优化
-4. [Composable 设计](./业务场景/composable-design.md) — useRequest/useTable/usePermission 逻辑复用封装
-5. [国际化](./业务场景/i18n.md) — vue-i18n v9+ 中英文切换，语言包模块化组织
-6. [主题切换](./业务场景/theme-switch.md) — CSS 变量 + Element Plus 暗黑模式 + FOUC 避免
-7. [组件封装实践](./业务场景/component-encapsulation.md) — Props/Events/Slots/Expose 四维度设计
-8. [WebSocket 实战](./业务场景/websocket.md) — 心跳/重连/ACK 完整封装
-9. [ECharts 实战](./业务场景/echarts.md) — 图表封装、响应式更新、内存管理
-10. [大文件上传](./业务场景/big-file-upload.md) — 分片/秒传/断点/并发控制 四维一体
+1. [Axios 封装](./基础设施/axios-encapsulation.md) — 拦截器/错误处理/baseURL/超时
+2. [防重复请求](./基础设施/request-dedup.md) — loading/防重复/并发请求优化
+3. [Mock](./基础设施/mock.md) — MockJS/vite-plugin-mock 前后端并行开发
+4. [登录鉴权](./认证鉴权/login-auth.md) — Token 认证/OAuth2/多端登录
+5. [Token 刷新](./认证鉴权/token-refresh.md) — 无感刷新/401 拦截/并发处理
+6. [动态路由](./权限系统/dynamic-route.md) — addRoute/菜单生成/路由重置
+7. [权限 RBAC](./权限系统/permission-rbac.md) — 模型设计/指令/按钮级权限
+
+### 业务场景模块（10 篇）—— 然后看这个
+
+8. [文件上传](./业务场景/file-upload.md) — 基础文件上传方案，理解 FormData + Axios 模式
+9. [Excel 导入导出](./业务场景/excel-import-export.md) — 表格数据的批量处理
+10. [大数据表格](./业务场景/big-data-table.md) — 虚拟滚动与大数据渲染优化
+11. [Composable 设计](./业务场景/composable-design.md) — useRequest/useTable/usePermission 逻辑复用封装
+12. [国际化](./业务场景/i18n.md) — vue-i18n v9+ 中英文切换，语言包模块化组织
+13. [主题切换](./业务场景/theme-switch.md) — CSS 变量 + Element Plus 暗黑模式 + FOUC 避免
+14. [组件封装实践](./业务场景/component-encapsulation.md) — Props/Events/Slots/Expose 四维度设计
+15. [WebSocket 实战](./业务场景/websocket.md) — 心跳/重连/ACK 完整封装
+16. [ECharts 实战](./业务场景/echarts.md) — 图表封装、响应式更新、内存管理
+17. [大文件上传](./业务场景/big-file-upload.md) — 分片/秒传/断点/并发控制 四维一体
+
+### 质量保障（2 篇）—— 最后看这个
+
+18. [项目优化](./项目优化/project-optimization.md) — 项目层面性能优化
+19. [错误处理 / 前端监控体系](./基础设施/error-monitoring.md) — 错误捕获/Sentry/埋点/CI/CD

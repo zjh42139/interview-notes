@@ -559,6 +559,10 @@ export default defineConfig({
         { text: '性能优化', link: '/面试题库/性能优化' },
         { text: '安全', link: '/面试题库/安全' },
         { text: 'Git', link: '/面试题库/Git' },
+        { text: '手写题', link: '/面试题库/手写题' },
+        { text: '算法', link: '/面试题库/算法' },
+        { text: 'CICD', link: '/面试题库/CICD' },
+        { text: '前端架构', link: '/面试题库/前端架构' },
         { text: '项目', link: '/面试题库/项目' },
         { text: 'HR', link: '/面试题库/HR' },
       ],
@@ -581,6 +585,16 @@ export default defineConfig({
       ],
       '/面试回答/': [
         { text: '面试回答 总览', link: '/面试回答/' },
+        {
+          text: 'HTML',
+          collapsed: true,
+          items: [
+            { text: '语义化 / DOCTYPE / em vs i', link: '/面试回答/HTML/semantic-doctype' },
+            { text: 'script 加载 / 懒加载 / Resource Hints', link: '/面试回答/HTML/script-lazy-loading' },
+            { text: 'viewport / 表单', link: '/面试回答/HTML/form-meta-viewport' },
+            { text: 'Canvas vs SVG / History API', link: '/面试回答/HTML/canvas-svg-history' },
+          ],
+        },
         {
           text: 'JavaScript',
           collapsed: true,
@@ -607,6 +621,7 @@ export default defineConfig({
             { text: 'Flex / Grid / 居中', link: '/面试回答/CSS/flexbox-grid-layout' },
             { text: '水平垂直居中', link: '/面试回答/CSS/centering' },
             { text: '选择器优先级', link: '/面试回答/CSS/specificity' },
+            { text: '元素隐藏三种方式', link: '/面试回答/CSS/display-visibility-opacity' },
           ],
         },
         {
@@ -673,7 +688,9 @@ export default defineConfig({
           text: 'Vue Router',
           collapsed: true,
           items: [
-            { text: '路由守卫 / 动态路由', link: '/面试回答/VueRouter/route-guards' },
+            { text: 'history vs hash', link: '/面试回答/VueRouter/history-hash' },
+            { text: '动态路由 / 权限路由', link: '/面试回答/VueRouter/dynamic-routing' },
+            { text: '路由守卫', link: '/面试回答/VueRouter/route-guards' },
           ],
         },
         {

@@ -5,6 +5,26 @@ description: 知识库变更记录
 
 # Changelog
 
+## 2026-07-16（续 5）
+
+### 回答稿补齐 + 结构修复（问题 1-8）
+
+**新增 7 篇回答稿（60→67）**：
+- HTML 4 篇：semantic-doctype / script-lazy-loading / form-meta-viewport / canvas-svg-history——覆盖 8 道高频题
+- VueRouter 2 篇：history-hash / dynamic-routing——覆盖 Q1/Q3
+- CSS 1 篇：display-visibility-opacity——覆盖 Q3 隐藏方式对比
+
+**结构修复**：
+- sidebar 面试题库补 手写题/算法/CICD/前端架构 4 条目
+- sidebar 面试回答新增 HTML(4) + VueRouter(2) + CSS display-visibility(1) 条目
+- 面试回答/index.md 67 篇清单完整更新
+- 算法/array.md 补版本号比较 + 大数相加两节
+- 项目实战/index.md 补 mindmap(错误监控) + 学习顺序三组 19 篇 + 推荐路线
+- 交叉链接：性能优化/bundle-optimization ↔ 工程化/code-splitting 互链
+- 首页 面试题库 11→16 题集同步
+
+---
+
 ## 2026-07-16（续 4）
 
 ### HTML + VueRouter + Pinia + Git + CICD 模块深度审计（Phase 2-3）
