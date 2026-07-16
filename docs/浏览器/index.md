@@ -26,6 +26,9 @@ mindmap
     rAF
       帧动画
       requestIdleCallback
+    Performance API
+      Navigation Timing
+      PerformanceObserver
     V8 引擎
       Ignition 解释器
       TurboFan 编译器
@@ -144,6 +147,7 @@ mindmap
 | [Service Worker](./service-worker.md) | &#11088;&#11088;&#11088;&#11088; | 高级 | filled |
 | [浏览器 DevTools](./devtools.md) | &#11088;&#11088;&#11088; | 中级 | drafted |
 | [BOM 全景](./bom.md) | &#11088;&#11088;&#11088; | 初级 | drafted |
-| [Web Worker](./web-worker.md) | &#11088;&#11088;&#11088; | 中级 | draft |
+| [Performance API](./performance-api.md) | ⭐⭐⭐⭐ | 中高级 | draft |
+| [Web Worker](./web-worker.md) | ⭐⭐⭐ | 中级 | draft |
 | [IndexedDB](./indexeddb.md) | ⭐⭐⭐ | 中级 | filled |
 | [跨标签页通信](./cross-tab-communication.md) | ⭐⭐⭐ | 中级 | draft |

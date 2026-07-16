@@ -390,6 +390,7 @@ export default defineConfig({
         { text: 'Vite 深入', link: '/工程化/vite-deep' },
         { text: 'ESM 模块化', link: '/工程化/esm-module' },
         { text: 'Tailwind CSS', link: '/工程化/tailwindcss' },
+        { text: '前端测试体系', link: '/工程化/testing' },
             { text: 'ESLint / Husky', link: '/工程化/eslint-husky' },
             { text: 'Code Splitting', link: '/工程化/code-splitting' },
             { text: 'Rollup/Prettier/SourceMap', link: '/工程化/rollup-prettier-sourcemap' },

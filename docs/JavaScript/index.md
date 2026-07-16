@@ -31,6 +31,8 @@ mindmap
       JS 模块化
         ESM / CJS / AMD / UMD
     异步编程
+      Event Loop
+        宏任务 / 微任务
       Promise
         链式调用
         Promise/A+ 规范
@@ -44,6 +46,11 @@ mindmap
       Set / Map / WeakMap
         弱引用
         Vue3 响应式中的应用
+      Symbol
+        Well-Known Symbol
+        Symbol.iterator
+      Object 系列 API
+        Object.create / assign / freeze
       Proxy / Reflect
         13 种拦截
         vue3 reactive
@@ -112,6 +119,8 @@ mindmap
 | [数组方法大全](./array-methods.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
 | [JS 模块化](./modules.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [Set / Map / WeakMap](./set-map-weakmap.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [Symbol](./symbol.md) | ⭐⭐⭐⭐ | 中高级 | — | draft |
+| [Object 系列 API](./object-api.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [Proxy / Reflect](./proxy-reflect.md) | ⭐⭐⭐⭐⭐ | 高级 | ✅ react | draft |
 | [深拷贝](./deep-clone.md) | ⭐⭐⭐ | 中级 | [✅](../手写题/deep-clone.md) | draft |
 | [防抖 / 节流](./debounce-throttle.md) | ⭐⭐⭐ | 初级 | [✅](../手写题/debounce-throttle.md) | draft |

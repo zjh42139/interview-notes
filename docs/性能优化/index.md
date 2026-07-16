@@ -80,4 +80,5 @@ mindmap
 | [打包优化](./bundle-optimization.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [网络传输优化](./network-optimization.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
 | [虚拟列表](./virtual-list.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
+| [关键渲染路径](./critical-rendering-path.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [图片优化](./image-optimization.md) | ⭐⭐⭐ | 初级 | — | draft |

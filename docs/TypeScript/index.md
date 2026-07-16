@@ -113,12 +113,15 @@ mindmap
 | [as const / const assertion](./as-const.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
 | [satisfies](./satisfies.md) | ⭐⭐⭐ | 初级 | draft |
 | [泛型](./generics.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [Utility Types](./utility-types.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [keyof / mapped / conditional](./keyof-mapped-conditional.md) | ⭐⭐⭐ | 高级 | draft |
 | [extends / infer](./extends-infer.md) | ⭐⭐⭐⭐ | 高级 | draft |
+| [keyof / mapped / conditional](./keyof-mapped-conditional.md) | ⭐⭐⭐ | 高级 | draft |
+| [Utility Types](./utility-types.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
+| [模板字面量类型](./template-literal-types.md) 🆕 | ⭐⭐⭐ | 中高级 | draft |
 | [声明文件 / declare](./declaration.md) | ⭐⭐⭐⭐⭐ | 高级 | reviewed |
 | [tsconfig.json 配置](./tsconfig.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
 | [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕 | ⭐⭐⭐⭐⭐ | 中级 | draft |
+| [模块系统](./module-system.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
+| [T[K] / typeof](./indexed-access-typeof.md) 🆕 | ⭐⭐⭐⭐ | 中级 | draft |
 
 > 🆕 标记为本次 TypeScript 模块补齐新增的 7 篇知识点
 
