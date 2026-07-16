@@ -30,7 +30,7 @@ tags:
 
 "记住两条线：
 
-**构造器线（Function 这边）**：每个函数都有 `prototype` 属性——指向一个对象，这个对象里放了所有实例共享的方法。比如 `Array.prototype.push`，所有数组实例都能用 `push`——它们不从实例上找，顺着 `__proto__` 到 `Array.prototype` 找。
+**构造器线（Function 这边）**：普通函数和 class 都有 `prototype` 属性——指向一个对象，这个对象里放了所有实例共享的方法。比如 `Array.prototype.push`，所有数组实例都能用 `push`——它们不从实例上找，顺着 `__proto__` 到 `Array.prototype` 找。注意：箭头函数没有 `prototype`——箭头函数没有 `[[Construct]]` 内部方法，不能当构造函数。
 
 **实例线（Object 这边）**：每个对象都有 `__proto__`——指向构造它的函数的 `prototype`。`const arr = [1,2,3]`，`arr.__proto__ === Array.prototype`。`arr.__proto__.__proto__ === Object.prototype`。再往上 `Object.prototype.__proto__ === null`——原型链的终点。
 

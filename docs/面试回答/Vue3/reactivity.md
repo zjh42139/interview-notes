@@ -51,7 +51,7 @@ tags:
 
 1. **解构 reactive 丢失响应性** —— `const { name } = reactive({ name: 'a' })`——name 是值拷贝，不再是 Proxy。用 `toRefs()` 保持响应性
 2. **"ref 存的是值"** —— ref 存的是一个对象 `{ value: ... }`，这个对象是响应式的。基本类型的值被包在 `.value` 里
-3. **模板中 ref 的 .value 解包** —— 模板会自动解包顶层 ref。但嵌套在对象里的 ref 不会——`obj.ref` 还是 `{ value: ... }`
+3. **模板中 ref 的 .value 解包** —— 模板会自动解包顶层 ref。嵌套在 reactive() 代理的对象中的 ref 也会自动解包（reactive 的 get trap 会检查 `isRef(value)` 并返回 `.value`）；但嵌套在普通（非响应式）对象里的 ref 不会——`plainObj.ref` 还是 `{ value: ... }`
 
 ## 相关阅读
 

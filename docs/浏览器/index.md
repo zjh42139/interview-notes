@@ -77,6 +77,11 @@ mindmap
       screen
       location
       history
+    跨标签页通信
+      BroadcastChannel
+      postMessage
+      localStorage 事件
+      SharedWorker
 ```
 
 ## 推荐学习顺序
@@ -99,9 +104,10 @@ mindmap
 16. &#11088;&#11088;&#11088;&#11088; [垃圾回收 GC](./gc.md)
 17. &#11088;&#11088;&#11088;&#11088; [Service Worker](./service-worker.md)
 18. &#11088;&#11088;&#11088; [浏览器 DevTools](./devtools.md)
-19. &#11088;&#11088;&#11088; [BOM 全景](./bom.md)
-20. &#11088;&#11088;&#11088; [Web Worker](./web-worker.md)
-21. &#11088;&#11088;&#11088; [IndexedDB](./indexeddb.md)
+20. ⭐⭐⭐ [BOM 全景](./bom.md)
+21. ⭐⭐⭐ [Web Worker](./web-worker.md)
+22. ⭐⭐⭐ [IndexedDB](./indexeddb.md)
+23. ⭐⭐⭐ [跨标签页通信](./cross-tab-communication.md)
 
 ## 知识点索引
 
@@ -127,4 +133,5 @@ mindmap
 | [浏览器 DevTools](./devtools.md) | &#11088;&#11088;&#11088; | 中级 | drafted |
 | [BOM 全景](./bom.md) | &#11088;&#11088;&#11088; | 初级 | drafted |
 | [Web Worker](./web-worker.md) | &#11088;&#11088;&#11088; | 中级 | draft |
-| [IndexedDB](./indexeddb.md) | &#11088;&#11088;&#11088; | 中级 | filled |
+| [IndexedDB](./indexeddb.md) | ⭐⭐⭐ | 中级 | filled |
+| [跨标签页通信](./cross-tab-communication.md) | ⭐⭐⭐ | 中级 | draft |

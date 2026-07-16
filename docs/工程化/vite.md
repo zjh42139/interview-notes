@@ -230,7 +230,7 @@ export default defineConfig({
 
 1. **环境变量没有 VITE_ 前缀** -- 只有 `VITE_` 前缀的变量才会暴露给客户端代码，安全考虑
 2. **开发正常、生产报错** -- esbuild 和 Rollup 处理 CJS 的方式不同，某些包在生产构建时可能出问题。在 `optimizeDeps.include` 中显式声明
-3. **vue 组件 HMR 不生效** -- 确保 `.vue` 文件中 `<script setup>` 使用了 `defineProps/defineEmits`，Vite 才能正确分析依赖图
+3. **vue 组件 HMR 不生效** -- 检查文件路径是否被 Vite 排除在 HMR 监听范围外，或 HMR 冒泡链是否断裂（组件没有 `hot.accept` 且父组件也未 accept 它）。注意：`defineProps`/`defineEmits` 是编译时宏，不影响运行时依赖图
 4. **Element Plus 完整导入体积巨大** -- 必须配置 `unplugin-vue-components` 按需导入，否则打包体积 1.5M+
 5. **proxy 代理在生产环境无效** -- proxy 只在 dev server 生效，生产环境需要 nginx 反向代理
 

@@ -41,7 +41,7 @@ Set-Cookie: sessionId=aB3xZ9; Domain=.example.com; Path=/; Expires=Tue, 19 Jan 2
 | **Expires / Max-Age** | 过期时间 | 会话结束即删（Session Cookie） | Max-Age 优先级 > Expires。会话 Cookie 浏览器关闭不一定删除（Chrome `恢复标签页` 保留了会话 Cookie） |
 | **HttpOnly** | JS 能否访问 `document.cookie` | `false`（JS 可读） | `true` → **防御 XSS 偷 Cookie**，JS 无法读取 |
 | **Secure** | 是否只在 HTTPS 下发送 | `false`（HTTP 也发送） | `true` → 防御中间人攻击嗅探 Cookie |
-| **SameSite** | 跨站请求是否携带 | 2026 年前 `None`，现在浏览器默认 `Lax` | `Strict`/`Lax` → **防御 CSRF** |
+| **SameSite** | 跨站请求是否携带 | Chrome 80（2020/02）之前默认 `None`，现在浏览器统一默认 `Lax` | `Strict`/`Lax` → **防御 CSRF** |
 
 ### SameSite —— 最重要的新增属性
 
@@ -81,7 +81,8 @@ None（允许跨站携带，必须配合 Secure）
 
 ```javascript
 // 1. 数量限制：每个域名最多 ~180 个 Cookie
-// 2. 大小限制：每个 Cookie 最大 4KB（含属性）
+// 2. 大小限制：每个 Cookie 的 name=value 最大约 4KB
+//    （HttpOnly/Secure/SameSite 等属性不计入此限制）
 // 3. 同站 vs 同源：
 //    - 同源（Same-Origin）：协议 + 域名 + 端口 完全相同
 //    - 同站（Same-Site）：eTLD+1 相同（a.example.com 和 b.example.com 是同站）

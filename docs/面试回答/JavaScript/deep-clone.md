@@ -42,7 +42,7 @@ function deepClone(obj, hash = new WeakMap()) {
   if (obj instanceof Map) {
     const clone = new Map();
     hash.set(obj, clone);
-    obj.forEach((v, k) => clone.set(k, deepClone(v, hash)));
+    obj.forEach((v, k) => clone.set(deepClone(k, hash), deepClone(v, hash)));
     return clone;
   }
   if (obj instanceof Set) {

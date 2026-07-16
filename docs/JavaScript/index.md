@@ -20,9 +20,16 @@ mindmap
       闭包
         作用域链
         执行上下文
+      var / let / const
+        变量提升
+        TDZ 暂时性死区
       类型转换
         隐式转换
         ToPrimitive
+      数组方法
+        遍历 / 查找 / 排序 / 聚合
+      JS 模块化
+        ESM / CJS / AMD / UMD
     异步编程
       Promise
         链式调用
@@ -63,24 +70,27 @@ mindmap
 4. ⭐⭐⭐⭐   [原型链](./prototype-chain.md)
 5. ⭐⭐⭐⭐⭐ [class / extends / super](./class-extends.md)
 6. ⭐⭐⭐⭐⭐ [闭包](./closure.md)
-7. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
+7. ⭐⭐⭐⭐⭐ [var / let / const](./var-let-const.md)
+8. ⭐⭐⭐⭐⭐ [类型转换](./type-coercion.md)
 
 ### 二、异步编程
 
-8. ⭐⭐⭐⭐⭐ [Promise](./promise.md)
-9. ⭐⭐⭐⭐   [async / await](./async-await.md)
-10. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
+9.  ⭐⭐⭐⭐⭐ [Promise](./promise.md)
+10. ⭐⭐⭐⭐   [async / await](./async-await.md)
+11. ⭐⭐⭐⭐⭐ [Event Loop](./event-loop.md)
 
 ### 三、进阶工具
 
-11. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
-12. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
-13. ⭐⭐⭐     [深拷贝](./deep-clone.md)
-14. ⭐⭐⭐     [防抖 / 节流](./debounce-throttle.md)
-15. ⭐⭐⭐⭐   [for...of vs for...in](./for-of-for-in.md)
-16. ⭐⭐⭐     [生成器 / 迭代器](./generator-iterator.md)
-17. ⭐⭐⭐     [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
-18. ⭐⭐⭐     [跨 Realm 场景](./cross-realm.md)
+12. ⭐⭐⭐⭐   [数组方法大全](./array-methods.md)
+13. ⭐⭐⭐⭐   [JS 模块化](./modules.md)
+14. ⭐⭐⭐⭐⭐ [Set / Map / WeakMap](./set-map-weakmap.md)
+15. ⭐⭐⭐⭐⭐ [Proxy / Reflect](./proxy-reflect.md)
+16. ⭐⭐⭐     [深拷贝](./deep-clone.md)
+17. ⭐⭐⭐     [防抖 / 节流](./debounce-throttle.md)
+18. ⭐⭐⭐⭐   [for...of vs for...in](./for-of-for-in.md)
+19. ⭐⭐⭐     [生成器 / 迭代器](./generator-iterator.md)
+20. ⭐⭐⭐     [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md)
+21. ⭐⭐⭐     [跨 Realm 场景](./cross-realm.md)
 
 ## 知识点索引
 
@@ -90,22 +100,28 @@ mindmap
 | [call / apply / bind](./call-apply-bind.md) | ⭐⭐⭐⭐ | 中级 | [✅](../手写题/bind-call-apply.md) | draft |
 | [new](./new.md) | ⭐⭐⭐⭐ | 中级 | [✅](../手写题/new.md) | draft |
 | [原型链](./prototype-chain.md) | ⭐⭐⭐⭐ | 中高级 | — | draft |
+| [class / extends / super](./class-extends.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [闭包](./closure.md) | ⭐⭐⭐⭐⭐ | 中高级 | — | draft |
+| [var / let / const](./var-let-const.md) | ⭐⭐⭐⭐⭐ | 初级 | — | draft |
+| [类型转换](./type-coercion.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [Promise](./promise.md) | ⭐⭐⭐⭐⭐ | 中级 | [✅](../手写题/promise.md) | draft |
 | [async / await](./async-await.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [Event Loop](./event-loop.md) | ⭐⭐⭐⭐⭐ | 中高级 | — | draft |
-| [类型转换](./type-coercion.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [数组方法大全](./array-methods.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
+| [JS 模块化](./modules.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
 | [Set / Map / WeakMap](./set-map-weakmap.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
 | [Proxy / Reflect](./proxy-reflect.md) | ⭐⭐⭐⭐⭐ | 高级 | ✅ react | draft |
 | [深拷贝](./deep-clone.md) | ⭐⭐⭐ | 中级 | [✅](../手写题/deep-clone.md) | draft |
 | [防抖 / 节流](./debounce-throttle.md) | ⭐⭐⭐ | 初级 | [✅](../手写题/debounce-throttle.md) | draft |
+| [for...of vs for...in](./for-of-for-in.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
+| [生成器 / 迭代器](./generator-iterator.md) | ⭐⭐⭐ | 中级 | — | draft |
 | [ArrayBuffer / TypedArray](./arraybuffer-typedarray.md) | ⭐⭐⭐ | 高级 | — | draft |
 | [跨 Realm 场景](./cross-realm.md) | ⭐⭐⭐ | 高级 | — | draft |
 
 ## 相关阅读
 
-- [面试题库：JavaScript](../面试题库/JavaScript.md) — 22 道 JS 高频真题
-- [面试回答：JavaScript](../面试回答/JavaScript/promise.md) — 6 篇 JS 逐字回答稿（Promise/Event Loop/闭包等）
+- [面试题库：JavaScript](../面试题库/JavaScript.md) — 32 道 JS 高频真题
+- [面试回答：JavaScript](../面试回答/JavaScript/promise.md) — 12 篇 JS 逐字回答稿（Promise/Event Loop/闭包/原型链/this/深拷贝/async/new/var/并发/defineProperty 等）
 - [手写题](../手写题/index.md) — 7 道手写实现
 
 ## 更新记录

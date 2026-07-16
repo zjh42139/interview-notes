@@ -170,8 +170,9 @@ function blockRender() {
 ### 1. Vue3 nextTick 的降级策略
 
 ```ts
-// Vue3 源码中 nextTick 的实现思路（简化）
-// 优先级：Promise.then > MutationObserver > setImmediate > setTimeout
+// Vue3 的 nextTick 实现——直接使用 Promise.then（不再需要降级）
+// 注意：多级降级（Promise → MutationObserver → setImmediate → setTimeout）是 Vue2 的做法
+// Vue3 不支持 IE11，直接使用微任务 Promise.then
 function nextTick(fn?: () => void): Promise<void> {
   // 使用 Promise.then（微任务）实现
   const p = Promise.resolve()

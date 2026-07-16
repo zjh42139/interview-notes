@@ -81,7 +81,7 @@ flowchart TB
 | 优化 | 作用 | 机制 |
 |------|------|------|
 | **静态节点提升**（HoistStatic） | 避免重复创建不变节点 | 静态 vnode 提到 render 外，每次渲染复用同一个引用 |
-| **PatchFlag 标记** | Diff 时跳过不需要比的属性 | 动态内容用 bit 位标记（`1`=TEXT、`2`=CLASS、`8`=PROPS） |
+| **PatchFlag 标记** | Diff 时跳过不需要比的属性 | 动态内容用 bit 位标记（`1`=TEXT、`2`=CLASS、`4`=STYLE、`8`=PROPS） |
 | **Block Tree** | 只 diff 动态节点 | 动态节点收集到 `dynamicChildren` 数组，静态节点直接跳过 |
 | **预字符串化** | 静态 HTML 直接变字符串 | 连续静态节点拼接成一个字符串，`innerHTML` 一次性插入 |
 | **缓存事件处理函数** | 避免子组件无意义更新 | `onClick` 被 `_cache[0]` 缓存，传给子组件的是同一个引用 |
@@ -228,7 +228,7 @@ effect.scheduler
 - 组件渲染 effect → **有 scheduler**（走异步队列）
 - computed effect → **有 scheduler**（设置 dirty 标记，惰性求值）
 - `watchEffect` → 可选配置
-- `watch` callback → **没有 scheduler**（直接入 scheduler 微任务）
+- `watch` callback → **有 scheduler**（`doWatch` 创建 effect 时传入 scheduler 回调——在 scheduler 中执行 `effect.run()` 获取新值、调用用户 callback，并处理 `onCleanup` 清理函数）
 
 ---
 

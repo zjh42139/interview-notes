@@ -190,7 +190,7 @@ function myVitePlugin() {
 
 四个原因：
 1. **代码分割**：esbuild 的 code splitting 能力远不如 Rollup（Rollup 有成熟的 manualChunks + 动态 import 分析）
-2. **Tree Shaking 颗粒度**：esbuild 只做函数级别的 DCE，Rollup 能做语句级别的消除
+2. **Tree Shaking 深度**：esbuild 的跨模块副作用分析不如 Rollup 精细，对导出使用追踪更保守；Rollup 对调用副作用、跨模块依赖链的分析更深，能消除更多死代码
 3. **插件生态**：CSS 处理（PostCSS、Sass）、HTML 生成、资源压缩等生产需求需要成熟的插件
 4. **稳定性**：esbuild 的 ESM/CJS 互操作在某些边界场景有 bug，而 Rollup 作为久经考验的生产打包器更稳定
 

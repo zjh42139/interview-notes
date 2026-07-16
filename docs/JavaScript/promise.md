@@ -71,10 +71,15 @@ Promise.reject("err")
   .catch((e) => "recovered") // catch 也返回新 Promise，可以继续 .then
   .then((v) => console.log(v)) // "recovered" — 错误被恢复
 
-// finally 不改变值，但会透传
+// finally 不改变正常传递的值——回调 return 值被忽略，原值透传
+// ⚠️ 但回调抛异常或返回 rejected Promise 会覆盖链的状态
 Promise.resolve("data")
-  .finally(() => "ignored") // finally 的返回值被忽略
+  .finally(() => "ignored") // 返回值被忽略
   .then((v) => console.log(v)) // "data" — 原值透传
+
+Promise.resolve("ok")
+  .finally(() => Promise.reject("err")) // rejected 覆盖了原来的值
+  .catch(e => console.log(e)) // "err"
 ```
 
 ### Promise Resolution Procedure

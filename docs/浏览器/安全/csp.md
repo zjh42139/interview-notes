@@ -134,7 +134,7 @@ Content-Security-Policy: default-src 'self'; report-to csp
 
 ### 追问3：Vue/React 如何配合 CSP
 
-**React** 中的 <code v-pre>dangerouslySetInnerHTML=`{`{ __html: '&lt;script&gt;alert(1)&lt;/script&gt;' }}</code> 在 CSP 开启 `script-src 'self'` 时，注入的 `<script>` **不会执行**——这是 CSP 的兜底保护。但 CSP 不能防止 DOM 型 XSS 中通过 `innerHTML` 注入的事件处理器（如 `onerror`），所以仍需配合输入过滤。
+**React** 中的 <code v-pre>dangerouslySetInnerHTML=`{`{ __html: '&lt;script&gt;alert(1)&lt;/script&gt;' }}</code> 在 CSP 开启 `script-src 'self'` 时，注入的 `<script>` **不会执行**——这是 CSP 的兜底保护。同样的，注入的 `onerror`、`onclick` 等内联事件处理器也**不会执行**——因为内联事件属性属于内联脚本（inline script），受 CSP 管控。但 CSP 不能阻止纯 HTML 结构注入（如攻击者注入一个假的登录表单），因此仍需配合输入过滤作为第一道防线。
 
 **Vue** 中的 `v-html` 同样受 CSP 限制：CSP 阻止 `'unsafe-eval'` 时，Vue 模板编译必须使用**运行时编译的 CSP 兼容版本**（`vue.runtime.esm-bundler.js`），通过预编译模板避开 `new Function()`。
 

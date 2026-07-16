@@ -59,8 +59,7 @@ export const useUserStore = defineStore('user', () => {
   persist: {
     key: 'user-store',                         // localStorage 中的 key，默认是 store id
     storage: localStorage,                     // 存储介质，默认 localStorage
-    paths: ['token', 'userInfo', 'theme'],     // 只持久化这些字段
-    // paths: ['token', '!refreshToken'],      // 也可以排除特定字段（加 ! 前缀）
+    paths: ['token', 'userInfo', 'theme'],     // 只持久化这些字段（白名单模式）
   },
 })
 ```

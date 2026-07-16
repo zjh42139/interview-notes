@@ -99,7 +99,7 @@ mindmap
 - [日志监控 知识地图](./日志监控/index.md) — Sentry、性能监控、埋点追踪
 - [前端架构 知识地图](../前端架构/index.md) — 微前端、Monorepo
 - [面试题库：工程化](../面试题库/工程化.md) — 12 道工程化高频真题
-- [面试回答：工程化](../面试回答/工程化/vite-webpack.md) — Vite/Webpack 面试回答
+- [面试回答：工程化](../面试回答/工程化/vite-webpack.md) — 4 篇工程化逐字回答稿（Vite/Webpack / 构建优化 / TreeShaking+HMR / ESM+CJS）
 
 ## 更新记录
 

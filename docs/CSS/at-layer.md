@@ -66,10 +66,12 @@ tags:
 **关键规则**：`!important` 在 layer 中的行为是反转的——更低优先级的 layer 中的 `!important` 反而胜出。
 
 ```
-胜出顺序：
-1. 低优先级 layer 的 !important
-2. 高优先级 layer 的 !important  
-3. 非 layer 的普通声明
+胜出顺序（从高到低）：
+1. 非 layer 的 !important 声明（最高优先级，不受 layer 顺序影响）
+2. 低优先级 layer 的 !important（layer 内 !important 反转：先声明的 layer 中 !important 反而赢）
+3. 高优先级 layer 的 !important
+4. 非 layer 的普通声明（比所有 layer 声明优先级都高）
+5. 后声明的 layer 普通声明（layer 内正序：后声明的赢）
 ```
 
 这是因为低 layer 的样式通常是库默认值——库需要 `!important` 来"保护"关键的默认样式不被轻易覆盖。

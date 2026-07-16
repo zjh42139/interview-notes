@@ -194,15 +194,21 @@ history.go(0)        // 刷新当前页面
 
 ```javascript
 // vue-router 的导航守卫本质上是对 History API 的增强封装
+// 完整执行顺序：
+// 1. 导航触发
+// 2. 失活组件调用 beforeRouteLeave
+// 3. 全局 beforeEach
+// 4. 复用组件调用 beforeRouteUpdate（路由参数变化但组件复用）
+// 5. 路由独享守卫 beforeEnter
+// 6. 解析异步路由组件
+// 7. 激活组件调用 beforeRouteEnter
+// 8. 全局 beforeResolve（导航确认前的最后一道防线）
+// 9. 导航确认
+// 10. 全局 afterEach
+// 11. DOM 更新
+// 12. beforeRouteEnter 的 next 回调（此时 this 才可用）
 router.beforeEach((to, from, next) => {
-  // 1. 路由切换触发
-  // 2. 被失活的组件里调用 beforeRouteLeave
-  // 3. 全局 beforeEach
-  // 4. 被激活的组件里调用 beforeRouteEnter
-  // 5. 解析异步路由组件
-  // 6. 导航被确认
-  // 7. 全局 afterEach
-  // 8. DOM 更新
+  // ...
   next()
 })
 

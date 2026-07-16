@@ -5,6 +5,158 @@ description: 知识库变更记录
 
 # Changelog
 
+## 2026-07-16（续 4）
+
+### HTML + VueRouter + Pinia + Git + CICD 模块深度审计（Phase 2-3）
+
+2 个并行 agent 审计 42 个文件，发现并修复 **14 个确认事实错误**。
+
+**HTML 知识文件（7 修复）**：
+- `history-api.md`：**严重**——Vue Router 守卫执行顺序遗漏 3 步骤（beforeRouteUpdate/beforeEnter/beforeResolve），已补全为 12 步完整流程
+- `web-worker.md`：**严重**——Dedicated Worker "同名不能重复创建" 错误（混淆了 Shared Worker 行为），已删除
+- `block-inline.md`：`<a>` 被错误归类为"块级内容模型"→修正为 phrasing content + transparent 内容模型
+- `canvas-svg.md`：`addHitRegion` API 已从规范移除（不是"兼容性差"），已删除
+- `src-href.md`：preload+prefetch 混用"加载两次"改为行为依赖浏览器实现
+- `responsive-images-resource-hints.md`：`alt="Hreo"` 拼写修正
+
+**VueRouter 知识文件**：16 个文件全部通过，守卫顺序（route-guards.md）正确。
+
+**Pinia 知识文件（4 修复）**：
+- `persist.md`：**严重**——`!` 排除前缀语法不存在于 pinia-plugin-persistedstate，已删除
+- `vs-vuex.md`：Pinia 体积 ~1KB→~5-6KB（绝对值修正）
+- `state.md`：storeToRefs 简化版判断逻辑修正
+- `defineStore.md`：拼写修正
+
+**Git 知识文件**：7 个文件全部通过（merge/rebase/reset/stash/冲突/git-flow 描述均正确）。
+
+**CICD 知识文件（3 修复）**：
+- `docker.md`：Compose v2 移除 `version` 字段
+- `github-actions.md`：secrets 标题过度简化修正
+- `stash.md`：`git stash save` 已弃用标注
+
+---
+
+## 2026-07-16（续 3）
+
+### CSS + 工程化 + 性能优化模块深度审计（Phase 2-3）
+
+3 个并行 agent 审计 39 个文件，发现并修复 **~20 个确认事实错误**。
+
+**CSS 知识文件（9 修复）**：
+- `stacking-context.md`：**严重**——`position:fixed` + `z-index:auto` 不创建层叠上下文（CSS 2.1 规范明确要求 z-index ≠ auto）
+- `at-layer.md`：**严重**——级联顺序遗漏"非 layer !important"最高优先级；layer 内 !important 反转方向确认
+- `center-layout.md`：**严重**——transform 不触发重绘（paint）只触发合成（composite），原表述将两个阶段混淆
+- `css-performance.md`：**严重**——`contain:strict` 不含 `style`（已从规范移除），实际为 `size layout paint`
+- `responsive.md`：`100dvw` 解决移动端地址栏问题，不解决桌面端滚动条
+- `box-model.md`：Firefox textarea/select 默认 `border-box` 已统一（Firefox 83+, 2020）
+- `bfc.md`：移除已废弃的 `overflow: overlay` 值
+- `specificity.md`：未分层样式概念澄清（非"匿名最高层"）
+
+**工程化知识文件（6 修复）**：
+- `vite.md`：HMR 不生效原因修正（`defineProps`/`defineEmits` 是编译时宏，不影响运行时依赖图）
+- `babel-esbuild.md`：esbuild `??=` 语法降级例子过时→改为 decorator 提案；SWC 版本标注 Vite 6→Vite 3.x
+- `vite-deep.md`：DCE 粒度描述修正
+- `bundle-optimization.md`：**严重**——terserOptions 配置在默认 esbuild 压缩下不生效，需 `minify:'terser'`
+
+**性能优化知识文件（1 修复）**：
+- `web-vitals.md`：INP 百分位定义从过时的"第 75 百分位"修正为"每 50 次交互忽略 1 离群值取 max"
+
+**回答稿（2 修复）**：
+- `specificity.md`：**严重**——@layer 中 !important 优先级方向反转（先说"后声明赢"→正确是"先声明赢"）；补全完整级联顺序表
+
+### Phase 2 覆盖率修复
+
+- CSS index：回答稿计数 2→4 篇
+- 工程化 index：回答稿计数 1→4 篇
+- CSS 题库 Q18：@layer 答案参考从 grid.md 修正为 at-layer.md
+
+---
+
+## 2026-07-16（续 2）
+
+### 浏览器 + 网络模块深度审计（Phase 2-3）
+
+3 个并行 agent 审计 37 个文件（对照 Chrome 行为、RFC 规范、MDN），发现并修复 **14 个确认事实错误**。
+
+**浏览器知识文件（6 修复）**：
+- `cookie.md`：SameSite 默认值变更时间 "2026 年前"→ Chrome 80（2020/02）；4KB 大小限制澄清仅 name=value
+- `v8-engine.md`：Mermaid 编译管线补全 Sparkplug + Maglev（四层架构）；TurboFan 取代时间 2015→2017(Chrome 59)；Pre-Parser vs Lazy Parser 区分
+- `csp.md`：**高危**——"CSP 不能防 innerHTML 注入的事件处理器"修正——内联事件属性属于内联脚本，受 script-src 管控
+
+**网络知识文件（5 修复）**：
+- `http-https.md`：TLS 1.2 握手补全 ECDHE 密钥交换 + 前向安全性说明（原描述仅覆盖 RSA 模式）
+- `http2-http3.md`：0-RTT 补充重放攻击风险（仅用于幂等请求）
+- `tcp.md`：cwnd 初始值 1 MSS→~10 MSS（RFC 6928, IW10, 2013年），标注老教材已过时
+- `fetch-api.md`：credentials 默认值描述修正（`same-origin` 而非 `omit`）
+- `dns-cdn.md`：Mermaid 图标注修正——本地 DNS 向上查询为迭代而非递归
+
+**回答稿（3 修复）**：
+- `url-to-page.md`：async 脚本执行时仍暂停 DOM 解析（下载时才不阻塞）
+- `http-https.md`：304 从"3xx 重定向"分类中独立说明（协商缓存非重定向）
+- `dns-cdn.md`：30 秒版递归/迭代施动主体修正（浏览器→本地 DNS 是递归，本地 DNS 向上是迭代）
+
+### Phase 2 覆盖率修复
+
+- 浏览器 index：mindmap + 学习顺序 + 表格 补齐 cross-tab-communication
+- 网络题库：Q2/Q3/Q5/Q8/Q12 补 🎤 回答稿链接
+
+---
+
+## 2026-07-16（续）
+
+### JavaScript + Vue3 模块深度审计（Phase 2-3）
+
+4 个并行 agent 审计 45 个文件（对照 ECMAScript 规范、Vue3 源码、MDN），发现并修复 **14 个确认事实错误**。
+
+**JS 知识文件（4 修复）**：
+- `this.md`："动态作用域"术语修正为"动态绑定"（JS 是词法作用域）
+- `event-loop.md`：nextTick 实现注释修正（多级降级是 Vue2 而非 Vue3）
+- `promise.md`：finally 行为描述补全（回调抛异常/reject 可改变链状态）
+- `class-extends.md`：class 声明"不会提升"→"会提升但进入 TDZ"
+
+**Vue3 知识文件（5 修复）**：
+- `scheduler.md`：effect 优先级描述修正（computed 不走 scheduler 队列，三队列: pre → 主 → post）
+- `vue3-full-pipeline.md`：PatchFlags 补 STYLE=4；watch callback 确认走 scheduler 回调
+- `lifecycle.md`：onMounted 保证子组件已挂载（除 Suspense 异步组件）
+- `diff-patch.md`：O(n) 表述澄清（Block Tree + PatchFlag 接近 O(动态节点数)，LIS 理论 O(n log n)）
+
+**JS 回答稿（5 修复）**：
+- `event-loop.md`：UI 渲染从宏任务列表移除（Event Loop 独立步骤）
+- `prototype-chain.md`："每个函数都有 prototype"→ 排除箭头函数
+- `async-await.md`：补 ES2022 顶层 await
+- `deep-clone.md`：Map key 也需深拷贝
+
+**Vue3 回答稿（3 修复）**：
+- `diff-patch.md`：**严重**——30 秒版+2 分钟版将 Vue2 四方向双端对比错误描述为 Vue3 算法；已修正为两方向+早期退出+LIS 五步法
+- `reactivity.md`：嵌套 ref 解包区分 reactive 代理对象 vs 普通对象
+- `nextTick.md`：setTimeout 执行时机表述精度提升
+
+### Phase 2 覆盖率修复
+
+- JS index.md：知识地图+学习顺序+表格 补齐 var-let-const/array-methods/modules 3 篇；计数 22→32 题/6→12 回答
+- Vue3 index.md：补齐 template-syntax/fallthrough-attrs/async-components/dynamic-components-plugins-ssr 4 篇；计数 17→19 题
+- 题库 JS Q7/Q11/Q24/Q30 补 🎤 链接；Q9 🎤 从 closure 修正为 var-let-const
+
+## 2026-07-16
+
+### 全模块知识覆盖率审计
+
+- **知识覆盖率审计**：9 核心模块（JS/Vue3/HTML/CSS/浏览器/网络/TS/工程化/性能优化）+ 5 剩余模块（VueRouter/Pinia/Git/CICD/前端架构）并行审计
+- **~35 个新知识文件**：覆盖 CSS(@layer/包含块/:has()/容器查询)、HTML(可访问性/响应式图片/Web Components)、浏览器(跨标签页通信)、Vue3(条件渲染/透传/异步组件/动态组件)、网络(UDP/HTTP方法/代理负载均衡)、工程化(ESLint/Code Splitting/Rollup)、安全(认证安全/数据泄露)、Git(reflog/diff/log/blame) 等
+- **新题目**：手写题 12 题、算法 20 题、CICD 4 题、架构 3 题
+- **Sidebar 同步**：15 个模块新增条目，build 0 dead link
+
+### 结构调整（方案 Phase B 补完 + Phase D/E）
+
+- **性能优化 +2**：`caching-strategy.md`（四层缓存体系）、`network-optimization.md`（Resource Hints + 压缩 + CDN + HTTP2）
+- **网络 +1**：`fetch-api.md`（fetch vs XHR + AbortController + Stream + 三个陷阱 + axios 对比）
+- **首页**：25 行平铺表 → 5 分组结构（核心基础/框架生态/工程实践/算法手写/面试冲刺）
+- **Plan Mode 方案**：melodic-juggling-muffin.md（8 个结构性问题校验）
+
+### 题型工程
+
+- 新建 `面试题库/手写题.md`（12 题）、`面试题库/算法.md`（20 题）、`面试题库/CICD.md`（4 题）、`面试题库/前端架构.md`（3 题）
+
 ## 2026-07-15
 
 ### TypeScript 模块 5 阶段审计

@@ -155,7 +155,6 @@ ctx.putImageData(imageData, 0, 0)
 
 对象数量高 + 需要交互 → Canvas + hit region / 数学计算
   ✓ 在 Canvas 中用数学判断点击位置（点是否在矩形/圆形/路径内）
-  ✓ 或使用 Canvas 的 addHitRegion API（兼容性差）
   ✓ 或使用上层库（ECharts/Fabric.js/Konva.js）的封装
 ```
 

@@ -50,10 +50,8 @@ tags:
 .optimize {
   will-change: transform; /* will-change */
 }
-.fixed-without-z {
-  position: fixed;      /* 即使是默认的 z-index: auto */
-}
 .grid-child {
+  /* 父元素是 flex/grid 容器 + 子元素 z-index 不为 auto */
   /* 父元素是 grid/flex，子元素 z-index 不为 auto 时 */
 }
 ```

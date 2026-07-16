@@ -405,4 +405,4 @@ tags:
 **追问预测**：
 - "@layer 和 !important 在同一个 layer 里谁赢" → !important 永远最高——但跨 layer 时后声明的 layer 中的 !important 优先
 
-> 答案参考：[../CSS/grid.md](../CSS/grid.md)
+> 答案参考：[../CSS/at-layer.md](../CSS/at-layer.md)

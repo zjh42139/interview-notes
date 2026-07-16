@@ -48,7 +48,7 @@ tags:
 
 | 面试官追问 | 你的回答 |
 |-----------|---------|
-| "nextTick 和 setTimeout(fn,0) 的区别" | nextTick 是微任务——在当前 tick 的末尾、渲染前执行；setTimeout 是宏任务——在下一个 tick、渲染后执行。nextTick 更快 |
+| "nextTick 和 setTimeout(fn,0) 的区别" | nextTick 是微任务——在当前 tick 的末尾、DOM 更新后、渲染前执行；setTimeout 是宏任务——在下一个 Event Loop 循环中执行（可能在渲染前也可能在渲染后，取决于是否赶上同一个渲染帧）。nextTick 总是更早 |
 | "Vue3 nextTick 和 Vue2 的区别" | Vue3 去掉了兼容降级——只用 Promise。Vue2 有 Promise→MutationObserver→setImmediate→setTimeout 四级降级 |
 | "一个 tick 内多次调用 nextTick 会怎样" | 回调按注册顺序依次执行——都在同一微任务队列中。所有 nextTick 回调在 DOM 更新后、渲染前执行 |
 

@@ -33,7 +33,7 @@ tags:
 
 **三个关键行为**：
 1. async 函数始终返回 Promise——即使你 return 一个普通值，也会被包成 Promise.resolve()
-2. await 只能在 async 函数内使用——它会暂停函数执行直到 Promise settle
+2. await 通常用在 async 函数内——它会暂停函数执行直到 Promise settle。ES2022 起支持顶层 await（Top-level await），ES Module 中可以直接在模块顶层使用 await
 3. await 后面的代码相当于 .then() 里的回调——在微任务队列中执行
 
 **错误处理**：async/await 用 try/catch 捕获错误——比 Promise 的 .catch() 更符合同步代码的习惯。

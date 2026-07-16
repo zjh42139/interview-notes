@@ -262,6 +262,7 @@ console.log('script end');
 
 > 答案参考：[../JavaScript/async-await.md](../JavaScript/async-await.md)
 > 延伸：[../JavaScript/promise.md](../JavaScript/promise.md)
+> 🎤 回答稿：[../面试回答/JavaScript/async-await.md](../面试回答/JavaScript/async-await.md)
 
 ---
 
@@ -329,7 +330,8 @@ let b = 2;
 **30秒答**：var 函数作用域/可重复声明/有变量提升；let 块作用域/不可重复声明/有 TDZ；const 块作用域/不可重复声明/不可重新赋值（但对象属性可改）。现在默认用 const——需要改的用 let——不用 var。
 
 > 答案参考：[../JavaScript/closure.md](../JavaScript/closure.md)
-> 🎤 回答稿：[../面试回答/JavaScript/closure.md](../面试回答/JavaScript/closure.md)
+> 延伸：[../JavaScript/var-let-const.md](../JavaScript/var-let-const.md)
+> 🎤 回答稿：[../面试回答/JavaScript/var-let-const.md](../面试回答/JavaScript/var-let-const.md)
 
 ---
 
@@ -380,6 +382,7 @@ let b = 2;
 
 > 答案参考：[../JavaScript/new.md](../JavaScript/new.md)
 > 延伸：[../手写题/new.md](../手写题/new.md)
+> 🎤 回答稿：[../面试回答/JavaScript/new-operator.md](../面试回答/JavaScript/new-operator.md)
 
 ---
 
@@ -684,6 +687,8 @@ let b = 2;
 - "单个任务失败了怎么处理" → 取决于场景——批量上传失败一个不影响其他的用 catch 吞掉继续；全成功才 resolve 的用 all 逻辑
 - "怎么获取每个任务的结果" → 返回 Promise.all 或维护结果数组按索引填入
 
+> 🎤 回答稿：[../面试回答/JavaScript/promise-scheduler.md](../面试回答/JavaScript/promise-scheduler.md)
+
 ---
 
 ### Q25: 函数柯里化 curry
@@ -819,6 +824,7 @@ let b = 2;
 - "defineProperty 能监听数组吗" → 可以劫持数组索引但性能差——而且 push/pop 等修改方法不会触发 setter
 
 > 答案参考：[../Vue3/reactivity.md](../Vue3/reactivity.md)
+> 🎤 回答稿：[../面试回答/JavaScript/defineproperty-proxy.md](../面试回答/JavaScript/defineproperty-proxy.md)
 
 ---
 

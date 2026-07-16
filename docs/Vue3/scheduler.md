@@ -184,7 +184,7 @@ onUpdated(() => {
 
 1. **scheduler 不是独立的线程** —— Vue3 的调度器是主线程上的任务队列管理，不是真正的多线程。不要把 scheduler 和 Web Worker 的概念搞混
 2. **nextTick 不等同于 scheduler** —— nextTick 是暴露给用户的 API，scheduler 是内部实现。很多人面试时说"nextTick 就是调度器"——不是，nextTick 是调度器的一个出口
-3. **effect 的执行顺序不是 FIFO** —— scheduler 会给 effect 分优先级——computed effect > 普通 watcher > 组件渲染 effect。pre 选项的 watch 在 DOM 更新前执行
+3. **effect 的执行顺序不是 FIFO** —— scheduler 维护三个独立队列：pre 队列（`flush: 'pre'` 的 watch）→ 主队列（组件渲染 effect）→ post 队列（`flush: 'post'` 的 watch / onMounted / onUpdated）。注意 computed effect 不经过 scheduler 的队列——computed 采用惰性求值，dirty 标记 + 同步触发依赖者，不走 queueJob
 4. **不要在 watch 里无限修改数据** —— watch 回调里改了数据又触发 watch，形成死循环。scheduler 会把连续修改合并为一次更新，但逻辑上仍然是死循环，需要用条件守卫
 
 ## 相关阅读

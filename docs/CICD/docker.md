@@ -114,8 +114,7 @@ CMD ["nginx", "-g", "daemon off;"]
 当你的项目涉及多个服务（VitePress 前端 + Nginx 反向代理 + 后端 API），docker-compose 用一个 YAML 文件定义和启动所有容器：
 
 ```yaml
-# docker-compose.yml
-version: '3.8'
+# docker-compose.yml (Compose v2+ 不再需要 version 字段)
 
 services:
   frontend:

@@ -67,7 +67,7 @@ Person.prototype.constructor === Person  // true
 |------|-----------|-------------|
 | 必须 new | `Person()` → TypeError | `Person()` → 返回 undefined（严格模式）或 this=window |
 | 不可枚举 | 原型方法默认不可枚举 | 需要 `Object.defineProperty` |
-| 暂时性死区 | class 声明不会被提升（TDZ）| function 声明会提升 |
+| 暂时性死区 | class 声明会提升但进入 TDZ（声明前访问报 ReferenceError） | function 声明会提升且可立即使用 |
 | 内部标记 | `[[IsClassConstructor]]` 为 true | 无 |
 
 ### extends —— 继承的本质

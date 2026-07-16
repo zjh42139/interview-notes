@@ -33,12 +33,12 @@ sequenceDiagram
     participant T as 顶级DNS (.com)
     participant A as 权威DNS (example.com)
 
-    C->>L: 1. 查询 example.com
-    L->>R: 2. 递归：问根
+    C->>L: 1. 查询 example.com（递归）
+    L->>R: 2. 迭代：问根
     R->>L: 3. 去问 .com
-    L->>T: 4. 递归：问 .com
+    L->>T: 4. 迭代：问 .com
     T->>L: 5. 去问 example.com 权威
-    L->>A: 6. 查询权威DNS
+    L->>A: 6. 迭代：问权威DNS
     A->>L: 7. 返回 IP: 93.184.216.34
     L->>C: 8. 返回 IP 地址
 ```

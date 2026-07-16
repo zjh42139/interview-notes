@@ -182,7 +182,7 @@ setup 中可以使用 **Composition API 版本**的生命周期钩子：`onMount
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "Vue3 的生命周期有哪些" | 追问 setup 替代了 beforeCreate 和 created 的时机 |
-| "onMounted 能拿到 DOM 吗" | 追问和 nextTick 的关系——mounted 时 DOM 已创建但不保证子组件已挂载 |
+| "onMounted 能拿到 DOM 吗" | 追问和 nextTick 的关系——mounted 保证子组件已全部挂载，但异步组件（Suspense）除外 |
 | "onBeforeUnmount 做什么" | 追问清理定时器、事件监听、observer 的必要性 |
 | "父子组件生命周期的执行顺序" | 追问父 beforeMount→子 mount→父 mounted 的嵌套顺序 |
 

@@ -123,7 +123,7 @@ swc:       0.5s  # Rust 实现的"超快 Babel"
 
 **但 ESBuild 有局限**：
 - 不支持 AST 级别的自定义插件（只支持钩子级别的简单插件）
-- 某些 ES6+ 语法降级不完整（如 `??=` 操作符）
+- 某些较新的 ES 提案特性支持滞后（如 decorators 标准提案），且不支持 AST 级别自定义转换
 - ESM/CJS 互操作在某些边界场景有 bug
 
 ## 深度拓展
@@ -169,7 +169,7 @@ SWC 是用 Rust 写的 JS/TS 编译器，定位和 esbuild 类似但更偏重"Ba
 | 插件 | 简单钩子 | AST 级别的 Rust 插件 |
 | 使用者 | Vite（预构建） | Next.js, SWC（替代 Babel） |
 
-Vite 6 已支持用 SWC 代替 esbuild 做 React 项目编译，但 Vue 生态暂时还是 esbuild 为主。
+Vite 自 3.x 起就通过 `@vitejs/plugin-react-swc` 支持用 SWC 代替 Babel 做 React 项目编译，但 Vue 生态暂时还是 esbuild 为主（`@vitejs/plugin-vue` 深度集成 esbuild）。
 
 ## 项目实战
 

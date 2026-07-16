@@ -33,7 +33,7 @@ tags:
 
 **微任务（Microtask）**：Promise.then/catch/finally、MutationObserver、queueMicrotask。**在当前宏任务执行完后、下一个宏任务开始前，必须清空整个微任务队列。** 清空过程中新产生的微任务也会在同一次清空中执行——递归添加微任务会饿死宏任务，永远到不了下一个宏任务。
 
-**宏任务（Macrotask）**：setTimeout/setInterval、I/O、UI 渲染、setImmediate(Node)、MessageChannel。每次只取一个宏任务执行。
+**宏任务（Macrotask）**：setTimeout/setInterval、I/O、setImmediate(Node)、MessageChannel。每次只取一个宏任务执行。注意：UI 渲染是 Event Loop 中的独立步骤（在清空微任务之后、下一个宏任务之前），不是宏任务。
 
 **经典执行顺序**：`1(同步) → 4(Promise executor同步) → 7(同步) → 5(微) → 6(微任务又产生微任务) → 2(宏) → 3(宏里产生的微)`。能完整推演这段代码的顺序，Event Loop 就算掌握了。
 

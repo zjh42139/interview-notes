@@ -141,7 +141,7 @@ Worker 中**不能**做的事：
 | 不能访问 localStorage/sessionStorage | Worker 全局作用域没有这些 API | 用 IndexedDB（Worker 可用），或 postMessage 让主线程读写 |
 | 不能使用 `alert`/`confirm` | 没有 UI 能力 | postMessage 通知主线程弹窗 |
 | 不能访问 `window.parent`/`window.top` | 没有窗口树 | — |
-| 同名 Worker 不能重复创建 | 浏览器缓存已编译的 Worker 实例 | 用唯一 URL 或 Blob URL 创建独立实例 |
+| — | — | — |
 
 Worker 中**可以**做的事：
 

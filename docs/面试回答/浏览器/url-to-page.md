@@ -38,7 +38,7 @@ tags:
 
 **3. HTTP 请求**：浏览器构建请求行+头+体→服务器处理后返回响应。HTTP2 多路复用让多请求共享一个 TCP 连接。
 
-**4. HTML 解析成 DOM**：字节→字符→Token→节点→DOM 树。`<script>` 标签暂停 DOM 解析（除 defer/async）。CSS 不阻塞 DOM 解析但阻塞渲染——渲染树需要 CSSOM。
+**4. HTML 解析成 DOM**：字节→字符→Token→节点→DOM 树。`<script>` 标签暂停 DOM 解析。`defer` 异步下载、等 DOM 解析完再执行——不阻塞解析；`async` 异步下载、**执行时仍暂停 DOM 解析**（不管 DOM 是否解析完）。CSS 不阻塞 DOM 解析但阻塞渲染——渲染树需要 CSSOM。
 
 **5. CSS 计算和渲染树**：CSS 解析成 CSSOM → 和 DOM 合并成渲染树。`display: none` 不出现在渲染树中。
 

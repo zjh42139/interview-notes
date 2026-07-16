@@ -169,7 +169,7 @@ store.name                   // 自动推断为 string
 
 ```text
 Vuex 4:   ~10KB minified, ~4KB gzipped
-Pinia:    ~1KB  minified, <1KB gzipped
+Pinia:    ~5-6KB minified, ~1.5-2KB gzipped
 ```
 
 Pinia 更小是因为：

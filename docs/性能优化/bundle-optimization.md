@@ -177,9 +177,13 @@ export default defineConfig({
         },
       },
     },
+    // Vite 默认使用 esbuild 压缩，需显式设 minify: 'terser' 才生效
+    minify: 'terser',
     terserOptions: {
       compress: { drop_console: true, drop_debugger: true },
     },
+    // 或直接用 esbuild 的配置（无需切换 minify）：
+    // esbuild: { drop: ['console', 'debugger'] },
   },
 })
 ```

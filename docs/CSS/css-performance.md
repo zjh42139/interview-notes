@@ -122,9 +122,9 @@ flowchart LR
   /* 内部 reflow 不会扩散到外部 → 浏览器可以跳过外部布局计算 */
 }
 
-/* contain: strict —— 最强隔离（layout + paint + size + style） */
+/* contain: strict —— 最强隔离（size + layout + paint 三项） */
 .isolated-component {
-  contain: strict;
+  contain: strict;  /* 等价于 contain: size layout paint */
 }
 
 /* content-visibility —— 浏览器自动跳过视口外元素的渲染 */

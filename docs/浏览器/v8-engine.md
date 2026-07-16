@@ -34,9 +34,11 @@ tags:
 ```mermaid
 flowchart LR
     JS["JS 源码"] --> Parser["Parser 解析器\n生成 AST"]
-    Parser --> Ignition["Ignition 解释器\n生成字节码 + 执行\n快速启动"]
-    Ignition -->|"热点代码\n频繁执行的函数"| TurboFan["TurboFan 优化编译器\n生成高度优化的机器码"]
-    TurboFan -->|"优化假设失效"| Deopt["去优化\n回退到 Ignition 重新解释执行"]
+    Parser --> Ignition["Ignition 解释器\n生成字节码 + 执行"]
+    Ignition -->|"热点函数"| Sparkplug["Sparkplug 基线编译器\n快速生成未优化机器码"]
+    Sparkplug -->|"更热函数"| Maglev["Maglev 中间编译器\nChrome 114+ / 中等优化"]
+    Maglev -->|"极度热点"| TurboFan["TurboFan 优化编译器\n高度优化的机器码"]
+    TurboFan -->|"优化假设失效"| Deopt["去优化\n回退到 Ignition"]
 ```
 
 ```
@@ -44,7 +46,8 @@ V8 的四个核心组件：
 
 1. Parser（解析器）：JS 源码 → AST（抽象语法树）
    - 惰性解析（Lazy Parsing）：只解析立即执行的代码
-   - 非立即执行的函数只做预解析（Pre-Parser），跳过函数体
+   - 非立即执行的函数先用 Pre-Parser 做语法检查 + 收集作用域信息（不生成 AST），
+     等到真正被调用时再由 Lazy Parser 生成完整 AST。二者是不同阶段
 
 2. Ignition（解释器）：AST → 字节码 + 解释执行
    - 2017 年取代了旧的 Full-codegen
@@ -167,7 +170,8 @@ add(1, 2)   // 快！用整数加法
 
 ```
 2008：V8 发布，Full-codegen（基线编译器）+ Crankshaft（优化编译器）
-2015：TurboFan 取代 Crankshaft
+2015：TurboFan 开始引入（最初用于 asm.js）
+2017：TurboFan 完全取代 Crankshaft 成为默认优化编译器（Chrome 59 / V8 5.9）
 2017：Ignition 取代 Full-codegen —— V8 进入 "解释器 + 编译器" 时代
 2021：Sparkplug 加入 —— "解释器 + 基线编译器 + 优化编译器" 三层
 2023+：Maglev 编译器（Chrome 114+）—— 介于 Sparkplug 和 TurboFan 之间

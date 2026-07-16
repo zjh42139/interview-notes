@@ -34,6 +34,14 @@ mindmap
         props / emits / provide / inject / Pinia
       v-model
         语法糖 / 多 v-model / 修饰符
+      模板语法
+        v-if / v-show / v-for / key
+      透传 Attributes
+        \$attrs / inheritAttrs
+      异步组件 / 自定义指令
+        defineAsyncComponent / Suspense
+      动态组件 / 插件 / SSR
+        component :is / app.use()
       插槽
         默认 / 具名 / 作用域
       生命周期
@@ -70,17 +78,21 @@ mindmap
 
 9.  ⭐⭐⭐⭐⭐ [组件通信](./component-communication.md)
 10. ⭐⭐⭐⭐⭐ [v-model 原理](./v-model.md)
-11. ⭐⭐⭐⭐   [插槽深入](./slots-deep.md)
-12. ⭐⭐⭐⭐   [生命周期](./lifecycle.md)
-13. ⭐⭐⭐⭐   [KeepAlive](./keepalive.md)
-14. ⭐⭐       [Teleport / Suspense](./teleport-suspense.md)
-15. ⭐⭐⭐     [Transition 动画](./transition-animation.md)
+11. ⭐⭐⭐⭐   [条件/列表渲染](./template-syntax.md)
+12. ⭐⭐⭐     [透传 Attributes](./fallthrough-attrs.md)
+13. ⭐⭐⭐     [异步组件/自定义指令](./async-components.md)
+14. ⭐⭐⭐     [动态组件/插件/SSR](./dynamic-components-plugins-ssr.md)
+15. ⭐⭐⭐⭐   [插槽深入](./slots-deep.md)
+16. ⭐⭐⭐⭐   [生命周期](./lifecycle.md)
+17. ⭐⭐⭐⭐   [KeepAlive](./keepalive.md)
+18. ⭐⭐       [Teleport / Suspense](./teleport-suspense.md)
+19. ⭐⭐⭐     [Transition 动画](./transition-animation.md)
 
 ### 三、模式与优化（进阶）
 
-16. ⭐⭐⭐⭐   [Composition API](./composition-api.md)
-17. ⭐⭐⭐⭐   [Composables 实战](./composables-practice.md)
-18. ⭐⭐⭐⭐   [性能优化 Checklist](./vue3-performance.md)
+20. ⭐⭐⭐⭐   [Composition API](./composition-api.md)
+21. ⭐⭐⭐⭐   [Composables 实战](./composables-practice.md)
+22. ⭐⭐⭐⭐   [性能优化 Checklist](./vue3-performance.md)
 
 ## 知识点索引
 
@@ -96,6 +108,10 @@ mindmap
 | [全链路渲染流程](./vue3-full-pipeline.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |
 | [组件通信](./component-communication.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [v-model 原理](./v-model.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [条件/列表渲染](./template-syntax.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
+| [透传 Attributes](./fallthrough-attrs.md) | ⭐⭐⭐ | 中级 | — | draft |
+| [异步组件/自定义指令](./async-components.md) | ⭐⭐⭐ | 中级 | — | draft |
+| [动态组件/插件/SSR](./dynamic-components-plugins-ssr.md) | ⭐⭐⭐ | 中高级 | — | draft |
 | [插槽深入](./slots-deep.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [生命周期](./lifecycle.md) | ⭐⭐⭐⭐ | 初级 | — | reviewed |
 | [KeepAlive](./keepalive.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
@@ -109,7 +125,7 @@ mindmap
 
 - [Vue Router 知识地图](../VueRouter/index.md) — 路由守卫、动态路由、history vs hash
 - [Pinia 知识地图](../Pinia/index.md) — 状态管理、defineStore、持久化
-- [面试题库：Vue3](../面试题库/Vue3.md) — 17 道 Vue3 高频真题
+- [面试题库：Vue3](../面试题库/Vue3.md) — 19 道 Vue3 高频真题
 - [面试题库：Vue Router](../面试题库/VueRouter.md) — 7 道路由高频真题
 - [面试题库：Pinia](../面试题库/Pinia.md) — 7 道状态管理高频真题
 - [面试回答：Vue3 响应式](../面试回答/Vue3/reactivity.md) — 8 篇 Vue3 逐字回答稿
