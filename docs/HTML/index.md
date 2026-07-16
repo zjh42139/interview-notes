@@ -85,12 +85,14 @@ mindmap
 
 ### 三、进阶主题
 
-10. &#11088;&#11088;&#11088;&#11088; [Canvas vs SVG](./canvas-svg.md)
-11. &#11088;&#11088;&#11088;&#11088;&#11088; [History API 与 SPA 路由](./history-api.md)
-12. &#11088;&#11088;&#11088;&#11088; [iframe](./iframe.md)
-13. &#11088;&#11088;&#11088;&#11088; [Web Worker](./web-worker.md)
-14. &#11088;&#11088;&#11088;&#11088; [Web Components](./web-components.md)
-15. &#11088;&#11088;&#11088;&#11088;&#11088; [SEO / SSR / CSR / Hydration](./seo-ssr.md)
+10. ⭐⭐⭐⭐ [Canvas vs SVG](./canvas-svg.md)
+11. ⭐⭐⭐⭐⭐ [History API 与 SPA 路由](./history-api.md)
+12. ⭐⭐⭐⭐ [iframe](./iframe.md)
+13. ⭐⭐⭐⭐ [Web Worker](./web-worker.md)
+14. ⭐⭐⭐ [Web Components](./web-components.md)
+15. ⭐⭐⭐⭐⭐ [SEO / SSR / CSR / Hydration](./seo-ssr.md)
+16. ⭐⭐⭐⭐ [可访问性 ARIA](./accessibility.md)
+17. ⭐⭐⭐ [响应式图片/Resource Hints](./responsive-images-resource-hints.md)
 
 ## 知识点索引
 

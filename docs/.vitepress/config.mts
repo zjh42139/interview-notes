@@ -57,6 +57,8 @@ export default defineConfig({
           collapsible: false,
           items: [
             { text: 'Set / Map / WeakMap', link: '/JavaScript/set-map-weakmap' },
+            { text: 'Symbol', link: '/JavaScript/symbol' },
+            { text: 'Object 系列 API', link: '/JavaScript/object-api' },
             { text: 'Proxy / Reflect', link: '/JavaScript/proxy-reflect' },
             { text: '深拷贝', link: '/JavaScript/deep-clone' },
             { text: '防抖 / 节流', link: '/JavaScript/debounce-throttle' },
@@ -276,6 +278,7 @@ export default defineConfig({
             { text: 'Utility Types', link: '/TypeScript/utility-types' },
             { text: 'keyof / mapped / conditional', link: '/TypeScript/keyof-mapped-conditional' },
             { text: 'extends / infer', link: '/TypeScript/extends-infer' },
+            { text: '模板字面量类型', link: '/TypeScript/template-literal-types' },
           ],
         },
         {
@@ -317,6 +320,7 @@ export default defineConfig({
         { text: 'Web Worker', link: '/浏览器/web-worker' },
         { text: 'Service Worker', link: '/浏览器/service-worker' },
         { text: 'requestAnimationFrame', link: '/浏览器/request-animation-frame' },
+        { text: 'Performance API', link: '/浏览器/performance-api' },
         { text: 'IndexedDB', link: '/浏览器/indexeddb' },
         { text: 'DOM 事件机制 / 事件委托', link: '/浏览器/dom-event-delegation' },
         {

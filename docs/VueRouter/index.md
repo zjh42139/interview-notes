@@ -52,13 +52,23 @@ mindmap
 
 ## 推荐学习顺序
 
+### 一、必读（面试极高频）
+
 1. ⭐⭐⭐⭐⭐ [history / hash 模式](./history-vs-hash.md)
 2. ⭐⭐⭐⭐⭐ [路由守卫](./route-guards.md)
 3. ⭐⭐⭐⭐⭐ [动态路由](./dynamic-routing.md)
-4. ⭐⭐⭐⭐   [路由懒加载](./lazy-loading.md)
-5. ⭐⭐⭐⭐   [KeepAlive + Router](./keepalive-integration.md)
-6. ⭐⭐⭐     [scrollBehavior](./scroll-behavior.md)
-7. ⭐⭐⭐     [导航故障处理](./navigation-failures.md)
+
+### 二、重点（面试高频）
+
+4. ⭐⭐⭐⭐ [路由懒加载](./lazy-loading.md)
+5. ⭐⭐⭐⭐ [KeepAlive + Router](./keepalive-integration.md)
+
+### 三、了解（知道概念即可）
+
+6. ⭐⭐⭐ [scrollBehavior](./scroll-behavior.md)
+7. ⭐⭐⭐ [导航故障处理](./navigation-failures.md)
+8. ⭐⭐⭐ [路由元信息/传参](./route-meta-props.md)
+9. ⭐⭐⭐ [命名视图/过渡动画](./named-views-transition.md)
 
 ## 知识点索引
 

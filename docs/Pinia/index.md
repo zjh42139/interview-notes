@@ -64,13 +64,22 @@ mindmap
 
 ## 推荐学习顺序
 
-1. **defineStore** -- 理解两种 Store 定义方式，掌握命名规范和实例化时机
-2. **state** -- 学会定义响应式状态、解构保持响应式、批量更新和订阅变化
-3. **getters** -- 用 computed 封装派生状态，掌握传参和跨 store 访问
-4. **actions** -- 编写同步/异步业务逻辑，订阅 action 实现埋点和错误处理
-5. **persist** -- 实现状态持久化，理解 localStorage/sessionStorage 的适用场景
-6. **vs-vuex** -- 对比 Pinia 和 Vuex 的核心差异，掌握迁移策略
-7. **plugins** -- 编写自定义插件，封装全局逻辑
+### 一、必读（面试极高频）
+
+1. ⭐⭐⭐⭐⭐ [defineStore](./defineStore.md) — Setup Store vs Options Store、命名规范
+2. ⭐⭐⭐⭐⭐ [state](./state.md) — 响应式定义、storeToRefs、$patch、$subscribe
+3. ⭐⭐⭐⭐⭐ [actions](./actions.md) — 异步 action、$onAction 订阅埋点
+4. ⭐⭐⭐⭐⭐ [vs-vuex](./vs-vuex.md) — Pinia vs Vuex 核心差异、迁移策略
+5. ⭐⭐⭐⭐⭐ [persist](./persist.md) — 持久化插件、localStorage/sessionStorage 选型
+
+### 二、重点（面试高频）
+
+6. ⭐⭐⭐⭐ [getters](./getters.md) — computed 封装、传参 getter、跨 store 访问
+
+### 三、了解（低频，知道即可）
+
+7. ⭐⭐⭐ [plugins](./plugins.md) — 自定义插件、全局行为封装
+8. ⭐⭐⭐ [进阶(组件外/TS/SSR)](./advanced.md) — 组件外用 store、SSR 序列化
 
 ## 知识点索引
 

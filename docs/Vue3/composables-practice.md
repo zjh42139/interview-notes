@@ -156,7 +156,43 @@ const { data } = useLazyComposable(() => {
 
 ---
 
+## effectScope —— 批量管理 effect
+
+Vue 3.2+ 引入的 `effectScope` API，用于批量创建和销毁响应式 effect——适合在 composable 中创建多个 watch/computed 并统一清理。
+
+```javascript
+import { effectScope, onScopeDispose } from 'vue'
+
+function useFeature() {
+  const scope = effectScope()  // 创建独立作用域
+
+  const state = scope.run(() => {
+    const data = ref(null)
+    // 这些 effect 都注册在 scope 下
+    watch(() => props.id, fetchData)
+    watchEffect(() => updateTitle(data.value))
+    return { data }
+  })
+
+  // 组件卸载时统一清理所有 effect
+  onScopeDispose(() => scope.stop())
+
+  return state
+}
+```
+
+**应用场景**：
+- composable 内创建了多个 watch/computed 需要统一管理生命周期
+- 第三方库集成（如创建独立的响应式子系统）
+- 避免手动维护一个个 `onUnmounted(() => unwatch1(); unwatch2(); ...)`
+
+**注意**：`getCurrentScope()` 返回当前活跃的 effect scope；`onScopeDispose(cb)` 在当前 scope 停止时执行清理回调——类似于 `onUnmounted` 但作用于 scope 而非组件。
+
+---
+
 ## 易错点
+
+4. **composable 内的多个 watch 忘记清理** —— 用 `effectScope` 统一管理，`scope.stop()` 一键停止所有依赖追踪
 
 1. **composable 内注册的生命周期只在组件中有效** —— composable 脱离组件调用时（如单元测试中），onMounted 不会触发
 2. **composable 返回值解构时需注意响应式** —— `const { data } = useFetch()`——data 是 ref，模板自动解包，JS 中需 `.value`

@@ -86,25 +86,34 @@ mindmap
 
 ## 推荐学习顺序
 
-1. &#11088;&#11088;&#11088;&#11088;&#11088; [输入 URL 到页面展示](./url-to-page.md)
-2. &#11088;&#11088;&#11088;&#11088; [浏览器多进程架构](./browser-architecture.md)
-3. &#11088;&#11088;&#11088;&#11088;&#11088; [渲染流程](./render-process.md)
-4. &#11088;&#11088;&#11088;&#11088;&#11088; [重绘 / 回流](./reflow-repaint.md)
-5. &#11088;&#11088;&#11088;&#11088; [浏览器缓存](./cache.md)
-6. &#11088;&#11088;&#11088;&#11088;&#11088; [同源策略](./same-origin-policy.md)
-7. &#11088;&#11088;&#11088;&#11088;&#11088; [Cookie 深度解析](./cookie.md)
-8. &#11088;&#11088;&#11088;&#11088; [Web Storage](./storage.md)
-9. &#11088;&#11088;&#11088;&#11088;&#11088; [Web 安全](./安全/index.md)（XSS / CSRF / CSP / HTTPS / Clickjacking / 依赖安全）
-10. &#11088;&#11088;&#11088;&#11088; [V8 引擎 / JIT 编译](./v8-engine.md)
-11. &#11088;&#11088;&#11088;&#11088; [页面生命周期](./page-lifecycle.md)
-12. &#11088;&#11088;&#11088;&#11088; [Observer API](./observer-api.md)
-13. &#11088;&#11088;&#11088;&#11088; [DOM 事件机制 / 事件委托](./dom-event-delegation.md)
-14. &#11088;&#11088;&#11088;&#11088; [requestAnimationFrame](./request-animation-frame.md)
-15. &#11088;&#11088;&#11088;&#11088; [内存泄漏排查](./memory-leak.md)
-16. &#11088;&#11088;&#11088;&#11088; [垃圾回收 GC](./gc.md)
-17. &#11088;&#11088;&#11088;&#11088; [Service Worker](./service-worker.md)
-18. &#11088;&#11088;&#11088; [浏览器 DevTools](./devtools.md)
-20. ⭐⭐⭐ [BOM 全景](./bom.md)
+### 一、必读（面试极高频，必须掌握）
+
+1. ⭐⭐⭐⭐⭐ [输入 URL 到页面展示](./url-to-page.md)
+2. ⭐⭐⭐⭐⭐ [渲染流程](./render-process.md)
+3. ⭐⭐⭐⭐⭐ [重绘 / 回流](./reflow-repaint.md)
+4. ⭐⭐⭐⭐⭐ [同源策略](./same-origin-policy.md)
+5. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md)
+6. ⭐⭐⭐⭐⭐ [Cookie 深度解析](./cookie.md)
+7. ⭐⭐⭐⭐⭐ [浏览器缓存](./cache.md)
+
+### 二、重点（面试高频，理解机制）
+
+8. ⭐⭐⭐⭐ [V8 引擎 / JIT 编译](./v8-engine.md)
+9. ⭐⭐⭐⭐ [垃圾回收 GC](./gc.md)
+10. ⭐⭐⭐⭐ [内存泄漏排查](./memory-leak.md)
+11. ⭐⭐⭐⭐ [DOM 事件机制 / 事件委托](./dom-event-delegation.md)
+12. ⭐⭐⭐⭐ [Service Worker](./service-worker.md)
+13. ⭐⭐⭐⭐ [浏览器多进程架构](./browser-architecture.md)
+14. ⭐⭐⭐⭐ [页面生命周期](./page-lifecycle.md)
+15. ⭐⭐⭐⭐ [requestAnimationFrame](./request-animation-frame.md)
+16. ⭐⭐⭐⭐ [Performance API](./performance-api.md)
+17. ⭐⭐⭐⭐ [Web Storage](./storage.md)
+
+### 三、了解（低频，知道概念即可）
+
+18. ⭐⭐⭐ [Observer API](./observer-api.md)
+19. ⭐⭐⭐ [BOM 全景](./bom.md)
+20. ⭐⭐⭐ [浏览器 DevTools](./devtools.md)
 21. ⭐⭐⭐ [Web Worker](./web-worker.md)
 22. ⭐⭐⭐ [IndexedDB](./indexeddb.md)
 23. ⭐⭐⭐ [跨标签页通信](./cross-tab-communication.md)
