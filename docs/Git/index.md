@@ -42,22 +42,22 @@ mindmap
 
 按面试出现频率和知识依赖关系排序：
 
-### 一、必读（面试必考）
+### 一、核心操作
 
 1. ⭐⭐⭐⭐⭐ [Commit 规范](./commit-spec.md) — 团队协作基础，CI/CD 第一步
 2. ⭐⭐⭐⭐⭐ [merge vs rebase](./merge-vs-rebase.md) — 面试必问，区分初中高级
 3. ⭐⭐⭐⭐⭐ [冲突处理](./conflict-resolution.md) — 日常痛点，实操考查重点
-
-### 二、重点（面试常考）
-
 4. ⭐⭐⭐⭐ [reset vs revert](./reset-vs-revert.md) — 代码回滚，撤销操作必考
+
+### 二、高级操作
+
 5. ⭐⭐⭐⭐ [cherry-pick](./cherry-pick.md) — hotfix 高频使用
 6. ⭐⭐⭐⭐ [stash](./stash.md) — 临时切换分支，日常必备
-7. ⭐⭐⭐⭐ [Git Flow](./git-flow.md) — 分支策略选型，架构方向问题
+7. ⭐⭐⭐ [tag](./tag.md) — 发布管理，CI/CD 相关
 
-### 三、了解（加分项，大概率不考）
+### 三、工具链与策略
 
-8. ⭐⭐⭐ [tag](./tag.md) — 发布管理，CI/CD 相关
+8. ⭐⭐⭐⭐ [Git Flow](./git-flow.md) — 分支策略选型，架构方向问题
 9. ⭐⭐⭐ [bisect](./bisect.md) — 调试利器，加分项
 10. ⭐⭐ [reflog/rebase -i/内部原理](./reflog-rebase-interactive.md)
 11. ⭐⭐ [diff/log/blame/hooks](./diff-log-blame-hooks.md)

@@ -64,20 +64,20 @@ mindmap
 
 ## 推荐学习顺序
 
-### 一、必读（面试极高频）
+### 一、核心概念
 
 1. ⭐⭐⭐⭐⭐ [defineStore](./defineStore.md) — Setup Store vs Options Store、命名规范
 2. ⭐⭐⭐⭐⭐ [state](./state.md) — 响应式定义、storeToRefs、$patch、$subscribe
 3. ⭐⭐⭐⭐⭐ [actions](./actions.md) — 异步 action、$onAction 订阅埋点
-4. ⭐⭐⭐⭐⭐ [vs-vuex](./vs-vuex.md) — Pinia vs Vuex 核心差异、迁移策略
-5. ⭐⭐⭐⭐⭐ [persist](./persist.md) — 持久化插件、localStorage/sessionStorage 选型
+4. ⭐⭐⭐⭐ [getters](./getters.md) — computed 封装、传参 getter、跨 store 访问
 
-### 二、重点（面试高频）
+### 二、生态与对比
 
-6. ⭐⭐⭐⭐ [getters](./getters.md) — computed 封装、传参 getter、跨 store 访问
+5. ⭐⭐⭐⭐⭐ [vs-vuex](./vs-vuex.md) — Pinia vs Vuex 核心差异、迁移策略
 
-### 三、了解（低频，知道即可）
+### 三、工程化
 
+6. ⭐⭐⭐⭐⭐ [persist](./persist.md) — 持久化插件、localStorage/sessionStorage 选型
 7. ⭐⭐⭐ [plugins](./plugins.md) — 自定义插件、全局行为封装
 8. ⭐⭐⭐ [进阶(组件外/TS/SSR)](./advanced.md) — 组件外用 store、SSR 序列化
 

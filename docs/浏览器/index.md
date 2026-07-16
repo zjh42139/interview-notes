@@ -86,37 +86,40 @@ mindmap
 
 ## 推荐学习顺序
 
-### 一、必读（面试极高频，必须掌握）
+### 一、页面加载与渲染
 
 1. ⭐⭐⭐⭐⭐ [输入 URL 到页面展示](./url-to-page.md)
 2. ⭐⭐⭐⭐⭐ [渲染流程](./render-process.md)
 3. ⭐⭐⭐⭐⭐ [重绘 / 回流](./reflow-repaint.md)
-4. ⭐⭐⭐⭐⭐ [同源策略](./same-origin-policy.md)
-5. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md)（含 XSS / CSRF / CSP / Clickjacking / HTTPS / Token存储 / 依赖安全 7 篇）
-6. ⭐⭐⭐⭐⭐ [Cookie 深度解析](./cookie.md)
-7. ⭐⭐⭐⭐⭐ [浏览器缓存](./cache.md)
+4. ⭐⭐⭐⭐ [浏览器多进程架构](./browser-architecture.md)
+5. ⭐⭐⭐⭐ [页面生命周期](./page-lifecycle.md)
+6. ⭐⭐⭐⭐ [浏览器缓存](./cache.md)
+7. ⭐⭐⭐⭐ [requestAnimationFrame](./request-animation-frame.md)
+8. ⭐⭐⭐⭐ [Performance API](./performance-api.md)
 
-### 二、重点（面试高频，理解机制）
+### 二、安全与存储
 
-8. ⭐⭐⭐⭐ [V8 引擎 / JIT 编译](./v8-engine.md)
-9. ⭐⭐⭐⭐ [垃圾回收 GC](./gc.md)
-10. ⭐⭐⭐⭐ [内存泄漏排查](./memory-leak.md)
-11. ⭐⭐⭐⭐ [DOM 事件机制 / 事件委托](./dom-event-delegation.md)
-12. ⭐⭐⭐⭐ [Service Worker](./service-worker.md)
-13. ⭐⭐⭐⭐ [浏览器多进程架构](./browser-architecture.md)
-14. ⭐⭐⭐⭐ [页面生命周期](./page-lifecycle.md)
-15. ⭐⭐⭐⭐ [requestAnimationFrame](./request-animation-frame.md)
-16. ⭐⭐⭐⭐ [Performance API](./performance-api.md)
-17. ⭐⭐⭐⭐ [Web Storage](./storage.md)
+9. ⭐⭐⭐⭐⭐ [Web 安全](./安全/index.md)（含 XSS / CSRF / CSP / Clickjacking / HTTPS / Token 存储 / 依赖安全 / JWT / 数据泄露 9 篇）
+10. ⭐⭐⭐⭐⭐ [同源策略](./same-origin-policy.md)
+11. ⭐⭐⭐⭐⭐ [Cookie 深度解析](./cookie.md)
+12. ⭐⭐⭐⭐ [Web Storage](./storage.md)
+13. ⭐⭐⭐⭐ [DOM 事件机制 / 事件委托](./dom-event-delegation.md)
+14. ⭐⭐⭐ [跨标签页通信](./cross-tab-communication.md)
 
-### 三、了解（低频，知道概念即可）
+### 三、引擎与性能
 
-18. ⭐⭐⭐ [Observer API](./observer-api.md)
-19. ⭐⭐⭐ [BOM 全景](./bom.md)
-20. ⭐⭐⭐ [浏览器 DevTools](./devtools.md)
-21. ⭐⭐⭐ [Web Worker](./web-worker.md)
-22. ⭐⭐⭐ [IndexedDB](./indexeddb.md)
-23. ⭐⭐⭐ [跨标签页通信](./cross-tab-communication.md)
+15. ⭐⭐⭐⭐ [V8 引擎 / JIT 编译](./v8-engine.md)
+16. ⭐⭐⭐⭐ [垃圾回收 GC](./gc.md)
+17. ⭐⭐⭐⭐ [内存泄漏排查](./memory-leak.md)
+18. ⭐⭐⭐⭐ [Service Worker](./service-worker.md)
+
+### 四、工具与扩展
+
+19. ⭐⭐⭐ [浏览器 DevTools](./devtools.md)
+20. ⭐⭐⭐ [BOM 全景](./bom.md)
+21. ⭐⭐⭐ [Observer API](./observer-api.md)
+22. ⭐⭐⭐ [Web Worker](./web-worker.md)
+23. ⭐⭐⭐ [IndexedDB](./indexeddb.md)
 
 ## 知识点索引
 

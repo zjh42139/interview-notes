@@ -52,18 +52,18 @@ mindmap
 
 ## 推荐学习顺序
 
-### 一、必读（面试极高频）
+### 一、核心机制
 
 1. ⭐⭐⭐⭐⭐ [history / hash 模式](./history-vs-hash.md)
 2. ⭐⭐⭐⭐⭐ [路由守卫](./route-guards.md)
 3. ⭐⭐⭐⭐⭐ [动态路由](./dynamic-routing.md)
 
-### 二、重点（面试高频）
+### 二、进阶与集成
 
 4. ⭐⭐⭐⭐ [路由懒加载](./lazy-loading.md)
 5. ⭐⭐⭐⭐ [KeepAlive + Router](./keepalive-integration.md)
 
-### 三、了解（知道概念即可）
+### 三、辅助功能
 
 6. ⭐⭐⭐ [scrollBehavior](./scroll-behavior.md)
 7. ⭐⭐⭐ [导航故障处理](./navigation-failures.md)
