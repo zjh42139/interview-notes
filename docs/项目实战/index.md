@@ -13,13 +13,14 @@ mindmap
       Axios封装
       防重复请求
       Mock
+      错误监控
+      灰度发布
     认证鉴权
       登录鉴权
       Token刷新
     权限系统
       动态路由
       RBAC
-      按钮权限
     业务场景
       文件上传
       Excel导入导出
@@ -31,10 +32,12 @@ mindmap
       WebSocket实战
       ECharts实战
       大文件上传
+      SSE流式对话
+      水印安全
     项目优化
       性能优化
     质量保障
-      错误监控
+      白屏排查
 ```
 
 ## 关于本文档中的"项目"
@@ -63,40 +66,48 @@ mindmap
 
 | 子模块 | 文件数 | 说明 |
 |--------|--------|------|
-| [基础设施](./基础设施/axios-encapsulation.md) | 3 | Axios、防重复请求、Mock |
+| [基础设施](./基础设施/axios-encapsulation.md) | 5 | Axios、防重复请求、Mock、错误监控、灰度发布 |
 | [认证鉴权](./认证鉴权/login-auth.md) | 2 | 登录、Token 刷新 |
 | [权限系统](./权限系统/dynamic-route.md) | 2 | 动态路由、RBAC |
-| [业务场景](./业务场景/file-upload.md) | 10 | 上传、Excel、大数据表格、Composable 设计、国际化、主题切换、组件封装、WebSocket、ECharts、大文件上传 |
+| [业务场景](./业务场景/file-upload.md) | 12 | 上传、Excel、大数据表格、Composable 设计、国际化、主题切换、组件封装、WebSocket、ECharts、大文件上传、SSE、水印 |
 | [项目优化](./项目优化/project-optimization.md) | 1 | 项目层面性能优化 |
+| [质量保障](./质量保障/white-screen-troubleshoot.md) | 1 | 白屏排查方法论 |
 
 ---
 
 ## 推荐学习顺序
 
-### 基础设施 + 认证鉴权 + 权限系统（7 篇）—— 先看这个
+### 一、基础设施（5 篇）—— 先搭地基
 
 1. [Axios 封装](./基础设施/axios-encapsulation.md) — 拦截器/错误处理/baseURL/超时
 2. [防重复请求](./基础设施/request-dedup.md) — loading/防重复/并发请求优化
 3. [Mock](./基础设施/mock.md) — MockJS/vite-plugin-mock 前后端并行开发
-4. [登录鉴权](./认证鉴权/login-auth.md) — Token 认证/OAuth2/多端登录
-5. [Token 刷新](./认证鉴权/token-refresh.md) — 无感刷新/401 拦截/并发处理
-6. [动态路由](./权限系统/dynamic-route.md) — addRoute/菜单生成/路由重置
-7. [权限 RBAC](./权限系统/permission-rbac.md) — 模型设计/指令/按钮级权限
+4. [错误处理 / 前端监控体系](./基础设施/error-monitoring.md) — 错误捕获/Sentry/埋点/CI/CD
+5. [灰度发布](./基础设施/gray-release.md) — Nginx cookie 分流/用户哈希/CDN 多版本
 
-### 业务场景模块（10 篇）—— 然后看这个
+### 二、认证鉴权 + 权限系统（4 篇）—— 然后通权限
 
-8. [文件上传](./业务场景/file-upload.md) — 基础文件上传方案，理解 FormData + Axios 模式
-9. [Excel 导入导出](./业务场景/excel-import-export.md) — 表格数据的批量处理
-10. [大数据表格](./业务场景/big-data-table.md) — 虚拟滚动与大数据渲染优化
-11. [Composable 设计](./业务场景/composable-design.md) — useRequest/useTable/usePermission 逻辑复用封装
-12. [国际化](./业务场景/i18n.md) — vue-i18n v9+ 中英文切换，语言包模块化组织
-13. [主题切换](./业务场景/theme-switch.md) — CSS 变量 + Element Plus 暗黑模式 + FOUC 避免
-14. [组件封装实践](./业务场景/component-encapsulation.md) — Props/Events/Slots/Expose 四维度设计
-15. [WebSocket 实战](./业务场景/websocket.md) — 心跳/重连/ACK 完整封装
-16. [ECharts 实战](./业务场景/echarts.md) — 图表封装、响应式更新、内存管理
-17. [大文件上传](./业务场景/big-file-upload.md) — 分片/秒传/断点/并发控制 四维一体
+6. [登录鉴权](./认证鉴权/login-auth.md) — Token 认证/OAuth2/多端登录
+7. [Token 刷新](./认证鉴权/token-refresh.md) — 无感刷新/401 拦截/并发处理
+8. [动态路由](./权限系统/dynamic-route.md) — addRoute/菜单生成/路由重置
+9. [权限 RBAC](./权限系统/permission-rbac.md) — 模型设计/指令/按钮级权限
 
-### 质量保障（2 篇）—— 最后看这个
+### 三、业务场景（12 篇）—— 再铺业务
 
-18. [项目优化](./项目优化/project-optimization.md) — 项目层面性能优化
-19. [错误处理 / 前端监控体系](./基础设施/error-monitoring.md) — 错误捕获/Sentry/埋点/CI/CD
+10. [文件上传](./业务场景/file-upload.md) — 基础文件上传方案，理解 FormData + Axios 模式
+11. [Excel 导入导出](./业务场景/excel-import-export.md) — 表格数据的批量处理
+12. [大数据表格](./业务场景/big-data-table.md) — 虚拟滚动与大数据渲染优化
+13. [Composable 设计](./业务场景/composable-design.md) — useRequest/useTable/usePermission 逻辑复用封装
+14. [国际化](./业务场景/i18n.md) — vue-i18n v9+ 中英文切换，语言包模块化组织
+15. [主题切换](./业务场景/theme-switch.md) — CSS 变量 + Element Plus 暗黑模式 + FOUC 避免
+16. [组件封装实践](./业务场景/component-encapsulation.md) — Props/Events/Slots/Expose 四维度设计
+17. [WebSocket 实战](./业务场景/websocket.md) — 心跳/重连/ACK 完整封装
+18. [ECharts 实战](./业务场景/echarts.md) — 图表封装、响应式更新、内存管理
+19. [大文件上传](./业务场景/big-file-upload.md) — 分片/秒传/断点/并发控制 四维一体
+20. [SSE 流式对话](./业务场景/sse-streaming.md) — AI 聊天场景的实时推送方案
+21. [水印安全](./业务场景/watermark-security.md) — Canvas 水印/MutationObserver 防删除/盲水印
+
+### 四、项目优化 + 质量保障（2 篇）—— 最后收尾
+
+22. [项目优化](./项目优化/project-optimization.md) — 项目层面性能优化
+23. [白屏排查方法论](./质量保障/white-screen-troubleshoot.md) — 五步排查定位线上问题
