@@ -184,32 +184,26 @@ export default {
 
 ```mermaid
 sequenceDiagram
-    participant User as 👤 用户操作
-    participant Nav as 🧭 导航触发
-    participant Leave as 🚪 beforeRouteLeave
-    participant Global as 🌐 beforeEach
-    participant Reuse as 🔄 beforeRouteUpdate
-    participant Enter as 🚪 beforeEnter（路由配置）
-    participant Resolve as 📦 解析异步组件
-    participant Comp as 🧩 beforeRouteEnter
-    participant ResolveG as 🌐 beforeResolve
-    participant Done as ✅ 导航确认
-    participant After as 🌐 afterEach
-    participant DOM as 🖥️ DOM 更新
-    participant Callback as 📞 next 回调
+    participant U as 导航触发
+    participant L as beforeRouteLeave
+    participant B as beforeEach
+    participant U2 as beforeRouteUpdate
+    participant E as beforeEnter
+    participant R as 解析异步组件
+    participant C as beforeRouteEnter
+    participant B2 as beforeResolve
+    participant D as 导航确认
+    participant A as afterEach
 
-    User->>Nav: 点击链接 / router.push()
-    Nav->>Leave: 1. 失活组件的 beforeRouteLeave
-    Leave->>Global: 2. 全局 beforeEach
-    Global->>Reuse: 3. 复用组件的 beforeRouteUpdate
-    Reuse->>Enter: 4. 路由配置中的 beforeEnter
-    Enter->>Resolve: 5. 解析异步路由组件
-    Resolve->>Comp: 6. 激活组件的 beforeRouteEnter
-    Comp->>ResolveG: 7. 全局 beforeResolve
-    ResolveG->>Done: 8. 导航被确认
-    Done->>After: 9. 全局 afterEach
-    After->>DOM: 10. DOM 更新
-    DOM->>Callback: 11. beforeRouteEnter 的 next 回调
+    U->>L: ① 失活组件内守卫
+    L->>B: ② 全局前置守卫
+    B->>U2: ③ 复用组件内守卫
+    U2->>E: ④ 路由独享守卫
+    E->>R: ⑤ 解析异步组件
+    R->>C: ⑥ 激活组件内守卫
+    C->>B2: ⑦ 全局解析守卫
+    B2->>D: ⑧ 确认导航
+    D->>A: ⑨ 全局后置守卫 → DOM 更新 → next 回调
 ```
 
 **关键要点**：
