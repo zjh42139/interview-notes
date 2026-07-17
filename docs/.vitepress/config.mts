@@ -591,6 +591,8 @@ export default defineConfig({
         { text: '组件设计', link: '/前端架构/component-design' },
         { text: '模块解耦', link: '/前端架构/module-decoupling' },
         { text: '设计模式', link: '/前端架构/design-patterns' },
+        { text: '插件化架构', link: '/前端架构/plugin-architecture' },
+        { text: '配置化架构', link: '/前端架构/config-driven' },
         { text: 'Monorepo', link: '/前端架构/monorepo' },
         {
           text: '微前端',

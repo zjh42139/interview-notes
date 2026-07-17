@@ -1,6 +1,6 @@
 ---
 title: 前端架构 知识地图
-description: 前端架构面试知识体系：项目分层、模块解耦、组件设计、设计模式、Monorepo
+description: 前端架构面试知识体系：项目分层、模块解耦、组件设计、设计模式、插件化、配置化、Monorepo
 category: 前端架构
 ---
 
@@ -42,6 +42,14 @@ mindmap
       装饰器模式
       代理模式
       适配器模式
+    插件化架构
+      注册表模式
+      扩展点
+      PluginContext
+    配置化架构
+      JSON Schema
+      表单引擎
+      表格驱动
     Monorepo
       pnpm workspace
       Turborepo
@@ -56,7 +64,9 @@ mindmap
 2. ⭐⭐⭐⭐⭐ [组件设计](./component-design.md)
 3. ⭐⭐⭐⭐   [模块解耦](./module-decoupling.md)
 4. ⭐⭐⭐⭐   [设计模式在前端](./design-patterns.md)
-5. ⭐⭐⭐⭐   [Monorepo](./monorepo.md)
+5. ⭐⭐⭐     [插件化架构](./plugin-architecture.md) — 注册表模式/扩展点/生命周期
+6. ⭐⭐⭐     [配置化架构](./config-driven.md) — JSON Schema 驱动/表单引擎/表格驱动
+7. ⭐⭐⭐⭐   [Monorepo](./monorepo.md)
 
 ### 二、微前端（了解为主，面试低频）
 
@@ -73,6 +83,8 @@ mindmap
 | [组件设计](./component-design.md) | ⭐⭐⭐⭐⭐ | 高级 | — | filled |
 | [模块解耦](./module-decoupling.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
 | [设计模式在前端](./design-patterns.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
+| [插件化架构](./plugin-architecture.md) | ⭐⭐⭐ | 高级 | — | filled |
+| [配置化架构](./config-driven.md) | ⭐⭐⭐ | 中高级 | — | filled |
 | [Monorepo](./monorepo.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [微前端概述](./微前端/overview.md) | ⭐⭐⭐ | 高级 | — | filled |
 | [qiankun](./微前端/qiankun.md) | ⭐⭐⭐ | 高级 | — | filled |
