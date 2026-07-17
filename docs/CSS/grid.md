@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - grid
@@ -95,7 +95,7 @@ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 ```
 
-**区别**：当一行放不下更多列时（比如容器 800px，每列最小 300px，只能放 2 列），`auto-fill` 会保留第 3 个空轨道（宽度为 0），而 `auto-fit` 会把已有内容拉伸填满整行。
+**区别**：两者创建的轨道数都由容器宽度决定（容器 800px、每列最小 300px 时最多 2 条轨道），差异体现在**项目数少于轨道数**时——`auto-fill` 保留空轨道继续占位（项目不拉伸），`auto-fit` 把空轨道折叠为 0，已有项目拉伸填满整行。例：容器 1000px 创建 3 条轨道但只有 2 个项目，`auto-fill` 下每个项目约 333px（空轨道占位），`auto-fit` 下各占 500px。
 
 实际项目中 **Dashboard 卡片区用 `auto-fit`**（卡片较少时拉伸美观），**商品列表用 `auto-fill`**（保持卡片等宽）。
 
@@ -129,7 +129,7 @@ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 ```
 
-典型场景：卡片组里每张卡片的 header/body/footer 需要跨卡片对齐，但每张卡片内部又是一个子网格。目前 Chrome/Edge/Firefox 已支持，但 Safari 支持滞后。
+典型场景：卡片组里每张卡片的 header/body/footer 需要跨卡片对齐，但每张卡片内部又是一个子网格。Firefox 71+、Safari 16+、Chrome/Edge 117+ 均已支持（2023 年起 Baseline），可以放心使用。
 
 ### 追问：Grid + `@container` 容器查询
 

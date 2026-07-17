@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: filled
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 层叠上下文
@@ -62,7 +62,7 @@ tags:
 
 面试如果能背出这 7 层，直接加分。从下到上：
 
-1. 根元素的 background 和 border（最底层）
+1. 层叠上下文根元素自身的 background 和 border（最底层）
 2. **负 z-index** 的定位元素（position 不为 static）
 3. 普通块级元素（按 DOM 顺序）
 4. 浮动元素（float）
@@ -70,7 +70,7 @@ tags:
 6. `z-index: auto` 或 `z-index: 0` 的定位元素（按 DOM 顺序，后出现的在上）
 7. **正 z-index** 的定位元素（最上层）
 
-记住关键结论：**z-index 只影响定位元素**（position 不为 static），给一个 `position: static` 的元素设 z-index 完全无效。还有，z-index 只在**同一层叠上下文内**比较——两个不同上下文里的元素，各自内部的 z-index 互不影响。
+记住关键结论：**z-index 只影响定位元素和 flex/grid 子项**——给普通的 `position: static` 块级元素设 z-index 完全无效（flex/grid 子项是规范明确的例外，不定位也生效）。还有，z-index 只在**同一层叠上下文内**比较——两个不同上下文里的元素，各自内部的 z-index 互不影响。
 
 ### 层叠上下文的"嵌套隔离"
 
@@ -170,7 +170,7 @@ export function nextZIndex() {
 
 ## 易错点
 
-- ❌ **给 static 元素设 z-index**：无效。✅ z-index 只对 `position` 不为 `static` 的元素生效。
+- ❌ **给 static 元素设 z-index**：无效。✅ z-index 只对 `position` 不为 `static` 的元素生效（例外：flex/grid 子项即使不定位，z-index 也生效并创建层叠上下文）。
 - ❌ **`z-index: 9999` 还是被遮挡**：检查祖先是否有层叠上下文把作用范围锁死了。✅ 排查父级的 opacity/transform/filter，找到创建上下文的节点。
 - ❌ **用负 z-index 把元素藏到背景后面**：负 z-index 的元素会被放在层叠顺序的第 2 层（背景之上、块元素之下），可能导致不可点击。✅ 用 `visibility: hidden` 或 `opacity: 0`，或者用 `pointer-events: none`。
 - ❌ **在不同组件里写死 z-index 值（一个写 10，一个写 100，一个写 1000）**：维护噩梦，容易冲突。✅ 统一用 z-index 管理器，或者至少定义 CSS 变量/Sass 变量统一管理层级。
@@ -186,4 +186,5 @@ export function nextZIndex() {
 
 ## 更新记录
 
+- 2026-07-18：事实审计——补充 flex/grid 子项 z-index 例外、层叠顺序第 1 层表述精确化
 - 2026-07：Phase 2 填充（面试笔记版）

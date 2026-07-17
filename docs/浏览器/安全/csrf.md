@@ -18,7 +18,6 @@ tags:
 ---
 
 # CSRF
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > ⭐⭐⭐⭐⭐｜难度：中级
 
@@ -58,8 +57,9 @@ tags:
 // POST 型：最常见，form.submit() 自动提交
 // form 不受同源策略限制：可跨域、自动带 Cookie、但不能自定义 Header
 
-// Ajax 型：受同源策略限制，跨域 Ajax 会被浏览器拦截
-// 若 CORS 配置不当（allow-origin: * + credentials）或 JSONP 场景，也可能成功
+// Ajax 型：受同源策略限制，跨域 Ajax 响应会被浏览器拦截
+// 若 CORS 配置不当（如把请求的 Origin 原样反射进 Access-Control-Allow-Origin
+// 且开启 credentials——注意 `*` + credentials 会被浏览器直接拒绝）或 JSONP 场景，也可能成功
 ```
 
 ### 防御方案对比
@@ -75,11 +75,13 @@ tags:
 // ============ 方案 2：CSRF Token（最可靠，服务端校验）============
 // 原理：攻击者无法读取目标站点响应，获取不到 Token
 // Token 放自定义 Header（X-CSRF-Token）→ 跨站 form 无法自定义 Header → 无法伪造
-// 关键：Token 不存 Cookie！Cookie 中的 Token 会被攻击者 form 一并携带，防护失效
+// 关键：服务端不能只校验 Cookie 里自动带来的 Token——它会随攻击请求自动携带
+// 要么 Token 走服务端 Session + 页面注入（本方案），要么比对 Cookie 与 Header（方案 4）
 
 // ============ 方案 3：Referer / Origin 校验 ============
 // Referer: bank.com → 同源可信 ✅   Referer: evil.com → 拒绝 ❌
-// Origin 更可靠：只在跨域时发送，JS 无法修改
+// Origin 更可靠：跨站请求和 POST 请求都会携带，JS 无法修改，
+// 也不像 Referer 那样容易被 Referrer-Policy 裁剪或省略
 // 两者同时为空应拒绝 —— 正常浏览器请求至少有一个不为空
 
 // ============ 方案 4：双重 Cookie 验证 ============
@@ -183,10 +185,10 @@ async function handleTransfer(formData: TransferForm) {
 ## 易错点
 
 1. **GET 请求不用防 CSRF** —— 有副作用的 GET 接口（`/api/delete?id=1`）必须防御。遵循 RESTful 原则让 GET 幂等本身就是安全措施。
-2. **所有 POST 都需要 Token** —— 登录接口不需要（用户还没登录，没有可被伪造的 Cookie）。
-3. **SameSite=Lax 就万事大吉** —— 旧浏览器（IE）不支持，同站点内跨子域 CSRF 不一定拦住，仍需 Token 兜底。
+2. **"登录接口不需要防 CSRF"** —— 不完全对。"登录 CSRF"真实存在：攻击者用自己的凭据伪造登录请求，让受害者在不知情中登录攻击者的账号，之后受害者输入的隐私、绑定的银行卡都落入攻击者账户。严格的系统连登录表单也带 CSRF Token。
+3. **SameSite=Lax 就万事大吉** —— 旧浏览器（IE）不支持，同站点内跨子域 CSRF 不一定拦住，且 Lax 放行的跨站 GET 顶层导航仍会带 Cookie（所以 GET 绝不能有副作用），仍需 Token 兜底。
 4. **Origin 和 Referer 同时为空就放行** —— 应拒绝。正常浏览器至少有一个不为空，两者为空更可能是伪造请求。
-5. **CSRF Token 存 LocalStorage** —— XSS 可读取 Token 构造合法请求。Token 应存内存或 Cookie。
+5. **"CSRF Token 存哪都一样"** —— 一旦存在 XSS，任何 JS 可读的 Token（LocalStorage / 内存 / 非 HttpOnly Cookie）都能被读取——XSS 面前 CSRF 防御全部失效。这正是"先防 XSS、CSRF Token 只防跨站伪造"的纵深分工。
 
 ## 相关阅读
 

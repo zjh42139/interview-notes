@@ -42,6 +42,7 @@ tags:
 - 提 `<dialog>` 原生弹窗（`showModal` + `::backdrop` + `form method="dialog"`）
 
 **参考**：[HTML5 语义化](../HTML/html5-semantic.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/semantic-doctype.md)
 
 ---
 
@@ -64,6 +65,7 @@ tags:
 - `<!DOCTYPE html>` 必须是文档第一行（前面不能有空行、BOM）
 
 **参考**：[DOCTYPE / Meta](../HTML/doctype-meta.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/semantic-doctype.md)
 
 ---
 
@@ -87,6 +89,7 @@ tags:
 - `maximum-scale=1.0` 禁缩放会降低可访问性
 
 **参考**：[DOCTYPE / Meta](../HTML/doctype-meta.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/form-meta-viewport.md)
 
 ---
 
@@ -110,6 +113,7 @@ tags:
 - `<datalist>` 自动补全、`<output>`/`<progress>`/`<meter>`
 
 **参考**：[HTML5 表单](../HTML/form-validation.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/form-meta-viewport.md)
 
 ---
 
@@ -131,6 +135,7 @@ tags:
 - 面试亮点：SEO 会给 `<em>` `<strong>` 更高权重
 
 **参考**：[HTML5 语义化](../HTML/html5-semantic.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/semantic-doctype.md)
 
 ---
 
@@ -158,6 +163,7 @@ tags:
 - 实际选择：Sentry/Aegis 用 async、主应用用 defer/module
 
 **参考**：[defer / async](../HTML/script-defer-async.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/script-lazy-loading.md)
 
 ---
 
@@ -183,6 +189,7 @@ tags:
 - 提 LQIP（低质量占位图方案）加分
 
 **参考**：[图片懒加载](../HTML/lazy-loading.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/script-lazy-loading.md)
 
 ---
 
@@ -206,6 +213,7 @@ tags:
 - 同一资源同时用 preload 和 prefetch 会导致**加载两次**
 
 **参考**：[src / href](../HTML/src-href.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/script-lazy-loading.md)
 
 ---
 
@@ -254,6 +262,7 @@ tags:
 - 选型：上千个对象用 Canvas，几十个可交互对象用 SVG
 
 **参考**：[Canvas vs SVG](../HTML/canvas-svg.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/canvas-svg-history.md)
 
 ---
 
@@ -304,6 +313,7 @@ tags:
 - 提 `history.state` 持久化 + `scrollRestoration` 加分
 
 **参考**：[History API](../HTML/history-api.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/canvas-svg-history.md)
 > 📖 延伸：[Vue Router history vs hash](../VueRouter/history-vs-hash.md)
 
 ---

@@ -46,7 +46,8 @@ const KeepAliveImpl = {
 
       const key = vnode.key ?? vnode.type     // 缓存的 key
 
-      // include / exclude 过滤
+      // include / exclude 过滤（注意：真实源码按“组件 name”匹配，不是按 key——
+      // 这也是被缓存组件需要 name 选项/defineOptions({ name }) 的原因）
       if (exclude.includes(key) || (include.length && !include.includes(key))) {
         return vnode                          // 不缓存，直接返回
       }
@@ -126,7 +127,7 @@ onDeactivated(() => {
 
 ### 追问1：缓存后 DOM 去哪了？
 
-组件的 DOM 在**卸载时被从父容器移除**（`parentNode.removeChild`），但 VNode 被 KeepAlive 的 `cache` Map 持有引用，不会被 GC。当再次激活时，mount 流程重新执行，但因为 `vnode.component` 已存在且 `keptAlive` 标记为 true，patch 时会**跳过创建实例**，直接走 `activate` 流程把缓存的 DOM 插回父容器。
+组件失活时**并不会执行卸载**，而是被 `deactivate` 流程整体**移动（move）到一个隐藏的存储容器**（内存中的 `storageContainer`，一个不在文档里的 div）——DOM 子树原样保留、组件实例不销毁。再次切回时，`processComponent` 检测到 `COMPONENT_KEPT_ALIVE` 标记，**跳过创建实例和 mount**，直接走 `activate` 流程把存储容器里的 DOM 原样移回父容器，再 patch 一下可能变化的 props。所以整个过程没有 DOM 的销毁重建，只有两次 `insertBefore` 级别的移动。
 
 ### 追问2：KeepAlive 和 Teleport 同时使用
 
@@ -184,7 +185,7 @@ const useTabsStore = defineStore('tabs', () => {
 ## 易错点
 
 **❌ KeepAlive 缓存的是 DOM 节点**
-缓存的是 VNode 和组件实例。DOM 元素在组件失活时已被移除，激活时重新挂载。只是这个过程对用户不可见。
+准确说法：缓存的核心是 VNode 和组件实例（状态、effect 都在实例上）。DOM 子树在失活时被移动到隐藏的存储容器中保留，激活时原样移回——不销毁也不重建，但"缓存"这个行为的主体是组件实例而非 DOM。
 
 **❌ onUnmounted 在 KeepAlive 组件隐藏时执行**
 不会。KeepAlive 组件失活时执行的是 `onDeactivated`，`onUnmounted` 只在缓存被淘汰或手动销毁时才执行。**忘记清理定时器 → 应该放 onDeactivated 还是 onUnmounted？如果组件只在切标签时隐藏（KeepAlive），放 onDeactivated 就够了；如果可能被直接销毁，两个都要放。**

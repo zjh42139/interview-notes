@@ -47,7 +47,7 @@ tags:
 </body>
 ```
 
-**核心原理**：Teleport 在 patch 阶段（`process` 函数）不做特殊处理，但在 `move` 阶段，如果目标容器和当前父容器不同，就执行 `insert` 把 DOM 节点移动到 `to` 指向的目标。
+**核心原理**：patch 遇到 Teleport 类型时会调用 Teleport 组件自己的 `process` 方法——在原位置留下锚点（注释节点）维持组件树结构，把 children **挂载到 `to` 解析出的目标容器**里；当 `to` 或 `disabled` 变化时再通过 `moveTeleport` 把这些 DOM 移动到新目标。
 
 ```ts
 // 简化版：Teleport 的 patch 逻辑
@@ -56,7 +56,7 @@ if (n2.shapeFlag & ShapeFlags.TELEPORT) {
   const target = document.querySelector(n2.props.to)
   // 把 children 渲染到 target 而非当前父容器
   n2.children.forEach(child => {
-    process(child, null, target, ...)   // 关键：anchor 是 target
+    process(child, null, target, ...)   // 关键：挂载容器是 target，不是原父容器
   })
 }
 ```
@@ -83,7 +83,7 @@ const AsyncDashboard = defineAsyncComponent(() =>
   import('./Dashboard.vue')
 )
 
-// 或者用 async setup（实验性）
+// 或者用 async setup（需配合 Suspense；注意 Suspense 至今仍标记为实验性 API）
 const DashboardWithAsyncSetup = {
   async setup() {
     const data = await fetchDashboardData()
@@ -92,7 +92,7 @@ const DashboardWithAsyncSetup = {
 }
 ```
 
-Suspense 本质是**捕获子组件的 async setup 抛出的 Promise**，在 Promise pending 期间渲染 fallback 插槽，resolved 后切换到 default 插槽。它还处理了嵌套 Suspense 的协调（当多个异步组件嵌套时，等所有都 ready 才一起切换）。
+Suspense 本质是**等待子组件 async setup 返回的 Promise**（以及异步组件的加载 Promise），在 Promise pending 期间渲染 fallback 插槽，resolved 后切换到 default 插槽。它还处理了嵌套 Suspense 的协调（当多个异步组件嵌套时，等所有都 ready 才一起切换）。
 
 ## 深度拓展
 
@@ -153,8 +153,8 @@ const routes = [
 function useAsyncComponent(loader: () => Promise<any>) {
   const AsyncComp = defineAsyncComponent({
     loader,
-    loadingComponent: h('div', 'Loading...'),
-    errorComponent: h('div', 'Load failed'),
+    loadingComponent: () => h('div', 'Loading...'),   // 需传组件（函数式组件即可），不能直接传 vnode
+    errorComponent: () => h('div', 'Load failed'),
     delay: 200,        // loading 组件延迟 200ms 显示（避免闪烁）
     timeout: 10000,    // 10 秒超时
   })

@@ -122,7 +122,8 @@ packages:
 {
   "dependencies": {
     "@myapp/utils": "workspace:*"  // workspace 协议，引用本地包
-    // 等同于 "@myapp/utils": "^1.0.0"，但指向本地 workspace
+    // 发布时被替换为精确版本 "1.0.0"
+    // 想发布成 "^1.0.0"/"~1.0.0"，要写 workspace:^ / workspace:~
   }
 }
 ```
@@ -135,7 +136,7 @@ packages:
 
 | | npm | yarn (v1 classic) | pnpm |
 |---|---|---|---|
-| 安装速度 | 慢（串行） | 快（并行） | 最快（硬链接跳过下载） |
+| 安装速度 | 较慢 | 快（并行下载） | 最快（store 命中时硬链接跳过下载） |
 | node_modules | 扁平化 | 扁平化 | 非扁平 + 符号链接 |
 | 磁盘占用 | 每项目一份 | 每项目一份 | 全局 store 去重 |
 | 幽灵依赖 | 存在 | 存在 | **不存在**（严格隔离） |

@@ -65,7 +65,7 @@ app.use(myPlugin, { apiBase: '/api' });
 | 服务器负载 | 无 | 高 | 无 |
 | 适用场景 | 后台系统 | 内容+个性化 | 文档/博客/营销页 |
 
-**Vue3 SSR 框架**：Nuxt 3——基于 Vite+Nitro 引擎，内置 SSR/SSG/ISR 多种渲染模式。`useFetch`/`useAsyncData` 在服务端和客户端各执行一次——hydration 后接管。
+**Vue3 SSR 框架**：Nuxt 3——基于 Vite+Nitro 引擎，内置 SSR/SSG/ISR 多种渲染模式。`useFetch`/`useAsyncData` 在服务端执行后把结果序列化进 payload，客户端 hydration 时直接复用，**不会重复请求**（这正是它们相对"直接在 setup 里 $fetch"的价值）。
 
 ## 面试信号表
 

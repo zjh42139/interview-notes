@@ -95,7 +95,7 @@ Vue3 的 `package.json` 里 `browserslist` 不支持 IE11。96%+ 的浏览器原
 
 | 维度 | nextTick | requestAnimationFrame |
 |------|----------|----------------------|
-| 时机 | 本次 Event Loop 的微任务阶段 | 下一次浏览器渲染之前（宏任务） |
+| 时机 | 本次 Event Loop 的微任务阶段 | 下一次浏览器渲染之前（渲染步骤的专属回调，既非微任务也非典型宏任务） |
 | 触发 | 数据变更 → scheduler → 微任务 | 浏览器帧刷新 |
 | 用途 | 获取更新后的 DOM | 动画/视觉变化 |
 
@@ -193,10 +193,10 @@ async function submitForm() {
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
-| "nextTick 的原理是什么" | 追问微任务优先——Promise.then→MutationObserver→setTimeout 的降级策略 |
+| "nextTick 的原理是什么" | 追问微任务优先与 Vue2 的降级策略（Promise→MutationObserver→setImmediate→setTimeout） |
 | "什么时候必须用 nextTick" | 追问 DOM 更新是异步的——改了 data 立刻读 DOM 还是旧值 |
 | "nextTick 和 setTimeout(fn,0) 哪个先执行" | 追问微任务 vs 宏任务的执行顺序 |
-| "Vue3 为什么不用宏任务做 nextTick" | 追问宏任务在渲染之前——可能导致更新前就显示了 |
+| "Vue3 为什么不用宏任务做 nextTick" | 追问渲染时机在宏任务之间——flush 若放宏任务，浏览器可能先渲染一帧旧状态 |
 
 ## 相关阅读
 

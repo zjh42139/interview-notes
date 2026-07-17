@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: null
 tags:
   - 渲染性能
@@ -122,9 +122,9 @@ flowchart LR
   /* 内部 reflow 不会扩散到外部 → 浏览器可以跳过外部布局计算 */
 }
 
-/* contain: strict —— 最强隔离（size + layout + paint 三项） */
+/* contain: strict —— 最强隔离（size + layout + paint + style） */
 .isolated-component {
-  contain: strict;  /* 等价于 contain: size layout paint */
+  contain: strict;  /* 等价于 contain: size layout paint style */
 }
 
 /* content-visibility —— 浏览器自动跳过视口外元素的渲染 */
@@ -260,4 +260,5 @@ flowchart TD
 
 ## 更新记录
 
+- 2026-07-18：事实审计——contain: strict 修正为 size layout paint style（现行规范含 style containment）
 - 2026-07-08：新建（CSS Triggers 三阶段 + 动画黄金法则 + will-change/contain/content-visibility + Layout Thrashing 实战）

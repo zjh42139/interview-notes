@@ -45,9 +45,9 @@ tags:
 - 操作系统 hosts 文件
 - 路由器缓存
 - ISP DNS 服务器
-- **递归查询**：ISP 服务器从根域名服务器 → 顶级域（.com）→ 权威 DNS，逐级查询
+- **逐级查询**：本地 DNS（ISP 递归服务器）依次向根域名服务器 → 顶级域（.com）→ 权威 DNS 发起迭代查询
 
-**关键追问**：递归 vs 迭代查询的区别——递归是"你帮我去查"，迭代是"我告诉你下一步去找谁"。本地 DNS 对 ISP 是递归，ISP 对根/顶级/权威是迭代。
+**关键追问**：递归 vs 迭代查询的区别——递归是"你帮我去查"，迭代是"我告诉你下一步去找谁"。客户端对本地 DNS（ISP 递归服务器）是递归，本地 DNS 对根/顶级/权威是迭代。
 
 ### 3. TCP 连接（三次握手）
 
@@ -78,7 +78,7 @@ TCP 连接建立后，HTTPS 还需要 TLS 握手：
 连接建立后，浏览器发送 HTTP 请求报文（请求行 + 请求头 + 请求体）。关键细节：
 
 - 检查 HTTP 缓存（强缓存命中则直接返回，不走网络）
-- Cookie 自动携带（同源、匹配 path、Secure/HttpOnly 约束）
+- Cookie 自动携带（匹配 Domain/Path、受 Secure/SameSite 约束——注意 HttpOnly 只限制 JS 读取，不影响发送）
 - `Accept-Encoding: gzip, br` 声明支持的压缩格式
 
 ### 6. 服务器处理
@@ -197,7 +197,7 @@ flowchart TD
 - **"DNS 查询一定是 UDP"**：不准确。DNS 默认 UDP（53 端口），但响应超过 512 字节或区域传输时走 TCP。
 - **"三次握手后才发 HTTP 请求"**：对于 HTTPS，三次握手后还要 TLS 握手，共 4-5 个 RTT 才发出第一个 HTTP 请求。
 - **"页面渲染在 HTML 下载完才开始"**：不对。浏览器**流式解析**HTML，边下载边解析，不等整个 HTML 下载完。
-- **"defer 脚本在 DOMContentLoaded 之后执行"**：defer 在 **DOMContentLoaded 之前**执行——读到 DOM 解析完成后、DOMContentLoaded 事件触发前。
+- **"defer 脚本在 DOMContentLoaded 之后执行"**：defer 在 **DOMContentLoaded 之前**执行——等到 DOM 解析完成后、DOMContentLoaded 事件触发前。
 
 ---
 

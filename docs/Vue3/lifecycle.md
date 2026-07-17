@@ -73,8 +73,8 @@ sequenceDiagram
     participant Child as 子组件
 
     Parent->>Parent: setup()
-    Child->>Child: setup()
     Parent->>Parent: onBeforeMount
+    Child->>Child: setup() (父 render 时才创建子组件)
     Child->>Child: onBeforeMount
     Child->>Child: onMounted ✅ (子先挂载完)
     Parent->>Parent: onMounted ✅ (父最后)

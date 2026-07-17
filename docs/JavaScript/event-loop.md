@@ -98,7 +98,7 @@ Promise.resolve()
 // 输出：1 3 4 2
 ```
 
-这题的坑在于：`return Promise.resolve()` 会产生一个额外的微任务来"解开"返回的 Promise，所以 `2` 比 `4` 晚。这是 Promise/A+ 规范规定的。
+这题的坑在于：`return Promise.resolve()` 会产生**两个**额外的微任务来"解开"返回的 Promise（一个 PromiseResolveThenableJob 调用 thenable 的 then，一个真正 resolve 外层 Promise），所以 `2` 比 `4` 晚两拍。这是 ECMAScript 规范的 thenable 展开机制（Promise/A+ 只规定了要展开，没规定 tick 数）。
 
 ## 深度拓展
 
@@ -130,6 +130,7 @@ Node 的 Event Loop 有 **6 个阶段**，每个阶段执行特定的回调：
 **关键差异**：
 - 浏览器每轮一个宏任务；Node 在 poll 阶段可能执行多个 I/O 回调
 - Node 有 `setImmediate`（check 阶段）和 `process.nextTick`（不属于 Event Loop，在当前操作后立即执行，优先级高于微任务）
+- 微任务清空时机：**Node 11+ 已与浏览器对齐**——每执行完一个宏任务回调就清空微任务队列；Node 10 及之前是每个阶段之间才清空（所以老文章里 setTimeout/setImmediate 混合题的答案在新版 Node 下不一样）
 - 浏览器有渲染管线，Node 没有
 
 ### setTimeout(fn, 0) 真的是 0ms 吗？

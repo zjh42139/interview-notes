@@ -88,6 +88,7 @@ console.log('7');
 **30秒答**：bind 返回一个永久绑定了 this 的新函数。call 和 apply 的区别只在传参——call 逐个传、apply 数组传。两个关键点：bind 返回的函数再 bind 无效，new 的优先级高于 bind。
 
 > 答案参考：[../JavaScript/call-apply-bind.md](../JavaScript/call-apply-bind.md)
+> 🎤 回答稿：[../面试回答/JavaScript/this-bind.md](../面试回答/JavaScript/this-bind.md)
 > 延伸：[../手写题/bind-call-apply.md](../手写题/bind-call-apply.md)
 
 ---
@@ -218,6 +219,7 @@ obj.foo.call({ name: 'other' }); // ?
 - "怎么拷贝 Symbol 属性" → Object.getOwnPropertySymbols + Reflect.ownKeys
 
 > 答案参考：[../JavaScript/deep-clone.md](../JavaScript/deep-clone.md)
+> 🎤 回答稿：[../面试回答/JavaScript/deep-clone.md](../面试回答/JavaScript/deep-clone.md)
 > 延伸：[../手写题/deep-clone.md](../手写题/deep-clone.md)
 
 ---

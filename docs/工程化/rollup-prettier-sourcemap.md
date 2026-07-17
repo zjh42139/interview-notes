@@ -27,7 +27,7 @@ tags:
 | 定位 | 库/框架打包 | 应用打包 |
 | 输出 | ESM/CJS/UMD 多格式 | 主要为浏览器 |
 | Tree Shaking | 原生支持（ESM 静态分析） | 需要配置 |
-| 代码分割 | 有限 | 完善（splitChunks） |
+| 代码分割 | 支持（动态 import 自动分包 + manualChunks） | 策略更丰富（splitChunks/cacheGroups） |
 | 生态 | 插件较少但够用 | 插件极丰富 |
 
 **Vite 为什么用 Rollup 做生产构建？** Rollup 输出的 ESM 更干净、Tree Shaking 更彻底，生成库的体积比 Webpack 小 5-15%。开发阶段 Vite 用 esbuild 做预构建（快），生产用 Rollup 打包（干净）。

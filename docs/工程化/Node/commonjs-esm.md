@@ -104,10 +104,12 @@ const routes = [
 import pkg from "some-cjs-package" // CJS 的 module.exports 成为默认导入
 import { named } from "some-cjs-package" // CJS 具名导入（有限支持）
 
-// CJS 中导入 ESM 模块（受限）
-// require() 不能用于 ESM 模块！
-// 只能用动态 import()
+// CJS 中导入 ESM 模块
+// Node < 22.12：require() 加载 ESM 会抛 ERR_REQUIRE_ESM，只能用动态 import()
 const esmModule = await import("some-esm-package")
+// Node 22.12+ / 23+：require() 可以直接加载"同步的" ESM
+// （模块图中不含顶层 await，否则抛 ERR_REQUIRE_ASYNC_MODULE）
+const esmModule2 = require("some-esm-package")
 ```
 
 ### exports 字段条件导出
@@ -119,9 +121,9 @@ const esmModule = await import("some-esm-package")
   "name": "my-library",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",   // TypeScript 拿到这个（必须放第一位）
       "import": "./dist/index.mjs",   // ESM 使用者拿到这个
-      "require": "./dist/index.cjs",  // CJS 使用者拿到这个
-      "types": "./dist/index.d.ts"    // TypeScript 拿到这个
+      "require": "./dist/index.cjs"   // CJS 使用者拿到这个
     },
     "./utils": {
       "import": "./dist/utils.mjs",
@@ -130,6 +132,8 @@ const esmModule = await import("some-esm-package")
   }
 }
 ```
+
+> 注意：条件导出按对象键的书写顺序匹配，`"types"` 必须放在 `"import"`/`"require"` 之前，否则 TypeScript 可能匹配不到类型声明。
 
 ## 深度拓展
 
@@ -179,31 +183,48 @@ sequenceDiagram
     a.js->>a.js: 8. exports.done = true
 ```
 
-**ESM 循环引用 -- Live Binding 正确处理**：
+**ESM 循环引用 -- Live Binding + TDZ**：
 
 ```ts
-// a.mjs
+// a.mjs（入口）
+import { bDone } from "./b.mjs"
 console.log("a 开始")
-export let done = false
-import { done as bDone } from "./b.mjs"
-console.log("在 a 中，b.done =", bDone) // true！因为是 Live Binding
-export { done }
-done = true
+export let aDone = false
+aDone = true
 console.log("a 结束")
 
 // b.mjs
+import { aDone } from "./a.mjs"
 console.log("b 开始")
-export let done = false
-import { done as aDone } from "./a.mjs"
-console.log("在 b 中，a.done =", aDone) // undefined（TDZ）
-done = true
+export let bDone = false
+console.log("在 b 中，a.done =", aDone) // ❌ 这里抛错
 console.log("b 结束")
 
-// ESM 的 import 是"实时绑定"——不是值的拷贝，而是对导出变量本身的引用
-// b 中访问 aDone 时 a 还没初始化 done，处于 TDZ（暂时性死区）
+// node a.mjs 实际输出：
+// b 开始
+// ReferenceError: Cannot access 'aDone' before initialization
+//
+// 为什么？import 声明会被提升，执行顺序由依赖图决定：
+// 依赖先执行——b.mjs 先执行（a.mjs 处于"执行中"被跳过）
+// b 访问 aDone 时，a.mjs 还没执行到初始化语句，绑定处于 TDZ
+// 注意：TDZ 访问抛 ReferenceError，不是拿到 undefined
 ```
 
-**面试回答要点**：CJS 循环引用返回"未完成的对象副本"可能导致逻辑错误；ESM 通过 Live Binding 解决这个问题，但访问时机不当会触发 TDZ 报错。
+用**函数声明**则可以安全循环引用——函数声明在模块实例化（链接）阶段就完成了初始化，Live Binding 保证调用时拿到最新定义：
+
+```ts
+// a.mjs（入口）
+import { isEven } from "./b.mjs"
+export function isOdd(n) { return !isEven(n) }
+console.log(isOdd(3)) // true —— 执行到这里时 b.mjs 已求值完毕
+
+// b.mjs
+import { isOdd } from "./a.mjs"
+export function isEven(n) { return n === 0 || isOdd(n - 1) }
+// b 求值时只是"定义"了 isEven，没有立刻调用 isOdd，所以不报错
+```
+
+**面试回答要点**：CJS 循环引用返回"未完成的对象副本"，不报错但可能逻辑出错；ESM 靠 Live Binding 让"运行时才访问"的循环引用（典型如互相调用的函数声明）能正确工作，但在模块求值期间就读取对方尚未初始化的 `let`/`const` 绑定会触发 TDZ 的 ReferenceError。
 
 ### Tree Shaking 为什么依赖 ESM
 
@@ -212,14 +233,18 @@ console.log("b 结束")
 ### Node 中同时使用 CJS 和 ESM 的坑
 
 ```ts
-// 坑1：CJS 里用 require 加载 ESM → 报错
-const esmModule = require("./esm.mjs") // ❌ ERR_REQUIRE_ESM
+// 坑1：CJS 里用 require 加载 ESM
+const esmModule = require("./esm.mjs")
+// Node < 22.12 → ❌ ERR_REQUIRE_ESM，只能用动态 import()
+// Node 22.12+ / 23+ → ✅ 同步 ESM（不含顶层 await）可以直接 require
 
-// 坑2：ESM 里 import CJS → named exports 可能 undefined
-import { namedExport } from "cjs-pkg" // ❌ 可能 undefined
-// 因为 CJS 的 module.exports = { namedExport } 只在默认导出中
+// 坑2：ESM 里 import CJS 的具名导出
+import { namedExport } from "cjs-pkg"
+// Node 用 cjs-module-lexer 静态分析 CJS 的导出
+// 分析不出来时在链接阶段直接报 SyntaxError（不是拿到 undefined）
+// 部分打包器的互操作实现则可能给你 undefined
 import cjsPkg from "cjs-pkg"
-const namedExport = cjsPkg.namedExport // ✅ 先取默认导出再解构
+const namedExport = cjsPkg.namedExport // ✅ 兜底：先取默认导出再取属性
 
 // 坑3：__dirname / __filename 在 ESM 中不存在
 import { fileURLToPath } from "node:url"
@@ -265,9 +290,9 @@ import App from "./App.vue" // SFC 默认导出
   "types": "./dist/index.d.ts",  // TypeScript 类型
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./*": "./dist/*"  // 子路径导出
   }

@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: null
 tags:
   - transition
@@ -144,7 +144,7 @@ flowchart LR
 .btn:hover { transform: scale(1.1); }
 
 /* 方式 2：JS 添加 class 触发 */
-.el.style.transition = 'transform 0.3s'
+el.style.transition = 'transform 0.3s'
 el.classList.add('active')
 el.style.transform = 'translateX(100px)'
 ```
@@ -228,7 +228,7 @@ transform 和 opacity 只触发 Composite 阶段，不走主线程的 Layout 和
 ## 易错点
 
 1. **`transition` 写了但没触发器** —— 需要状态变化（hover/class 切换）才能触发
-2. **`transition` 的 `display: none` 无动画** —— `display` 不支持 transition，用 `opacity` + `pointer-events` 代替
+2. **`transition` 的 `display: none` 无动画** —— `display` 默认不参与过渡，传统做法用 `opacity` + `pointer-events` 代替；现代方案是 `transition-behavior: allow-discrete` + `@starting-style`（2024 年起 Baseline）
 3. **忘记 `animation-fill-mode: forwards`** —— 动画结束后元素跳回初始状态
 4. **`animation` 的 `@keyframes` 名字拼错** —— 动画静默失败，不报错
 5. **`transition` 和 `animation` 同时使用** —— 两者可能冲突，需要明确分场景使用
@@ -249,4 +249,5 @@ transform 和 opacity 只触发 Composite 阶段，不走主线程的 Layout 和
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修 JS 示例笔误（.el→el）、display 过渡补 transition-behavior/@starting-style 现代方案
 - 2026-07-08：新建（transition vs animation 对比 + steps 逐帧 + 动画事件 + 项目实战）

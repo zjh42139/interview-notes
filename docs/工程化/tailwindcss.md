@@ -20,7 +20,7 @@ tags:
 
 # Tailwind CSS
 
-> &#11088;&#11088;&#11088;｜难度：中级&#9733;&#9733;
+> ⭐⭐⭐｜难度：中级
 
 ## 一句话总结
 
@@ -46,10 +46,12 @@ tags:
 ```mermaid
 flowchart LR
     HTML["HTML 模板"] --> TW["Tailwind utility classes\n直接在 HTML 中组合"]
-    TW --> BUILD["构建阶段扫描 HTML"]
-    BUILD --> PURGE["PurgeCSS/Tree Shaking\n移除未使用的 class"]
-    PURGE --> OUTPUT["最终 CSS 体积 ~5-10KB\n（gzip 后）"]
+    TW --> BUILD["构建阶段扫描模板文件"]
+    BUILD --> JIT["JIT 引擎按需生成\n只生成实际用到的 class"]
+    JIT --> OUTPUT["最终 CSS 体积 ~5-10KB\n（gzip 后）"]
 ```
+
+> 版本演进：v2 时代靠 PurgeCSS 事后"删除"未用的类；v3 起 JIT 引擎默认开启，改为按需"生成"；v4（2025）进一步改为 CSS-first 配置——用 CSS 里的 `@theme` 替代 `tailwind.config.js`，并自动检测模板文件（无需手动配 `content`）。下方配置示例为 v3 写法，v4 中仍可通过 `@config` 兼容使用。
 
 **优点**：
 - 不需要给 class 起名字（命名是最难的事之一）
@@ -76,8 +78,8 @@ module.exports = {
     }
   }
 }
-// 构建时：只保留 content 路径下 HTML 中实际用到的 utility class
-// 写 1000 个 utility 但只用 50 个 → CSS 只包含 50 个
+// 构建时：JIT 只生成 content 路径下模板中实际用到的 utility class
+// 可用类有几万个，但只用 50 个 → CSS 只包含 50 个
 ```
 
 ### 核心配置：自定义设计系统
@@ -152,7 +154,7 @@ module.exports = {
 
 1. **把所有样式都写成 class 而不抽组件** —— 相同的 class 组合在 10 个地方重复 → 抽成一个 Vue/React 组件
 2. **滥用 `@apply`** —— `@apply` 是把 utility 变回传统 CSS，用多了就失去了 utility-first 的意义
-3. **忘记配 `content` 路径** —— 没配或配错路径 → Tree Shaking 失效 → 生产的 CSS 缺少用到的 class
+3. **忘记配 `content` 路径（v3）** —— 没配或配错路径 → JIT 扫描不到模板 → 生产的 CSS 缺少用到的 class（v4 自动检测模板文件，此坑基本消失）
 4. **和组件库样式冲突** —— Tailwind 的 preflight（reset）可能会影响 Element Plus 等组件库的基础样式
 
 ## 面试信号表

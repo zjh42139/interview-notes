@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: null
 tags:
   - position
@@ -74,7 +74,7 @@ flowchart TB
 </div>
 ```
 
-### fixed 的"背叛"—— 四种情况 fixed 不相对视口
+### fixed 的"背叛"—— 五种情况 fixed 不相对视口
 
 ```css
 /* 1. 祖先有 transform → fixed 相对于该祖先，而非视口 */
@@ -123,7 +123,8 @@ flowchart TB
 .parent { overflow: hidden; }           /* sticky 被切断了 */
 .parent { overflow: auto; }             /* ✅ 这个可以 */
 .parent { overflow: visible; }          /* ✅ 默认值，可以 */
-.parent { overflow: clip; }             /* ❌ 和 hidden 一样会切断 */
+.parent { overflow: clip; }             /* ✅ clip 不产生滚动容器，sticky 不受影响
+                                           （正是替代 hidden 保住 sticky 的推荐做法） */
 
 /* ❌ 原因 3：父元素高度等于 sticky 元素高度 */
 .parent { height: 50px; }
@@ -224,7 +225,7 @@ const placementMap = {
 1. **absolute 不指定 top/left 时留在原位置** —— 垂直位置不变但脱离文档流，后面元素会上移
 2. **`transform`/`filter` 让 fixed 相对于祖先** —— 这是 CSS 规范行为，不是 bug，开发前先检查组件的祖先树
 3. **sticky 在 `overflow: hidden` 父级中失效** —— 最经典的反直觉场景
-4. **z-index 只在定位元素上生效** —— `position: static` 的元素 z-index 无效
+4. **z-index 只在定位元素上生效** —— `position: static` 的元素 z-index 无效（例外：flex/grid 子项不定位也生效）
 5. **relative 的元素原有空间保留** —— 不会导致其他元素重新排列
 
 ## 面试信号表
@@ -244,4 +245,5 @@ const placementMap = {
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修正 overflow: clip 对 sticky 的影响（clip 不产生滚动容器，sticky 有效）、"四种"改"五种"、z-index 补 flex/grid 例外
 - 2026-07-08：新建（五种定位 + 包含块规则 + fixed 背叛 + sticky 失效全景 + 项目实战）

@@ -1,5 +1,39 @@
 # Phase 1-2 审计工作记录（临时文件，Phase 5 结束后删除）
 
+## Phase 3 事实审计进度（第 1 批）
+
+| 模块 | P0 修复 | P1 修复 | 备注 |
+|------|:---:|:---:|------|
+| 浏览器前半 | 7 | 32 | cookie.md 重灾（Lax 攻击面错）、nginx etag 指令错、devtools JS 块混 CSS |
+| 浏览器后半+安全 | 9 | 33 | 4 个安全篇 shell 脚本残留（全库已确认仅此 4 处）、CSP unsafe-eval 方向反、Mixed Content 行为反 |
+| JavaScript | 8 | 33 | async 输出题答案错（1 3 4 5 2）、Proxy receiver 演示错、SAB transfer 方向反 |
+| Vue3 | 13 | 24 | lifecycle 父子挂载顺序图错、KeepAlive「销毁重建」错（实为 DOM move）、SSR 渲染器三连错、v-if+v-for 虚构机制 |
+| CSS | 2 | 20 | at-layer !important 方向反（题库同错已修）、sticky overflow:clip 方向反、Vue Scoped 产物错 |
+| 工程化 | ⏳ | | |
+
+**CSS 待人工确认**: box-model textarea/select 默认盒模型、css-variables 空回退差异、flex-basis:content 支持面、0.5px Android 两文口径不一（Phase 4）
+
+**Vue3 待人工确认**: HYDRATE_EVENTS→NEED_HYDRATION 更名标注、keepalive 内存估算数字弱化
+**浏览器待办（Phase 5）**: 安全/index.md 与浏览器/index.md 的 status 列与 frontmatter 不一致
+
+## Phase 2 进度
+
+- ✅ 组 1（浏览器/CSS/HTML/VueRouter/Pinia/网络）: +24 🎤、修 1 错链（网络 Q9 → 浏览器/cache 稿）
+- ✅ VR4 知识文件 vue-router-4.md 创建（249 行）+ index/sidebar；题库 Q8 答案参考已改挂
+- ✅ 网络 Q15 RESTful 错配修正（答案参考→http-methods.md，摘除错配 🎤）
+- ⏳ 组 2（JS/Vue3/TS/工程化/性能/项目）运行中
+
+### 回答稿缺口清单（5 星题无可匹配回答稿，7 道——Phase 5 上报用户决策是否补写）
+1. 浏览器 Q2 回流与重绘（CSS Q22 同主题也缺）
+2. 浏览器 Q12 内存泄漏排查
+3. Pinia Q2 storeToRefs vs 解构
+4. VueRouter Q8 VR4 破坏性变更
+5. VueRouter Q9 params vs query
+6. HTML Q15 CSR/SSR/SSG/ISR
+7. 网络 Q17 GET vs POST
+
+（4 星题缺口约 25 道，明细见组 1 agent 报告，暂不补写）
+
 > 汇总各 apply agent 报告的覆盖率缺口和待办，供 Phase 2/3/5 使用
 
 ## 已完成的题库修改

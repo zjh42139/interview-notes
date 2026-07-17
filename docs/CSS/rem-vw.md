@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 reviewed: null
 tags:
   - rem
@@ -245,7 +245,7 @@ function setRem() {
 - ❌ **混淆 rem 和 em**：`rem` 相对于根元素 `<html>`，`em` 相对于**当前元素的** `font-size`。`em` 有嵌套叠加问题（父元素 1.5em × 子元素 1.2em = 越算越大），移动端适配只用 `rem`。
 - ❌ **rem 方案忘了设置 `<html>` 的 `font-size`**：默认浏览器根字号是 16px，没调的话所有 rem 按 1:16 计算，设计稿尺寸完全对不上。
 - ❌ **vw 方案在微信小程序里不完全兼容**：部分小程序 WebView 对 `vw` 支持有 bug，需要用 `postcss-px-to-rpx` 转换，或做降级处理。
-- ❌ **`100vw` 包含滚动条宽度**：Windows 滚动条宽 17px，`width: 100vw` 会触发横向滚动条。✅ 用 `width: 100%` 或用新的 `100dvw`（动态视口单位）。
+- ❌ **`100vw` 包含滚动条宽度**：Windows 滚动条宽 17px，`width: 100vw` 会触发横向滚动条。✅ 用 `width: 100%`。注意 `100dvw` 等动态视口单位**同样包含滚动条宽度**——它解决的是移动端地址栏伸缩问题，解决不了滚动条溢出。
 - ❌ **border 1px 被 `postcss-px-to-viewport` 转成 vw**：在某些低端安卓上，`0.5px` 变成 `0.13333vw`，计算误差导致边框消失。✅ 配置 `minPixelValue: 1` 或 `selectorBlackList` 保留 border 的 px。
 
 ## 面试信号表
@@ -268,4 +268,5 @@ function setRem() {
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修正"100dvw 可解决滚动条溢出"的错误说法（dvw 同样包含滚动条宽度）
 - 2026-07：Phase 2 填充（面试笔记版）

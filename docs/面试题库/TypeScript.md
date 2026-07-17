@@ -66,6 +66,7 @@ tags:
 - "怎么实现 DeepPartial" → 递归映射——T[K] extends object ? DeepPartial<T[K]> : T[K]
 
 > 答案参考：[../TypeScript/utility-types.md](../TypeScript/utility-types.md)
+> 🎤 回答稿：[../面试回答/TypeScript/generics-utility.md](../面试回答/TypeScript/generics-utility.md)
 > 延伸：[../TypeScript/keyof-mapped-conditional.md](../TypeScript/keyof-mapped-conditional.md)
 
 ---
@@ -91,6 +92,7 @@ tags:
 - "unknown 怎么转成具体类型" → 类型收窄——typeof/instanceof/自定义 type guard
 
 > 答案参考：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
+> 🎤 回答稿：[../面试回答/TypeScript/any-unknown-never-answer.md](../面试回答/TypeScript/any-unknown-never-answer.md)
 
 ---
 
@@ -140,6 +142,7 @@ tags:
 - "什么时候用 satisfies" → 既要类型检查约束又不丢失字面量类型——如调色板对象
 
 > 答案参考：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
+> 🎤 回答稿：[../面试回答/TypeScript/as-const-satisfies-answer.md](../面试回答/TypeScript/as-const-satisfies-answer.md)
 > 🆕 延伸：[../TypeScript/as-const.md](../TypeScript/as-const.md)
 
 ---
@@ -240,6 +243,7 @@ tags:
 - "declare global 的作用" → 扩展全局类型——如给 Window 加自定义属性
 
 > 答案参考：[../TypeScript/declaration.md](../TypeScript/declaration.md)
+> 🎤 回答稿：[../面试回答/TypeScript/declaration-answer.md](../面试回答/TypeScript/declaration-answer.md)
 
 ---
 
@@ -290,6 +294,7 @@ tags:
 - "as const 和 enum 怎么选" → as const + union 类型更轻量——不生成运行时代码
 
 > 答案参考：[../TypeScript/as-const.md](../TypeScript/as-const.md)
+> 🎤 回答稿：[../面试回答/TypeScript/as-const-satisfies-answer.md](../面试回答/TypeScript/as-const-satisfies-answer.md)
 > 🆕 延伸：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
 
 ---
@@ -488,6 +493,7 @@ tags:
 - "判别字段有什么要求" → 各成员共有、且是字面量类型（如 'success'）——TS 才能据它收窄
 
 > 答案参考：[../TypeScript/type-narrowing.md](../TypeScript/type-narrowing.md)
+> 🎤 回答稿：[../面试回答/TypeScript/type-narrowing-answer.md](../面试回答/TypeScript/type-narrowing-answer.md)
 > 延伸：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
 
 ---

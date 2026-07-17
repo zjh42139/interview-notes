@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: filled
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: null
 tags:
   - specificity
@@ -91,7 +91,7 @@ p { color: blue !important; }         /* 权重 0-0-0-1 + !important */
 @layer base, components, utilities;
 
 @layer base {
-  p { color: black; }             /* base 层优先 */
+  p { color: black; }             /* base 层先声明，优先级低 */
 }
 
 @layer utilities {
@@ -164,8 +164,9 @@ DevTools Styles 面板中：
 .title { color: red; }  
 /* 编译后：.title[data-v-xxx]  ← 权重 0-0-2-0 */
 
-/* 子组件根元素同时被父组件 Scoped 影响：
-   父 .parent[data-v-parent] .child[data-v-child] ← 权重 0-0-3-0 */
+/* 子组件根元素同时带有父组件的 data-v 属性，
+   父样式 .parent .child 编译为 .parent .child[data-v-parent] ← 权重 0-0-3-0
+   （Vue 只给选择器的最后一个元素追加属性） */
 </style>
 ```
 
@@ -195,4 +196,5 @@ DevTools Styles 面板中：
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修正 @layer 示例注释（base 层先声明优先级低）、Vue Scoped 父子选择器编译形态与权重
 - 2026-07-08：新建（四位数权重 + !important + :is/:where/@layer 三大现代补充 + Element Plus 覆盖实战）

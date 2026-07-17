@@ -85,6 +85,7 @@ tags:
 | `opacity: 0` | 还在 | ✅ 占位 | ✅ 仍可点击 | 全部透明 | ✅ transition |
 
 📖 [盒模型](../CSS/box-model.md) · [CSS 渲染性能](../CSS/css-performance.md)
+🎤 回答稿：[../面试回答/CSS/display-visibility-opacity.md](../面试回答/CSS/display-visibility-opacity.md)
 
 **30秒答**：display:none 移除 DOM 流触发回流——不占位不渲染。visibility:hidden 占位只重绘——子元素设 visible 可恢复。opacity:0 占位可交互——视觉透明但能点击。
 **追问预测**：
@@ -151,6 +152,7 @@ tags:
 - `@layer` 引入权重维度之外的新维度（layer 优先级 > 选择器权重）
 
 📖 [选择器优先级](../CSS/specificity.md)
+🎤 回答稿：[../面试回答/CSS/specificity.md](../面试回答/CSS/specificity.md)
 
 **30秒答**：!important > 内联 > id > class/伪类/属性 > 元素/伪元素。权值 !important=∞、内联=1000、id=100、class=10、元素=1。权值相同后来居上。用户 !important 高于作者 !important。
 **追问预测**：
@@ -236,6 +238,7 @@ tags:
 5. `text-align: center` + `line-height` = `height`（仅单行文字）
 
 📖 [居中方案](../CSS/center-layout.md)
+🎤 回答稿：[../面试回答/CSS/centering.md](../面试回答/CSS/centering.md)
 
 **30秒答**：Flexbox(display:flex+justify-content:center+align-items:center)最通用。Grid(place-items:center)一行最简洁。绝对+transform(top:50%+left:50%+translate(-50%))适合弹窗。不定宽高用 Flex/Grid。
 **追问预测**：

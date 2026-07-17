@@ -64,10 +64,10 @@ https://example.com:443/app/index.html
 ├─────────────────────────────────────────────────┤
 │ 限制 2：Cookie / LocalStorage / IndexedDB        │
 │  ┌──────────┐    ┌──────────┐                   │
-│  │ a.com 的 │ ✗→ │ a.com 的 │                   │
+│  │ b.com 的 │ ✗→ │ a.com 的 │                   │
 │  │ 脚本     │    │ Cookie   │                   │
 │  │          │    │ Storage  │                   │
-│  │ b.com 的 │    │          │                   │
+│  │ a.com 的 │    │          │                   │
 │  │ 脚本     │    │          │                   │
 │  └──────────┘    └──────────┘                   │
 │  → 同源存储只对同源脚本可见                        │
@@ -135,7 +135,8 @@ window.addEventListener('message', (e) => {
 // a.news.com 和 b.news.com 都设置：
 // document.domain = 'news.com'
 // 然后它们就可以互访 DOM
-// ⚠️ Chrome 已移除支持，不要在任何场景下使用
+// ⚠️ Chrome 已默认禁用（设置变成 no-op，需服务端显式返回
+//    Origin-Agent-Cluster: ?0 才能恢复），不要在任何场景下使用
 
 // 5. window.name —— 历史奇技淫巧
 // iframe 跨域跳转后 window.name 不重置（最大 2MB）
@@ -181,8 +182,8 @@ fetch('https://api.example.com/user', {
 | `<link href="跨域URL">` | ❌ 不受限 | CSS 可跨域加载，字体/图片同理 |
 | `<iframe src="跨域URL">` | 能嵌入但不能读 DOM | 嵌入允许，DOM 访问被限制 |
 | `fetch` / `XMLHttpRequest` | ✅ 受限 | 核心同源限制，需 CORS |
-| `document.cookie` | ✅ 受限 | 只能读写同源 cookie |
-| 跨域 iframe 的 `contentWindow` | ✅ 受限 | 抛 DOMException |
+| `document.cookie` | ✅ 受限 | 按 Domain + Path 隔离（注意：不区分端口，也不是严格的"源"） |
+| 跨域 iframe 的 `contentWindow.document` | ✅ 受限 | 抛 SecurityError（`contentWindow` 本身可获取，可调用 `postMessage`） |
 
 ## 项目实战
 

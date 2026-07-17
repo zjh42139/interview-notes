@@ -27,11 +27,12 @@ tags:
 ### 敏感数据脱敏
 
 ```javascript
-// 前端展示层脱敏——后端存储不解敏
+// 展示层脱敏——注意：更安全的做法是接口直接返回脱敏字段，完整数据尽量不下发到前端
 const maskPhone = (phone) => phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
 maskPhone('13812345678'); // 138****5678
 
-const maskIdCard = (id) => id.replace(/(\d{4})\d{10}(\d{4})/, '$1**********$2');
+// 身份证末位可能是 X，正则要兼容
+const maskIdCard = (id) => id.replace(/(\d{4})\d{10}(\d{3}[\dXx])/, '$1**********$2');
 
 // 错误上报时过滤
 Sentry.init({

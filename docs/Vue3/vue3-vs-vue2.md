@@ -85,7 +85,7 @@ Vue2 需要 `export default { data, methods, computed }`；Vue3 `<script setup>`
 | **Block Tree** | 把动态节点收集到 flat array——Diff 时不遍历静态部分 | 跳过整个静态子树 |
 | **静态提升** | 静态 VNode 提到 render 外——不参与每次的 createVNode | 减少内存分配和 GC |
 | **预字符串化** | 连续静态节点编译为 innerHTML 字符串——一个 DOM 操作替代 N 个 | 挂载速度 ↑ 300%+ |
-| **Target** | 编译时标记动态 children——Diff 只走动态子节点 | 接近 O(动态节点数) |
+| **靶向更新** | PatchFlag + Block Tree 组合的结果——运行时按编译标记只处理动态内容 | 接近 O(动态节点数) |
 | **Event Cache** | 内联事件处理函数缓存——不触发子组件 props 变化 | 减少子组件更新 |
 
 ### PatchFlag 示例
@@ -97,9 +97,9 @@ Vue2 需要 `export default { data, methods, computed }`；Vue3 `<script setup>`
 </div>
 
 <!-- Vue3 编译后：只标记 class、style、text 三个 flag -->
-_createVNode('div', { id: 'static', class: _ctx.dynamic }, [
+_createVNode('div', { id: 'static', class: _ctx.dynamic, style: _ctx.dynamicStyle }, [
   _createVNode('span', null, _ctx.msg, 1 /* TEXT */)
-], 2 /* CLASS */ | 4 /* STYLE */)
+], 6 /* CLASS, STYLE */)
 ```
 
 ---
@@ -112,7 +112,7 @@ _createVNode('div', { id: 'static', class: _ctx.dynamic }, [
 | **Teleport** | 把内容渲染到 DOM 树的其他位置——如弹窗渲染到 `<body>` | ❌ |
 | **Suspense** | 异步组件的加载/错误/fallback 统一管理 | ❌ 需手动 |
 | **多 v-model** | `v-model:title` + `v-model:content` | ❌ 只有一个 v-model + .sync |
-| **动态插槽名** | `<template #[slotName]>` | ❌ 只有静态名 |
+| **动态插槽名** | `<template #[slotName]>` | ⚠️ Vue 2.6+ 已支持（并非 Vue3 独有） |
 | **Emits 声明** | `defineEmits(['submit'])`——显式声明、类型安全 | ❌ 隐式 |
 
 ---
@@ -152,7 +152,7 @@ _createVNode('div', { id: 'static', class: _ctx.dynamic }, [
 ### 渐进式迁移
 
 1. **先升级构建工具**：切换到 Vite（Vue CLI → Vite）——不涉及 Vue 版本
-2. **Vue2 + Composition API 插件**：安装 `@vue/composition-api`——在 Vue2 中试用 Composition API
+2. **Vue2 中先用上 Composition API**：升级到 Vue 2.7（内置 Composition API）；若被锁在 2.6 及以下，安装 `@vue/composition-api` 插件
 3. **逐步替换组件**：新组件用 `<script setup>` 写，旧组件保留 Options API——Vue3 兼容 Options API
 4. **消除破坏性变更**：替换 `$on/$off`→Pinia、`filters`→computed、`.sync`→v-model 参数、`$listeners`→合并到 `$attrs`
 5. **升级生态依赖**：Vuex→Pinia、Vue CLI→Vite、Element UI→Element Plus、Vue 2→Vue 3

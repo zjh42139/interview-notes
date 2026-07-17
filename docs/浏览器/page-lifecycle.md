@@ -129,7 +129,7 @@ bfcache 的好处：
 
 什么会阻止 bfcache：
   ❌ 监听了 unload 事件（永远不要用 unload，用 pagehide 代替）
-  ❌ 有 beforeunload 监听器（系统弹窗无法冻结）
+  ❌ beforeunload 监听器（仅 Firefox 会因此禁用 bfcache；Chrome/Safari 不禁用，但建议只在有未保存修改时动态添加）
   ❌ 页面有 IndexedDB 事务未完成
   ❌ 页面使用了 window.opener 引用
   ❌ Cache-Control: no-store

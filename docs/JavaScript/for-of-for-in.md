@@ -36,7 +36,7 @@ tags:
 | 适用类型 | 对象（Object） | 可迭代对象（Array/Map/Set/String/arguments/NodeList） |
 | 原型链 | **会**遍历原型上的可枚举属性 | 不会——只取 `[Symbol.iterator]()` 返回的值 |
 | 顺序 | 先数字属性升序，再字符串属性按创建顺序 | 按迭代器定义的顺序（数组按索引、Map 按插入） |
-| 底层机制 | `[[Enumerate]]` → 枚举所有可枚举属性 | `[Symbol.iterator]()` → 调用 next() 直到 done |
+| 底层机制 | EnumerateObjectProperties → 枚举所有可枚举属性（旧规范叫 `[[Enumerate]]`，ES2016 已移除） | `[Symbol.iterator]()` → 调用 next() 直到 done |
 | typeof key | **string**（数组索引也返回字符串） | 由迭代器决定（数组返回元素本身） |
 
 ### 常见误区：for...in 遍历数组
@@ -153,7 +153,7 @@ for (let key in obj) {
 
 ## 易错点
 
-1. **for...in 遍历数组** —— 索引是字符串 "0"，不是 number。而且在 ESLint 中会直接报错 `no-restricted-syntax`
+1. **for...in 遍历数组** —— 索引是字符串 "0"，不是 number。airbnb 等常见 ESLint 规则集会通过 `no-restricted-syntax` 直接禁用 for...in
 2. **for...in 会拿到原型上的属性** —— 如果某个库给 `Object.prototype` 加了方法，所有 for...in 都会中招。这就是为什么永远要加 `hasOwnProperty` 守卫
 3. **for...of 不能遍历对象** —— 忘了转成 `Object.entries()` 就会 TypeError。这是刚学 JS 的开发者最常见的困惑之一
 4. **for...of 遍历字符串正确处理 emoji** —— `'😀😃'.length === 4`（两个代理对），但 `for...of` 正确拿到两个 emoji。这是 for...of 相对 for 循环的一大优势

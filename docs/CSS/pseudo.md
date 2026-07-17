@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: null
 tags:
   - 伪类
@@ -225,7 +225,7 @@ a[href^="http"]:not([href*="mysite.com"])::after {
 ## 易错点
 
 1. **`::before`/`::after` 忘记 `content`** —— 没有 `content` 伪元素根本不存在，所有样式都白写
-2. **伪元素不能用于 `img`/`input` 等替换元素** —— 这些元素没有"内容容器"，伪元素无处渲染
+2. **`::before`/`::after` 不能用于 `img`/`input` 等替换元素** —— 这些元素没有"内容容器"，两者无处渲染（`::placeholder`、`::selection` 这类专用伪元素不受此限制）
 3. **`:nth-child` 基于所有子元素计数，不是过滤后计数** —— 计算时先数总数再判断类型
 4. **伪元素不能被 JS 直接操作** —— 它们是 CSS 创建的，不存在于 DOM 中，`querySelector` 选不到
 5. **单冒号和双冒号** —— CSS3 后伪元素用双冒号，但浏览器向后兼容单冒号写法（`::before` 和 `:before` 都生效，但仍推荐双冒号）
@@ -247,4 +247,5 @@ a[href^="http"]:not([href*="mysite.com"])::after {
 
 ## 更新记录
 
+- 2026-07-18：事实审计——易错点"替换元素"限定为 ::before/::after（::placeholder 等专用伪元素不受限）
 - 2026-07-08：新建（四大伪类分类 + 伪元素全景 + clearfix 详解 + nth-child/nth-of-type 对比 + 项目实战）

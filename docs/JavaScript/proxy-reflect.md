@@ -132,31 +132,31 @@ state.items[0] = 99   // 触发更新
 
 ### Reflect —— 为什么有了 Proxy 还要配合 Reflect？
 
-**核心原因：修正 `this` 指向逃逸问题。**
+**核心原因：修正 `this` 指向逃逸问题。** 注意：这个问题出在**访问器属性（getter/setter）**上——普通方法 `child.fn()` 调用时 this 本来就是 child，不受影响。
 
 ```js
 // 问题演示：没有 Reflect 的 Proxy
 const parent = {
-  name: 'parent',
-  getName() {
+  _name: 'parent',
+  get name() {
     // this 指向谁？
-    return this.name
+    return this._name
   }
 }
 
 const proxy = new Proxy(parent, {
   get(target, key) {
     console.log('访问:', key)
-    return target[key]  // ⚠️ 直接返回原始方法
+    return target[key]  // ⚠️ 用 target 直接取值——getter 执行时 this 固定成了 target
   }
 })
 
 const child = Object.create(proxy)
-child.name = 'child'
-console.log(child.getName())
-// 期望：访问 child 时触发 get 拦截 → 打印 "访问: getName" → 返回 'child'
-// 实际：target[key] 返回的是 parent.getName，其中的 this 指向 parent
-//      而不是 child（原始对象的方法调用 this 逃逸到了 target 上）
+child._name = 'child'
+console.log(child.name)
+// 期望：name getter 里的 this 指向发起访问的 child → 'child'
+// 实际：target[key] 触发 parent 的 name getter 时 this = parent
+//      （this 逃逸到了原始对象 target 上）
 // 输出：'parent'（❌ 错误！期望 'child'）
 ```
 
@@ -165,16 +165,16 @@ console.log(child.getName())
 const proxy2 = new Proxy(parent, {
   get(target, key, receiver) {
     console.log('访问:', key)
-    // Reflect.get 的第三个参数 receiver 保证 this 指向正确的调用者
+    // Reflect.get 的第三个参数 receiver 保证 getter 里的 this 指向正确的调用者
     return Reflect.get(target, key, receiver)
   }
 })
 
 const child2 = Object.create(proxy2)
-child2.name = 'child'
-console.log(child2.getName())  // 'child' ✅ 正确
+child2._name = 'child'
+console.log(child2.name)  // 'child' ✅ 正确
 // Reflect.get(target, key, receiver) 中的 receiver = child2
-// this 正确地指向了 child2
+// name getter 里的 this 正确地指向了 child2
 ```
 
 **一句话记死**：`Reflect` 方法的 `receiver` 参数解决了 Proxy 代理下 `this` 指向逃逸到原始对象的问题。

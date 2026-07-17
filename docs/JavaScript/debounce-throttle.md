@@ -190,6 +190,8 @@ function throttle<T extends (...args: any[]) => any>(
       lastTime = now
     } else if (!timer && trailing) {
       // 还没到时间，设置定时器在剩余时间后执行
+      // 注意：trailing 执行用的是"设置定时器那一次"的 args；
+      // 要用最新一次调用的 args 需要像 lodash 那样额外记录 lastArgs
       timer = setTimeout(() => {
         fn.apply(this, args)
         lastTime = leading ? Date.now() : 0
@@ -333,7 +335,7 @@ const updateProgress = throttle((percent: number) => {
 
 1. **防抖和节流是同一个东西** -- 防抖等停手，节流按时执行，完全不同的行为
 2. **防抖的延迟越小越好** -- 延迟太小=没防抖效果；太高=用户感知"卡顿"。搜索建议 300ms，提交按钮 2000ms
-3. **Vue3 中可以直接用 lodash 的 debounce** -- lodash 的 debounce 返回的函数引用每次渲染都变，如果不缓存会导致每次渲染都创建新的防抖函数
+3. **Vue3 中可以直接用 lodash 的 debounce** -- 坑在共享状态：如果把防抖函数放在模块作用域或组件 options 上，多个组件实例会共享同一个 timer 互相干扰；应在 setup 内为每个实例单独创建，并在卸载时 cancel
 4. **防抖函数用在事件监听器中，removeEventListener 失效** -- 防抖返回的是 wrapper 函数，需要保存引用才能正确移除
 5. **节流函数的 lastTime 用全局变量** -- 应该用闭包保存状态，每个节流实例独立
 

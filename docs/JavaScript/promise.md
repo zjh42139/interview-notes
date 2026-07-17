@@ -186,6 +186,8 @@ class MyPromise<T = unknown> {
   constructor(executor: (resolve: (value: T) => void, reject: (reason: any) => void) => void) {
     const resolve = (value: T) => {
       if (this.state !== State.PENDING) return
+      // 注意：骨架从简——完整版的 resolve 还需判断 value 是否为 thenable 并递归展开
+      // （原生 resolve(promise) 会等待内部 promise，正是走这套 Resolution Procedure）
       this.state = State.FULFILLED
       this.value = value
       // 发布：执行所有等待中的 then 回调

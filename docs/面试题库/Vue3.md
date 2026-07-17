@@ -282,6 +282,7 @@ tags:
 - "什么时候用 watchEffect" → 不需要对比旧值、依赖动态变化多——如根据多个响应式值更新 DOM
 
 > 答案参考：[../Vue3/computed-watch.md](../Vue3/computed-watch.md)
+> 🎤 回答稿：[../面试回答/Vue3/computed-watch.md](../面试回答/Vue3/computed-watch.md)
 
 ---
 
@@ -353,6 +354,7 @@ tags:
 - "多个 store 之间怎么互相访问" → 直接 import 另一个 store——互相可见，循环引用注意处理
 
 > 答案参考：[../Pinia/vs-vuex.md](../Pinia/vs-vuex.md)
+> 🎤 回答稿：[../面试回答/Pinia/pinia-vs-vuex.md](../面试回答/Pinia/pinia-vs-vuex.md)
 
 ---
 
@@ -376,6 +378,7 @@ tags:
 - "defineProps 和 defineEmits 怎么用" → 编译宏——无需 import，直接在 script setup 中使用
 
 > 答案参考：[../Vue3/composition-api.md](../Vue3/composition-api.md)
+> 🎤 回答稿：[../面试回答/Vue3/composition-api.md](../面试回答/Vue3/composition-api.md)
 
 ---
 
@@ -524,4 +527,5 @@ tags:
 - "和 React hooks 的区别" → composable 在 setup 只执行一次——没有调用顺序限制、不需要依赖数组，靠响应式系统自动追踪
 
 > 答案参考：[../Vue3/composables-practice.md](../Vue3/composables-practice.md)
+> 🎤 回答稿：[../面试回答/Vue3/composition-api.md](../面试回答/Vue3/composition-api.md)
 > 延伸：[../Vue3/composition-api.md](../Vue3/composition-api.md)

@@ -356,7 +356,7 @@ for await (const item of usePageIterator(params => api.getUsers(params))) {
 2. **`yield` 表达式的值来自 `next(arg)`，不是 `return`** —— 第一次 `next()` 的参数会被忽略（因为没有上一个 `yield`）
 3. **`for...of` 忽略 `done: true` 时的 value** —— `return` 的值不会被 `[...gen]` 收集
 4. **异步生成器 `next()` 返回 Promise** —— `async function*` 的 `g.next()` 返回 `Promise<{value, done}>`
-5. **`for await...of` 不能用于同步可迭代对象** —— 两者不兼容；但可以手动加 `Symbol.asyncIterator`
+5. **`for await...of` 只能用于异步迭代器** —— 它也能消费**同步**可迭代对象：没有 `Symbol.asyncIterator` 时自动回退到 `Symbol.iterator`，并对每个值 await（数组里混着 Promise 会被逐个解开）。反过来 `for...of` 无法消费异步生成器
 
 ## 面试信号表
 

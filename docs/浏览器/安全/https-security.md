@@ -115,10 +115,10 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 
 | 类型 | 示例 | 浏览器行为 |
 |------|------|-----------|
-| **Active Mixed Content** | `<script src="http://...">`、`<link href="http://...">`、`fetch('http://...')` | **直接阻断**——修改 HTTP 资源请求为 HTTPS 失败则拒绝 |
-| **Passive Mixed Content** | `<img src="http://...">`、`<video>`、`<audio>` | **默认告警**——控制台黄色警告，不阻断但地址栏不显示锁 |
+| **Active Mixed Content** | `<script src="http://...">`、`<link href="http://...">`、`fetch('http://...')` | **直接阻断**——不会尝试升级 |
+| **Passive Mixed Content** | `<img src="http://...">`、`<video>`、`<audio>` | Chrome 86+ / Firefox 127+ **自动升级为 HTTPS**，升级失败则不加载（更早的旧行为是告警但不阻断） |
 
-**Active Mixed Content 阻断**：Chrome 会自动把 `http://` 升级为 `https://`，升级失败则拒绝加载。
+**记忆**：能执行代码、能读响应的（脚本/样式/fetch/iframe）一律直接阻断；纯展示的（图/音/视频）现代浏览器自动升级、升级失败不加载。
 
 **解决方案**：
 1. 所有资源统一使用 `https://` 协议
@@ -126,8 +126,10 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 3. 用相对协议 `//cdn.example.com/lib.js`（继承当前页面的协议）
 
 ```http
-Content-Security-Policy: upgrade-insecure-requests; block-all-mixed-content
+Content-Security-Policy: upgrade-insecure-requests
 ```
+
+> 旧指令 `block-all-mixed-content` 已被废弃——设置了 `upgrade-insecure-requests` 后它不再有意义。
 
 ---
 
@@ -227,7 +229,7 @@ mkcert localhost 127.0.0.1 ::1  # 生成证书
 
 1. **"配了 HTTPS 就不需要 HSTS"** —— 301 重定向可以被中间人劫持。HSTS 是在浏览器内核层面强制 HTTPS
 2. **HSTS max-age 别设太短** —— 至少 1 年（31536000 秒），否则浏览器会频繁"忘记"这个站点必须用 HTTPS
-3. **开发环境忽略证书错误** —— `https://localhost` 默认在 Chrome 中受信任（localhost 是安全上下文），但自定义域名必须用 mkcert 配置
+3. **开发环境忽略证书错误** —— `http://localhost` 本身就是安全上下文（Secure Context），大多数要求 HTTPS 的 API 在 localhost 下用 HTTP 也可用；要真正跑 HTTPS 或用自定义域名，需用 mkcert 生成本地信任的证书，而不是无脑点"忽略证书错误"
 4. **内网 IP 无法申请公开 CA 证书** —— 内网服务只能用自签名证书或内部 CA，或使用 `nip.io` 等 DNS 通配符服务
 
 ---

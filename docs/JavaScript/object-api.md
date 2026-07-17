@@ -63,9 +63,9 @@ Object.setPrototypeOf(obj, newProto)
 // 浅拷贝——只拷贝自有可枚举属性、不拷贝原型链
 const copy = Object.assign({}, source)
 
-// Vue3 响应式：reactive 内部用 Object.assign 合并代理
-// const proxy = new Proxy(target, mutableHandlers)
-// shallowReactive 用 Object.assign 而非深度递归
+// 实战：合并默认配置（浅合并，后者覆盖前者）
+const options = Object.assign({}, defaults, userOptions)
+// 等价于 { ...defaults, ...userOptions }
 
 // ⚠️ getter 在 assign 时求值——属性描述符丢失
 const src = {

@@ -106,9 +106,9 @@ flowchart TB
 ```
 
 三个关键收益：
-1. **SSR 复用**：`@vue/server-renderer` 和 `@vue/runtime-dom` 共享同一套组件/Diff 逻辑，只是 `nodeOps` 不同
+1. **逻辑分层复用**：`@vue/runtime-core` 沉淀了组件系统/Diff/调度等平台无关逻辑，`@vue/runtime-dom` 只是注入了浏览器 `nodeOps` 的一个实例（注意：`@vue/server-renderer` 走的是独立的字符串序列化路径，不经过 patch/Diff）
 2. **跨平台**：小程序渲染器（如 uni-app）、Canvas 渲染器、终端 UI 渲染器都基于 `createRenderer`
-3. **测试**：单元测试中可以注入 mock 的 `nodeOps`，不依赖真实 DOM
+3. **测试**：单元测试中可以注入 mock 的 `nodeOps`，不依赖真实 DOM（Vue 官方的 `@vue/runtime-test` 就是这么做的）
 
 ### 3. renderer 和 compiler 的关系
 
@@ -158,7 +158,7 @@ canvasRenderer.createApp({
 
 后台管理系统通常不需要自定义渲染器，但理解它有助于：
 - 理解**Vue DevTools** 的工作方式（它本质上是 hook 进了 renderer）
-- 理解**单元测试中 Vue Test Utils** 的 `mount()` 实现（内部 mock 了 DOM 操作）
+- 理解**单元测试中 Vue Test Utils** 的 `mount()`（组件被挂载到 jsdom/happy-dom 模拟的 DOM 环境中，用的仍是 runtime-dom）
 - 理解**uni-app / Taro** 等跨端框架的 Vue3 适配（它们提供了小程序平台的 nodeOps）
 
 ## 面试信号表
@@ -167,7 +167,7 @@ canvasRenderer.createApp({
 |----------|-------------|
 | "Vue3 的渲染器做了什么" | 追问 patch 函数——创建、更新、卸载三种操作的统一入口 |
 | "虚拟 DOM 和真实 DOM 怎么同步" | 追问挂载（mount）和更新（patch）的两阶段流程 |
-| "SSR 的渲染器和 DOM 渲染器有什么区别" | 追问 createSSRApp 生成的 renderer 输出 HTML 字符串而非 DOM 操作 |
+| "SSR 的渲染器和 DOM 渲染器有什么区别" | 追问服务端用 `@vue/server-renderer` 的 renderToString 直接把 VNode 序列化为 HTML 字符串（不走 patch）；`createSSRApp` 是客户端注水（hydration）入口 |
 | "自定义渲染器怎么用" | 追问 createRenderer 传入自定义 nodeOps 实现跨平台渲染 |
 
 ## 易错点
@@ -175,7 +175,7 @@ canvasRenderer.createApp({
 1. **renderer 和 scheduler 不分** —— renderer 负责 DOM 操作（挂载/更新/卸载），scheduler 负责调度（什么时候更新）。面试中说"渲染器负责调度"直接暴露理解模糊
 2. **patch 不是 diff** —— patch 是应用差异到 DOM，diff 是找差异。两个独立步骤，面试时常被混为一谈
 3. **自定义渲染器的 nodeOps 不是随便写** —— createRenderer 传入的 nodeOps 必须实现完整的 insert/create/remove/setText 等接口，漏一个就报错
-4. **SSR 的 renderer 和 DOM renderer 共享同一套 patch 逻辑** —— 差别只在 nodeOps——浏览器 nodeOps 操作 DOM API，SSR nodeOps 拼接 HTML 字符串
+4. **SSR 不是"换一套 nodeOps 的渲染器"** —— `@vue/server-renderer` 复用的是 runtime-core 的组件/响应式逻辑，但输出走独立的字符串序列化路径（renderToString 遍历 VNode 拼 HTML，或执行编译出的 ssrRender 推字符串），服务端没有 patch/Diff；真正体现 `createRenderer` 换 nodeOps 价值的是 runtime-dom 与各类自定义渲染器
 
 ## 相关阅读
 

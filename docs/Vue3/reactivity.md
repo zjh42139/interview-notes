@@ -291,9 +291,9 @@ const arrayInstrumentations: Record<string, Function> = {}
 })
 ```
 
-**为什么需要暂停追踪？** 以 `push` 为例：`push` 内部会读取 `length` 属性来判断插入位置，还会设置新的索引和 `length`。如果不暂停追踪，`push` 执行过程中的 `get`（读 length）和 `set`（写新索引、写 length）都会触法 track/trigger，造成多余的副作用执行和潜在的无限循环。
+**为什么需要暂停追踪？** 以 `push` 为例：`push` 内部会读取 `length` 属性来判断插入位置，还会设置新的索引和 `length`。如果不暂停追踪，`push` 执行过程中的 `get`（读 length）和 `set`（写新索引、写 length）都会触发 track/trigger，造成多余的副作用执行和潜在的无限循环。
 
-**面试关键点**：Vue2 通过重写 `Array.prototype` 上的 7 个方法 + 让 `__proto__` 指向包装对象来实现；Vue3 同样重写了这 7 个方法，但直接在 Proxy 的 get trap 里判断 key 是否为变异方法名，命中则返回包装后的版本。核心进步在于：Vue3 不需要关心 `arr[0] = x` 和 `arr.length = n` 的拦截 —— Proxy 已经天然支持了，Vue2 做不到。
+**面试关键点**：Vue2 并没有修改全局 `Array.prototype`，而是以它为原型创建一个中间对象（`arrayMethods`），在中间对象上定义 7 个包装方法，再把响应式数组的 `__proto__` 指向这个中间对象；Vue3 同样包装了这 7 个方法，但是在 Proxy 的 get trap 里判断 key 是否为变异方法名，命中则返回包装后的版本。核心进步在于：Vue3 不需要关心 `arr[0] = x` 和 `arr.length = n` 的拦截 —— Proxy 已经天然支持了，Vue2 做不到。
 
 ### 追问6：toRaw / markRaw 的使用场景
 
@@ -391,7 +391,7 @@ const count = reactive(1)  // ❌ Proxy 只能代理对象
 问"Vue3 为什么比 Vue2 快"时，你的回答骨架：
 1. **响应式层面**：Proxy 替代 defineProperty，减少初始化递归开销，懒代理
 2. **编译层面**：Block Tree + PatchFlag，跳过静态节点 diff
-3. **Diff 层面**：5 步法 + LIS，O(n) 级别的最长递增子序列
+3. **Diff 层面**：5 步法 + 最长递增子序列（LIS，O(n log n)）最小化 DOM 移动
 4. **运行层面**：组件实例化更快（编译器为每个子组件生成结构单调一致的调用路径，运行时引擎利用单态缓存 + 静态提升，避免运行时反复解析属性链）
 
 ## 相关阅读

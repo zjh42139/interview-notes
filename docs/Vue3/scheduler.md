@@ -32,7 +32,7 @@ Scheduler 是 Vue3 的**异步任务协调器**，负责把同一个 tick 内的
 ```ts
 // 简化版源码（packages/runtime-core/src/scheduler.ts）
 
-// pre 队列：DOM 更新前执行（watchEffect、onBeforeUpdate）
+// pre 队列：DOM 更新前执行（watch/watchEffect 默认的 flush: 'pre' 回调）
 const pendingPreFlushCbs: SchedulerJob[] = []
 // 主队列：组件更新 effect
 const queue: SchedulerJob[] = []
@@ -123,7 +123,7 @@ watch(source, callback, { flush: 'sync' })  // 同步执行（不通过 schedule
 
 ### 追问2：组件更新在哪个队列？
 
-组件自身的渲染 effect（重新执行 render 函数 + patch）在**主队列**中。`onBeforeUpdate` 在 **pre 队列**，`onUpdated` 在 **post 队列**。
+组件自身的渲染 effect（重新执行 render 函数 + patch）在**主队列**中。`onBeforeUpdate` 不走独立队列——它在组件更新 job 内部、重新 render 之前**同步调用**；`onUpdated` 在 **post 队列**。
 
 ### 追问3：递归更新防护
 

@@ -124,7 +124,7 @@ add_header Content-Security-Policy "frame-ancestors 'self'" always;
 | `allow-top-navigation` | 允许修改顶层窗口的 URL |
 | `allow-modals` | 允许 `alert()`/`confirm()` |
 
-**安全原则**：只加业务必需的 sandbox 值，不要随意加 `allow-scripts allow-same-origin` 组合——加了 `allow-same-origin` + `allow-scripts`，被嵌入页面就能删除 sandbox 属性，等于白设。
+**安全原则**：只加业务必需的 sandbox 值。特别注意 `allow-scripts` + `allow-same-origin` 组合——当被嵌入页面与宿主页面**同源**时，它可以用脚本移除自己所在 iframe 的 sandbox 属性，等于白设（跨域嵌入无此问题，但仍应最小化授权）。
 
 ### 第三道：X-Content-Type-Options 防 MIME 嗅探
 
@@ -176,10 +176,11 @@ add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 ### 前端 SPA 的 Meta 兜底
 
 ```html
-<!-- 放在 index.html 的 <head> 中 -->
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<!-- 放在 index.html 的 <head> 中：Referrer-Policy 的标准 meta 写法 -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
 ```
+
+**注意**：`X-Frame-Options`、`X-Content-Type-Options` **只能通过 HTTP 响应头下发，写在 meta 里无效**；CSP 可以用 `<meta http-equiv="Content-Security-Policy">` 设置，但 `frame-ancestors` 等指令在 meta 中会被忽略——防点击劫持必须在服务端配置响应头。
 
 ---
 
@@ -196,8 +197,8 @@ add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
 ## 易错点
 
-1. **"加了 X-Frame-Options 就万无一失"** —— 老浏览器可能不支持，双击杀：同时设 `X-Frame-Options` + `frame-ancestors`
-2. **sandbox="allow-scripts allow-same-origin" 等于没设** —— 被嵌入页面可以用 JS 移除自身的 sandbox 属性，必须缩紧这两个值的组合
+1. **"加了 X-Frame-Options 就万无一失"** —— 老浏览器可能不支持，上双保险：同时设 `X-Frame-Options` + `frame-ancestors`
+2. **同源内容设 `sandbox="allow-scripts allow-same-origin"` 等于没设** —— 同源时被嵌入页面可以用 JS 移除自身 iframe 的 sandbox 属性；跨域嵌入不受此影响，但仍要最小化授权
 3. **JS 防御不可靠** —— `if (top !== self) { top.location = self.location }` 可以被 `sandbox="allow-forms"`（无 `allow-top-navigation`）阻止，攻击者也可以反过来用 `sandbox` 限制被攻击页面
 4. **`nosniff` 只防 script/style 的 MIME 嗅探** —— 图片、视频等资源类型不受影响
 

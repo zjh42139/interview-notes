@@ -79,6 +79,8 @@ console.log([...view])  // [255, 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 | `BigInt64Array` | 8 | -2^63 ~ 2^63-1 | `int64_t` |
 | `BigUint64Array` | 8 | 0 ~ 2^64-1 | `uint64_t` |
 
+> ES2025 新增了第 12 种视图 `Float16Array`（IEEE 754 半精度，2 字节），主要服务 WebGPU/机器学习场景，2025 年起主流浏览器已支持。
+
 **`Uint8ClampedArray` 的特殊之处**：溢出时"钳制"到 0~255 范围，专门用于 Canvas 像素数据：
 
 ```js
@@ -99,12 +101,12 @@ const buf = new ArrayBuffer(8)
 const view = new DataView(buf)
 
 // setInt32(byteOffset, value, littleEndian)
-view.setInt32(0, 0x12345678, false)  // 大端：12 34 56 78
-view.setInt32(0, 0x12345678, true)   // 小端：78 56 34 12
+view.setInt32(0, 0x12345678, false)   // 大端写入：内存 12 34 56 78
+console.log(view.getInt32(0, false))  // 0x12345678 —— 按大端读，正确还原
+console.log(view.getInt32(0, true))   // 0x78563412 —— 按小端读，字节被反着解释
 
-// 读取时也可指定字节序
-console.log(view.getInt32(0, false))  // 0x12345678（大端）
-console.log(view.getInt32(0, true))   // 0x78563412（小端）
+view.setInt32(0, 0x12345678, true)    // 小端写入：内存 78 56 34 12
+console.log(view.getInt32(0, true))   // 0x12345678 —— 按小端读，正确还原
 
 // 任意位置读写任意类型
 view.setUint8(4, 42)                  // 在第 5 个字节位置写一个字节
@@ -244,7 +246,7 @@ function toGrayscale(canvas: HTMLCanvasElement) {
 
 ```ts
 // 用 DataView 解析自定义二进制协议
-ws.onmessage = (event) => {
+ws.onmessage = async (event) => {
   const buf = await event.data.arrayBuffer()
   const view = new DataView(buf)
 
@@ -270,10 +272,11 @@ const sharedArr = new Int32Array(sharedBuf)
 
 // Worker 中
 Atomics.add(sharedArr, 0, 1)     // 原子 +1
-Atomics.notify(sharedArr, 0, 1)  // 通知主线程
+Atomics.notify(sharedArr, 0, 1)  // 唤醒等待的线程
+Atomics.wait(sharedArr, 0, 0)    // 阻塞等待——只能在 Worker 里用！
 
-// 主线程
-Atomics.wait(sharedArr, 0, 0)    // 阻塞等待变化
+// 主线程：浏览器禁止阻塞式 wait（抛 TypeError），要用异步版
+// const { async, value } = Atomics.waitAsync(sharedArr, 0, 0)
 
 // ⚠️ 需要 COOP/COEP 头才能使用（安全策略限制）
 ```

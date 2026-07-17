@@ -53,7 +53,7 @@ flowchart TB
 每个 Realm 包含：
 - 独立的全局对象（`window` / `self`）
 - 独立的内置构造函数原型链
-- 独立的事件循环（同进程内共享线程）
+- 事件循环：同源 iframe 和主页面**共享**同一条线程与事件循环；Worker 才有独立线程 + 独立事件循环
 
 **关键后果**：一个 Realm 里的 `Array` 构造函数和另一个 Realm 里的 `Array` 构造函数是**两个完全不同的对象**。
 
@@ -105,7 +105,7 @@ const fakeArr = {
   length: 0
 }
 Object.prototype.toString.call(fakeArr)  // '[object Array]'
-Array.isArray(fakeArr)                   // false（Array.isArray 检查内部 [[ArrayData]]，无法伪装）
+Array.isArray(fakeArr)                   // false（Array.isArray 走规范的 IsArray 判断——是否为 Array exotic object，无法伪装）
 
 // 自定义类的跨 Realm 类型判断
 class MyComponent {
@@ -141,12 +141,13 @@ iframe.contentWindow.postMessage({
 iframe.contentWindow.postMessage({
   fn: () => {},          // ❌ 函数
   el: document.body,     // ❌ DOM 节点
-  err: new Error('x'),   // ❌ Error 对象（浏览器差异大）
   sym: Symbol('x'),      // ❌ Symbol
   weak: new WeakMap(),   // ❌ WeakMap / WeakSet
 })
+// 注意：Error 对象**可以**被结构化克隆（name/message 会保留，
+// stack 的克隆是实现相关行为，现代浏览器都会带上）
 
-// ❌ Transferable：转移所有权（零拷贝），原对象变为不可用
+// ⚠️ Transferable：转移所有权（零拷贝），原对象变为不可用
 const buf = new ArrayBuffer(1024 * 1024)  // 1MB
 worker.postMessage({ buf }, [buf])        // buf 的所有权转移给 worker
 console.log(buf.byteLength)               // 0（已转移，主线程不可再访问）
@@ -179,11 +180,12 @@ structuredClone(document.body)        // ❌ DataCloneError
 // 子应用的 store 中的数组，传到基座后 instanceof 失效
 // 解决：统一用 Array.isArray()，避免 instanceof
 
-// 问题 2：事件对象跨 Realm
-window.addEventListener('message', (e) => {
-  // e 是 MessageEvent，但来源 iframe 的 MessageEvent 可能不同
-  console.log(e instanceof MessageEvent)  // 可能为 false（不同 Realm）
-})
+// 问题 2：直接引用其他 Realm 创建的对象
+// 同源 iframe 下可以直接拿到对方 Realm 里的对象引用——instanceof 全线失效
+const iframeObj = iframe.contentWindow.someSharedState
+console.log(iframeObj instanceof Object)  // 可能为 false（它的原型链挂在 iframe 的 Object.prototype 上）
+// 注意：经 postMessage 投递到本窗口的 MessageEvent/数据副本是本 Realm 创建的，
+// instanceof 正常——失效只发生在"直接跨窗口拿引用"时
 
 // 问题 3：错误对象跨 Realm
 try {
@@ -202,20 +204,17 @@ try {
 // main.js
 const worker = new Worker('worker.js')
 const sharedArr = [1, 2, 3]
-worker.postMessage(sharedArr)       // ❌ 不可以！结构化克隆会复制一份
-// worker 收到的 sharedArr 是副本，修改不影响主线程
+worker.postMessage(sharedArr)  // 结构化克隆——worker 收到的是副本，修改不影响主线程
 
-// 正确做法：用 SharedArrayBuffer（需 COOP/COEP 头）
+// 需要真正共享内存：SharedArrayBuffer（需 COOP/COEP 头）
 const sab = new SharedArrayBuffer(1024)
 const view = new Int32Array(sab)
-worker.postMessage(sab)      // ❌ 也不能直接传 SharedArrayBuffer（仍会被结构化克隆）
+worker.postMessage(sab)  // ✅ 直接传即可——SAB 不会被复制，两边操作的是同一块内存
 
-// 必须用 transfer 方式
-worker.postMessage(sab)      // 这样也不行，需要显式 transfer：
-// worker.postMessage(sab)   // → 实际会结构化克隆
-// 正确方式：
-// 实际上 postMessage 的第二个参数才能 transfer：
-// worker.postMessage(sab, [sab])
+// 两个容易混淆的点：
+// 1. SAB 不可 transfer：postMessage(sab, [sab]) 会抛 DataCloneError
+// 2. 想"零拷贝转移所有权"的是普通 ArrayBuffer：postMessage(buf, [buf])，
+//    转移后原线程的 buf.byteLength 变为 0
 ```
 
 ## 项目实战

@@ -25,7 +25,7 @@ tags:
 
 > npm 是 Node.js 的默认包管理器，核心由三块组成：`package.json`（声明依赖）、`node_modules`（存放依赖）、`package-lock.json`（锁定依赖）。理解 dependencies/devDependencies/peerDependencies 三种依赖类型、npm install 的执行原理、node_modules 的扁平化策略和幽灵依赖问题，是掌握前端工程化的基本功。
 
-面试时这样开口："npm 不只是 `npm install` 这么简单。核心要理解三件事：第一，dependencies 和 devDependencies 的分工——运行时和构建时的区别，`npm install --production` 不安装 devDependencies；第二，package-lock.json 的作用——锁定版本保证团队一致性，必须提交到仓库；第三，node_modules 的扁平化策略——npm 3+ 尽量扁平减少嵌套，但也带来了幽灵依赖问题。"
+面试时这样开口："npm 不只是 `npm install` 这么简单。核心要理解三件事：第一，dependencies 和 devDependencies 的分工——运行时和构建时的区别，`npm install --omit=dev` 不安装 devDependencies；第二，package-lock.json 的作用——锁定版本保证团队一致性，必须提交到仓库；第三，node_modules 的扁平化策略——npm 3+ 尽量扁平减少嵌套，但也带来了幽灵依赖问题。"
 
 ## 核心机制
 
@@ -50,15 +50,16 @@ tags:
 {
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./utils": "./dist/utils.js"
   }
 }
 // 这样 import pkg from 'my-lib' 走 ESM，require('my-lib') 走 CJS
 // 并且 ./utils 子路径可以直接导出，不需要知道内部目录结构
+// 注意："types" 条件必须写在最前面，条件按书写顺序匹配
 ```
 
 ### 2. dependencies vs devDependencies vs peerDependencies
@@ -81,7 +82,7 @@ npm install -D vite typescript eslint vitest
 
 **关键区别**：
 
-- `npm install --production`（或 `NODE_ENV=production`）时，devDependencies **不会被安装**，可以减小生产环境的 node_modules 体积和部署时间
+- `npm install --omit=dev`（npm 8 之前写作 `--production`）时，devDependencies **不会被安装**，可以减小生产环境的 node_modules 体积和部署时间
 - 对于**应用项目**（最终被部署的项目），两者的区分主要在部署体积；对于**库项目**（发布到 npm 的包），区分至关重要——你的 devDependencies 不应该让使用者安装
 
 **peerDependencies（宿主依赖）**：
@@ -142,7 +143,7 @@ peerDependencies 的版本匹配规则：
 1. **锁定版本**：`package.json` 中的 `^3.0.0` 是一个范围，不同时间 `npm install` 可能安装 `3.1.0` 或 `3.2.0`。lock 文件锁定了 `3.3.4` 这个精确版本
 2. **团队一致性**：所有人都安装完全相同的依赖树，不会出现"我电脑上跑得好好的，到你这就报错"
 3. **CI/CD 可靠性**：生产构建的依赖和本地开发完全一致，不会因为依赖版本漂移导致生产事故
-4. **安全审计**：`npm audit` 依赖 lock 文件中的完整性 hash 来验证包内容是否被篡改
+4. **安全性**：lock 文件中的 `integrity` hash（sha512）让 `npm install`/`npm ci` 能校验下载的包内容未被篡改；`npm audit` 则基于 lock 中的完整依赖树做漏洞审计
 
 > lock 文件只影响 `npm install`（从头安装），不影响 `npm install <pkg>`（安装新包时 lock 文件会更新）。
 
@@ -161,7 +162,7 @@ npm install 的完整生命周期：
 7. 生成/更新 package-lock.json
 ```
 
-关键点：**npm 3+ 的依赖解析是确定性的**——给定相同的 `package.json` 和 `package-lock.json`，安装结果完全一致。
+关键点：**npm 5+ 引入 package-lock.json 后依赖解析是确定性的**——给定相同的 `package.json` 和 `package-lock.json`，安装结果完全一致（npm 3/4 的扁平化结果会受安装顺序影响，这正是 lock 文件要解决的问题之一）。
 
 ### 5. node_modules 扁平化与幽灵依赖
 
@@ -291,9 +292,9 @@ npx depcheck
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "files": ["dist"],

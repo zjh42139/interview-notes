@@ -189,13 +189,14 @@ export const aValue = "a: " + bValue
 import { aValue } from "./a.mjs"
 export const bValue = "b: " + aValue
 
-// ESM 的处理：
+// ESM 的处理（以 a.mjs 为入口）：
 // 1. 解析阶段：发现 a 依赖 b，b 依赖 a → 检测到循环
 // 2. 链接阶段：建立 Live Binding 映射
 //    - b.mjs 中的 aValue 绑定到 a.mjs 的 aValue 变量
 //    - a.mjs 中的 bValue 绑定到 b.mjs 的 bValue 变量
-// 3. 执行阶段：先执行 a.mjs → 计算 aValue 时访问 bValue
-//    此时 b.mjs 尚未执行，bValue 处于 TDZ → ReferenceError！
+// 3. 执行阶段：依赖先于依赖者执行——先执行 b.mjs（a 处于"执行中"被跳过）
+//    b 计算 bValue 时访问 aValue，而 a.mjs 还没执行到初始化语句
+//    aValue 处于 TDZ → ReferenceError: Cannot access 'aValue' before initialization
 ```
 
 **对比总结**：
@@ -219,18 +220,14 @@ export const bValue = "b: " + aValue
 node --input-type=module -e "import fs from 'fs'; console.log(fs)"
 ```
 
-Node.js ESM 的限制和注意点——`__dirname`/`__filename` 不可用（用 `import.meta.url` + `fileURLToPath` 替代）、`require` 不可用（用动态 `import()` 替代）、JSON 文件不能用 `import` 直接导入（需用 assert 或 fs）。
+Node.js ESM 的限制和注意点——`__dirname`/`__filename` 不可用（用 `import.meta.url` + `fileURLToPath` 替代）、`require` 不可用（用动态 `import()` 或 `module.createRequire` 替代）、JSON 文件要用 import 属性导入：`import data from "./x.json" with { type: "json" }`（旧的 `assert` 写法已废弃），或退回 fs 读取。
 
 ## 项目实战
 
 ### 1. 在我们的组件库中验证 Tree Shaking
 
 ```bash
-# 构建分析：检查哪个模块被意外全量打包
-npx vite build --debug
-# Rollup 会输出 "First-level this is the initial..." 等 Tree Shaking 日志
-
-# 用 rollup-plugin-visualizer 可视化
+# 最直接的验证方式：可视化产物，检查未使用的导出是否真的被删掉
 npm install --save-dev rollup-plugin-visualizer
 ```
 

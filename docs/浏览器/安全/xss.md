@@ -19,7 +19,6 @@ tags:
 ---
 
 # XSS
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > ⭐⭐⭐⭐⭐｜难度：中级
 
@@ -104,7 +103,7 @@ function htmlEncode(str: string): string {
 // 完整 CSP 配置示例
 // Content-Security-Policy:
 //   default-src 'self';                          // 所有资源类型默认同源
-//   script-src 'self' 'nonce-r@nd0m';           // 脚本：同源 + nonce 随机数
+//   script-src 'self' 'nonce-R4nd0mB64';        // 脚本：同源 + nonce 随机数（base64 字符）
 //   style-src 'self' 'unsafe-inline';           // 样式：生产环境也建议 nonce
 //   img-src 'self' https: data:;               // 图片
 //   connect-src 'self' https://api.example.com; // fetch/XHR 目标
@@ -188,10 +187,8 @@ function SearchResult() {
 // <meta http-equiv="Content-Security-Policy"
 //   content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
 
-// 生产环境 Nginx：
-// add_header Content-Security-Policy "default-src 'self'; script-src 'self'; "
-//   "style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; "
-//   "object-src 'none'; base-uri 'self';";
+// 生产环境 Nginx（注意：add_header 的值是单个字符串参数，不能拆成多段引号拼接）：
+// add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; object-src 'none'; base-uri 'self'" always;
 
 // 建议：先用 Report-Only 模式观察违规报告，确认无误后再强制启用
 ```

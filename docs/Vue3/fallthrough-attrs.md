@@ -39,7 +39,7 @@ tags:
 <!-- type 和 placeholder 自动穿透到根元素 input 上 -->
 ```
 
-父组件写了 `type="text"` 和 `class="custom"`——子组件内部没有声明这些 props，自动透传到根 `&lt;input>` 上。
+父组件写了 `type="text"` 和 `class="custom"`——子组件内部没有声明这些 props，自动透传到根 `<input>` 上。
 
 ### class 和 style 的合并规则
 
@@ -88,7 +88,7 @@ defineProps({ label: String })
 </script>
 ```
 
-父组件使用 `&lt;MyInput label="用户名" placeholder="请输入" />`——`placeholder` 被 `$attrs` 转发给了 `ElInput`。wrapper div 上没有属性的痕迹。
+父组件使用 `<MyInput label="用户名" placeholder="请输入" />`——`placeholder` 被 `$attrs` 转发给了 `ElInput`。wrapper div 上没有属性的痕迹。
 
 ## 深度拓展
 
@@ -107,7 +107,7 @@ defineProps({ label: String })
 
 ❌ **多根元素组件不会自动透传** —— Vue3 支持多根元素（Fragment），但没有单一根元素时属性不知道透传给谁——控制台会警告。需要显式 `v-bind="$attrs"` 指定。
 
-❌ **$attrs 不是响应式的** —— $attrs 对象里的值变化组件不会重渲染。但包含了透传的非 props 属性——同时包含 class 和 style（Vue3 独有，Vue2 不含）。
+❌ **$attrs 不能 watch** —— $attrs 对象不是响应式 ref，无法用 watch 直接观测其属性变化。但父组件修改透传属性时，子组件会正常 re-render（attrs 变化是父组件的 VNode props diff 带来的），根元素属性会同步更新。Vue3 的 $attrs 包含 class、style 和事件监听器（Vue2 不含）。
 
 ## 面试信号表
 

@@ -65,7 +65,7 @@ Breadcrumbs:
 
 **目标**：确认是否为兼容性问题。
 
-Sentry Event 详情页显示用户环境：浏览器及版本、操作系统、设备型号、屏幕分辨率。如果报错集中在特定浏览器或特定版本，大概率是兼容性问题。例如：iOS Safari 不支持 `lookbehind` 正则、旧版 Chrome 不支持 `Array.prototype.at()`。
+Sentry Event 详情页显示用户环境：浏览器及版本、操作系统、设备型号、屏幕分辨率。如果报错集中在特定浏览器或特定版本，大概率是兼容性问题。例如：旧版 iOS Safari（< 16.4）不支持 `lookbehind` 正则、旧版 Chrome（< 92）不支持 `Array.prototype.at()`。
 
 ## ⭐ 深度拓展
 

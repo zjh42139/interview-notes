@@ -256,6 +256,7 @@ export default defineConfig({
             { text: '路由守卫', link: '/VueRouter/route-guards' },
             { text: '动态路由', link: '/VueRouter/dynamic-routing' },
             { text: '路由懒加载', link: '/VueRouter/lazy-loading' },
+            { text: 'Vue Router 4 新特性', link: '/VueRouter/vue-router-4' },
           ],
         },
         {

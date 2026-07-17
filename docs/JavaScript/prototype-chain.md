@@ -73,15 +73,15 @@ obj.toString() // ① obj 自身没有 → ② Foo.prototype 没有 → ③ Obje
 | `__proto__` | 对象的内部属性，指向构造函数的 prototype | 所有对象有（除了 `Object.create(null)`） |
 | `constructor` | 原型对象上的属性，指回构造函数 | prototype 上的默认属性 |
 
-> ⚠️ **箭头函数没有 `prototype`**：`(() => {}).prototype` 是 `undefined`，所以箭头函数不能当构造函数用 `new`，`new (() => {})` 直接报 `TypeError: () => {} is not a constructor`。这也是箭头函数不能用作 Vue 组件中 `defineComponent({})` 的 `setup` 之外的原因之一。
+> ⚠️ **箭头函数没有 `prototype`**：`(() => {}).prototype` 是 `undefined`，所以箭头函数不能当构造函数用 `new`，`new (() => {})` 直接报 `TypeError: () => {} is not a constructor`。
 
 ### Object.create(null) -- 为什么没有原型？
 
 ```ts
 const map = Object.create(null)
 map.__proto__  // undefined — 没有原型链
-map.toString() // TypeError — 找不到 toString
-map.hasOwnProperty // TypeError — 没有任何 Object.prototype 的方法
+map.toString() // TypeError — 找不到 toString，调用 undefined 报错
+map.hasOwnProperty // undefined — Object.prototype 的方法一个都没有（调用它才会抛 TypeError）
 ```
 
 `Object.create(null)` 创建的是**纯粹的数据容器**，不继承任何东西。项目中用它当作无污染的字典（比 `{}` 更干净，不会和 `toString` / `constructor` 等 key 冲突）。
@@ -219,6 +219,9 @@ Object instanceof Function   // true
 
 ```ts
 function myInstanceof(obj: any, constructor: Function): boolean {
+  // 原始类型直接返回 false（instanceof 的规范行为；
+  // 注意 Object.getPrototypeOf(1) 会装箱返回 Number.prototype，所以必须先排除）
+  if (obj === null || (typeof obj !== "object" && typeof obj !== "function")) return false
   let proto = Object.getPrototypeOf(obj) // obj.__proto__
   while (proto) {
     if (proto === constructor.prototype) return true
@@ -230,7 +233,7 @@ function myInstanceof(obj: any, constructor: Function): boolean {
 // 验证
 console.log([] instanceof Array)  // true — [].__proto__ === Array.prototype
 console.log([] instanceof Object) // true — [].__proto__.__proto__ === Object.prototype
-console.log(1 instanceof Number)  // false — 原始类型 1 没有 __proto__
+console.log(1 instanceof Number)  // false — instanceof 对原始类型直接返回 false
 ```
 
 面试时问"原型链"大概率追踪到让你手写 instanceof。
@@ -274,6 +277,8 @@ function deepClone(obj, hash = new WeakMap()) {
   if (hash.has(obj)) return hash.get(obj)
 
   // 沿着原型链获取构造函数信息，保留正确的类型
+  // 注意：这只是演示原型链用法的简化版——Date/RegExp/Map/Set 等内部数据
+  // 不会被 new constructor() 复制，完整实现需对它们特判（见手写题）
   const clone = new (Object.getPrototypeOf(obj).constructor)()
   hash.set(obj, clone)
 

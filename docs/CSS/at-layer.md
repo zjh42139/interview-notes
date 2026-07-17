@@ -63,15 +63,16 @@ tags:
 
 ### !important 在 @layer 中的反转
 
-**关键规则**：`!important` 在 layer 中的行为是反转的——更低优先级的 layer 中的 `!important` 反而胜出。
+**关键规则**：`!important` 在 layer 中的行为是反转的——更低优先级的 layer 中的 `!important` 反而胜出，且**分层的 `!important` 全部压过未分层的 `!important`**。
 
 ```
 胜出顺序（从高到低）：
-1. 非 layer 的 !important 声明（最高优先级，不受 layer 顺序影响）
-2. 低优先级 layer 的 !important（layer 内 !important 反转：先声明的 layer 中 !important 反而赢）
-3. 高优先级 layer 的 !important
-4. 非 layer 的普通声明（比所有 layer 声明优先级都高）
-5. 后声明的 layer 普通声明（layer 内正序：后声明的赢）
+1. 先声明的 layer 的 !important（!important 跨层反转：越早声明的层越强）
+2. 后声明的 layer 的 !important
+3. 非 layer 的 !important（未分层样式视为"隐式最后一层"，反转后在 !important 组里垫底）
+4. 非 layer 的普通声明（比所有 layer 的普通声明优先级都高）
+5. 后声明的 layer 的普通声明（layer 间正序：后声明的赢）
+6. 先声明的 layer 的普通声明
 ```
 
 这是因为低 layer 的样式通常是库默认值——库需要 `!important` 来"保护"关键的默认样式不被轻易覆盖。
@@ -109,4 +110,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修正 !important 跨层顺序（分层 !important 压过未分层 !important，未分层为隐式最后一层）
 - 2026-07-16：新建——@layer 级联+组件库覆盖+!important反转+嵌套层

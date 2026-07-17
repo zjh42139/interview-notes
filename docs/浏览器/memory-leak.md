@@ -62,18 +62,17 @@ class ChatComponent {
 
 // ===== 模式 3：闭包中的 DOM 引用 =====
 function setupEditor() {
-  const editor = document.getElementById('editor')  // 拿到 DOM 引用
+  let editor = document.getElementById('editor')  // 拿到 DOM 引用
 
   return {
     destroy() {
       editor.remove()       // DOM 被从文档中移除
-      // ❌ 但 editor 变量还在闭包中 → detached DOM 无法被 GC
+      // ❌ 若就此打住，editor 变量还在闭包中 → detached DOM 无法被 GC
       // destroy 函数的闭包持有 editor 变量 → 变量持有 DOM 节点
+      editor = null         // ✅ 修复：断开闭包对 DOM 节点的引用
     }
   }
 }
-// ✅ 修复：destroy 结束时置 null
-editor = null
 
 // ===== 模式 4：Detached DOM 节点 =====
 // 场景：JS 持有已从页面移除的 DOM 节点的引用
@@ -119,7 +118,8 @@ obj3 = null  // 唯一的强引用断了 → GC 可以回收
 const registry = new FinalizationRegistry((heldValue) => {
   console.log(`对象被回收了，清理关联资源：${heldValue}`)
 })
-registry.register(obj, 'associated-resource')
+let obj4 = { data: 'tracked' }
+registry.register(obj4, 'associated-resource')
 ```
 
 ## 深度拓展

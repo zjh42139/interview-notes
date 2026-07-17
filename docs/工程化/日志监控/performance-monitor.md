@@ -80,7 +80,8 @@ const [entry] = performance.getEntriesByType('navigation');
 console.log({
   DNS:  entry.domainLookupEnd - entry.domainLookupStart,
   TCP:  entry.connectEnd - entry.connectStart,
-  TTFB: entry.responseStart - entry.requestStart,
+  TTFB: entry.responseStart,  // 规范定义：从导航开始（time origin）到首字节，含重定向/DNS/TCP
+  请求耗时: entry.responseStart - entry.requestStart,  // 仅"发出请求→首字节"的服务器往返
   DOM:  entry.domContentLoadedEventEnd - entry.responseEnd,
   总耗时: entry.loadEventEnd - entry.fetchStart,
 });

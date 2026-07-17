@@ -36,7 +36,7 @@ tags:
 #### 1. shallowRef — 大数据不深度代理
 
 ```javascript
-// ❌ 差：大量数据深度代理——每个属性都变成 getter/setter
+// ❌ 差：深层数据全量响应式——被访问到的每一层子对象都会创建 Proxy，读写都走 track/trigger
 const list = ref(bigArray)  // 10000 条数据的数组，每条 20 个字段
 
 // ✅ 好：只代理 .value 的替换——不关心内部字段变化
@@ -137,7 +137,7 @@ const HeavyChart = defineAsyncComponent(() => import('./HeavyChart.vue'))
 #### 9. key 的正确使用
 
 ```html
-<!-- ❌ 差：index 当 key——数组位置变化时所有元素重建 -->
+<!-- ❌ 差：index 当 key——数组顺序变化时节点被就地错位复用，全量 patch + 内部状态错乱 -->
 <li v-for="(item, index) in list" :key="index">
 
 <!-- ✅ 好：用稳定的唯一标识 -->
@@ -199,7 +199,7 @@ const products = Object.freeze(rawData)
 
 **30 秒版**："四层优化——响应式层 shallowRef/markRaw 避免不必要代理；组件层 KeepAlive+v-memo 减少渲染；构建层路由懒加载+按需引入；运行时层 Object.freeze+虚拟滚动。每个优化都是因为理解了 Vue3 的底层机制才选的。"
 
-**2 分钟版**：按项目经验讲——说一个你真实做过的优化，量化前后对比。"列表页从 2000 条数据渲染 2.3s→用 shallowRef 不做每条的深度代理→0.4s。因为 2000×20 字段 = 40000 个 Proxy 的创建开销全砍了，而我们只做整体替换不需要局部追踪。"
+**2 分钟版**：按项目经验讲——说一个你真实做过的优化，量化前后对比。"列表页从 2000 条数据渲染 2.3s→用 shallowRef 不做每条的深度代理→0.4s。因为 2000 个行对象（含嵌套子对象）逐个创建 Proxy、每次字段读写都走 track/trigger 的开销全砍了，而我们只做整体替换不需要局部追踪。"
 
 ---
 

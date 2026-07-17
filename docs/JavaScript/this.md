@@ -99,7 +99,7 @@ const obj = {
     console.log(this.name) // this 不是 obj，而是定义时外层作用域的 this
   }
 }
-obj.fn() // undefined（外层可能是 window）
+obj.fn() // ""（脚本中外层 this 是 window，window.name 默认为 ""；ESM/严格模式下 this 是 undefined，访问 .name 抛 TypeError）
 ```
 
 **addEventListener 的 this 绑定**：事件监听器回调中，`this` 默认指向绑定事件的 DOM 元素（即 `event.currentTarget`），这也是隐式绑定的一种：
@@ -156,7 +156,8 @@ function fn(a, a) { }  // ❌ SyntaxError: Duplicate parameter name
 const num = 010  // ❌ SyntaxError: Octal literals are not allowed
 
 // 6. arguments 和命名参数解耦（非严格模式下 arguments[0] 和 a 同步）
-function fn(a) { a = 2; return arguments[0] }  // undefined 而不是 2
+function fn(a) { a = 2; return arguments[0] }
+fn(1)  // 严格模式返回 1（不同步）；非严格模式返回 2（同步）
 ```
 
 **ES Module 自动严格模式**：`<script type="module">` 和 `.mjs` 文件自动处于严格模式——所以你在 Vite 项目中从来不用手动写 `'use strict'`。
@@ -173,7 +174,7 @@ const obj = {
   name: "admin",
   sayName() {
     setTimeout(function () {
-      console.log(this.name) // undefined — this → window
+      console.log(this.name) // "" — this → window，window.name 默认为 ""
     }, 100)
     setTimeout(() => {
       console.log(this.name) // "admin" — 箭头函数继承了 sayName 的 this
@@ -276,13 +277,13 @@ const increment = () => { count.value++ } // 箭头函数，闭包引用 count
 
 ```mermaid
 graph TD
-    A[函数调用] --> B{是 new 调用?}
+    A[函数调用] --> P{是箭头函数?}
+    P -->|是| L[词法绑定<br/>this = 定义时外层 this<br/>call/apply/bind 无法改变]
+    P -->|否| B{是 new 调用?}
     B -->|是| N[new 绑定<br/>this = 新对象]
     B -->|否| C{有 call/apply/bind?}
     C -->|是| E[显式绑定<br/>this = 指定对象]
-    C -->|否| D{是箭头函数?}
-    D -->|是| L[词法绑定<br/>this = 定义时外层 this]
-    D -->|否| F{通过对象调用?}
+    C -->|否| F{通过对象调用?}
     F -->|是| G[隐式绑定<br/>this = 调用对象]
     F -->|否| H{严格模式?}
     H -->|是| U[undefined]

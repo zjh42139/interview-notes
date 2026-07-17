@@ -67,7 +67,7 @@ const add = (a: number, b: number): number => a + b
 
 // Transform：通过插件修改 AST（箭头函数 → 普通函数，去掉类型注解）
 // Generate：AST → 目标代码
-function add(a, b) { return a + b }
+var add = function add(a, b) { return a + b }
 ```
 
 **面试重点**：Babel 是"源码到源码"的编译，不是"源码到二进制"。所以它只能做语法转换，不能做类型检查（那是 tsc 的事）。类型注解只是被擦除，不会被校验。
@@ -122,8 +122,8 @@ swc:       0.5s  # Rust 实现的"超快 Babel"
 ```
 
 **但 ESBuild 有局限**：
-- 不支持 AST 级别的自定义插件（只支持钩子级别的简单插件）
-- 某些较新的 ES 提案特性支持滞后（如 decorators 标准提案），且不支持 AST 级别自定义转换
+- 不支持 AST 级别的自定义插件（只支持钩子级别的简单插件），无法实现 Babel 那样的深度定制转换
+- 面向旧目标的语法降级不完整（如部分特性无法降级到 ES5），也不支持 `emitDecoratorMetadata`（标准 decorators 语法自 esbuild 0.21 起已支持）
 - ESM/CJS 互操作在某些边界场景有 bug
 
 ### SWC —— 另一个 Rust 选手
@@ -153,7 +153,7 @@ swc:       0.5s  # Rust 实现的"超快 Babel"
 
 一句话：**速度差距是数量级的**。Vite 需要在开发服务器启动时把 node_modules 里的几百个包转成 ESM，用 Babel 可能要等几十秒，用 esbuild 不到 1 秒。这是 Vite 冷启动快的根本原因之一。
 
-但是 Vite **源码编译不用 esbuild**，而是用 `@vitejs/plugin-vue` + esbuild 处理 ts 语法。原因是 esbuild 不支持 Vue SFC 编译，也不支持某些高级 TS 特性（如 decorator）。所以是"依赖预构建用 esbuild，源码用 Rollup 插件 + esbuild 轻量处理"。
+对源码的处理则是分工协作：Vue SFC 交给 `@vitejs/plugin-vue`（内部用 `@vue/compiler-sfc` 编译模板和样式），`<script lang="ts">` 及普通 `.ts`/`.tsx` 文件的类型擦除交给 esbuild。esbuild 只做转译不做类型检查，也不支持 `emitDecoratorMetadata`——依赖装饰器元数据的项目（如用 TypeORM/InversifyJS 时）需要换用 SWC 或 Babel 插件处理。
 
 ### ESBuild 的 Tree Shaking 和代码压缩
 
@@ -262,7 +262,7 @@ real    0m 32s   # 快了 4 倍
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "Babel 和 ESBuild 有什么区别" | 追问 Babel 是转译器（JS→JS）、ESBuild 是打包器+转译器（更快） |
-| "为什么 ESBuild 这么快" | 追问 Go 语言编写、多线程并行、不生成 AST 直接产出的架构优势 |
+| "为什么 ESBuild 这么快" | 追问 Go 语言编写编译为机器码、多线程并行、全流程只遍历 AST 约 3 次的架构优势 |
 | "preset-env 和 plugin 的关系" | 追问 preset 是 plugin 的集合——preset-env 按目标环境自动选插件 |
 
 ## 相关阅读

@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: filled
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - BFC
@@ -34,7 +34,7 @@ tags:
 
 ```css
 /* 最常用 -- 副作用最小 */
-overflow: hidden; /* 或 auto、scroll、overlay -- 只要不是 visible */
+overflow: hidden; /* 或 auto、scroll、overlay -- 不是 visible/clip 即可（clip 只裁剪，不创建 BFC） */
 
 /* 浮动元素自动创建 BFC */
 float: left; /* 或 right */
@@ -63,7 +63,7 @@ display: table-cell;   /* 或 table-caption */
 
 ### BFC 怎么解决外边距折叠
 
-外面距折叠的本质是：**两个相邻盒子在同一个格式化上下文中**。解决思路就是让它们不在同一个上下文里。
+外边距折叠的本质是：**两个相邻盒子在同一个格式化上下文中**。解决思路就是让它们不在同一个上下文里。
 
 ```html
 <!-- 问题：父子 margin 折叠 -->
@@ -173,7 +173,7 @@ display: table-cell;   /* 或 table-caption */
 
 ## 易错点
 
-- ❌ **`overflow: hidden` 一定能创建 BFC** → 错：需要 `overflow` 的值**不是 `visible`**（visible 是默认值，不创建）。`overflow: visible` 不会创建 BFC。
+- ❌ **设置了 `overflow` 就能创建 BFC** → 错：需要 `overflow` 的值**不是 `visible`**（默认值，不创建），也不是 `clip`（只做绘制裁剪，不创建 BFC）。
 - ❌ **BFC 能解决所有布局问题** → 错：BFC 只解决浮动清除、margin 折叠、外边界不重叠这三类问题。复杂布局请用 Flexbox/Grid。
 - ❌ **`overflow: scroll` 和 `overflow: auto` 不创建 BFC** → 错，它们也会创建，因为值不是 visible。
 - ❌ **给所有元素加 `overflow: hidden` 是好事** → 错，有裁剪副作用，弹窗/Tooltip 会被切掉。首选 `display: flow-root`。

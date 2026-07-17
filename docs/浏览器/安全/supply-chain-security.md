@@ -151,7 +151,7 @@ console.log({}.isAdmin);  // true  ← 原型被污染！
 #### 实际案例
 
 - **CVE-2019-10744**：lodash `defaultsDeep` 原型污染，影响数百万项目
-- **CVE-2020-8203**：`hoek` 原型污染，影响 hapi.js 生态
+- **CVE-2018-3728**：`hoek` 原型污染，影响 hapi.js 生态
 - 攻击后果：RCE（通过污染执行路径）、绕过权限检查、DOS
 
 #### 防御方案
@@ -237,7 +237,7 @@ export default defineConfig({
 
 ## 易错点
 
-1. **SRI 忘了加 `crossorigin="anonymous"`** —— CDN 没有 CORS 头时 SRI 会静默失效。检查 CDN 是否返回 `Access-Control-Allow-Origin: *`
+1. **SRI 忘了加 `crossorigin="anonymous"`** —— 跨域资源没有 CORS 时浏览器拿到的是不透明响应，无法校验完整性，带 `integrity` 的资源会**直接加载失败**。检查 CDN 是否返回 `Access-Control-Allow-Origin: *`
 2. **npm audit 修漏洞直接用 --force** —— 可能引入 breaking changes，先在开发环境验证
 3. **"我们不用 `__proto__`，不可能被原型污染"** —— 很多第三方库内部用递归合并处理配置，自己的代码不直接用不代表库不用
 4. **`Object.create(null)` 创建的对象没有 `hasOwnProperty`** —— 需要用 `Object.hasOwn(obj, key)`（ES2022）替代

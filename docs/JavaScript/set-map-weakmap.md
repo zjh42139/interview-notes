@@ -53,8 +53,9 @@ map.set({}, '对象 key').set(() => {}, '函数 key')
 map.set(1, '数字 key').set('1', '不同的 key')
 
 const obj = {}
-obj[{}] = 'a'       // key → '[object Object]'
-obj[() => {}] = 'a' // 覆盖了上一个！
+obj[{ a: 1 }] = '第一个' // key → '[object Object]'
+obj[{ b: 2 }] = '第二个' // key 同样是 '[object Object]' — 覆盖了上一个！
+obj[() => {}] = 'fn'     // key → 函数源码字符串 '() => {}'
 
 // Map 保持插入顺序；Object 数字 key 会排在前
 console.log([...new Map([['z',1],['a',2],['m',3]]).keys()]) // ['z','a','m']
@@ -75,7 +76,7 @@ obj2 = null  // { name: 'Bob' } 失去所有强引用 → 可被 GC
              // WeakMap 对应 entry 自动消失 — 无需手动清理
 ```
 
-**WeakMap 的三个限制**（弱引用的代价）：key **必须是对象**（基本类型无 GC）、**不可迭代**（GC 时机不确定）、**没有 `size`**
+**WeakMap 的三个限制**（弱引用的代价）：key **必须是对象**（ES2023 起也允许未注册的 Symbol；字符串/数字等无 GC 概念的值不行）、**不可迭代**（GC 时机不确定）、**没有 `size`**
 
 ## 深度拓展
 

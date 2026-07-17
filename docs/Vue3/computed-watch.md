@@ -36,7 +36,7 @@ class ComputedRefImpl<T> {
   private _dirty = true                    // ✅ 脏标记，缓存的核心
   private effect: ReactiveEffect
 
-  constructor(getter: () => T) {
+  constructor(getter: () => T, private _setter?: (v: T) => void) {
     // computed 内部也是一个 effect，但有特殊的 scheduler
     this.effect = new ReactiveEffect(getter, () => {
       if (!this._dirty) {
@@ -72,7 +72,7 @@ class ComputedRefImpl<T> {
 // watch 的核心：给被观察的响应式数据创建 effect，scheduler 里执行回调
 function watch(source, cb, { deep, immediate, flush }) {
   // 1. 把 source 转为 getter 函数
-  const getter = isRef(source)
+  let getter = isRef(source)
     ? () => source.value
     : isReactive(source)
       ? () => source                                    // reactive 对象
@@ -117,7 +117,7 @@ watch([count, name], ([c, n]) => console.log(`count: ${c}, name: ${n}`))
 
 **关键机制：惰性求值 + 幂等 dirty 标记，而非异步合并。**
 
-当 A 和 B 同时变化时，每个依赖变更都会触发 computed effect 的 scheduler 回调，但 scheduler 只做一件事：**设置 `this._dirty = true`**。这个操作是幂等的 —— 设置 1 次和设置 100 次的效果完全一样（true 就是 true）。此时**不会立即重新计算**，真正的计算延迟到 `computed.value` 被读取时才执行（惰性求职）。
+当 A 和 B 同时变化时，每个依赖变更都会触发 computed effect 的 scheduler 回调，但 scheduler 只做一件事：**设置 `this._dirty = true`**。这个操作是幂等的 —— 设置 1 次和设置 100 次的效果完全一样（true 就是 true）。此时**不会立即重新计算**，真正的计算延迟到 `computed.value` 被读取时才执行（惰性求值）。
 
 ```ts
 // computed scheduler 做的事情非常少，是同步的
@@ -236,7 +236,7 @@ watchEffect(() => {
 ## 易错点
 
 **❌ watch 一定比 computed 好 —— 场景不同**
-计算属性的值是派生数据，应该用 computed（返回一个新值）。副作用（发请求、操作 DOM、存 localStorage）应该用 watch。computed 返回一个值，watch 不返回。
+计算属性的值是派生数据，应该用 computed（返回一个新值）。副作用（发请求、操作 DOM、存 localStorage）应该用 watch。computed 产出一个值；watch 的回调不产出值（`watch()` 调用本身的返回值是停止函数）。
 
 **❌ computed 可以异步 —— 不推荐**
 computed 的 getter 必须是同步函数，返回 Promise 会导致值不稳定。需要异步派生数据时，考虑 `asyncComputed`（社区方案）或改用 watch + ref。

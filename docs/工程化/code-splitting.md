@@ -112,10 +112,10 @@ build: {
 ### 动态 import 的预加载
 
 ```html
-<!-- 用户悬停链接时，浏览器在空闲时下载目标页面的 chunk -->
+<!-- prefetch：浏览器空闲时提前下载"将来可能用到"的 chunk（与悬停无关，写在 HTML 里就会在空闲时拉取） -->
 <link rel="prefetch" href="/assets/dashboard.abc123.js">
 
-<!-- 当前页面现在就需要的 chunk（比 prefetch 优先级高） -->
+<!-- preload：当前页面马上就要用的资源（优先级比 prefetch 高） -->
 <link rel="preload" href="/assets/hero.js" as="script">
 ```
 

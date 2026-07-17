@@ -47,8 +47,10 @@ module.exports = {
 ### Husky —— Git Hooks 管理
 
 ```bash
-# 安装后配置 .husky/pre-commit
-npx husky add .husky/pre-commit "npx lint-staged"
+# husky v9：初始化（生成 .husky/ 目录并在 package.json 写入 "prepare": "husky"）
+npx husky init
+# hook 文件内容就是要执行的命令，直接写文件即可（v8 的 husky add 子命令已在 v9 移除）
+echo "npx lint-staged" > .husky/pre-commit
 ```
 
 Git 原生的 hooks 在 `.git/hooks/` 下——不会被 git 跟踪。Husky 把 hooks 放到 `.husky/` 目录，可以被 git 管理——团队成员 clone 后自动生效。
@@ -88,11 +90,11 @@ Git 原生的 hooks 在 `.git/hooks/` 下——不会被 git 跟踪。Husky 把 
 
 ### ESLint Flat Config（新格式）
 
-ESLint 9.x 引入 flat config（`eslint.config.js`），替代 `.eslintrc`。新格式更简洁、支持 ESM、去掉了 extends 的级联复杂性。老旧项目仍然用 `.eslintrc`——面试加分点：能说出新旧格式的差异。
+flat config（`eslint.config.js`）在 ESLint 8.21 实验性引入，**9.0 起成为默认格式**，替代 `.eslintrc`（9.x 中旧格式需显式开启，官方已宣布将在后续大版本移除）。新格式更简洁、支持 ESM、去掉了 extends 的级联复杂性。存量老项目仍在用 `.eslintrc`——面试加分点：能说出新旧格式的差异。
 
 ## 易错点
 
-❌ **Husky 失效了** —— clone 后 `.husky/` 目录存在但 hooks 没激活。`npx husky install` 或 package.json 的 prepare script 自动触发。
+❌ **Husky 失效了** —— clone 后 `.husky/` 目录存在但 hooks 没激活。跑一次 `npx husky`（v8 为 `npx husky install`），或靠 package.json 的 `"prepare": "husky"` 在 install 时自动触发。
 
 ❌ **只配 ESLint 不配 Prettier** —— ESLint 的格式规则和 Prettier 冲突——代码改来改去。`eslint-config-prettier` 关掉 ESLint 的格式规则——Prettier 完全接管格式。
 

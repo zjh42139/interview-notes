@@ -68,7 +68,7 @@ const cloned = structuredClone(original)
 // cloned.map instanceof Map — true
 ```
 
-**structuredClone 的限制**：不能拷贝函数、Symbol、DOM 节点、Error 对象、原型链信息。如果你需要拷贝的对象只包含 JSON 兼容类型 + Date + Map/Set + 循环引用，structuredClone 是最佳选择。
+**structuredClone 的限制**：不能拷贝函数、Symbol、DOM 节点；能拷贝 Error 对象，但**不保留原型链**（class 实例会退化为普通对象，getter/setter 和属性描述符也会丢失）。如果你需要拷贝的对象只包含 JSON 兼容类型 + Date + RegExp + Map/Set + 循环引用，structuredClone 是最佳选择。
 
 ### 手写深拷贝的核心架构
 
@@ -234,7 +234,7 @@ const formData = reactive({ name: "", items: [] })
 
 1. **扩展运算符是深拷贝** -- `{...obj}` 和 `[...arr]` 都是浅拷贝，嵌套对象仍共享引用
 2. **JSON.parse(stringify) 是万能的** -- 丢失 undefined/函数/Symbol/Date/RegExp/Map/Set，不处理循环引用
-3. **structuredClone 兼容所有浏览器** -- 在 Worker 中使用受限（无法拷贝 DOM 节点、函数、Symbol），且 IE 完全不支持
+3. **structuredClone 兼容所有浏览器** -- 这是 2022 年才 Baseline 的新 API（Chrome 98+ / Firefox 94+ / Safari 15.4+ / Node 17+），IE 完全不支持；且无法拷贝 DOM 节点、函数、Symbol
 4. **Object.assign 是深拷贝** -- 只是把源对象的**可枚举自有属性**复制到目标对象，一层的浅拷贝
 5. **深拷贝和浅拷贝的性能差异很大** -- 对大型对象深拷贝确实很慢（O(n) 还要递归），项目中注意只在必要时深拷贝
 

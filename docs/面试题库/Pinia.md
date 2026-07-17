@@ -46,6 +46,7 @@ tags:
 - "Pinia 和 Vuex5 的关系" → Vuex 5 从未发布——Vuex 长期处于仅维护状态。Vuex 5 RFC 的成果就是 Pinia——Pinia 是 Vuex 5 提案的事实实现与官方继任者，也是现在的官方默认推荐
 
 > 答案参考：[../Pinia/vs-vuex.md](../Pinia/vs-vuex.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/Pinia/pinia-vs-vuex.md)
 
 ---
 

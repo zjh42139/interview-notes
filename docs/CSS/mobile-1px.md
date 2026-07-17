@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: null
 tags:
   - 1px
@@ -68,7 +68,7 @@ console.log(window.devicePixelRatio)
   transform-origin: 0 0;
 }
 
-/* 适配 dpr=3 */
+/* 适配 dpr=3（标准写法：@media (min-resolution: 3dppx)，-webkit- 前缀为历史兼容写法） */
 @media (-webkit-min-device-pixel-ratio: 3) {
   .hairline-border::after {
     transform: scaleY(0.333);         /* dpr=3 时缩到 0.33px */
@@ -83,7 +83,7 @@ console.log(window.devicePixelRatio)
 ```html
 <!-- 通过 initial-scale 让 CSS 1px = 物理 1px -->
 <meta name="viewport" content="width=device-width, initial-scale=0.5">
-<!-- 然后 CSS 里写 2px → 实际渲染 2*0.5 = 1 物理像素 -->
+<!-- dpr=2 时布局视口扩大一倍，此时 CSS 1px 恰好渲染为 1 物理像素（其余尺寸需按 2 倍书写） -->
 ```
 
 不推荐单独为 1px 调整 viewport——影响全局布局。
@@ -213,4 +213,5 @@ Element Plus 内部对 1px 问题有统一处理，`el-table` 的边框在 Retin
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修正 viewport 缩放方案的像素换算注释、补 min-resolution 标准写法
 - 2026-07-08：新建（dpr 原理 + 四种方案对比 + 四边框写法 + Element Plus 实践）

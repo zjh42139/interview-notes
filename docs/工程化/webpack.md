@@ -246,9 +246,16 @@ export default {
 ### 3. 构建分析
 
 ```bash
-# 生成构建分析报告
-npx webpack --config webpack.config.ts --json > stats.json
-# 然后上传到 https://webpack.github.io/analyse 可视化分析
+# 用 webpack-bundle-analyzer 生成可视化分析报告
+npm install -D webpack-bundle-analyzer
+```
+
+```ts
+// webpack.config.ts — plugins 中加入
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer"
+
+plugins: [new BundleAnalyzerPlugin()]
+// 构建后自动打开 treemap 页面，查看每个 chunk 的模块组成和体积
 ```
 
 ## 易错点

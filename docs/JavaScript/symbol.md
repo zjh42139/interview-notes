@@ -20,7 +20,7 @@ tags:
 
 > ⭐⭐⭐⭐｜难度：中高级｜源码级知识点
 
-**Symbol 是 ES6 引入的第七种原始类型，核心价值是"创建绝对不会重复的标识符"。Vue/React/Node 源码中大量使用 Symbol 做内部标记。**
+**Symbol 是 ES6 引入的第六种原始类型（算上 object 常被称作"第七种数据类型"），核心价值是"创建绝对不会重复的标识符"。Vue/React/Node 源码中大量使用 Symbol 做内部标记。**
 
 ## 一句话总结
 
@@ -75,8 +75,10 @@ const range = {
       },
     }
   },
-}
+};
 [...range]  // [1, 2, 3, 4, 5]
+// 注意上面对象字面量结尾的分号不能省——否则 [...range] 会被解析成
+// 对前面对象的属性访问（经典 ASI 陷阱）
 ```
 
 **Symbol.toStringTag —— 控制 Object.prototype.toString 输出**
@@ -136,14 +138,14 @@ class EvenArray {
 ### Vue3 源码中的 Symbol
 
 ```typescript
-// Vue3 用 Symbol 做内部标记——不可被外部访问或伪造
-export const enum ReactiveFlags {
-  SKIP = '__v_skip',      // 标记跳过响应式
-  IS_REACTIVE = '__v_isReactive',
-  IS_READONLY = '__v_isReadonly',
-  IS_SHALLOW = '__v_isShallow',
-  RAW = '__v_raw',        // 存储原始对象的 key
-}
+// Vue3 真正用 Symbol 的地方——内部标记不可被外部伪造
+export const ITERATE_KEY = Symbol('iterate') // track 对象迭代（for...in/size）依赖的特殊 key
+export const Fragment = Symbol('Fragment')   // vnode 类型标记
+export const Text = Symbol('Text')
+export const Comment = Symbol('Comment')
+
+// 注意：ReactiveFlags（'__v_isReactive' / '__v_raw' 等）用的是字符串 key，
+// 不是 Symbol——面试时别把两者混为一谈
 ```
 
 ### Object.prototype.toString 类型检测

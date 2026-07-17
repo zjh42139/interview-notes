@@ -7,6 +7,20 @@ description: 知识库变更记录
 
 ## 2026-07-18
 
+### Phase 2 覆盖率补齐 + Phase 3 事实审计（第 1 批：浏览器/JS/Vue3/CSS/工程化）
+
+**Phase 2（覆盖率）**:
+- 题库补 🎤 回答稿链接 44 条（HTML +10、浏览器 +4、TS +6、Vue3 +4、网络 +3、CSS +3、工程化 +3、性能 +3、VueRouter +3、JS +2、项目 +2、Pinia +1）
+- 修正 8 处 🎤/答案参考错配（网络 Q9 缓存稿、Q15 RESTful、项目 Q7 微前端/Q8 SSR/Q9 监控/Q10 部署、性能 Q1/Q2/Q4 精度升级、工程化 Q4 HMR）
+- 新增知识文件 `VueRouter/vue-router-4.md`（249 行，VR4 新特性 + Composition API + NavigationFailure），题库 Q8 已改挂
+
+**Phase 3 第 1 批（事实审计，123 文件，修复 40 P0 + ~180 P1）**:
+- **浏览器**（16 P0）: cookie Lax 攻击面示例错误、nginx `etag off` 指令错误、CSP unsafe-eval 方向反、Mixed Content 行为反、4 个安全篇 shell 脚本残留清理、Lighthouse 12 移除 PWA 维度等
+- **JavaScript**（8 P0）: async 输出题答案错（`1 3 4 2 5`→`1 3 4 5 2`）、Proxy receiver 演示用错属性类型、SharedArrayBuffer transfer 方向反、DataView 字节序示例输出错等
+- **Vue3**（13 P0）: lifecycle 父子挂载顺序图错、KeepAlive「销毁重建」实为 DOM move、SSR 渲染器机制三连错、v-if+v-for「编译器退化」虚构机制、nextTick 宏任务渲染时机方向反等
+- **CSS**（2 P0）: at-layer !important 反转方向完全反、sticky overflow:clip 说反（clip 恰是保 sticky 的方案）
+- **工程化**（1 P0）: ESM 循环引用示例整段不可运行且结论全错；7 项版本时效修正（husky v9、ESLint 9 flat config、Node 22 require(esm)、Tailwind v4 等）
+
 ### Phase 1 全模块真题校验（17/17）
 
 以近半年真实面经为基准，对全部 17 个模块题库做差集校准。每模块搜索 10-20 个面经来源，产出差异报告后统一应用。

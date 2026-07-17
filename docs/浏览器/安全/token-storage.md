@@ -19,7 +19,8 @@ tags:
 ---
 
 # Token 存储安全
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
+
+> 📘 **深度阅读**：[浏览器/cookie.md](../cookie.md) —— 本文为面试清单视角，Cookie 属性（HttpOnly/Secure/SameSite）的完整机制见浏览器模块。
 
 > ⭐⭐⭐⭐｜难度：中级
 
@@ -84,7 +85,9 @@ tags:
 // 适合内存的原因：
 // 1. 无状态验证 → 水平扩展友好
 // 2. payload 可前端直接解析获取角色/权限 → 无需额外 /me 接口
-//    const payload = JSON.parse(atob(token.split(".")[1]))
+//    注意 payload 是 base64url 编码，atob 前要先转换字符：
+//    const b64 = token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")
+//    const payload = JSON.parse(atob(b64))
 // 3. 内存丢失不可怕 → refreshToken 换新 accessToken 即可
 // 注意：JWT 无法主动撤销（服务端不存储），所以 accessToken 必须短时效
 ```

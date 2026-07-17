@@ -209,9 +209,9 @@ const recentDocs = await db.docs
 
 ### 追问3：IndexedDB 的存储限制和浏览器差异
 
-- **Chrome**：可用空间约等于磁盘可用空间的 60%，单个源（Origin）上限约为 20% 的可用空间。
-- **Firefox**：全局上限约 50% 的可用空间，单个源上限约 20%。
-- **Safari**：最严格——单个源 7 天后未使用会被自动清理，上限约 1GB。
+- **Chrome**：浏览器整体最多可用磁盘空间的约 80%，单个源（Origin）上限约为磁盘空间的 60%。
+- **Firefox**：单个源上限为"磁盘总空间的 10% 与 10GiB 取小者"（best-effort 模式）。
+- **Safari**：单个源上限约磁盘空间的 20%；且 ITP 策略下，7 天未与站点交互，脚本可写存储（含 IndexedDB）会被自动清理。
 
 **最佳实践**：不要假设"无限容量"，始终通过 `navigator.storage.estimate()` 检查配额使用情况：
 
@@ -241,7 +241,7 @@ import Dexie from 'dexie';
 class DictCache extends Dexie {
   constructor() {
     super('DictCacheDB');
-    this.version(1).stores({ dicts: '&code', '++id' });
+    this.version(1).stores({ dicts: '&code' });
     this.dicts = this.table('dicts');
   }
 }
@@ -321,7 +321,7 @@ async function saveOfflineMessages(db, messages) {
 | "IndexedDB 和 LocalStorage 有什么区别" | 追问事务、索引、异步 API 的对比 |
 | "IndexedDB 为什么能存大文件" | 追问对象存储（object store）和键值对的区别 |
 | "什么时候用 IndexedDB 而不是后端接口" | 追问离线优先（offline-first）的应用场景 |
-| "IndexedDB 的事务有什么限制" | 追问读写锁和不能跨 object store 的原因 |
+| "IndexedDB 的事务有什么限制" | 追问读写事务的锁机制、事务作用域为何创建时固定（可跨多个 object store，但不能跨数据库） |
 
 ## 相关阅读
 

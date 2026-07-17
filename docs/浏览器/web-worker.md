@@ -116,7 +116,7 @@ worker.postMessage(data);
 
 ### 追问2：Comlink 库简化 Worker 通信
 
-原生 postMessage 是消息驱动的一一你得手动管理消息类型、序列化、错误处理。当 Worker 里有多个函数时，代码很快变得混乱。
+原生 postMessage 是消息驱动的——你得手动管理消息类型、序列化、错误处理。当 Worker 里有多个函数时，代码很快变得混乱。
 
 [Comlink](https://github.com/GoogleChromeLabs/comlink) 是 Google 推出的库，让 Worker 通信像调用本地函数一样简单：
 
@@ -135,11 +135,12 @@ const api = {
   },
 };
 expose(api);
+export type WorkerApi = typeof api;
 
 // main.ts
 import { wrap } from 'comlink';
 const worker = new Worker(new URL('./worker.ts', import.meta.url), { type: 'module' });
-const api = wrap<typeof import('./worker')>(worker);
+const api = wrap<import('./worker').WorkerApi>(worker);
 
 // 像调用本地 async 函数一样 —— 自动使用 postMessage
 const stats = await api.calculateStats(millionNumbers);
@@ -161,7 +162,7 @@ worker.postMessage(sab);
 self.onmessage = (e) => {
   const view = new Int32Array(e.data);
   Atomics.add(view, 0, 1);    // 原子操作，保证线程安全
-  Atomics.wait(view, 0, 1);   // 等待条件满足
+  Atomics.wait(view, 0, 1);   // 若 view[0] === 1 则阻塞，直到其他线程 Atomics.notify
 };
 ```
 
@@ -287,7 +288,7 @@ self.onmessage = async (e) => {
 
 1. **Worker 中 `this` 不是 `window`** —— Worker 全局作用域是 `DedicatedWorkerGlobalScope`，`this === self`。新手常写 `window.xxx` 或 `document.querySelector` 直接报错
 2. **结构化克隆的性能代价** —— 传输 100MB 数据时，结构化克隆本身的耗时可能超过计算本身。大块数据用 Transferable（`postMessage(data, [buffer])`），转移后原线程无法再访问
-3. **Shared Worker 的 `port.start()` 必须手动调用** —— Dedicated Worker 的 message 端口默认开启，Shared Worker 必须显式 `port.start()`，忘了就没法通信
+3. **Shared Worker 用 `addEventListener('message')` 时必须手动调用 `port.start()`** —— 直接给 `port.onmessage` 赋值会隐式开启端口；但用 `addEventListener` 监听就必须显式 `port.start()`，忘了就收不到消息
 4. **Service Worker 只能用于 HTTPS（或 localhost）** —— HTTP 下 `navigator.serviceWorker` 为 `undefined`，本地开发时容易忽略
 
 ## 相关阅读

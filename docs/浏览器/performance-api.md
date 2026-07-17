@@ -20,11 +20,11 @@ tags:
 
 > ⭐⭐⭐⭐｜难度：中高级｜性能监控基础设施
 
-**Performance API 是浏览器内置的性能测量工具集——不依赖第三方库，直接获取纳秒级精度的页面加载时间线。面试中 Web Vitals 是"指标"，Performance API 是"怎么拿到这些指标"。**
+**Performance API 是浏览器内置的性能测量工具集——不依赖第三方库，直接获取微秒级精度的页面加载时间线。面试中 Web Vitals 是"指标"，Performance API 是"怎么拿到这些指标"。**
 
 ## 一句话总结
 
-**Performance API 提供四个核心能力：高精度时间戳（`performance.now()`）、页面加载导航时间线（Navigation Timing）、资源加载时间线（Resource Timing）、以及 PerformanceObserver 实时监听性能事件——LCP/FCP/FID/INP 等 Web Vitals 指标底层都依赖它。**
+**Performance API 提供四个核心能力：高精度时间戳（`performance.now()`）、页面加载导航时间线（Navigation Timing）、资源加载时间线（Resource Timing）、以及 PerformanceObserver 实时监听性能事件——LCP/FCP/CLS/INP 等 Web Vitals 指标底层都依赖它。**
 
 ## 核心机制
 
@@ -46,7 +46,7 @@ console.log(`耗时: ${(end - start).toFixed(2)}ms`)
 
 ```javascript
 const { timing } = performance
-// 每个时间点都是 navigationStart 之后的毫秒数
+// ⚠️ Level 1 API（已废弃）：timing.* 是 Unix 时间戳（绝对毫秒），两两相减得到耗时
 const dns = timing.domainLookupEnd - timing.domainLookupStart
 const tcp = timing.connectEnd - timing.connectStart
 const ttfb = timing.responseStart - timing.requestStart
@@ -57,6 +57,7 @@ const totalLoad = timing.loadEventEnd - timing.navigationStart
 **Navigation Timing v2（PerformanceNavigationTiming）更精确**：
 
 ```javascript
+// v2 的时间点是相对 timeOrigin 的 DOMHighResTimeStamp
 const [entry] = performance.getEntriesByType('navigation')
 console.log({
   DNS: entry.domainLookupEnd - entry.domainLookupStart,
@@ -64,7 +65,7 @@ console.log({
   TLS: entry.connectEnd - entry.secureConnectionStart,
   TTFB: entry.responseStart - entry.requestStart,
   DOM: entry.domContentLoadedEventEnd - entry.domInteractive,
-  Load: entry.loadEventEnd - entry.loadEventStart,
+  loadEventDuration: entry.loadEventEnd - entry.loadEventStart,  // load 事件处理耗时
 })
 ```
 

@@ -41,7 +41,7 @@ Set-Cookie: sessionId=aB3xZ9; Domain=.example.com; Path=/; Expires=Tue, 19 Jan 2
 | **Expires / Max-Age** | 过期时间 | 会话结束即删（Session Cookie） | Max-Age 优先级 > Expires。会话 Cookie 浏览器关闭不一定删除（Chrome `恢复标签页` 保留了会话 Cookie） |
 | **HttpOnly** | JS 能否访问 `document.cookie` | `false`（JS 可读） | `true` → **防御 XSS 偷 Cookie**，JS 无法读取 |
 | **Secure** | 是否只在 HTTPS 下发送 | `false`（HTTP 也发送） | `true` → 防御中间人攻击嗅探 Cookie |
-| **SameSite** | 跨站请求是否携带 | Chrome 80（2020/02）之前默认 `None`，现在浏览器统一默认 `Lax` | `Strict`/`Lax` → **防御 CSRF** |
+| **SameSite** | 跨站请求是否携带 | Chrome 80（2020/02）起 Chromium 系浏览器默认按 `Lax` 处理（Firefox/Safari 未跟进此默认值，靠拦截第三方 Cookie 达到类似效果） | `Strict`/`Lax` → **防御 CSRF** |
 
 ### SameSite —— 最重要的新增属性
 
@@ -56,7 +56,7 @@ Strict（最严）
   │ 适用：银行、支付等安全要求极高的场景     │
   └──────────────────────────────────────┘
 
-Lax（浏览器默认，平衡安全与体验）
+Lax（Chrome 默认，平衡安全与体验）
   ┌──────────────────────────────────────┐
   │ 跨站时只在"顶级导航 GET 请求"携带       │
   │ 什么是顶级导航？                       │
@@ -95,7 +95,7 @@ None（允许跨站携带，必须配合 Secure）
 
 | 维度 | Cookie | LocalStorage | SessionStorage | IndexedDB |
 |------|--------|-------------|----------------|-----------|
-| 容量 | ~4KB | ~5MB | ~5MB | 无上限（用户磁盘） |
+| 容量 | ~4KB | ~5MB | ~5MB | GB 级（受磁盘配额限制） |
 | 生命周期 | 可设过期时间 / 会话 | 永久（除非手动删） | 标签页关闭即删 | 永久 |
 | 作用域 | Domain + Path | 同源 | 同源 + 标签页 | 同源 |
 | 自动携带到请求 | ✅ 是（唯一） | ❌ 否 | ❌ 否 | ❌ 否 |
@@ -141,9 +141,10 @@ None（允许跨站携带，必须配合 Secure）
   ad.com 在 b.com、c.com 页面上也能读到这个 Cookie
   → 广告商可以跟踪你"在哪些网站看过什么"
 
-Chrome 已开始逐步淘汰第三方 Cookie
-  → SameSite=None 的 Cookie 需要 Partitoned 属性
-  → 跨站跟踪将越来越困难
+Chrome 曾计划全面淘汰第三方 Cookie（Privacy Sandbox）
+  → 但 2025 年已官宣放弃"默认禁用"，第三方 Cookie 得以保留
+  → Safari / Firefox 早已默认拦截第三方 Cookie
+  → 跨站嵌入场景推荐 Partitioned（CHIPS）属性：Cookie 按顶级站点分区，无法跨站跟踪
   → 影响：第三方登录组件、嵌入式支付、客户聊天插件
 ```
 
@@ -169,14 +170,14 @@ Set-Cookie: lang=zh-CN; Path=/; Max-Age=31536000; SameSite=Lax
 
 1. **`HttpOnly` 忘记加** —— `document.cookie` 能读出 sessionId，存储型 XSS 直接偷走
 2. **`Secure` 忘记加** —— 在公共 WiFi 下 HTTP 请求明文携带 Cookie，中间人嗅探即可复用
-3. **`SameSite` 默认 Lax 不能完全防 GET 请求 CSRF** —— `<img src="https://bank.com/transfer?amount=100&to=hacker">` 这种 GET 请求在 Lax 下仍可能携带 Cookie（某些浏览器的行为差异）
+3. **`SameSite` 默认 Lax 不能完全防 GET 请求 CSRF** —— Lax 允许"顶级导航 GET"携带 Cookie，攻击者诱导用户点击 `<a href="https://bank.com/transfer?amount=100&to=hacker">` 或用 `window.location` 跳转即可得逞。所以**状态变更操作绝不能用 GET**（Chrome 还有"Lax+POST"宽限：Cookie 写入 2 分钟内的顶级 POST 导航也携带）
 4. **Domain 设得太宽** —— `Domain=.com` 会让 Cookie 在所有 .com 域名下发送（浏览器会拒绝这种写法，但 `.example.com` 等宽域名要谨慎）
 
 ## 易错点
 
-1. **Cookie 大小包含属性** —— `Set-Cookie: a=1; HttpOnly; Secure; SameSite=Strict; Path=/long/path` 的属性部分也算在 4KB 限额内
+1. **4KB 限制只计 `name=value`** —— 按 RFC 6265bis（Chrome 实现），`name=value` 最大 4096 字节；`HttpOnly`/`SameSite` 等属性不计入，但每个属性值另有 1024 字节的独立上限
 2. **`document.cookie` 只能增改，不能删原生的行** —— `document.cookie = 'a=1'` 不会覆盖其他 Cookie，而是在列表末尾追加。删除靠过期时间：`document.cookie = 'a=; Max-Age=0'`
-3. **Path 不是安全边界** —— `Path=/admin` 的 Cookie 在同源 iframe 中仍然可见（`document.cookie` 不显示，但 `fetch('/admin/..')` 会携带）
+3. **Path 不是安全边界** —— `Path=/admin` 的 Cookie 在同源页面里照样能被拿到（`document.cookie` 在 `/` 下不显示，但同源 iframe 打开 `/admin` 页即可读取；`fetch('/admin/data')` 也会携带）
 4. **Session Cookie 在浏览器"恢复标签页"时不会清除** —— Chrome 的"继续上次浏览"功能会让会话 Cookie 复活。**不要依赖"用户关闭浏览器就自动退出"作为安全策略**
 5. **`SameSite=None` 必须配合 `Secure`** —— 浏览器会忽略没有 Secure 的 SameSite=None Cookie
 

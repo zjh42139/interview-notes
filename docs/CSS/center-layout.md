@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 居中
@@ -149,11 +149,11 @@ Grid 里的两个简写属性，容易混淆：
 ```css
 /* place-items：作用于每个网格项目的对齐（默认 stretch） */
 /* = justify-items + align-items */
-grid: place-items: center;
+.grid { place-items: center; }
 
 /* place-content：作用于整个网格内容在容器内的对齐（多行/多列场景） */
 /* = justify-content + align-content */
-grid: place-content: center;
+.grid { place-content: center; }
 ```
 
 简单理解：`items` 管单个格子内，`content` 管整块网格在容器里的位置。Flexbox 也支持 `place-content`（换行模式下）和 `place-items`。
@@ -184,7 +184,7 @@ graph TD
     Q1 -->|"垂直居中"| Q3{"内容类型？"}
     Q3 -->|"单行文字"| A4["line-height = height"]
     Q3 -->|"多行/任意"| A5["Flex: align-items: center"]
-    Q3 -->|"脱离文档流"| A6["定位 + transformY(-50%)"]
+    Q3 -->|"脱离文档流"| A6["定位 + translateY(-50%)"]
 
     Q1 -->|"水平+垂直"| Q4{"有固定宽高？"}
     Q4 -->|"是"| A7["Flex / Grid place-items / 定位 margin:auto"]

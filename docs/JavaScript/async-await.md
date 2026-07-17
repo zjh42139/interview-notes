@@ -122,7 +122,7 @@ async function bar() {
 async function foo() {
   console.log("1")
   await bar()
-  console.log("2") // 微任务 1
+  console.log("2") // await 的续体（微任务）
 }
 async function bar() {
   console.log("3")
@@ -134,12 +134,12 @@ Promise.resolve()
   .then(() => console.log("4"))
   .then(() => console.log("5"))
 
-// 输出：1 3 4 2 5
+// 输出：1 3 4 5 2
 ```
 
-这题的坑：`await bar()` 中，bar 返回 `Promise.resolve()`，规范要求 `await` 对返回值调用 `Promise.resolve()` 包装，这会产生**额外的微任务**。所以 2 延迟了两个微任务 tick。
+这题的坑：`bar` 是 **async 函数**且 `return Promise.resolve()`——async 函数的返回 Promise 需要"采纳"这个内部 Promise（thenable 展开），要花 **2 个额外微任务 tick**；之后 `await` 的续体（打印 2）才能入队。所以 `2` 排在 `4`、`5` 之后。
 
-简化记忆：**async 函数中遇到 await，后面的代码等价于 2 层 Promise.then 嵌套**（V8 优化前是 3 层）。
+简化记忆：现代引擎（ES2019 起）`await 一个已 resolve 的原生 Promise` 只花 **1 个 tick**（V8 优化前是 3 个）；但 **async 函数 return 一个 Promise** 会额外多 2 个 tick。对照验证：把 `bar` 改成普通函数（直接 `return Promise.resolve()`），输出就变成 `1 3 2 4 5`。
 
 ### 顶层 await（ES2022）
 

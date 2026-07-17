@@ -71,7 +71,9 @@ export default defineConfig({
 
 esbuild 在预构建阶段做了两件事：
 - **CommonJS 转 ESM**：把 `require("lodash")` 转为 `import lodash from "lodash"`
-- **重写裸模块路径**：把 `import { ref } from "vue"` 重写为 `import { ref } from "/node_modules/.vite/deps/vue.js?v=hash"`
+- **合并内部模块**：把一个包的几百个内部小模块打包成一个文件（如 lodash-es 的 600+ 模块），减少浏览器请求数
+
+预构建之外，Vite dev server 在返回源码时还会**重写裸模块路径**（这一步是 Vite 的 import 分析插件做的，不是 esbuild）：把 `import { ref } from "vue"` 重写为 `import { ref } from "/node_modules/.vite/deps/vue.js?v=hash"`，让浏览器能定位到预构建产物。
 
 ### HMR（模块热替换）
 
@@ -229,7 +231,7 @@ export default defineConfig({
 ## 易错点
 
 1. **环境变量没有 VITE_ 前缀** -- 只有 `VITE_` 前缀的变量才会暴露给客户端代码，安全考虑
-2. **开发正常、生产报错** -- esbuild 和 Rollup 处理 CJS 的方式不同，某些包在生产构建时可能出问题。在 `optimizeDeps.include` 中显式声明
+2. **开发正常、生产报错** -- 开发时 CJS 依赖由 esbuild 预构建处理，生产构建则由 `@rollup/plugin-commonjs` 转换，两者对 CJS 边界场景的处理不同。注意 `optimizeDeps.include` 只影响开发预构建，生产侧要通过 `build.commonjsOptions` 调整
 3. **vue 组件 HMR 不生效** -- 检查文件路径是否被 Vite 排除在 HMR 监听范围外，或 HMR 冒泡链是否断裂（组件没有 `hot.accept` 且父组件也未 accept 它）。注意：`defineProps`/`defineEmits` 是编译时宏，不影响运行时依赖图
 4. **Element Plus 完整导入体积巨大** -- 必须配置 `unplugin-vue-components` 按需导入，否则打包体积 1.5M+
 5. **proxy 代理在生产环境无效** -- proxy 只在 dev server 生效，生产环境需要 nginx 反向代理

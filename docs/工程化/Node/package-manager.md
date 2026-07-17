@@ -112,7 +112,7 @@ tags:
     // 生命周期钩子：npm 会自动执行 pre/post 脚本
     "prebuild": "npm run lint",        // build 前自动执行
     "postbuild": "echo '构建完成'",   // build 后自动执行
-    "prepare": "husky install"        // npm install 后自动执行（CI 中）
+    "prepare": "husky"                // npm install 后自动执行（husky v9；v8 写 husky install）
   }
 }
 ```
@@ -149,7 +149,7 @@ npm 的生命周期顺序（部分）：
 // 导致 composable 共享状态丢失、provide/inject 断裂
 ```
 
-npm 7+ 会自动安装 peerDependencies，pnpm 严格模式下会报错提示手动安装。这也是 pnpm 更安全的原因。
+npm 7+ 会自动安装 peerDependencies；pnpm 8+ 默认 `auto-install-peers=true` 也会自动安装，版本冲突或无法满足时给出警告/报错，比 npm 的静默容忍更容易暴露问题。
 
 ### exports 字段的条件导出
 
@@ -157,15 +157,16 @@ npm 7+ 会自动安装 peerDependencies，pnpm 严格模式下会报错提示手
 {
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",    // TypeScript 走这个（必须放第一位）
       "import": "./dist/index.mjs",    // import 走这个
-      "require": "./dist/index.cjs",   // require 走这个
-      "types": "./dist/index.d.ts"     // TypeScript 走这个
+      "require": "./dist/index.cjs"    // require 走这个
     },
     "./table": {
       "import": "./dist/components/table.mjs",
       "require": "./dist/components/table.cjs"
     }
   },
+  // 条件按书写顺序匹配，"types" 放最后可能永远匹配不到
   // exports 会阻止未列出的路径访问
   // 用户无法 require("my-lib/dist/internal.js")
   // 这是比 main/module 字段更安全和现代的方案
@@ -218,7 +219,7 @@ npm exec -- vite --version
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{vue,ts,tsx}\" --fix",
     "typecheck": "vue-tsc --noEmit",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "vue": "^3.4.0",
@@ -261,9 +262,9 @@ npm exec -- vite --version
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "files": ["dist", "README.md"],

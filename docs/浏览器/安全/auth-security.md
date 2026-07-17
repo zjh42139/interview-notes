@@ -30,9 +30,10 @@ tags:
 // ❌ 不安全：长期 token 存 localStorage——XSS 一条代码拿走
 localStorage.setItem('token', jwt);
 
-// ✅ 安全：短过期 token + HttpOnly Cookie
-// access token: 15min 过期，放在 HttpOnly Cookie 中（JS 不可读）
-// refresh token: 7 天过期，用于获取新 access token
+// ✅ 安全：短过期 access token + refresh token 分层存储
+// access token: 15min 过期，存内存（同 token-storage.md 的双 Token 策略；
+//               BFF/同源架构下也可整体放 HttpOnly Cookie）
+// refresh token: 7 天过期，HttpOnly Cookie，仅用于获取新 access token
 
 // refresh token rotation：每次刷新返回新 refresh token——旧的失效
 // 如果旧 refresh token 被偷——攻击者和合法用户同时用——服务端检测到旧 token 被重用
@@ -42,7 +43,7 @@ localStorage.setItem('token', jwt);
 **JWT 三大安全风险**：
 - Payload 未加密（Base64 编码≠加密）——不要放敏感数据
 - 无法强制失效——签发的 token 过期前一直有效（除非加黑名单）
-- `alg: none` 攻击——用 HS256 公钥签名 JWT——必须验证 alg 字段
+- 算法混淆攻击——`alg: none`（声称无签名，服务端跳过验证）或把 RS256 改成 HS256（用 RSA 公钥当 HMAC 密钥伪造签名）——服务端必须用白名单固定允许的 alg，不能信任 token 头部声明
 
 ### OAuth 2.0 + PKCE
 

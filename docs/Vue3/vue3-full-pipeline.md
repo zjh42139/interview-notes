@@ -92,11 +92,14 @@ flowchart TB
 // 模板中的内联事件：
 <Child @click="(e) => count++" />
 
-// 编译产物中会被缓存为：
-import { _cache } from 'vue'
-_createVNode(Child, {
-  onClick: _cache[0] || (_cache[0] = ($event) => (ctx.count++))
-}, null, 8 /* PROPS */, ['onClick'])
+// 编译产物中会被缓存（_cache 是 render 函数的第二个参数，挂在组件实例上）：
+function render(_ctx, _cache) {
+  return _createVNode(Child, {
+    onClick: _cache[0] || (_cache[0] = ($event) => (_ctx.count++))
+  })
+  // 注意：正因为 handler 被缓存、引用永不变化，
+  // 这个 onClick 不会被标记为动态 props（无 8 /* PROPS */ flag）
+}
 ```
 
 **为什么缓存事件引用能避免子组件 re-render**：
@@ -105,7 +108,7 @@ _createVNode(Child, {
 
 **适用条件**：仅适用于**内联箭头函数/表达式**，如 `@click="(e) => fn(e)"`。直接绑定方法引用 `@click="handleClick"` 时本身就不会变化，无需缓存。
 
-**`_cache` 的创建时机**：`_cache` 是组件 render 函数的闭包数组，组件实例化时创建、卸载时销毁。每次父组件 re-render，`_cache[0]` 可能被重新赋值（如果缓存条件变了），但**绝大部分情况下闭包捕获的是同一个函数**。
+**`_cache` 的创建时机**：`_cache` 是传给 render 函数的组件实例级数组（`instance.renderCache`），组件实例化时创建、卸载时销毁。`_cache[0] || (_cache[0] = ...)` 的短路写法保证**只在首次 render 时赋值一次**，此后每次 re-render 拿到的都是同一个函数引用。
 
 ### 3. Generate（代码生成）
 
@@ -208,7 +211,7 @@ onMounted(() => {
 })
 ```
 
-> mounted 触发顺序：**子组件先 mounted，父组件后 mounted**（因子组挂载是父组件的子步骤）。
+> mounted 触发顺序：**子组件先 mounted，父组件后 mounted**（因为子组件挂载是父组件挂载的子步骤）。
 
 ---
 
@@ -231,7 +234,7 @@ set value(newVal) {
 }
 ```
 
-2. **`trigger(target, key)`** → 从依赖表找到此数据的 Set\<ReactiveEffect\>：
+2. **`trigger(target, key)`** → 从依赖表找到此数据的 `Set<ReactiveEffect>`：
 
 ```
 targetMap.get(target) → depsMap.get(key) → Set<ReactiveEffect>
@@ -273,7 +276,7 @@ queueFlush()
 **去重是关键**——同一次 tick 内修改 10 次 `count.value`，组件只重新渲染一次：
 
 ```ts
-const queue = new Set<Job>()  // 或数组 + find 去重
+const queue: SchedulerJob[] = []  // 源码用数组 + includes 去重（数组便于按 id 排序）
 let isFlushing = false
 
 function queueJob(job: SchedulerJob) {
@@ -347,7 +350,7 @@ for (let i = 0; i < oldChildren.length; i++) { … }
 
 // Block Tree diff：只 diff 动态节点
 for (let i = 0; i < newVNode.dynamicChildren.length; i++) {
-  patch(oldChildren[i], newVNode.dynamicChildren[i], container)
+  patch(oldVNode.dynamicChildren[i], newVNode.dynamicChildren[i], container)
 }
 ```
 
@@ -451,7 +454,7 @@ t~16ms 屏幕变化可见 🎉
 flowchart TD
   A["createApp / mount 入口"] --> B["setup() 执行<br/>Vue3/composition-api.md"]
   B --> C["创建响应式数据<br/>Vue3/reactivity.md"]
-  C --> D["beforeMount → 编译 template<br/>Vue3/lifecycle.md"]
+  C --> D["beforeMount → 首次 render/patch<br/>Vue3/lifecycle.md"]
   D --> E["子组件递归挂载"]
   E --> F["父 mounted"]
   F --> G["路由守卫触发<br/>VueRouter/route-guards.md"]

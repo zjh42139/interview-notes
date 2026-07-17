@@ -47,6 +47,7 @@ tags:
 - "popstate 什么时候触发" → 前进/后退时——pushState 和 replaceState 本身不触发 popstate
 
 > 答案参考：[../VueRouter/history-vs-hash.md](../VueRouter/history-vs-hash.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/VueRouter/history-hash.md)
 
 ---
 
@@ -69,6 +70,7 @@ tags:
 - "守卫里怎么中断导航" → return false 或抛出 Error——Vue3 不推荐用 next(false)，用 return false
 
 > 答案参考：[../VueRouter/route-guards.md](../VueRouter/route-guards.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/VueRouter/route-guards.md)
 
 ---
 
@@ -93,6 +95,7 @@ tags:
 - "退出登录怎么清路由" → `router.removeRoute('name')` + 重置为初始静态路由。或者 `window.location.reload()` 简单粗暴
 
 > 答案参考：[../VueRouter/dynamic-routing.md](../VueRouter/dynamic-routing.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/VueRouter/dynamic-routing.md)
 > 延伸：[../项目实战/权限系统/permission-rbac.md](../项目实战/权限系统/permission-rbac.md)
 
 ---
@@ -206,8 +209,8 @@ tags:
 - "`:pathMatch(.*)*` 末尾的 `*` 是什么意思" → 可重复修饰符——匹配结果按 `/` 切成数组放进 params.pathMatch；不加 `*` 拿到的是整段字符串
 - "为什么移除 addRoutes" → VR4 匹配器重写为基于评分排序——addRoute 单条注入返回删除函数、支持指定父路由嵌套，批量场景循环调用即可
 
-> 答案参考：[../VueRouter/dynamic-routing.md](../VueRouter/dynamic-routing.md)（addRoute 与 `:pathMatch(.*)*`）
-> 延伸：[../VueRouter/history-vs-hash.md](../VueRouter/history-vs-hash.md)（createRouter/createWebHistory 工厂函数）
+> 答案参考：[../VueRouter/vue-router-4.md](../VueRouter/vue-router-4.md)
+> 延伸：[../VueRouter/dynamic-routing.md](../VueRouter/dynamic-routing.md)（addRoute）、[../VueRouter/history-vs-hash.md](../VueRouter/history-vs-hash.md)
 
 ---
 

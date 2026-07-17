@@ -17,6 +17,12 @@ mindmap
         pushState / replaceState
         popstate 事件
         需要服务端配置
+    VR4 新特性
+      createRouter 工厂函数
+      pathMatch 通配符写法
+      useRouter 与 useRoute
+      解构丢失响应性
+      重复导航不再报错
     动态路由
       addRoute
       removeRoute
@@ -57,18 +63,19 @@ mindmap
 1. ⭐⭐⭐⭐⭐ [history / hash 模式](./history-vs-hash.md) — 先理解两种模式怎么工作
 2. ⭐⭐⭐⭐⭐ [路由守卫](./route-guards.md) — 在模式基础上控制导航
 3. ⭐⭐⭐⭐⭐ [动态路由](./dynamic-routing.md) — 守卫的进阶应用
+4. ⭐⭐⭐⭐⭐ [Vue Router 4 新特性](./vue-router-4.md) — API 变化与 Composition API 用法
 
 ### 二、进阶与集成（依赖核心机制）
 
-4. ⭐⭐⭐⭐ [路由懒加载](./lazy-loading.md)
-5. ⭐⭐⭐⭐ [KeepAlive + Router](./keepalive-integration.md)
+5. ⭐⭐⭐⭐ [路由懒加载](./lazy-loading.md)
+6. ⭐⭐⭐⭐ [KeepAlive + Router](./keepalive-integration.md)
 
 ### 三、辅助功能
 
-6. ⭐⭐⭐ [导航故障处理](./navigation-failures.md)
-7. ⭐⭐⭐ [scrollBehavior](./scroll-behavior.md)
-8. ⭐⭐⭐ [路由元信息/传参](./route-meta-props.md)
-9. ⭐⭐⭐ [命名视图/过渡动画](./named-views-transition.md)
+7. ⭐⭐⭐ [导航故障处理](./navigation-failures.md)
+8. ⭐⭐⭐ [scrollBehavior](./scroll-behavior.md)
+9. ⭐⭐⭐ [路由元信息/传参](./route-meta-props.md)
+10. ⭐⭐⭐ [命名视图/过渡动画](./named-views-transition.md)
 
 ## 知识点索引
 
@@ -77,6 +84,7 @@ mindmap
 | [history / hash 模式](./history-vs-hash.md) | ⭐⭐⭐⭐⭐ | 初级 | — | filled |
 | [路由守卫](./route-guards.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [动态路由](./dynamic-routing.md) | ⭐⭐⭐⭐⭐ | 高级 | — | filled |
+| [Vue Router 4 新特性](./vue-router-4.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [路由懒加载](./lazy-loading.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
 | [KeepAlive + Router](./keepalive-integration.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [scrollBehavior](./scroll-behavior.md) | ⭐⭐⭐ | 初级 | — | filled |
@@ -93,5 +101,6 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-18：新增「Vue Router 4 新特性」——mindmap、学习顺序、索引表同步
 - 2026-07-11：补"相关阅读"区——链向 Vue3/Pinia/项目实战/题库
 - 2026-07-06：初始创建

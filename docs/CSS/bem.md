@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 reviewed: null
 tags:
   - BEM
@@ -83,7 +83,7 @@ CSS 的本质问题是**全局作用域**——你在 A 页面写的 `.title { c
 
 ### 追问：Element Plus 里的 BEM 影子
 
-Element Plus 虽然内部用了 Scoped CSS，但它的**类名设计**明显参考了 BEM 思路：
+Element Plus 内部并没有用 Scoped CSS——它的样式是 SCSS（BEM mixin）生成的全局类名，**类名设计**就是 BEM 思路：
 
 ```html
 <!-- 一个 Element Plus 按钮 -->
@@ -187,4 +187,5 @@ BEM 保证类名可读，Scoped 保证类名不冲突——两者互补。
 
 ## 更新记录
 
+- 2026-07-18：事实审计——修正"Element Plus 内部用 Scoped CSS"的错误说法（实为 SCSS BEM mixin 全局类名）
 - 2026-07：Phase 2 填充（面试笔记版）

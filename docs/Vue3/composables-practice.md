@@ -124,7 +124,7 @@ export function useDebounce(value, delay = 300) {
 
 ### effectScope — composable 的底层支撑
 
-每个组件实例都有一个 effectScope——组件的所有 effect（响应式追踪）都在这个 scope 中。组件卸载时，scope 自动停止所有 effect——这就是为什么 composable 中的 watch/watchEffect/事件监听会自动清理。
+每个组件实例都有一个 effectScope——组件的所有 effect（响应式追踪）都在这个 scope 中。组件卸载时，scope 自动停止所有 effect——这就是为什么 composable 中的 watch/watchEffect/computed 会自动停止。注意：DOM 事件监听、定时器等**原生副作用不归 effectScope 管**，仍要靠 `onUnmounted`/`onScopeDispose` 手动清理。
 
 ```javascript
 import { effectScope, onScopeDispose } from 'vue'

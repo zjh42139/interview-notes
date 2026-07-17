@@ -213,7 +213,7 @@ class Carousel {
 ```javascript
 window.addEventListener('scroll', () => {
   requestAnimationFrame(() => {
-    const scrolled = window.pageYOffset;
+    const scrolled = window.scrollY;
     document.querySelector('.parallax-bg').style.transform =
       `translateY(${scrolled * 0.5}px)`;
   });

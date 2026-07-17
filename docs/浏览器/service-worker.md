@@ -23,7 +23,7 @@ tags:
 
 ## 一句话总结
 
-**Service Worker 是运行在浏览器后台的独立 JavaScript 脚本，与页面生命周期解耦，可以拦截同域下所有网络请求（fetch 事件），实现离线缓存、消息推送和后台同步。它是 PWA 的核心技术栈，需要 HTTPS 环境并通过 `navigator.serviceWorker.register()` 注册。**
+**Service Worker 是运行在浏览器后台的独立 JavaScript 脚本，与页面生命周期解耦，可以拦截其作用域内页面发出的所有网络请求（fetch 事件，包括对跨域资源的请求），实现离线缓存、消息推送和后台同步。它是 PWA 的核心技术栈，需要 HTTPS 环境并通过 `navigator.serviceWorker.register()` 注册。**
 
 ---
 
@@ -173,7 +173,7 @@ self.addEventListener('fetch', (event) => {
 
 ### 追问2：Service Worker 必须 HTTPS 吗？
 
-**是的，生产环境下必须是 HTTPS。** 因为 SW 拥有拦截同域所有请求的能力——如果 HTTP 明文传输中被中间人篡改 SW 脚本，攻击者可以注入恶意缓存或窃取请求数据。
+**是的，生产环境下必须是 HTTPS。** 因为 SW 拥有拦截其作用域内页面所有请求的能力——如果 HTTP 明文传输中被中间人篡改 SW 脚本，攻击者可以注入恶意缓存或窃取请求数据。
 
 **唯一例外是 `localhost`**：为了方便本地开发，浏览器允许 `localhost` 环境下使用 Service Worker 而不需要 HTTPS。
 
@@ -241,7 +241,7 @@ self.addEventListener('install', (e) => {
 - **"Service Worker 可以访问 DOM"**：不能。SW 运行在独立的 Worker 上下文中，完全无法访问 `window`、`document` 和 DOM API。它只能通过 `postMessage` 与页面通信。
 - **"注册 Service Worker 后立刻生效"**：不会。首次访问时，SW 在 install → activate 后才能控制页面，这个过程在页面加载之后才完成，所以**首次访问是不受 SW 控制的**（除非调用 `clients.claim()`）。
 - **"SW 脚本的 scope 由文件路径决定"**：SW 默认 scope 是脚本所在目录。`/js/sw.js` 只能拦截 `/js/` 下的请求。通常把 SW 放在根目录（`/sw.js`）让它可以控制整个域。
-- **"SW 的 Cache Storage 是无限容量的"**：不是。浏览器对每个源的 Cache Storage 通常有配额限制（Chrome 约为可用磁盘空间的 60%，各浏览器不同）。超出配额时 `cache.put()` 可能失败。
+- **"SW 的 Cache Storage 是无限容量的"**：不是。浏览器对每个源的存储（Cache Storage + IndexedDB 等共享配额）有限制（Chrome 下单个源约为总磁盘空间的 60%，各浏览器不同）。超出配额时 `cache.put()` 可能失败。
 - **"SW 中不需要处理缓存版本冲突"**：需要。如果没有在 activate 事件中清理旧缓存，用户的 Cache Storage 会不断膨胀，且可能返回过时内容。**缓存版本管理是 SW 的必修课**。
 
 ---

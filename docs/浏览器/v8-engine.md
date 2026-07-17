@@ -133,7 +133,7 @@ function getLength(obj) {
 // 第 4 次：getLength({length:10}) → obj 是普通对象
 //   又是一种新类型 → 继续扩展缓存
 
-// 第 5 次：getLength(null) → obj 是 null（或 5+ 种不同类型）
+// 第 5 次：getLength(new Uint8Array(8)) → 又一种新类型（第 5 种）
 //   → 超过缓存上限 → "超态"（Megamorphic）
 //   → 不再尝试缓存 → 每次都要做完整的类型检查 → 慢
 ```
@@ -196,14 +196,12 @@ function process(items) {
 }
 // ❌ 不要时而传 Array 时而传 Set 时而传 Map
 
-// 3. 避免在热点循环中 try-catch
-for (let i = 0; i < 1000000; i++) {
-  try { riskyOperation(i) } catch (e) { /* ... */ }
-}
-// ✅ try-catch 放在循环外面
-try {
-  for (let i = 0; i < 1000000; i++) riskyOperation(i)
-} catch (e) { }
+// 3. 保持数组元素类型一致（Elements Kinds）
+const arr = [1, 2, 3]   // PACKED_SMI_ELEMENTS（小整数，最快）
+arr.push(4.5)           // 转为 PACKED_DOUBLE_ELEMENTS
+arr.push('x')           // 转为 PACKED_ELEMENTS（通用形式，最慢）
+// ⚠️ 元素类型只会单向"降级"，不会自动升回来
+// ✅ 同一数组只存同一种类型；避免稀疏数组（出现空洞会变 HOLEY_*，更慢）
 
 // 4. 避免在热点代码中操作 arguments 对象
 function bad() {
@@ -226,8 +224,8 @@ function good(...args) {
 ## 易错点
 
 1. **`delete obj.property` 的巨大性能代价** —— 不只是移除值，而是改变了对象隐藏类 → 从"快速模式"切换到"字典模式" → 所有属性访问变慢
-2. **`try-catch` 和 `with` 会阻止 V8 优化** —— `with` 改变了作用域查找，V8 无法做变量偏移量优化。永远不要用 `with`
-3. **`for-in` 循环比 `Object.keys` 慢** —— `for-in` 遍历原型链，且 V8 对它的优化不如 `for-of`/`for` 循环
+2. **`with` 会阻止 V8 优化，`try-catch` 已经不会了** —— `with` 改变了作用域查找，V8 无法做变量偏移量优化，永远不要用 `with`（严格模式下直接禁用）。而"`try-catch` 影响优化"是 Crankshaft 时代（2017 年前）的过时结论，TurboFan 可以正常优化包含 `try-catch` 的函数
+3. **`for-in` 真正的坑是遍历原型链** —— 会枚举原型链上的可枚举属性，需配合 `hasOwnProperty` 过滤；且键都是字符串。性能上 V8 对 `for-in` 有 EnumCache 优化并不算慢，但语义陷阱使 `Object.keys` / `for-of` 通常是更安全的选择
 4. **热路径不要用 `eval` / `new Function`** —— 它们会让 V8 放弃所有已做的优化，重新开始编译
 
 ## 面试信号表

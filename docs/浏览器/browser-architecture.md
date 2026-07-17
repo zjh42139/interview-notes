@@ -48,7 +48,7 @@ tags:
 早期浏览器是**单进程架构**——一个页面崩溃，整个浏览器挂掉。Chrome 的 **Renderer 进程沙箱隔离** 解决了这个问题：
 
 - 每个标签页（同源站点）运行在独立的 Renderer 进程中
-- Renderer 进程被操作系统限制权限：不能直接访问文件系统、不能访问网络（通过 Browser 进程代理）、不能与其他进程通信
+- Renderer 进程被操作系统限制权限：不能直接访问文件系统、不能直接访问网络（经 Network/Browser 进程代理）、只能通过受控的 IPC 通道与其他进程通信
 - 某个标签页的 JS 死循环不会阻塞其他标签页
 
 即使一个 Renderer 进程 OOM 或崩溃，其他页面正常运行——用户刷新崩溃页面即可恢复。
@@ -168,7 +168,7 @@ Electron 本质是打包了一个精简版 Chromium + Node.js。每个 BrowserWi
 ## 易错点
 
 - **"Chrome 每个标签页都是一个进程"**：大体正确，但不完全精确。同源标签页可能共享进程（不开启 Site Isolation 时），跨源 iframe 也可能在独立进程（开启 Site Isolation 时）。
-- **"JS 是单线程的，不能做多线程"**：JS 主线程是单线程，但 Web Worker 可以创建真正的 OS 线程。只是 Worker 不共享内存、不能操作 DOM。
+- **"JS 是单线程的，不能做多线程"**：JS 主线程是单线程，但 Web Worker 可以创建真正的 OS 线程。只是 Worker 默认不共享内存（跨线程共享需 `SharedArrayBuffer` + 跨源隔离）、不能操作 DOM。
 - **"Renderer 进程直接发送网络请求"**：不对。Renderer 进程通过 IPC 将请求发送给 Network 进程，由 Network 进程统一处理。这是沙箱机制的一部分。
 
 ---

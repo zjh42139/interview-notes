@@ -24,7 +24,7 @@ tags:
 
 ## 一句话总结
 
-**浏览器原生提供了四种观察者——MutationObserver（观察 DOM 变化，微任务回调）、IntersectionObserver（观察元素可见性，渲染阶段回调）、ResizeObserver（观察元素尺寸，渲染阶段回调）、PerformanceObserver（观察性能指标，普通任务回调）。它们异步回调不阻塞主线程，比传统轮询方案性能高几个数量级。**
+**浏览器原生提供了四种观察者——MutationObserver（观察 DOM 变化，微任务回调）、IntersectionObserver（观察元素可见性，渲染流程中计算、渲染后以任务派发回调）、ResizeObserver（观察元素尺寸，渲染阶段布局后回调）、PerformanceObserver（观察性能指标，任务回调）。它们异步回调不阻塞主线程，比传统轮询方案性能高几个数量级。**
 
 ## 核心机制
 
@@ -33,8 +33,8 @@ tags:
 | Observer | 观察目标 | 触发时机 | 经典场景 | 兼容性 |
 |----------|----------|----------|----------|--------|
 | **MutationObserver** | DOM 节点的属性/子节点/文本变化 | 微任务批量回调 | 水印防篡改、富文本编辑器 DOM 监听 | IE11+ |
-| **IntersectionObserver** | 元素与视口（或祖先）的交叉状态 | 帧渲染前 | 懒加载、无限滚动、曝光埋点 | IE 不支持（需 polyfill） |
-| **ResizeObserver** | 元素的 content-box/border-box 尺寸 | 帧渲染前 | 响应式组件、容器查询、图表自适应 | Chrome 64+ |
+| **IntersectionObserver** | 元素与视口（或祖先）的交叉状态 | 渲染流程中计算交叉，渲染后以任务派发 | 懒加载、无限滚动、曝光埋点 | IE 不支持（需 polyfill） |
+| **ResizeObserver** | 元素的 content-box/border-box 尺寸 | 渲染阶段：布局后、绘制前 | 响应式组件、容器查询、图表自适应 | Chrome 64+ |
 | **PerformanceObserver** | 浏览器性能时间线条目 | 条目产生时 | Web Vitals 采集、长任务监控 | Chrome 52+ |
 
 ### MutationObserver
@@ -182,12 +182,12 @@ const observer = new ResizeObserver((entries) => {
 // ✅ 安全：不在回调中修改同一元素的布局属性
 // 或用 requestAnimationFrame 归并：
 let scheduled = false
-const observer = new ResizeObserver((entries) => {
+const safeObserver = new ResizeObserver((entries) => {
   if (!scheduled) {
     scheduled = true
     requestAnimationFrame(() => {
       for (const entry of entries) {
-        entry.target.chart.resize()  // rAF 中更新，避免触发新一轮 ResizeObserver
+        entry.target.chartInstance.resize()  // rAF 中更新，避免触发新一轮 ResizeObserver
       }
       scheduled = false
     })
@@ -243,8 +243,8 @@ observer.observe({ type: 'longtask', buffered: true })
   DOM 变化 → Mutation Events → 同步触发 → 阻塞执行 → 性能灾难
 
 Observer 模式：
-  ✅ 异步微任务触发 → 不会同步阻塞当前操作
-  ✅ 批量回调 → 一个微任务中合并多次变化 → 减少回调次数
+  ✅ 异步触发（MutationObserver 走微任务，IO/PO 走任务，RO 在渲染阶段）→ 不会同步阻塞当前操作
+  ✅ 批量回调 → 一次回调中合并多次变化 → 减少回调次数
   ✅ 不阻塞主线程 → 计算在后台进行（如交叉区域的计算）
   ✅ 精准触发 → 只在真正需要通知时才回调（ResizeObserver 只在尺寸真变时触发）
 ```
@@ -263,7 +263,7 @@ Observer 模式：
 
 1. **MutationObserver 的 `subtree: true` 开销大** —— 整个 DOM 树的增删都会回调，观察范围尽量缩小
 2. **IntersectionObserver 的 rootMargin 可以很大** —— 但也意味着"视口上方 1000px 的元素"也算进入，可能导致预加载过多
-3. **ResizeObserver 循环限制** —— 浏览器对 ResizeObserver 回调中触发的新尺寸变化有处理上限（Chrome 限制 10 层递归），超过会上报 `ResizeObserver loop limit exceeded` 错误
+3. **ResizeObserver 循环限制** —— 回调中再次改变尺寸时，同一帧内更浅层元素的通知会被打断、推迟到下一帧处理，并抛出 `ResizeObserver loop completed with undelivered notifications.` 错误（旧版 Chrome 报 `ResizeObserver loop limit exceeded`），以此阻止无限循环
 4. **PerformanceObserver 只能拿到注册后的条目** —— 不设 `buffered: true` 的话，LCP/FID 这些早于 observer 注册产生的条目会丢失
 5. **observer.disconnect() 后无法恢复** —— 一旦断开，重新观察需要用 `new` 创建新的 observer 实例
 

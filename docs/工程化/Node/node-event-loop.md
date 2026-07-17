@@ -26,7 +26,7 @@ tags:
 
 ## 一句话总结
 
-**Node.js Event Loop 基于 libuv 实现，有 6 个阶段（timers -> pending callbacks -> idle/prepare -> poll -> check -> close callbacks），process.nextTick 在每个阶段结束后的独立微任务队列中优先于 Promise 执行，这与浏览器的两队列宏/微任务模型有本质区别。**
+**Node.js Event Loop 基于 libuv 实现，有 6 个阶段（timers -> pending callbacks -> idle/prepare -> poll -> check -> close callbacks），process.nextTick 有独立队列，在每个回调执行完后与微任务队列一起被清空（nextTick 优先于 Promise），这与浏览器的两队列宏/微任务模型有本质区别。**
 
 ## 核心机制
 
@@ -54,7 +54,7 @@ graph TD
 ```
 
 **关键点**：
-- **每个阶段执行完该阶段的所有回调后，立即清空 nextTick 队列和微任务队列**（nextTick 先于 Promise）
+- **Node 11+ 中，每执行完一个宏任务回调就立即清空 nextTick 队列和微任务队列**（nextTick 先于 Promise），而不是等整个阶段结束——详见下文"Node 11 之后微任务行为变化"
 - **poll 阶段是核心**：如果没有 setImmediate，poll 阶段会阻塞等待新事件；如果有 setImmediate，poll 阶段为空后会跳到 check 阶段
 - **浏览器是"一个宏任务 -> 清空微任务 -> 可能渲染"的简单循环**；Node 是 6 阶段 + 独立 nextTick/微任务队列的复杂循环
 
@@ -243,11 +243,11 @@ setInterval(() => {
 
 ## 易错点
 
-1. **nextTick 是微任务** -- 不准确。nextTick 有**独立的队列**，在每个阶段结束后先于 Promise 执行。严格来说它不属于"微任务"（微任务通常指 Promise.then 回调）
+1. **nextTick 是微任务** -- 不准确。nextTick 有**独立的队列**，在每个回调执行完后先于 Promise 微任务被清空（Node 11+）。严格来说它不属于"微任务"（微任务通常指 Promise.then 回调）
 2. **setImmediate 比 setTimeout(fn, 0) 早** -- 不一定，取决于调用位置。主模块中调用顺序不确定（受系统时间影响），poll 阶段中调用则 setImmediate 一定先执行
 3. **nextTick 递归会导致 Event Loop 饿死** -- 如果在 nextTick 回调中递归调用 nextTick，会一直卡在 nextTick 队列里，永远进不了下一个阶段（包括微任务和宏任务）。这会让 I/O 完全得不到处理
 4. **Node 的 fs.readFile 是异步的所以不阻塞** -- fs.readFile 的 I/O 确实在 libuv 线程池中执行，不阻塞 JS 主线程。但它对应的回调在 poll 阶段执行，如果 poll 阶段回调太多，依然会阻塞后续的 check 阶段和 timer 阶段
-5. **import 时顶层 await 会阻塞 Event Loop** -- 顶层 `await` 会阻塞整个模块的加载，直到 Promise resolve。在服务端入口文件中使用顶层 await 时，服务启动会延迟
+5. **顶层 await 会阻塞 Event Loop** -- 不对，Event Loop 照常运转（定时器、I/O 都在跑），阻塞的是**模块图的求值**：该模块及依赖它的模块要等 Promise resolve 后才继续执行。在服务端入口文件中使用顶层 await 时，服务启动会延迟
 
 ## 相关阅读
 

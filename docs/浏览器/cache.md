@@ -117,7 +117,7 @@ flowchart TD
 
 3. **负载均衡服务器时间不一致**：如果静态资源分布在多台服务器上，各服务器的时钟可能不同步。同一文件在服务器 A 的 `Last-Modified` 是 10:00:00，服务器 B 的是 10:00:05。用户第一次从 A 拿到，第二次请求被路由到 B，时间变了，缓存失效——这完全是误判。ETag 不依赖时间，不存在这个问题。
 
-**结论**：生产环境优先使用 ETag。Nginx 默认同时开启 ETag 和 Last-Modified，但浏览器会优先使用 ETag。
+**结论**：生产环境优先使用 ETag。Nginx 默认同时开启 ETag 和 Last-Modified，浏览器重新验证时会同时带上 `If-None-Match` 和 `If-Modified-Since`，服务器按规范必须优先使用 `If-None-Match`（ETag）判断。
 
 ### 追问2：Cache-Control: immutable 的作用
 
@@ -125,7 +125,7 @@ flowchart TD
 
 没有 `immutable` 时，用户点 F5 刷新，浏览器会对强缓存中的资源发送协商请求（带 `If-None-Match`）确认版本，每个资源一个请求——页面可能有几十个资源，全部 304 也很耗时。加上 `immutable`，浏览器直接跳过验证，零请求。
 
-**适用场景**：带 contenthash 的 JS/CSS/字体文件。因为文件名已经包含内容哈希，内容变了文件名就变了，旧文件名对应的内容永远不会变。Vite/Webpack 的 `[contenthash]` 就是为了配合 `immutable` 实现完美的长期缓存。
+**适用场景**：带 contenthash 的 JS/CSS/字体文件。因为文件名已经包含内容哈希，内容变了文件名就变了，旧文件名对应的内容永远不会变。Webpack 的 `[contenthash]`、Vite（Rollup）的 `[hash]` 就是为了配合 `immutable` 实现完美的长期缓存。
 
 ### 追问3：启发式缓存（Heuristic Caching）
 
@@ -147,9 +147,9 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        chunkFileNames: 'js/[name]-[contenthash:8].js',
-        entryFileNames: 'js/[name]-[contenthash:8].js',
-        assetFileNames: '[ext]/[name]-[contenthash:8].[ext]',
+        chunkFileNames: 'js/[name]-[hash:8].js',
+        entryFileNames: 'js/[name]-[hash:8].js',
+        assetFileNames: '[ext]/[name]-[hash:8].[ext]',
       },
     },
   },
@@ -163,7 +163,7 @@ export default defineConfig({
 location ~* \.(js|css|woff2?|ttf|png|jpg|jpeg|gif|svg|ico)$ {
     expires 1y;
     add_header Cache-Control "public, immutable";
-    add_header ETag off;  # 已经有 contenthash，不需要 ETag
+    etag off;  # 已经有 contenthash，不需要 ETag
 }
 
 # HTML 文件：协商缓存，确保用户拿到最新版本

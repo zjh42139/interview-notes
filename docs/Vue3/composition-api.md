@@ -222,7 +222,7 @@ const props = withDefaults(defineProps<{
   title: 'Default Title'
 })
 
-// emits 类型
+// emits 类型（下面的具名元组语法为 Vue 3.3+）
 const emit = defineEmits<{
   update: [id: number, value: string]     // 具名元组：参数1是id，参数2是value
   delete: [id: number]                     // 单参数
@@ -277,9 +277,10 @@ import type { ExtractPropTypes } from 'vue'
 const propsDef = { count: { type: Number, required: true } }
 type Props = ExtractPropTypes<typeof propsDef>
 
-// 2. 用 ComponentPublicInstance 获取组件实例类型
+// 2. 用 InstanceType 获取组件实例类型（通用组件实例类型是 ComponentPublicInstance）
 import type { ComponentPublicInstance } from 'vue'
 type MyModalInstance = InstanceType<typeof MyModal>
+const modalRef = ref<ComponentPublicInstance | null>(null)
 
 // 3. template ref 的类型
 const inputRef = ref<HTMLInputElement | null>(null)

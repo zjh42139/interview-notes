@@ -127,9 +127,9 @@ window.addEventListener('touchmove', handler, { passive: true })
 有 passive：wheel → 浏览器直接合成帧（并行），JS 同时执行处理器
 ```
 
-**Chrome 的默认行为**：Chrome 56+ 将 `document`/`window`/`body` 级别的 `touchstart`/`touchmove`/`wheel` 事件监听器**默认当作 passive**。如果代码中写了 `preventDefault()`，浏览器会忽略并打印警告：`Unable to preventDefault inside passive event listener invocation`。
+**Chrome 的默认行为**：Chrome 56+ 将 `document`/`window`/`body` 级别的 `touchstart`/`touchmove` 监听器**默认当作 passive**（`wheel` 从 Chrome 73 起同样处理）。如果代码中写了 `preventDefault()`，浏览器会忽略并打印警告：`Unable to preventDefault inside passive event listener invocation`。
 
-**与 IntersectionObserver 的关系**：滚动性能的最佳实践是**用 IntersectionObserver 替代 scroll 事件**——前者是浏览器原生异步 API（不阻塞主线程），后者需要 JS 轮询 + 节流。监听滚动曝光、图片懒加载、无限滚动——都应该优先用 IntersectionObserver。
+**与 IntersectionObserver 的关系**：滚动性能的最佳实践是**用 IntersectionObserver 替代 scroll 事件**——前者是浏览器原生异步 API（不阻塞主线程），后者需要在回调里反复计算元素位置（`getBoundingClientRect`）并手动节流。监听滚动曝光、图片懒加载、无限滚动——都应该优先用 IntersectionObserver。
 
 ## 深度拓展
 
@@ -205,8 +205,8 @@ document.body.addEventListener('click', (e) => {
 |------|------|
 | `focus` / `blur` 事件 | **不冒泡**，无法委托。用 `focusin` / `focusout`（冒泡）代替 |
 | `mouseenter` / `mouseleave` | **不冒泡**。用 `mouseover` / `mouseout` 代替 |
-| `scroll` | 冒泡但不可取消，某些场景性能差 |
-| 需要 `e.preventDefault()` 阻止默认行为后再判断 | 冒泡阶段已经来不及阻止 |
+| `scroll` | **元素上的 scroll 不冒泡**（只有 `document` 上的 scroll 会传到 window），委托需改用捕获阶段 |
+| `touchmove` / `wheel` 需要 `preventDefault()` | 委托到 document/window 时监听器默认 passive，无法取消默认行为（普通事件如 click，在冒泡阶段调用 `preventDefault()` 依然有效——SPA 路由拦截 `<a>` 点击就是这么做的） |
 
 ### React/Vue 中的事件委托
 
@@ -225,7 +225,8 @@ function List({ items }) {
   )
 }
 // 你看到的每个 li 上的 onClick 并不是真实的 DOM 监听器
-// React 用事件池和合成事件在内部优化了
+// React 17+ 把事件统一委托到应用根节点（此前挂在 document 上）
+// React 17 起已移除事件池（event pooling）
 ```
 
 ```vue
@@ -278,18 +279,18 @@ tbody?.addEventListener('click', (e) => {
 ```vue
 <!-- 侧边栏菜单，上百个菜单项只绑定一个事件 -->
 <template>
-  <el-menu @click="handleMenuClick">
-    <el-submenu index="1">
+  <el-menu @select="handleMenuSelect">
+    <el-sub-menu index="1">
       <el-menu-item index="1-1">用户管理</el-menu-item>
       <el-menu-item index="1-2">角色管理</el-menu-item>
       <!-- ... -->
-    </el-submenu>
+    </el-sub-menu>
   </el-menu>
 </template>
 
-<script setup>
-const handleMenuClick = (index: string) => {
-  // Element Plus 内部已做委托，这里拿到的是 index
+<script setup lang="ts">
+const handleMenuSelect = (index: string) => {
+  // Element Plus 内部已做委托，select 事件直接拿到 index
   router.push(menuMap[index])
 }
 </script>
@@ -299,7 +300,7 @@ const handleMenuClick = (index: string) => {
 
 1. **`focus`/`blur` 不冒泡** —— 用 `focusin`/`focusout` 代替才能委托
 2. **`e.target` 可能不是期望元素** —— 内部有子节点时，`e.target` 可能是 icon/span，必须用 `closest()`
-3. **事件委托在冒泡阶段才能生效** —— 如果在捕获阶段 `stopPropagation`，委托收不到
+3. **事件委托默认依赖冒泡** —— 传播路径上任何一层 `stopPropagation` 都会让委托收不到；不冒泡的事件（如 `focus`、元素 `scroll`）可用 `{ capture: true }` 在捕获阶段委托
 4. **`removeEventListener` 需要同一个函数引用** —— 匿名函数无法移除，必须保存引用
 5. **异步操作 preventDefault 无效** —— `async handler` 中 `e.preventDefault()` 必须在同步代码里调用
 

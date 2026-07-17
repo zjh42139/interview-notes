@@ -118,7 +118,7 @@ performance.measure('data-processing', 'data-processing-start', 'data-processing
 总耗时：436ms
 
 优化方向：
-  Stalled 太长 → HTTP/2（多路复用，1 个连接就够了）+ 域名分片
+  Stalled 太长 → 升级 HTTP/2（多路复用，1 个连接就够）；仍停留在 HTTP/1.1 才考虑域名分片（HTTP/2 下域名分片是反模式）
   DNS 太长 → dns-prefetch
   TCP/TLS 太长 → preconnect
   TTFB 太长 → 后端优化、CDN、缓存
@@ -154,17 +154,19 @@ if ('IntersectionObserver' in window) {
   await import('intersection-observer')
 }
 
-// CSS 特性检测
+// JS 中检测 CSS 特性支持
+if (typeof CSS.supports === 'function') {
+  CSS.supports('display', 'grid')  // true/false
+}
+```
+
+```css
+/* CSS 特性检测 */
 @supports (display: grid) {
   .container { display: grid; }
 }
 @supports not (display: grid) {
   .container { display: flex; }  /* 降级方案 */
-}
-
-// JS API 检测
-if (typeof CSS.supports === 'function') {
-  CSS.supports('display', 'grid')  // true/false
 }
 ```
 
@@ -178,7 +180,7 @@ if (typeof CSS.supports === 'function') {
 npx lighthouse https://example.com --view --preset=desktop
 ```
 
-Lighthouse 评分五个维度：
+Lighthouse 评分四个维度（Lighthouse 12 起已移除 PWA 类别）：
 
 | 维度 | 核心指标 | 权重 |
 |------|----------|------|
@@ -186,7 +188,6 @@ Lighthouse 评分五个维度：
 | **Accessibility** | 对比度/ARIA/标签语义 | 法律合规 |
 | **Best Practices** | HTTPS/CSP/noopener/图片尺寸 | 安全基线 |
 | **SEO** | meta/结构化数据/移动友好 | 搜索引擎 |
-| **PWA** | SW/manifest/离线可用 | 可选 |
 
 ### DevTools 命令行快捷键
 
@@ -211,7 +212,7 @@ Ctrl+Shift+P → 打开命令面板（输入面板名即可切换）
 
 1. **Performance 录制时 Chrome 插件也在跑** —— 插件的 JS 也会出现在火焰图中。精确排查时用**无痕窗口**录制
 2. **DevTools 打开时 `console.log(obj)` 让 obj 无法被 GC** —— Chrome DevTools 会保留所有 console 对象的引用以便在面板中查看。排查内存泄漏时要关闭 DevTools 或用 Memory 面板录制模式
-3. **Network 面板的 "Disable cache" 实际是给所有请求加 `Cache-Control: no-cache` 头** —— 这不是真正的无缓存状态，本地 304 响应依然可能
+3. **Network 面板的 "Disable cache" 只在 DevTools 打开期间生效** —— 它让浏览器绕过 HTTP 缓存并给请求加上 `Cache-Control: no-cache` 头，但**不影响 Service Worker 的 Cache Storage**（需在 Application 面板勾选 "Bypass for network"）
 
 ## 面试信号表
 

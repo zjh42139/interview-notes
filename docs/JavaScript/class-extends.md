@@ -65,7 +65,7 @@ Person.prototype.constructor === Person  // true
 
 | 差异 | ES6 class | ES5 function |
 |------|-----------|-------------|
-| 必须 new | `Person()` → TypeError | `Person()` → 返回 undefined（严格模式）或 this=window |
+| 必须 new | `Person()` → TypeError | `Person()` → 不报错（this 指向 window，严格模式为 undefined） |
 | 不可枚举 | 原型方法默认不可枚举 | 需要 `Object.defineProperty` |
 | 暂时性死区 | class 声明会提升但进入 TDZ（声明前访问报 ReferenceError） | function 声明会提升且可立即使用 |
 | 内部标记 | `[[IsClassConstructor]]` 为 true | 无 |
@@ -116,7 +116,7 @@ flowchart TD
 class Dog extends Animal {
   constructor(name, breed) {
     // 1. super() 作为函数调用 —— 调用父类 constructor
-    //    = Animal.call(this, name)
+    //    ≈ Reflect.construct(Animal, [name], Dog)——由父类创建 this
     //    必须在使用 this 之前调用
     super(name)
     this.breed = breed
@@ -136,8 +136,8 @@ class Dog extends Animal {
 ```
 
 **`super()` 的内部步骤**：
-1. 调用 `ParentClass.call(this, ...args)`
-2. 返回的 `this` 是子类的实例（`this instanceof Dog === true`）
+1. 以子类为 `new.target` 调用父类的 `[[Construct]]`（≈ `Reflect.construct(Animal, args, Dog)`）——由**父类**创建 this，而不是 `Animal.call(this)`（调 super 前 this 根本不存在）
+2. 创建出的 `this` 是子类的实例（用 `Dog.prototype` 做原型，`this instanceof Dog === true`）
 3. **必须先 super() 再访问 this**——因为子类没有自己的 `this` 对象，它继承父类的 `this` 然后扩展。这和 ES5 相反——ES5 是先创建子类实例，再"借"父类构造函数修饰它
 
 ## 深度拓展
@@ -161,7 +161,7 @@ arr2.length  // 3
 arr2.map(x => x * 2)  // MyArray(3) [2, 4, 6]
 ```
 
-**原因**：ES6 class extends 使用 `Reflect.construct`，它能正确处理内置类型的内部槽（internal slots）。`Array` 有一个 `[[DefineOwnProperty]]` 内部方法，ES5 的 `apply` 无法触发它来正确更新 `length`。
+**原因**：Array 实例是 exotic object（自定义了 `[[DefineOwnProperty]]` 来联动维护 `length`），只有 `Array` 的 `[[Construct]]` 才能创建它。ES5 的 `Array.apply(this)` 里 this 只是普通对象，Array 构造函数会忽略它并返回一个新数组；而 ES6 extends 的 super() 相当于 `Reflect.construct`，由父类 `Array` 亲自创建实例，internal slots 齐全。
 
 ### new.target
 
@@ -210,7 +210,7 @@ c.#count  // SyntaxError —— 语法层面就拒绝访问
 ## 易错点
 
 1. **`super()` 必须在使用 `this` 之前** —— 这是硬限制。`constructor() { this.name = 'x'; super() }` → ReferenceError
-2. **class 声明不会提升** —— `new Foo()` 在 `class Foo {}` 声明之前 → ReferenceError。和 function 的提升行为完全不同
+2. **class 声明提升但有 TDZ** —— `new Foo()` 在 `class Foo {}` 声明之前 → ReferenceError。不是"不提升"，而是提升后进入暂时性死区——和 function 声明可提前调用的行为完全不同
 3. **class 中的方法没有自己的 `this`** —— 把方法单独提取出来调用，`this` 变成 undefined（class 内部默认严格模式）。React 的老大难问题 `this.handleClick = this.handleClick.bind(this)` 根源在此
 4. **`extends` 之后 prototype 和 `__proto__` 都要继承** —— 只设 `prototype` 不设构造函数之间的 `__proto__` 就会丢失静态方法。这一条面试中考得最多
 

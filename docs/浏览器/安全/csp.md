@@ -18,7 +18,6 @@ tags:
 ---
 
 # CSP 内容安全策略
-> 📘 **深度阅读**：[浏览器/$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md](../$(case "$(basename "$f" .md)" in xss|csrf) echo "xss-csrf";; csp) echo "browser-security";; token-storage) echo "cookie";; esac).md) —— 本文为面试清单视角，浏览器模块为完整技术原理。
 
 > "CSP 是 XSS 的最后一道防线"——这句话在面试中说出来，面试官就知道你理解了纵深防御的思维。输入输出过滤是第一道，CSP 是第二道。
 
@@ -79,7 +78,7 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.examp
 
 **`'strict-dynamic'`**：用了 nonce/hash 后，该脚本动态创建的 `<script>`（如 `document.createElement('script')`）也自动获得信任——不需要把所有 CDN 域名都加入白名单。
 
-**`'unsafe-eval'`**：阻止 `eval()`、`new Function()`、`setTimeout(str, ...)` 等字符串到代码的执行方式。不加此关键字时这些 API 全部失效。
+**`'unsafe-eval'`**：允许 `eval()`、`new Function()`、`setTimeout(str, ...)` 等"字符串到代码"的执行方式。在设置了 `script-src` 的情况下，**不加**此关键字时这些 API 全部失效——这是默认的安全行为，尽量不要加回来。
 
 ---
 
@@ -134,9 +133,9 @@ Content-Security-Policy: default-src 'self'; report-to csp
 
 ### 追问3：Vue/React 如何配合 CSP
 
-**React** 中的 <code v-pre>dangerouslySetInnerHTML=`{`{ __html: '&lt;script&gt;alert(1)&lt;/script&gt;' }}</code> 在 CSP 开启 `script-src 'self'` 时，注入的 `<script>` **不会执行**——这是 CSP 的兜底保护。同样的，注入的 `onerror`、`onclick` 等内联事件处理器也**不会执行**——因为内联事件属性属于内联脚本（inline script），受 CSP 管控。但 CSP 不能阻止纯 HTML 结构注入（如攻击者注入一个假的登录表单），因此仍需配合输入过滤作为第一道防线。
+**React** 中通过 `dangerouslySetInnerHTML` 注入的 `<script>` 标签本身就不会执行——这是 `innerHTML` 的 HTML 规范行为，与 CSP 无关。真正的注入向量是 `<img onerror="...">`、`onclick` 这类**内联事件处理器**：CSP 开启 `script-src` 且不含 `'unsafe-inline'` 时，这些内联事件不会执行——这才是 CSP 的兜底保护。但 CSP 不能阻止纯 HTML 结构注入（如攻击者注入一个假的登录表单），因此仍需配合输入过滤作为第一道防线。
 
-**Vue** 中的 `v-html` 同样受 CSP 限制：CSP 阻止 `'unsafe-eval'` 时，Vue 模板编译必须使用**运行时编译的 CSP 兼容版本**（`vue.runtime.esm-bundler.js`），通过预编译模板避开 `new Function()`。
+**Vue** 中的 `v-html` 注入同理。另外注意：CSP 不含 `'unsafe-eval'` 时，Vue 的**运行时模板编译**（依赖 `new Function()`）无法工作——必须在构建时预编译模板，使用不带编译器的 runtime-only 构建（`vue.runtime.esm-bundler.js`，Vite/SFC 默认即是）。
 
 ### 追问4：常见 CSP 配置模板
 
@@ -176,7 +175,7 @@ Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report
 - **"CSP 可以完全防止 XSS"**：不能。CSP 只能阻止脚本执行，不能阻止 HTML 注入导致的页面篡改、CSS 注入导致的钓鱼界面等。
 - **"加了 CSP 就不用做输入过滤了"**：错误。CSP 是第二道防线，不能替代输入输出过滤/转义。纵深防御的意义在于：一道防线被突破，还有另一道。
 - **"`frame-ancestors` 是 iframe 白名单"**：注意，`frame-ancestors` 控制的是**谁可以嵌入当前页面**（防点击劫持），`frame-src` 控制的是**当前页面可以嵌入谁**。
-- **"Meta 标签和 HTTP Header 的 CSP 会合并"**：会取并集中最严格的策略，但效果取决于浏览器实现——建议只用一种方式设置。
+- **"Meta 标签和 HTTP Header 的 CSP 会合并"**：多份策略会**同时生效**——资源必须同时满足所有策略，等效于取最严格的那份。建议只用一种方式设置，避免排查困难。
 
 ---
 

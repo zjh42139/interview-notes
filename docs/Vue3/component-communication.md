@@ -178,14 +178,15 @@ export const eventBus = mitt<Events>()
 // 组件 A：发送事件
 eventBus.emit('theme:change', { theme: 'dark' })
 
-// 组件 B：监听事件
-eventBus.on('theme:change', ({ theme }) => {
+// 组件 B：监听事件（用具名 handler，便于精确移除）
+const onThemeChange = ({ theme }: Events['theme:change']) => {
   console.log('主题切换为', theme)
-})
+}
+eventBus.on('theme:change', onThemeChange)
 
-// 组件销毁时移除监听（重要！）
+// 组件销毁时移除监听（重要！传 handler 引用，避免清掉其他组件的同名监听）
 onUnmounted(() => {
-  eventBus.off('theme:change')
+  eventBus.off('theme:change', onThemeChange)
 })
 ```
 
@@ -272,8 +273,9 @@ ws.onmessage = (event) => {
 
 // Sidebar.vue
 const unreadCount = ref(0)
-eventBus.on('message', () => { unreadCount.value++ })
-onUnmounted(() => { eventBus.off('message') })               // 必须清理
+const handler = (msg: string) => { unreadCount.value++ }
+eventBus.on('message', handler)
+onUnmounted(() => { eventBus.off('message', handler) })      // 传 handler 引用精确清理
 ```
 
 ## 易错点

@@ -44,14 +44,17 @@ Sentry.init({
 
 关键配置：`dsn`（上报地址）、`tracesSampleRate`（采样率，控制费用）、`release`（版本追踪，定位引入 bug 的 commit）。
 
-### 3. 自动捕获的错误类型
+### 3. 哪些错误自动捕获、哪些要手动上报
 
-Sentry SDK 初始化后会自动捕获以下错误，无需手动 `try-catch`：
+Sentry SDK 初始化后**自动捕获**（无需手动 `try-catch`）：
 
-- **JS 运行时错误**：`ReferenceError`、`TypeError` 等未被 catch 的异常
-- **Promise rejection**：未处理的 `Promise.reject()` 或 async/await 抛出
-- **资源加载错误**：`<script>`、`<img>` 等标签加载失败（需监听 `error` 事件）
-- **接口报错**：需结合 Axios 拦截器手动上报（Sentry 不会自动捕获 XHR/fetch 错误）
+- **JS 运行时错误**：`ReferenceError`、`TypeError` 等未被 catch 的异常（`window.onerror`）
+- **Promise rejection**：未处理的 `Promise.reject()` 或 async/await 抛出（`onunhandledrejection`）
+
+以下两类**不会自动捕获**，需要自己补：
+
+- **资源加载错误**：`<script>`、`<img>` 等标签加载失败不会触发 `window.onerror`，需 `window.addEventListener('error', handler, true)` 捕获后手动 `Sentry.captureMessage/captureException` 上报
+- **接口报错**：HTTP 4xx/5xx 不是 JS 异常，需结合 Axios 拦截器手动上报
 
 ### 4. Source Map 上传
 

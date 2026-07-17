@@ -131,8 +131,8 @@ location.replace('/new-page')     // 替换当前记录，不可后退
 location.reload()                 // 刷新页面
 location.assign('/new-page')      // 等同于 location.href = '...'
 
-// 解析 URL 参数
-const params = new URLSearchParams(location.search)
+// 解析 URL 参数（示例查询串：'?q=vue&tag=js&tag=css'）
+const params = new URLSearchParams('?q=vue&tag=js&tag=css')
 params.get('q')          // 'vue'
 params.getAll('tag')     // ['js', 'css']（多值参数）
 params.has('page')       // false
@@ -144,7 +144,7 @@ params.toString()        // 'q=vue&tag=js&tag=css&page=1&tag=html'
 ### history —— 导航历史
 
 ```javascript
-// 基础导航（[History API 详解](./history-api.md)）
+// 基础导航（详见 ../HTML/history-api.md）
 history.back()       // 后退
 history.forward()    // 前进
 history.go(-2)       // 后退 2 步

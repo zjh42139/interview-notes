@@ -112,11 +112,12 @@ module.exports = {
 // 如果 a 没有被使用，这行代码会被整体删除
 const result = /*#__PURE__*/ heavyComputation(x)
 
-// Vue 3 源码中大量使用
-// 标记 h() 调用为无副作用，便于 Tree Shaking
-export const createVNode = (__DEV__
-  ? createVNodeWithArgsTransform
-  : _createVNode) as typeof _createVNode
+// Vue 3 的构建产物中大量使用这种注释
+// 例如 @vue/shared 里工厂函数创建的工具都被标记为纯调用：
+const camelize = /*#__PURE__*/ cacheStringFunction(
+  (str) => str.replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : "")),
+)
+// 没用到 camelize 的项目，这个初始化调用连同函数体都会被摇掉
 ```
 
 ## 深度拓展
@@ -223,7 +224,7 @@ npm install -D webpack-bundle-analyzer
 
 1. **导入但未使用不代表会 Tree Shaking 掉** -- 如果模块有副作用（顶层立即执行代码），整个模块都会被保留
 2. **把 CSS import 标为 sideEffects: false** -- CSS 导入是副作用（向 DOM 插入 `<style>`），删掉后样式丢失。必须在 sideEffects 里排除 `*.css`
-3. **Barrel 文件（index.ts 重新导出）导致 Tree Shaking 失效** -- `import { Button } from "../components"` 如果 `components/index.ts` 重新导出了所有组件，即使只用 Button 也会打包所有组件。用直接路径导入 `../components/Button.vue`
+3. **Barrel 文件（index.ts 重新导出）可能导致 Tree Shaking 失效** -- `import { Button } from "../components"` 时，如果 barrel 里的模块带有副作用（或没有正确标记 `sideEffects`），打包工具不敢删，未使用的组件也会被打包。纯 ESM + `sideEffects` 标记正确时 re-export 是可以被摇掉的（如 lodash-es）；不确定时用直接路径导入 `../components/Button.vue` 最稳妥，还能加快开发时的模块解析
 4. **`export default` 的 Tree Shaking 效果更好** -- 不，`export default` 导出的是一个对象，打包工具很难分析对象内部哪些属性被使用。命名导出 `export const xxx` 更利于 Tree Shaking
 5. **生产构建后仍有 console.log** -- `console.log` 是副作用调用，Terser/Rollup 不会删除。需要手动配置 `drop_console: true` 或在 esbuild 中 `drop: ["console"]`
 
