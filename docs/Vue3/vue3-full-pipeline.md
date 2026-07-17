@@ -84,7 +84,28 @@ flowchart TB
 | **PatchFlag 标记** | Diff 时跳过不需要比的属性 | 动态内容用 bit 位标记（`1`=TEXT、`2`=CLASS、`4`=STYLE、`8`=PROPS） |
 | **Block Tree** | 只 diff 动态节点 | 动态节点收集到 `dynamicChildren` 数组，静态节点直接跳过 |
 | **预字符串化** | 静态 HTML 直接变字符串 | 连续静态节点拼接成一个字符串，`innerHTML` 一次性插入 |
-| **缓存事件处理函数** | 避免子组件无意义更新 | `onClick` 被 `_cache[0]` 缓存，传给子组件的是同一个引用 |
+| **缓存事件处理函数** | 避免子组件无意义更新 | 见下文 cacheHandler 详解 |
+
+### cacheHandler 原理
+
+```ts
+// 模板中的内联事件：
+<Child @click="(e) => count++" />
+
+// 编译产物中会被缓存为：
+import { _cache } from 'vue'
+_createVNode(Child, {
+  onClick: _cache[0] || (_cache[0] = ($event) => (ctx.count++))
+}, null, 8 /* PROPS */, ['onClick'])
+```
+
+**为什么缓存事件引用能避免子组件 re-render**：
+
+父组件每次 render 会重新执行 `_createVNode(Child, props)`。如果 `onClick` 是内联箭头函数 `(e) => count++`，不缓存的话每次 render 都会创建一个新的函数引用 → 传给子组件的 `onClick` prop 是一个新对象 → 子组件的 PatchFlag 检测到 props 变化 → 触发子组件 re-render。缓存后，每个 render 周期传给子组件的 `onClick` 是 `_cache[0]` 中的**同一个函数引用**——子组件不会因 props 变化而重新渲染。
+
+**适用条件**：仅适用于**内联箭头函数/表达式**，如 `@click="(e) => fn(e)"`。直接绑定方法引用 `@click="handleClick"` 时本身就不会变化，无需缓存。
+
+**`_cache` 的创建时机**：`_cache` 是组件 render 函数的闭包数组，组件实例化时创建、卸载时销毁。每次父组件 re-render，`_cache[0]` 可能被重新赋值（如果缓存条件变了），但**绝大部分情况下闭包捕获的是同一个函数**。
 
 ### 3. Generate（代码生成）
 

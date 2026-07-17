@@ -161,6 +161,34 @@ type ComponentProps<T> = T extends { $props: infer P } ? P : never;
 
 写泛型表格组件、泛型表单组件时，拿到子组件 Props 类型才能在父组件里安全传参。
 
+### 进阶：UnionToIntersection —— 逆变位置的经典应用
+
+`UnionToIntersection` 是类型体操中的经典面试题：**将联合类型 `A | B` 转为交叉类型 `A & B`**。
+
+```typescript
+type UnionToIntersection<U> =
+  (U extends any ? (k: U) => void : never) extends (k: infer I) => void
+    ? I
+    : never
+
+// UnionToIntersection<{ a: 1 } | { b: 2 }>
+// → { a: 1 } & { b: 2 }
+```
+
+**为什么能工作——逆变（contravariance）**：
+
+函数参数是逆变位置：`(k: A) => void | (k: B) => void` 的联合 → 可以赋值给 `(k: A & B) => void` 的交叉（联合类型的函数可以接收 A 或 B，交叉参数必须同时满足 A 和 B）。
+
+分解步骤：
+1. `U extends any ? ... : never` → 分布式条件类型将 `U` 分发为单个成员
+2. `{ a: 1 } | { b: 2 }` 分发为 `((k: { a: 1 }) => void) | ((k: { b: 2 }) => void)`
+3. `extends (k: infer I) => void` → 用 `infer` 在逆变位置提取参数类型
+4. TypeScript 推断 `I` 时，逆变位置会将联合转为交叉：`I` = `{ a: 1 } & { b: 2 }`
+
+**实际用途**：从 mixin 模式推断合并后的类型、从多个类型中提取共同约束。
+
+> 这个知识点面试出现率不高，但它的原理（逆变位置 + infer 提取）是理解 TypeScript 类型系统深度的标志。能讲清 UnionToIntersection 的原理，说明你对协变/逆变有真正的理解。
+
 ## 易错点
 
 **❌ 条件类型的分布式行为是 bug**

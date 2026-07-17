@@ -147,6 +147,78 @@ function effect(fn: Function) {
 
 `activeEffect` 是一个全局变量，指向当前正在执行的 effect。执行 `fn()` 期间，所有被读取的响应式属性都会通过 `track()` 把 `activeEffect` 收集到自己的 dep 里。这就是"自动依赖收集"的本质。
 
+### 追问：Map/Set 怎么代理？—— collectionHandlers
+
+**面试高频追问**："Vue3 怎么检测 `map.set('key', val)`？"——Map/Set 的方法调用不是属性赋值，不能用 `get`/`set` 拦截。
+
+Vue3 的响应式系统有两套 handler：
+
+| 代理对象 | Handler | 拦截方式 |
+|---------|---------|---------|
+| 普通对象 / 数组 | **baseHandlers** | `get`/`set`/`deleteProperty`/`has`/`ownKeys` |
+| Map / Set / WeakMap / WeakSet | **collectionHandlers** | 代理 `get` 读取——返回的方法被包装为响应式版本 |
+
+**collectionHandlers 的核心思路**：只拦截 `get`。当用户访问 `map.set` 时，返回一个**包装后的 `set` 方法**，这个包装方法内部：
+1. 调用原始 `map.set(key, value)` 
+2. 手动 `trigger(map, key)` 通知依赖更新
+
+```typescript
+// 简化版 collectionHandlers（源码 @vue/reactivity/src/collectionHandlers.ts）
+const mutableCollectionHandlers = {
+  get(target, key, receiver) {
+    // 对 Map/Set 的 size 属性做 track
+    if (key === 'size') {
+      track(target, ITERATE_KEY)
+      return Reflect.get(target, key, target)
+    }
+    // 其他 key 直接取（返回的是原始方法或值）
+    return Reflect.get(target, key, target)
+  },
+}
+
+// 但真正关键的是——当用户调用 map.get/map.set 等方法时：
+// 源码中没有直接拦截 set 方法调用，而是在创建响应式 Map 时，
+// 用 Proxy 包装，并通过 instrumentations 替换原生方法：
+const mutableInstrumentations = {
+  get(key) {
+    const target = toRaw(this) // 拿到原始 Map
+    track(target, key)          // 依赖收集
+    return target.get(key)
+  },
+  set(key, value) {
+    const target = toRaw(this)
+    const had = target.has(key)
+    target.set(key, value)
+    if (!had) {
+      trigger(target, key, TriggerOpTypes.ADD) // 新增 key→通知
+    } else {
+      trigger(target, key, TriggerOpTypes.SET) // 更新 key→通知
+    }
+    return this
+  },
+  has(key) {
+    const target = toRaw(this)
+    track(target, key)
+    return target.has(key)
+  },
+  forEach(callback, thisArg) {
+    const target = toRaw(this)
+    track(target, ITERATE_KEY)
+    target.forEach((v, k) => {
+      callback.call(thisArg, v, k, this) // 遍历过程中访问值触发 track
+    })
+  },
+  // ... add/delete/clear/keys/values/entries/[Symbol.iterator] 同理
+}
+```
+
+**关键理解**：
+- Map/Set 的 `.set()` 是**方法调用**，不是属性赋值——所以不能用 `Proxy` 的 `set` 拦截
+- Vue3 的做法：用 `Proxy` 只拦截 `get` → 当访问 `map.set` 时 → 返回包装后的 `set` 方法 → 包装方法内部调用原始方法 + 手动 `trigger`
+- 这也是为什么 `reactive(new Map())` 后，调用 `.set()` 依然能触发响应式更新
+
+
+
 ## 深度拓展
 
 ### 追问1：Vue2 defineProperty vs Vue3 Proxy

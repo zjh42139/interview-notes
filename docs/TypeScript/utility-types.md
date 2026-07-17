@@ -124,6 +124,51 @@ type Params = Parameters<typeof getUser>;         // [id: number]
 
 `infer R` 是条件类型中的"类型变量声明"，TypeScript 自动推断出 R 的具体类型。这在写泛型工具库时非常常用。
 
+### 补充：另外 5 个内置 Utility Types 手写
+
+```typescript
+// 12. Awaited<T> —— 递归展开 Promise 层
+type MyAwaited<T> =
+  T extends null | undefined ? T :
+  T extends Promise<infer R> ? MyAwaited<R> : T
+
+type A1 = MyAwaited<Promise<string>>          // string
+type A2 = MyAwaited<Promise<Promise<number>>>  // number（递归展开）
+// 面试常问：Awaited 为什么不直接展开一层？——因为 async/await 会递归展开
+
+// 13. InstanceType<T> —— 从构造函数提取实例类型
+type MyInstanceType<T extends new (...args: any) => any> =
+  T extends new (...args: any) => infer R ? R : never
+
+class User { name = 'Z'; age = 25 }
+type UserInstance = MyInstanceType<typeof User>  // User
+
+// 14. ConstructorParameters<T> —— 从构造函数提取参数元组
+type MyConstructorParameters<T extends new (...args: any) => any> =
+  T extends new (...args: infer P) => any ? P : never
+
+type UserParams = MyConstructorParameters<typeof User>  // [name: string, age: number]
+// 注意：ConstructorParameters 和 Parameters 不同——前者用于构造函数，后者用于普通函数
+
+// 15. ThisParameterType<T> —— 提取函数的 this 类型
+type MyThisParameterType<T extends (...args: any) => any> =
+  T extends (this: infer U, ...args: any[]) => any ? U : unknown
+
+function greet(this: { name: string }) { return `Hi ${this.name}` }
+type ThisType = MyThisParameterType<typeof greet>  // { name: string }
+
+// 16. OmitThisParameter<T> —— 移除函数的 this 参数
+type MyOmitThisParameter<T> =
+  T extends (this: any, ...args: infer P) => infer R
+    ? (...args: P) => R
+    : T
+
+// 作用：拿到不依赖 this 的纯函数签名
+// type PureGreet = MyOmitThisParameter<typeof greet>  // () => string
+```
+
+**面试提示**：这 5 个类型的面试频率不如 Partial/Pick/Omit/Record 高，但 `Awaited`（递归 + 分布式）和 `InstanceType`（`infer` + extends 构造函数签名）是类型体操的经典考察点。
+
 ## 深度拓展
 
 ### 追问1：深层工具类型怎么实现？

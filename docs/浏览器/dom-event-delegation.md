@@ -111,6 +111,26 @@ e.preventDefault()      // 阻止 a 标签跳转、form 提交、checkbox 勾选
 // 原生 addEventListener 中 return false 什么都不阻止
 ```
 
+### passive: true —— 为什么能提升滚动性能
+
+```js
+// passive: true 告诉浏览器：这个事件处理器不会调用 preventDefault()
+window.addEventListener('touchmove', handler, { passive: true })
+```
+
+**核心问题**：浏览器需要等 JS 事件处理器执行完毕，才能知道是否会调用 `preventDefault()` 取消滚动。在移动端，`touchstart`/`touchmove` 的处理器可能耗时 100-200ms，但每一帧只有 16ms——浏览器干等着 JS 执行完，滚动帧就丢了，用户感知到的就是「卡顿」。
+
+**passive 的解决**：向浏览器承诺「我不会取消默认行为」，浏览器无需等 JS 就可以**并行处理**：
+
+```
+无 passive：wheel → 等 JS 执行完 → 检查 defaultPrevented → 合成帧（串行，可能丢帧）
+有 passive：wheel → 浏览器直接合成帧（并行），JS 同时执行处理器
+```
+
+**Chrome 的默认行为**：Chrome 56+ 将 `document`/`window`/`body` 级别的 `touchstart`/`touchmove`/`wheel` 事件监听器**默认当作 passive**。如果代码中写了 `preventDefault()`，浏览器会忽略并打印警告：`Unable to preventDefault inside passive event listener invocation`。
+
+**与 IntersectionObserver 的关系**：滚动性能的最佳实践是**用 IntersectionObserver 替代 scroll 事件**——前者是浏览器原生异步 API（不阻塞主线程），后者需要 JS 轮询 + 节流。监听滚动曝光、图片懒加载、无限滚动——都应该优先用 IntersectionObserver。
+
 ## 深度拓展
 
 ### 事件委托 —— 10000 个 li 的最优解
