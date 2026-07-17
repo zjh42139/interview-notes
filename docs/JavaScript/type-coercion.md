@@ -148,6 +148,50 @@ parseInt(null)     // NaN
 parseInt('10', 2)  // 2（二进制）
 ```
 
+### 可选链 `?.` 与空值合并 `??` —— 类型安全的访问
+
+这不仅是语法糖——它们改变了「安全访问深层属性」的编程模式。
+
+```js
+// ❌ 旧写法：冗长的链式判空
+const city = user && user.address && user.address.city
+
+// ✅ 可选链：三种形式
+const city = user?.address?.city          // 属性访问
+const first = arr?.[0]                     // 数组索引
+const result = fn?.()                      // 方法调用（fn 不存在时不报错）
+
+// 短路规则：?. 左侧为 null 或 undefined 时立即返回 undefined，不继续求值
+user?.expensiveComputation()  // user 是 null → expensiveComputation 不会执行
+```
+
+**`??` 与 `||` 的致命区别**——面试最高频陷阱：
+
+```js
+// || 把 0、''、false 都当成 falsy → 用默认值
+const count = 0 || 10        // 10 —— 但 0 是有效值！
+const name = '' || '匿名'    // '匿名' —— 但空字符串是有效值！
+
+// ?? 只拦截 null 和 undefined
+const count = 0 ?? 10        // 0 ✓ —— 0 是合法值
+const name = '' ?? '匿名'    // '' ✓ —— 空字符串是合法值
+const user = null ?? '默认'  // '默认' —— 确实是空
+
+// 实际场景：API 返回 { count: 0 } 时
+// || 会让 0 变成默认值 10 → 显示错误
+// ?? 让 0 保持 → 显示正确
+```
+
+**为什么 `?.` 和 `??` 经常一起出现**：
+
+```js
+// API 响应可能是 null，里面的数字字段可能是 0
+const count = response?.data?.count ?? 0
+// response 不存在？→ undefined，?? 给 0
+// count 是 0？→ 0 是有效值，?? 不替换
+// count 是 null？→ ?? 给 0
+```
+
 ## 易错点
 
 1. **`[] == ![]` 背答案而不是推导** -- 面试官要听到 ToPrimitive 调用顺序 + == 规则

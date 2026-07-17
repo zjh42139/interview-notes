@@ -132,6 +132,37 @@ console.log(instance.name) // "newObj" — new 覆盖了 bind 的 this
 
 ## 深度拓展
 
+### 严格模式的行为变化（与 this 相关的集中在这里）
+
+严格模式不只是 `'use strict'` 一行声明——它改变了 JS 的很多默认行为。以下是前端面试中最高频的 6 个变化：
+
+```js
+'use strict'
+
+// 1. this 在普通函数中为 undefined（非严格模式指向 window/globalThis）
+function fn() { console.log(this) }  // undefined（非严格：window）
+// 面试应用：Vue3 setup 中 this 是 undefined → 无法用 Options API 的 this.xxx
+
+// 2. 不能给未声明的变量赋值（非严格模式会自动创建全局变量）
+x = 1  // ❌ ReferenceError: x is not defined
+
+// 3. 禁止删除不可配置的属性（非严格模式静默失败）
+delete Object.prototype  // ❌ TypeError（非严格模式静默返回 false）
+
+// 4. 禁止重复参数名（非严格模式最后一个覆盖前面的）
+function fn(a, a) { }  // ❌ SyntaxError: Duplicate parameter name
+
+// 5. 禁止八进制字面量（非严格模式 010 === 8）
+const num = 010  // ❌ SyntaxError: Octal literals are not allowed
+
+// 6. arguments 和命名参数解耦（非严格模式下 arguments[0] 和 a 同步）
+function fn(a) { a = 2; return arguments[0] }  // undefined 而不是 2
+```
+
+**ES Module 自动严格模式**：`<script type="module">` 和 `.mjs` 文件自动处于严格模式——所以你在 Vite 项目中从来不用手动写 `'use strict'`。
+
+**面试常问的隐含考点**：Vue3 的 `setup()` 中 `this` 为什么不能用？因为 Vue3 源码在调用 `setup()` 时没有绑定 this——而 `<script setup>` 的编译产物是 ESM、自动严格模式——this 就是 `undefined`。
+
 ### 追问：箭头函数的 lexical this 到底怎么理解？
 
 箭头函数的 `[[ThisMode]]` 内部属性为 `lexical`（普通函数是 `global` 或 `strict`），这意味着它的 this 在**定义时**就确定了，从外层作用域"偷"过来。这让它在回调场景非常有用：
