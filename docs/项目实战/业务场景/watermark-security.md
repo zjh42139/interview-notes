@@ -99,12 +99,26 @@ function observeWatermark() {
 // 暗水印只在信息高度敏感的场景（金融/政务）才需要
 ```
 
+## 易错点
+
+1. **MutationObserver 死循环**：水印被删除 → MutationObserver 检测到 → 重新创建水印 → 触发新的 mutation 事件 → 再次触发 observer。解决：在重新创建水印时暂时 `disconnect()` observer，创建完成后再重新 `observe`。
+
+2. **z-index 层级冲突**：水印使用 `position: fixed; z-index: 9999` 会遮盖所有弹窗和下拉菜单。解决：将水印的 z-index 设为一个较低值（如 100），页面弹窗的 z-index 统一高于水印层即可。
+
+3. **SPA 路由切换后水印丢失**：如果是 Vue Router 的 SPA 应用，页面路由切换时 DOM 重建会导致水印节点丢失。必须在路由守卫中重新注入水印——`router.afterEach(() => injectWatermark())`。
+
+4. **打印/PDF 导出绕过水印**：`position: fixed` 的水印在 `window.print()` 时可能被浏览器忽略。解决：使用 `@media print { .watermark { display: block !important; } }` 强制打印时显示水印。
+
+5. **暗水印不要只有注释**：暗水印（盲水印）的核心原理是在图片的频域（DCT 系数）中嵌入信息——人眼不可见但算法可提取。即使不实现，面试时也应该能说出原理。最简单的替代方案：在 Canvas 上绘制透明度为 0.01 的水印文字，截图后肉眼不可见但放大后可辨识。
+
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "你们项目怎么防信息泄露" | 追问"水印被用户 F12 删了怎么办" → MutationObserver |
 | "水印影响页面交互吗" | pointer-events:none——水印层不拦截鼠标事件 |
+| "打印或截图怎么防" | CSS @media print 强制显示 + user-select:none + 键盘截图快捷键无解但可通过盲水印追溯泄漏源 |
+| "盲水印什么原理" | 频域水印——在图片 DCT 系数中嵌入比特，LBS 可提取——这是信号处理的知识，面试时说清原理即可 |
 
 ## 相关阅读
 

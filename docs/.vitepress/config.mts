@@ -735,6 +735,8 @@ export default defineConfig({
         { text: '离职原因', link: '/HR/leave-reason' },
         { text: '优缺点', link: '/HR/strength-weakness' },
         { text: '职业规划', link: '/HR/career-plan' },
+        { text: '薪资谈判', link: '/HR/salary-negotiation' },
+        { text: '反问面试官', link: '/HR/reverse-questions' },
       ],
       '/模拟面试/': [
         { text: '模拟面试 总览', link: '/模拟面试/' },

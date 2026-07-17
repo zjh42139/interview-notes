@@ -115,12 +115,26 @@ class SSEClient {
 }
 ```
 
+## 易错点
+
+1. **SSE 连接断开后没有自动重连**：虽然浏览器原生 EventSource 自带重连，但自己用 fetch + ReadableStream 实现时需要手动实现——记录 `retryCount`，指数退避，最多重试 5 次后通知用户刷新页面。
+
+2. **`TextDecoder` 的 `stream: true` 忘记设**：UTF-8 中文字符占 3 个字节，split chunk 时可能在字符中间断开。不设 `stream: true`，`TextDecoder` 会把被切断的字节当作完整字符解码——输出乱码。`stream: true` 会缓存不完整的多字节序列，等下一个 chunk 拼起来再解码。
+
+3. **`AbortController` 忘记在组件卸载时调用**：SPA 页面切换时，旧的 SSE 连接仍然存活并持续接收数据——浪费带宽 + 内存泄漏。必须在 `onBeforeUnmount` 中 `controller.abort()`。
+
+4. **SSE 数据格式处理不完整**：SSE 协议支持 `id:`（事件 ID，重连时用 `Last-Event-Id` 续传）、`event:`（自定义事件类型）、`data:`（多行拼接）。简单实现只处理了 `data:`——生产代码必须解析完整 SSE 协议。
+
+5. **AI 对话场景中 SSE 与 POST 的状态同步**：用户连续发送多条消息时，后一条的 SSE 响应可能在前一条未结束时返回——需要维护请求队列，旧请求 `abort()` 后才发起新请求。
+
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "为什么用 SSE 不用 WebSocket" | 追问"AI 对话需要双向通信吗"——不需要，用户发消息走普通 POST，AI 回复走 SSE |
 | "Unicode 乱码怎么处理" | TextDecoder stream 模式——跨 chunk 的 UTF-8 多字节字符不会断裂 |
+| "SSE 连接断了怎么恢复" | 追问 reconnection 策略——指数退避 + Last-Event-Id 续传 + 最多重试 N 次 |
+| "怎么处理用户快速连续发消息" | AbortController 取消上一个请求 + 请求队列管理 |
 
 ## 相关阅读
 

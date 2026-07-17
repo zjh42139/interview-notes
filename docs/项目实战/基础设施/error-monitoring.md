@@ -84,12 +84,26 @@ git push main
 
 **多环境策略**：develop → test（自动部署）、main → staging（手动审批）、tag → production（审批+回滚方案）。
 
+## 易错点
+
+1. **SourceMap 没上传导致堆栈不可读**：Sentry/监控平台收到的错误堆栈是压缩后的 `at a at b at c`，完全无法定位源码位置。必须在 CI 构建流程中上传 SourceMap（`sentry-cli releases files upload`），然后删除线上的 `.map` 文件——不能让用户通过 DevTools 看到源码。
+
+2. **unhandledrejection 在不同浏览器行为不一致**：Chrome 会打印警告，Firefox 直接静默吞掉。必须全局监听 `unhandledrejection`，不能依赖浏览器默认行为。
+
+3. **监控 SDK 的初始化放得太晚**：如果 Sentry.init 放在 `main.js` 的 `import` 之后，那 import 阶段的错误就不会被捕获。Sentry 必须是最先被 import 的模块——放在 `main.ts` 的第一行。
+
+4. **把所有错误都上报——造成噪音污染**：用户网络断开导致的 `Network Error`、第三方脚本的广告拦截冲突——这些不是你的 bug 但会淹没真正的错误。必须做错误过滤：同类型错误聚合、浏览器扩展报错过滤、网络状态判断。
+
+5. **性能监控的采样率没设对**：100% 采样会拖垮监控服务——通常 10% 足够做统计分析。关键页面（支付、登录）可以用 100%，其他 5-10%。
+
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "你们项目怎么做错误处理" | 追问三层防线——"Promise 报错能捕获吗" |
-| "监控做了哪些" | 追问性能和错误两维度 |
+| "监控做了哪些" | 追问性能和错误两维度——"SourceMap 怎么上传的" |
+| "线上报错你怎么排查" | 追问 Sentry issue 链接→SourceMap 还原→定位 commit→修复发版 的完整流程 |
+| "监控怎么和 CI/CD 配" | 追问构建流水线中 release 追踪和 deploy 关联
 
 ## 相关阅读
 
