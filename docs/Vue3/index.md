@@ -41,7 +41,8 @@ mindmap
       异步组件 / 自定义指令
         defineAsyncComponent / Suspense
       动态组件 / 插件 / SSR
-        component :is / app.use()
+        动态组件 component
+        app.use 插件注册
       插槽
         默认 / 具名 / 作用域
       生命周期

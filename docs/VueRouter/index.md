@@ -34,7 +34,7 @@ mindmap
         beforeRouteUpdate
         beforeRouteLeave
     路由懒加载
-      动态 import()
+      动态 import
       魔法注释 chunkName
       分组打包策略
     KeepAlive + Router
