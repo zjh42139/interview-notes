@@ -588,8 +588,8 @@ export default defineConfig({
       '/前端架构/': [
         { text: '前端架构 知识地图', link: '/前端架构/' },
         { text: '项目分层设计', link: '/前端架构/project-structure' },
-        { text: '模块解耦', link: '/前端架构/module-decoupling' },
         { text: '组件设计', link: '/前端架构/component-design' },
+        { text: '模块解耦', link: '/前端架构/module-decoupling' },
         { text: '设计模式', link: '/前端架构/design-patterns' },
         { text: 'Monorepo', link: '/前端架构/monorepo' },
         {
