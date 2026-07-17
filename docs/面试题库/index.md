@@ -12,23 +12,23 @@ description: 前端面试高频真题
 | 领域 | 题目数 |
 |------|--------|
 | [HTML](./HTML.md) | 17 |
-| [CSS](./CSS.md) | 18 |
+| [CSS](./CSS.md) | 22 |
 | [JavaScript](./JavaScript.md) | 32 |
-| [Vue3](./Vue3.md) | 19 |
-| [Vue Router](./VueRouter.md) | 7 |
-| [TypeScript](./TypeScript.md) | 18 |
-| [Pinia](./Pinia.md) | 7 |
+| [Vue3](./Vue3.md) | 22 |
+| [Vue Router](./VueRouter.md) | 10 |
+| [TypeScript](./TypeScript.md) | 24 |
+| [Pinia](./Pinia.md) | 10 |
 | [浏览器](./浏览器.md) | 20 |
-| [网络](./网络.md) | 16 |
+| [网络](./网络.md) | 17 |
 | [工程化](./工程化.md) | 13 |
-| [性能优化](./性能优化.md) | 11 |
-| [手写题](./手写题.md) | 12 |
-| [算法](./算法.md) | 20 |
+| [性能优化](./性能优化.md) | 13 |
+| [手写题](./手写题.md) | 31 |
+| [算法](./算法.md) | 40 |
 | [安全](./安全.md) | 8 |
-| [Git](./Git.md) | 8 |
-| [CICD](./CICD.md) | 4 |
-| [前端架构](./前端架构.md) | 3 |
+| [Git](./Git.md) | 11 |
+| [CICD](./CICD.md) | 6 |
+| [前端架构](./前端架构.md) | 9 |
 | [项目实战](./项目.md) | 14 |
-| [HR](./HR.md) | 14 |
+| [HR](./HR.md) | 17 |
 
 > 共 ~200 道高频面试题。知识型模块配合 [面试回答](../面试回答/) 练习脱稿，手写题和算法直接拿白纸默写。

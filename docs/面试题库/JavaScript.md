@@ -21,9 +21,10 @@ tags:
 
 ---
 
-### Q1: Promise 执行顺序 | 输出题输出题
+### Q1: Promise 执行顺序
 
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 输出题
 
 **题目**：写出以下代码的输出顺序：
 
@@ -65,8 +66,10 @@ console.log('7');
 
 ---
 
-### Q2: 手写 bind | 手写题 / call / apply
+### Q2: 手写 bind / call / apply
+
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
 
 **题目**：请手写实现 `Function.prototype.bind`，并说明 bind 和 call/apply 的区别。
 
@@ -89,9 +92,10 @@ console.log('7');
 
 ---
 
-### Q3: 闭包 + setTimeout | 输出题 输出题
+### Q3: 闭包 + setTimeout
 
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 输出题
 
 **题目**：以下代码输出什么？如何让输出变成 0 1 2 3 4？
 
@@ -120,9 +124,10 @@ for (var i = 0; i < 5; i++) {
 
 ---
 
-### Q4: this 指向判断 | 概念题
+### Q4: this 指向判断
 
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
 
 **题目**：判断以下场景中 `this` 的指向，并说明原因：
 
@@ -162,8 +167,10 @@ obj.foo.call({ name: 'other' }); // ?
 
 ---
 
-### Q5: Event Loop | 概念题 浏览器 vs Node
+### Q5: Event Loop 浏览器 vs Node
+
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
 
 **题目**：请详细描述浏览器 Event Loop 机制，并与 Node.js 的 Event Loop 对比有什么区别？
 
@@ -189,20 +196,22 @@ obj.foo.call({ name: 'other' }); // ?
 
 ---
 
-### Q6: 手写深拷贝 | 手写题
+### Q6: 手写深拷贝
 
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
 
 **题目**：请手写一个 `deepClone` 函数，要求支持对象、数组、Date、RegExp、Map、Set，并处理循环引用的场景。
 
 **考察点**：
+- 原生 `structuredClone()`——2026 面经首选答案：支持循环引用、Map/Set/Date，但不支持函数、DOM 节点和原型链
 - 递归遍历对象/数组
 - `typeof` 的类型判断缺陷
 - `WeakMap` 解决循环引用
 - 特殊对象（Date / RegExp / Map / Set）的处理
 - `Object.getOwnPropertyDescriptors` 保留属性描述符
 
-**30秒答**：递归遍历对象——基本类型直接返回，对象创建新容器递归拷贝。三个难点：循环引用用 WeakMap 记录已拷贝对象、Date/RegExp 用 instanceof 判断重新构造、Symbol 用 getOwnPropertySymbols 获取。
+**30秒答**：先答原生 `structuredClone()`——支持循环引用、Map/Set/Date，但函数、DOM 节点、原型链拷不了，所以面试仍要手写。手写核心：递归遍历——基本类型直接返回，对象创建新容器递归拷贝。三个难点：循环引用用 WeakMap 记录已拷贝对象、Date/RegExp 用 instanceof 判断重新构造、Symbol 用 getOwnPropertySymbols 获取。
 **追问预测**：
 - "怎么处理循环引用" → WeakMap 记录已拷贝对象，遇到重复引用直接返回缓存
 - "Date/RegExp/Map/Set 怎么拷贝" → instanceof 判断类型，调用对应构造函数重新创建
@@ -213,9 +222,10 @@ obj.foo.call({ name: 'other' }); // ?
 
 ---
 
-### Q7: async/await | 输出题 + Promise 混合输出题
+### Q7: async/await + Promise 混合输出题
 
 > ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 输出题
 
 **题目**：写出以下代码的输出顺序：
 
@@ -259,6 +269,7 @@ console.log('script end');
 - "async 函数的返回值是什么" → 永远是 Promise——返回普通值自动用 Promise.resolve 包装
 - "await 后面的代码什么时候执行" → 作为微任务——在当前同步代码执行完后
 - "forEach 里 await 为什么不等" → forEach 回调不会等待返回的 Promise——用 for...of
+- "多个无依赖的 await 怎么优化" → 逐个 await 会串行执行，是性能问题——先同时发起拿到 Promise，再 Promise.all 并行等待
 
 > 答案参考：[../JavaScript/async-await.md](../JavaScript/async-await.md)
 > 延伸：[../JavaScript/promise.md](../JavaScript/promise.md)
@@ -266,8 +277,10 @@ console.log('script end');
 
 ---
 
-### Q8: 原型链 | 概念题 + instanceof 原理
-> ⭐⭐⭐⭐ | 难度：中级
+### Q8: 原型链 + instanceof 原理
+
+> ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
 
 **题目**：请解释原型链的查找机制，并手写实现 `instanceof` 操作符。以下代码输出什么？
 
@@ -302,8 +315,10 @@ console.log(f instanceof Foo);      // ?
 
 ---
 
-### Q9: var | 对比题 / let / const 区别 + 变量提升
+### Q9: var / let / const 区别 + 变量提升
+
 > ⭐⭐⭐⭐ | 难度：初级-中级
+> 🏷️ 对比题
 
 **题目**：请详细对比 `var`、`let`、`const` 的区别，并解释"暂时性死区"（TDZ）的概念。
 
@@ -335,8 +350,10 @@ let b = 2;
 
 ---
 
-### Q10: 防抖 | 手写题与节流
-> ⭐⭐⭐⭐ | 难度：中级
+### Q10: 防抖与节流
+
+> ⭐⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 手写题
 
 **题目**：请手写 `debounce` 和 `throttle` 函数，分别说明其使用场景，以及防抖如何实现"立即执行"版本。
 
@@ -361,8 +378,10 @@ let b = 2;
 
 ---
 
-### Q11: new 操作符 | 概念题的执行过程
+### Q11: new 操作符的执行过程
+
 > ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
 
 **题目**：请描述 `new` 操作符做了什么，并手写一个 `_new` 函数模拟 `new` 的行为。
 
@@ -410,8 +429,10 @@ let b = 2;
 
 ---
 
-### Q13: 垃圾回收 | 概念题机制
+### Q13: 垃圾回收机制
+
 > ⭐⭐⭐⭐ | 难度：中高级
+> 🏷️ 概念题
 
 **题目**：请解释 V8 引擎的垃圾回收机制，包括新生代和老生代的回收策略。如何在开发中避免内存泄漏？
 
@@ -456,8 +477,10 @@ let b = 2;
 
 ---
 
-### Q15: 浮点数 | 概念题精度问题
+### Q15: 浮点数精度问题
+
 > ⭐⭐⭐ | 难度：中高级
+> 🏷️ 概念题
 
 **题目**：为什么 `0.1 + 0.2 !== 0.3`？如何解决 JS 中的浮点数精度问题？项目中如何处理金额计算？
 
@@ -480,8 +503,10 @@ let b = 2;
 
 ---
 
-### Q16: 手写 Promise | 手写题（含链式调用）
+### Q16: 手写 Promise（含链式调用）
+
 > ⭐⭐⭐⭐⭐ | 难度：中高级
+> 🏷️ 手写题
 
 **题目**：请按照 Promises/A+ 规范手写一个 Promise，支持 `.then()` 链式调用、`catch`、`finally`、`Promise.resolve`、`Promise.reject`、`Promise.all`、`Promise.race`。
 
@@ -506,8 +531,10 @@ let b = 2;
 
 ---
 
-### Q17: 事件委托 | 概念题 / 事件代理
+### Q17: 事件委托 / 事件代理
+
 > ⭐⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
 
 **题目**：什么是事件委托？请实现一个通用的委托函数。事件委托的原理是什么？
 
@@ -531,8 +558,10 @@ let b = 2;
 
 ---
 
-### Q18: class | 对比题 与 ES5 构造函数的区别
+### Q18: class 与 ES5 构造函数的区别
+
 > ⭐⭐⭐ | 难度：中级
+> 🏷️ 对比题
 
 **题目**：ES6 的 `class` 和 ES5 的构造函数写法有什么区别？`class` 的本质是什么？
 
@@ -557,8 +586,10 @@ let b = 2;
 
 ---
 
-### Q19: Map vs WeakMap | 对比题 / Set vs WeakSet
+### Q19: Map vs WeakMap / Set vs WeakSet
+
 > ⭐⭐⭐ | 难度：中级
+> 🏷️ 对比题
 
 **题目**：Map 和 WeakMap 有什么区别？WeakMap 有哪些典型使用场景？
 
@@ -611,14 +642,12 @@ let b = 2;
 
 **题目**：null 和 undefined 有什么区别？`typeof null` 为什么返回 `"object"`？
 
-**30 秒版**：undefined 是"没赋值"（变量声明了没初始化、参数没传、对象属性不存在），null 是"空值"（主动设为空）。`typeof null === "object"` 是 JS 的历史 bug——null 的类型标签是 0，和对象一样。
+**30秒答**：undefined 是"没赋值"（变量声明了没初始化、参数没传、对象属性不存在），null 是"空值"（主动设为空）。`==` 下两者相等、`===` 下不等——`value == null` 可同时判断两者。`typeof null === "object"` 是 JS 的历史 bug——null 的类型标签是 0，和对象一样。
 **追问预测**：
 - "怎么同时判断 null 和 undefined" → `value == null`（宽松等号，null 和 undefined 相等）
 - "void 0 是什么" → 返回 undefined，确保不被人重写 undefined 变量影响
 
 **2 分钟版**：区别——1) `undefined == null` 为 true，`===` 为 false；2) Number(null) = 0，Number(undefined) = NaN；3) JSON 序列化 null 保留，undefined 被忽略；4) 函数默认参数只有 undefined 触发，null 不触发
-
-**30秒答**：undefined 是没赋值（变量声明未初始化、参数没传、属性不存在）。null 是主动设的空值。== 下 null 和 undefined 相等，=== 下不等。typeof null === object 是 JS 历史 bug。value == null 同时判断两者。
 
 > 📖 答案参考：[类型转换](../JavaScript/type-coercion.md)
 
@@ -670,7 +699,7 @@ let b = 2;
 
 ### Q24: Promise 并发调度器
 
-> ⭐⭐⭐⭐⭐ | 难度：高级
+> ⭐⭐⭐⭐ | 难度：高级
 > 🏷️ 手写题
 
 **题目**：实现一个 `PromiseScheduler` 类，能控制 Promise 的并发执行数量。如传入 10 个请求函数，每次最多并发 3 个，一个完成立即启动下一个，直到全部完成。
@@ -693,7 +722,7 @@ let b = 2;
 
 ### Q25: 函数柯里化 curry
 
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 > 🏷️ 手写题
 
 **题目**：请实现一个 `curry` 函数，将多参数函数转化为可多次调用的柯里化形式。如 `curry(add)(1)(2)(3)` 和 `curry(add)(1, 2)(3)` 都能正确执行。
@@ -713,7 +742,7 @@ let b = 2;
 
 ### Q26: 数组扁平化 flat
 
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 > 🏷️ 手写题
 
 **题目**：请用至少 3 种方法实现数组扁平化（flatten），并说明各种方法的优缺点。如何控制扁平化的深度？
@@ -856,16 +885,17 @@ let b = 2;
 > ⭐⭐⭐ | 难度：中级
 > 🏷️ 手写题
 
-**题目**：请封装一个 `ajax` 函数，支持 GET/POST、超时、重试、取消请求。说明 fetch 和 XMLHttpRequest 的核心区别。
+**题目**：请基于 `fetch` 封装一个请求函数，支持超时控制、请求取消、失败重试。fetch 相比 XMLHttpRequest 有哪些核心区别？
 
 **考察点**：
-- XMLHttpRequest 的状态管理——`onreadystatechange` + `xhr.readyState`
-- fetch 的 Response 对象——`.json()` / `.text()` / `.blob()`
-- fetch 不 reject 非 200 状态码——需要手动 `if (!res.ok) throw`
-- 超时实现：XHR 用 `xhr.timeout`，fetch 用 `AbortController` + `setTimeout`
-- 取消请求：XHR 用 `xhr.abort()`，fetch 用 `AbortController.signal`
+- fetch 基于 Promise——Response 对象的 `.json()` / `.text()` / `.blob()`
+- fetch 不 reject 非 2xx 状态码——需要手动 `if (!res.ok) throw`
+- 取消请求：`AbortController`——`fetch(url, { signal })` + `controller.abort()`
+- 超时控制：`AbortController` + `setTimeout`，或原生 `AbortSignal.timeout(ms)`
+- 失败重试：循环/递归包装——只对网络错误和 5xx 重试，配合延迟退避
+- 历史对比：XHR 基于事件回调，fetch 是它的 Promise 化现代替代
 
-**30秒答**：XHR 用 onreadystatechange 监听状态——4 表示完成。fetch 基于 Promise——.json() 解析响应体。关键区别：fetch 不 reject HTTP 错误状态码（404/500），只看网络错误——需要手动检查 res.ok。超时用 AbortController + setTimeout——超时后 controller.abort()。
+**30秒答**：fetch 基于 Promise——res.json() 解析响应体。关键坑：fetch 不 reject HTTP 错误状态码（404/500），只在网络层错误才 reject——必须手动检查 res.ok。取消用 AbortController——signal 传给 fetch，controller.abort() 中断；超时就是 AbortController + setTimeout，新环境可直接用 AbortSignal.timeout。重试用循环包装——失败延迟重发，只重试网络错误和 5xx。XHR 是事件回调时代的方案，如今只作历史对比。
 
 **追问预测**：
 - "fetch 为什么 404 不 reject" → fetch 只在网络层错误（无法连接/DNS 失败）时 reject。HTTP 状态码是应用层——404 也是成功的 HTTP 响应

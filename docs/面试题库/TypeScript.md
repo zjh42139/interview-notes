@@ -73,7 +73,7 @@ tags:
 ### Q3: any / unknown / never 的区别
 
 > 🏷️ 对比题
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请详细对比 `any`、`unknown`、`never` 三种类型。各自的使用场景是什么？为什么应该尽量避免使用 `any`？
 
@@ -272,7 +272,7 @@ tags:
 ### Q11: as const 的用法
 
 > 🏷️ 概念题
-> ⭐⭐ | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：`as const`（const assertion）有什么作用？在项目中有哪些典型应用场景？
 
@@ -297,7 +297,7 @@ tags:
 ### Q12: void 和 never 的区别
 
 > 🏷️ 对比题
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐ | 难度：中级
 
 **题目**：`void` 和 `never` 分别表示什么？它们在函数返回值、类型系统层次中各有什么区别？各有什么使用场景？
 
@@ -320,7 +320,7 @@ tags:
 ### Q13: TypeScript 的类型收窄（Type Narrowing）
 
 > 🏷️ 概念题
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：TypeScript 有哪些类型收窄的方式？请举例说明 `typeof`、`instanceof`、`in`、自定义类型守卫（Type Predicate）的用法。
 
@@ -397,7 +397,7 @@ tags:
 ### Q16: 协变与逆变
 
 > 🏷️ 概念题
-> ⭐⭐⭐⭐ | 难度：高级
+> ⭐⭐⭐ | 难度：高级
 
 **题目**：请解释 TypeScript 中的协变（Covariance）和逆变（Contravariance）。函数参数为什么是逆变的？`strictFunctionTypes` 开启后有什么影响？
 
@@ -421,7 +421,7 @@ tags:
 ### Q17: 函数重载
 
 > 🏷️ 概念题
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐ | 难度：中级
 
 **题目**：TypeScript 的函数重载和 Java/C++ 有什么不同？请写出一个函数重载的完整例子，并说明重载签名和实现签名的关系。
 
@@ -463,3 +463,159 @@ tags:
 
 > 答案参考：[../TypeScript/enum-class.md](../TypeScript/enum-class.md)
 > 延伸：[../TypeScript/as-const.md](../TypeScript/as-const.md)
+
+---
+
+### Q19: 可辨识联合类型建模状态
+
+> 🏷️ 场景题
+> ⭐⭐⭐⭐⭐ | 难度：中级
+
+**题目**：请用可辨识联合（Discriminated Union）为异步请求建模 `idle | loading | success | error` 四种状态，要求 success 才有 data、error 才有错误信息，非法组合（如 loading 同时带 data）在编译期无法表达。如何配合 `never` 做穷举检查？
+
+**考察点**：
+- 可辨识联合三要素：公共字面量判别字段（tag）+ 联合类型 + switch 收窄
+- "让非法状态无法表达"的建模思想——对比单对象堆多个可选属性的缺陷
+- switch 判别字段后 TS 在各分支自动收窄
+- `assertNever` 穷举检查：default 分支参数类型为 `never`，新增状态漏处理编译报错
+- 实际场景：请求状态机、表单流转状态、消息类型分发
+
+**30秒答**：给每个状态一个字面量 tag——`{ status: 'success'; data: T }` 和 `{ status: 'error'; error: E }` 这样组成联合。比一个对象堆可选属性好在：loading 还带 data 这种非法状态直接无法构造。switch tag 后 TS 自动收窄各分支，default 里调 assertNever 做穷举——以后加新状态漏处理会编译报错，不用靠人肉排查。
+
+**追问预测**：
+- "和多个可选属性建模比好在哪" → 可选属性会出现 loading 和 data 同时存在的非法组合——可辨识联合让非法状态在编译期就无法表达
+- "assertNever 怎么写" → 参数类型是 never 的函数——default 分支传入，联合有漏网成员时传参就编译报错
+- "判别字段有什么要求" → 各成员共有、且是字面量类型（如 'success'）——TS 才能据它收窄
+
+> 答案参考：[../TypeScript/type-narrowing.md](../TypeScript/type-narrowing.md)
+> 延伸：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
+
+---
+
+### Q20: 联合类型 vs 交叉类型
+
+> 🏷️ 对比题
+> ⭐⭐⭐⭐ | 难度：初级
+
+**题目**：`A | B` 和 `A & B` 分别表示什么？两个对象类型联合后能访问哪些属性、交叉后能访问哪些属性？各自的典型使用场景是什么？
+
+**考察点**：
+- `|` 是"或"：值是成员之一，只能安全访问所有成员的公共属性
+- `&` 是"且"：值同时满足所有成员，属性合并全部可访问
+- 从值集合看：联合是并集、交叉是交集——和"属性变多变少"方向相反，容易答反
+- 同名属性类型冲突时交叉出 `never`（如 `string & number`）
+- 场景：联合建模互斥状态/多形态入参；交叉做类型合并扩展（mixin、给响应包公共字段）
+
+**30秒答**：`A | B` 是或——值只是其中一个，所以只能访问两者的公共属性，其余要先收窄；`A & B` 是且——同时满足两个类型，属性合并都能访问。反直觉的点：交叉属性更多但值的集合更小。同名属性类型冲突交叉会变 never。联合用来建模互斥状态，交叉用来做类型合并扩展。
+
+**追问预测**：
+- "为什么联合只能访问公共属性" → TS 不知道运行时到底是哪个成员——只有公共属性一定存在，访问其余属性要先类型收窄
+- "`string & number` 是什么" → never——不存在同时是两者的值，交集为空
+- "`keyof (A | B)` 和 `keyof (A & B)` 的结果" → 联合取 keyof 交集、交叉取 keyof 并集——和值集合的并交刚好对称
+
+> 答案参考：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)
+> 延伸：[../TypeScript/keyof-mapped-conditional.md](../TypeScript/keyof-mapped-conditional.md)
+
+---
+
+### Q21: 模板字面量类型
+
+> 🏷️ 手写题
+> ⭐⭐⭐⭐ | 难度：中高级
+
+**题目**：什么是模板字面量类型（Template Literal Types）？请从配置对象 `{ click: ...; focus: ... }` 派生出事件名类型 `'onClick' | 'onFocus'`，并说明映射类型中 `as` 子句（key remapping）的用法。
+
+**考察点**：
+- 模板字面量类型：类型层的字符串拼接，如 `on${string}`
+- 内置字符串工具类型：`Capitalize` / `Uncapitalize` / `Uppercase` / `Lowercase`
+- key remapping：`[K in keyof T as ...]` 重映射键名，配合 `on${Capitalize<string & K>}`
+- `string & K` 的作用：keyof 结果含 symbol，先收窄成 string 才能进模板
+- 实际场景：事件名派生、getter/setter 名派生、路由路径参数提取
+
+**30秒答**：模板字面量类型就是在类型层面做字符串拼接——`on${Capitalize<K>}` 能从 'click' 算出 'onClick'。配合映射类型的 as 子句做 key remapping，就能从配置对象自动派生事件名类型——值和类型不用手动同步，加一个配置项事件名类型自动多一个。Vue 的 emits 类型提示底层就是这套。
+
+**追问预测**：
+- "as 子句除了改名还能做什么" → 配合条件类型把 key 映射成 never——该 key 直接被过滤掉，实现按值类型筛选属性
+- "为什么要写 `string & K`" → keyof 结果是 string | number | symbol 联合——模板字面量只接受可字符串化的类型，用交叉收窄掉 symbol
+- "模板字面量能反向拆解吗" → 能——条件类型里用 infer 占位，如 `${infer A}-${infer B}` 拆解字符串提取片段
+
+> 答案参考：[../TypeScript/template-literal-types.md](../TypeScript/template-literal-types.md)
+> 延伸：[../TypeScript/keyof-mapped-conditional.md](../TypeScript/keyof-mapped-conditional.md)
+
+---
+
+### Q22: 类型断言体系
+
+> 🏷️ 对比题
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：`as` 断言、类型声明（`: Type`）、非空断言 `!` 三者的行为有什么区别？类型断言会改变运行时的值吗？什么是双重断言（`as unknown as T`），为什么危险？
+
+**考察点**：
+- `: Type` 是声明——TS 完整检查值与类型的兼容性；`as` 是断言——"信我"，只拦截毫无重叠的转换
+- 断言是纯编译期行为：运行时值不变（区别于 Java/C++ 的强转），断错了运行时照样炸
+- 非空断言 `!` 只是压掉 null/undefined 检查——不做任何运行时判空
+- 双重断言 `as unknown as T` 经 unknown 中转绕过一切兼容检查——局部放弃类型系统
+- 正确姿势：优先类型收窄/守卫；断言只用在确实比编译器知道更多的边界（DOM 查询、事件 target）
+
+**30秒答**：`: Type` 是声明，TS 会真检查兼容性；`as` 是断言，告诉编译器"信我"，只拦截完全不相关的转换；`!` 是非空断言，只是压掉 null 检查。关键认知：断言全是编译期行为，运行时值不会有任何变化——断错了照样炸。`as unknown as T` 双重断言能绕过一切检查，等于局部放弃类型系统，code review 我会重点盯它。
+
+**追问预测**：
+- "什么时候用 as 是合理的" → 编译器确实不知道的边界——如 `getElementById` 断言成具体元素类型、经运行时校验后的数据
+- "! 和可选链 ?. 怎么选" → ?. 是运行时安全访问；! 只是编译期闭嘴——值真可能为空时必须用 ?. 或显式判空
+- "为什么有的 as 会直接报错" → as 要求两个类型有子类型重叠——完全不相关必须经 unknown 中转，这正是双重断言的危险信号
+
+> 答案参考：[../TypeScript/satisfies.md](../TypeScript/satisfies.md)
+> 延伸：[../TypeScript/as-const.md](../TypeScript/as-const.md)
+
+---
+
+### Q23: 类型擦除与运行时边界
+
+> 🏷️ 场景题
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：TypeScript 的类型在运行时还存在吗？为什么接口响应标注了 `: User` 仍可能在运行时出错？项目中如何处理编译期类型与运行时数据的边界（接口响应、localStorage、URL 参数）？
+
+**考察点**：
+- 类型擦除：编译后所有类型注解消失——TS 不提供任何运行时保证
+- 类型只约束代码内部一致性；外部输入（API/存储/用户输入）是类型系统的盲区
+- `res as User` 是"假装安全"——正确做法：边界处先接 `unknown`，运行时校验后再收窄
+- schema 校验库（zod 等）：一份 schema 同时产出运行时校验和静态类型（`z.infer`）
+- 轻量方案：自定义 type guard；注意 `JSON.parse` 返回 any 的陷阱
+
+**30秒答**：TS 类型编译后全部擦除，运行时不存在——类型只保证代码内部的一致性，保证不了外部数据。接口标 `: User` 只是"我声称它是"，后端改字段照样运行时炸。我的做法：边界处先当 unknown，用 zod 这类 schema 校验后再进类型世界——schema 还能用 z.infer 反推静态类型，运行时校验和编译期类型是同一份定义不会脱节。
+
+**追问预测**：
+- "为什么不直接 as User" → as 只是编译期断言，数据不对不会有任何提示——错误延迟到深层使用处更难排查
+- "zod 怎么和 TS 类型打通" → `z.infer<typeof schema>` 从 schema 推导静态类型——单一数据源，改 schema 类型自动同步
+- "所有接口都要跑运行时校验吗" → 权衡成本——核心链路、表单提交、第三方接口值得；内部稳定接口可只在联调期开启
+
+> 答案参考：[../TypeScript/any-unknown-never.md](../TypeScript/any-unknown-never.md)
+> 延伸：[../TypeScript/type-narrowing.md](../TypeScript/type-narrowing.md)
+
+---
+
+### Q24: 结构化类型系统
+
+> 🏷️ 概念题
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：什么是结构化类型系统（Structural Typing）？与名义类型（Nominal Typing）有什么区别？为什么对象字面量直接赋值/传参时会触发"多余属性检查"这个例外？
+
+**考察点**：
+- 结构化类型：兼容性只看结构不看名字——编译期的"鸭子类型"
+- 对比名义类型（Java/C#）：必须显式声明继承/实现关系才兼容
+- 兼容方向：属性多的可以赋给属性少的（满足结构要求即可）
+- 多余属性检查是唯一例外：对象字面量"新鲜值"直接赋值/传参时多余属性报错——防拼写错误
+- 名义化技巧：brand 类型区分结构相同但语义不同的类型（如 UserId vs OrderId）
+
+**30秒答**：TS 的类型兼容看结构不看名字——两个 interface 成员相同就互相兼容，本质是编译期的鸭子类型；Java 那种名义类型必须显式 implements 才行。特例是多余属性检查：对象字面量直接传参时多写属性会报错——字面量场景多余属性几乎必是拼写错误，TS 特意收紧；中转成变量后就按正常结构兼容走。要名义效果可以用 brand 字段模拟，区分两种结构相同的 string。
+
+**追问预测**：
+- "为什么中转变量就不报多余属性错" → 检查只针对新鲜的对象字面量——赋给变量后是普通引用，按结构兼容规则走
+- "结构化类型有什么坑" → 结构相同语义不同的类型互通——UserId 和 OrderId 都是 string 会混用，用 brand 类型（交叉一个唯一标记）区分
+- "空对象类型为什么约束不了什么" → 结构兼容——任何对象都满足"零成员要求"，所以几乎接受一切非空值
+
+> 答案参考：[../TypeScript/structural-typing.md](../TypeScript/structural-typing.md)
+> 延伸：[../TypeScript/basic-types.md](../TypeScript/basic-types.md)

@@ -81,13 +81,15 @@ mindmap
 | [KeepAlive + Router](./keepalive-integration.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 | [scrollBehavior](./scroll-behavior.md) | ⭐⭐⭐ | 初级 | — | filled |
 | [导航故障处理](./navigation-failures.md) | ⭐⭐⭐ | 中级 | — | filled |
+| [路由元信息/传参](./route-meta-props.md) | ⭐⭐⭐ | 初级 | — | filled |
+| [命名视图/过渡动画](./named-views-transition.md) | ⭐⭐⭐ | 中级 | — | filled |
 
 ## 相关阅读
 
 - [Vue3 知识地图](../Vue3/index.md) — 响应式、组件通信、生命周期的底层基石
 - [Pinia 知识地图](../Pinia/index.md) — 路由守卫中获取全局状态
 - [项目实战：权限系统](../项目实战/权限系统/permission-rbac.md) — 动态路由 + RBAC 实战
-- [面试题库：Vue Router](../面试题库/VueRouter.md) — 7 道路由高频真题
+- [面试题库：Vue Router](../面试题库/VueRouter.md) — 10 道路由高频真题
 
 ## 更新记录
 

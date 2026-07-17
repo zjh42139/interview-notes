@@ -5,6 +5,37 @@ description: 知识库变更记录
 
 # Changelog
 
+## 2026-07-18
+
+### Phase 1 全模块真题校验（17/17）
+
+以近半年真实面经为基准，对全部 17 个模块题库做差集校准。每模块搜索 10-20 个面经来源，产出差异报告后统一应用。
+
+- **总量变化**：~284 → ~340 道题（新增 56 道高频缺失题）
+- **新增题亮点**：CSS 盒模型/flex:1（必考第一题此前缺失）、Vue3 v-if vs v-show（秒答级必考）、网络 GET vs POST（面经第一高频）、TS 可辨识联合、VueRouter VR4 新特性、Pinia 响应式原理/状态边界（具名真题）、前端架构 Monorepo+qiankun 沙箱三连（3→9 题）、HR offer 博弈/空窗期、手写题 CSS 手写分类、算法 DFS/双指针/哈希分组
+- **权重校准**：~70 处星级调整——纠正「高星过密」（浏览器 8 处降星恢复区分度）、系统性低估的基础秒答题升星（ref vs reactive、防抖节流、HTTP 缓存、离职原因等）
+- **P0 事实错误修正**：Pinia Q1 两条（Vuex5 说法失实、mutation 存在理由错误归因 defineProperty）；VueRouter Q6 重写为 VR4 语义（isNavigationFailure 替代 catch 吞错）+ Q3 `*` 通配符改 `:pathMatch(.*)*`；CSS Q18 层叠 !important 方向写反；Git master→main
+- **内容现代化**：JS 深拷贝补 structuredClone、Q32 XHR 重心改 fetch+AbortController、性能 Q11 TBT 锚点改 INP、HTML loading=lazy 兼容性表述更新、工程化补 Vite 预构建/Rspack/迁移实战
+- **格式修复**：JS 16 处标题乱码统一、工程化/HR 编号断档重排、浏览器 Q17/Q18 与性能 Q11 与网络 Q16 补齐模板段落、CSS Q12/Q17 重复题合并
+- **结构同步**：题库 index 计数 12 处更新；HR 双文件（面试题库/HR.md 与 HR/面试题.md）同步为 17 题
+- **覆盖率缺口清单**：详见 `.ai/audit-phase1-log.md`（~25 项，Phase 2/3 处理）
+
+### CICD 题库真题校准
+
+- **权重调整**：2 处——Q4 灰度发布升 ⭐⭐⭐⭐（补「快速回滚」追问 + 延伸 `gray-release.md`）；Q2 Docker 降 ⭐⭐（3 年前端岗多为加分项，30秒答补多阶段构建）
+- **内容修正**：Q3 答案参考 `jenkins.md` → `../工程化/eslint-husky.md`（主题匹配）；Q1 追问补「CI 构建加速」
+- **新增 2 题**：Q5 部署后如何通知用户刷新（⭐⭐⭐⭐ 中级，version.json 轮询/WS/SW/响应头对比）、Q6 部署后静态资源缓存策略（⭐⭐⭐⭐ 中级，html no-cache + hash 长缓存 + 覆盖式 vs 非覆盖式，延伸交叉引用浏览器题库 Q5）——补齐「部署后」环节缺口
+- **覆盖率缺口**：Q5/Q6 暂无精准知识文件，分别暂指 `overview.md` / `webpack.md`——建议后续在 `docs/CICD/` 新建部署策略篇
+- **计数同步**：题库 index CICD 4→6
+
+### 网络题库真题校准
+
+- **权重调整**：6 处——Q9 HTTP 缓存、Q4 跨域升 ⭐⭐⭐⭐⭐；Q13 Token 存储升 ⭐⭐⭐⭐；Q14 OSI、Q5 CDN、Q16 MITM 降 ⭐⭐⭐
+- **题目扩展**：Q4 从聚焦预检扩展为「同源策略 + 跨域方案全景 + 预检机制」，答案参考改指 `cors.md`；Q7 从「WS vs SSE」扩展为「短轮询/长轮询/SSE/WebSocket 四方案对比」并补选型表
+- **新增 Q17**：GET vs POST + HTTP 方法语义（⭐⭐⭐⭐⭐ 初级）——面经第一高频题，答案参考 `http-methods.md`
+- **格式修复**：Q16 补齐「考察点/追问预测」段落
+- **计数同步**：题库 index 16→17；`网络/index.md` 陈旧计数 15→17
+
 ## 2026-07-16（续 8）
 
 ### Vue3+TS 文件泛型显示修复

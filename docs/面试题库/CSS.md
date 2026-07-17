@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-08
-updated: 2026-07-08
+updated: 2026-07-18
 reviewed: 2026-07-08
 tags:
   - CSS
@@ -94,7 +94,7 @@ tags:
 
 ---
 
-### Q4: `absolute` 相对于谁定位？包含块规则是什么？⭐⭐⭐⭐⭐
+### Q4: `absolute` 相对于谁定位？包含块规则是什么？⭐⭐⭐⭐
 
 > 🏷️ 概念题
 
@@ -160,7 +160,7 @@ tags:
 
 ---
 
-### Q7: `100vh` 在移动端为什么会有问题？怎么解决？⭐⭐⭐⭐
+### Q7: `100vh` 在移动端为什么会有问题？怎么解决？⭐⭐⭐
 
 > 🏷️ 排查题
 
@@ -201,7 +201,7 @@ tags:
 
 ---
 
-### Q9: 为什么 `margin: auto` 有时候不能居中？⭐⭐⭐⭐
+### Q9: 为什么 `margin: auto` 有时候不能居中？⭐⭐⭐
 
 > 🏷️ 概念题
 
@@ -267,24 +267,26 @@ tags:
 
 ---
 
-### Q12: `z-index` 失效的几种情况？⭐⭐⭐⭐
+### Q12: 层叠上下文是什么？`z-index` 为什么会失效？⭐⭐⭐⭐
 
 > 🏷️ 排查题
 
-**考察点**：层叠上下文的深层理解。
+**考察点**：层叠上下文的创建条件、z-index 的比较规则、失效场景的排查思路。
 
 **回答**：
-1. 元素 `position: static`（z-index 只对定位元素生效）
-2. 父元素创建了新的层叠上下文且 `z-index` 更低（子元素 z-index 再高也被"锁"在父元素内）
-3. `opacity < 1` / `transform` / `filter` / `will-change` 等属性隐式创建层叠上下文
-4. `z-index: auto` vs `z-index: 0` —— auto 不创建层叠上下文，0 会创建
+- **层叠上下文**：z 轴上的独立渲染层级——决定谁盖谁；`z-index` 只在同一层叠上下文内比较——跨了不看
+- **创建条件**：`position` 非 static + `z-index` 非 auto、`opacity < 1`、`transform` / `filter` / `perspective` 非 none、`will-change: transform/opacity` 等
+- **失效情况**：
+  1. 元素 `position: static`（z-index 只对定位元素和 Flex/Grid 子项生效）
+  2. 父元素创建了新的层叠上下文且 `z-index` 更低（子元素 z-index 再高也被"锁"在父元素内）
+  3. `z-index: auto` vs `z-index: 0` —— auto 不创建层叠上下文，0 会创建
 
 📖 [层叠上下文](../CSS/stacking-context.md) · [position 定位](../CSS/position.md)
 
-**30秒答**：z-index 失效：元素没设 position、父级层叠上下文 z-index 更低。层叠上下文由 position+z-index、opacity<1、transform、filter 等创建。子元素 z-index 只在父级层叠上下文内有效。
+**30秒答**：层叠上下文是 z 轴上的渲染层级——决定谁盖谁，z-index 只在同一层叠上下文内比较。失效两大类：元素没设 position、父级创建了层叠上下文且 z-index 更低——子元素再高也被"锁"在父级内。opacity<1、transform、filter、will-change 都会隐式创建层叠上下文。
 **追问预测**：
-- "z-index 失效的几种情况" → 元素没设 position、父级创建了层叠上下文且 z-index 更低
-- "层叠上下文怎么创建" → position+z-index、opacity<1、transform、filter、will-change 等
+- "z-index 设 9999 为什么还是被挡住" → 不在同一层叠上下文——父元素的层叠顺序决定了子元素的整体位置
+- "层叠上下文怎么创建" → position+z-index 非 auto、opacity<1、transform、filter、perspective、will-change 等
 - "两个层叠上下文之间的 z-index 怎么比" → 比父级层叠上下文的 z-index——子元素 z-index 只在父级内部有效
 
 ---
@@ -331,7 +333,7 @@ tags:
 
 ---
 
-### Q15: 如何清除浮动？clearfix 和 BFC 方案有什么区别？⭐⭐⭐⭐
+### Q15: 如何清除浮动？clearfix 和 BFC 方案有什么区别？⭐⭐⭐
 
 > 🏷️ 概念题
 
@@ -375,34 +377,141 @@ tags:
 
 ---
 
-## 相关阅读
+### Q17: `@layer` 解决了什么问题？和选择器优先级是什么关系？⭐⭐⭐
+
+> 🏷️ 概念题
+
+**考察点**：层叠维度的新认知——layer 顺序在选择器权重之前生效。
+
+**回答要点**：
+- `@layer` 显式声明样式的优先级层次：后声明的 layer 覆盖先声明的，**不受选择器权重影响**
+- 比较顺序：先比 layer 顺序，同一 layer 内部才比选择器权重
+- 未分层样式（普通声明）高于所有 layer 内样式——第三方库放进 layer，业务样式天然能覆盖
+- 典型用法：`@layer reset, framework, overrides;` 一行声明顺序，告别 `!important` 和堆权重
+
+📖 [@layer 层叠规则](../CSS/at-layer.md)
+
+**30秒答**：@layer 让开发者声明样式优先级层次——后声明的 layer 覆盖先声明的，不受选择器权重影响。解决了组件库样式覆盖的噩梦——不用靠 !important 或提高选择器权重。我会把 reset、第三方库、业务样式分层，覆盖关系一目了然。
+**追问预测**：
+- "@layer 和 !important 在同一个 layer 里谁赢" → !important 永远最高——但跨 layer 时反转：先声明的 layer 中的 !important 反而胜出
+- "没放进 layer 的样式和 layer 里的谁优先" → 未分层的普通声明更高——所以把第三方库放进 layer 后不用提权就能覆盖
 
 ---
 
-### Q17: 层叠上下文（Stacking Context）
+### Q18: `content-box` 和 `border-box` 有什么区别？为什么要全局设置 `border-box`？⭐⭐⭐⭐⭐
 
-> ⭐⭐⭐⭐ | 难度：中高级
+> 🏷️ 概念题
 
-**题目**：什么是层叠上下文？哪些属性会触发新的层叠上下文？`z-index` 在什么情况下失效？
+**考察点**：两种盒模型的宽度计算公式、全局 border-box 的工程动机、box-sizing 不继承的特性与 inherit 技巧。
 
-**30秒答**：层叠上下文是 z 轴上的渲染层级——决定谁盖谁。触发条件：`position` 非 static + z-index 非 auto、`opacity < 1`、`transform/filter/perspective` 非 none、`will-change: transform/opacity`。z-index 只在同一层叠上下文内比较——跨了不看。
+**回答要点**：
+- `content-box`（默认）：`width` 只是内容区宽度，实际占宽 = width + padding + border
+- `border-box`：`width` = 内容 + padding + border 总宽，padding/border 向内挤压内容区
+- 全局设置理由：所写即所得——设 200px 就占 200px；加 padding/border 不撑破布局；百分比/栅格计算不溢出
+- 继承技巧：`html { box-sizing: border-box; }` + `*, *::before, *::after { box-sizing: inherit; }`——第三方组件要还原默认时只改自身，子树自动跟随
 
+📖 [盒模型](../CSS/box-model.md)
+🎤 回答稿：[../面试回答/CSS/box-model-bfc.md](../面试回答/CSS/box-model-bfc.md)
+
+**30秒答**：content-box 是默认值，width 只算内容区，padding 和 border 要往外加；border-box 的 width 直接包含 padding 和 border。我的项目都全局设 border-box——设多宽就占多宽，改内边距不会把布局撑破，百分比布局加 padding 也不会溢出。写法上用 html 设 border-box、其他元素 inherit，第三方组件要还原默认盒模型时局部覆盖就行。
 **追问预测**：
-- "z-index 设 9999 为什么还是被挡住" → 不在同一层叠上下文——父元素的层叠顺序决定了子元素的整体位置
-
-> 答案参考：[../CSS/stacking-context.md](../CSS/stacking-context.md)
+- "width:100% 加 padding 为什么会溢出" → content-box 下实际占宽 = 100% + padding——border-box 下 padding 向内挤不溢出
+- "box-sizing 会继承吗" → 不继承——所以全局设置要靠 * 通配选择器或 inherit 技巧
+- "border-box 为什么叫 IE 盒模型" → IE 怪异模式的默认行为就是 border-box——后来 W3C 用 box-sizing 把它标准化
 
 ---
 
-### Q18: @layer 层叠规则
+### Q19: `flex: 1` 是什么意思？三个子属性分别怎么工作？⭐⭐⭐⭐⭐
 
-> ⭐⭐⭐ | 难度：中级
+> 🏷️ 概念题
 
-**题目**：CSS `@layer` 规则解决了什么问题？和传统的选择器优先级叠加有什么区别？
+**考察点**：flex 缩写的展开值、grow/shrink/basis 三属性分工、flex-basis 与 width 的优先级、剩余空间的分配计算。
 
-**30秒答**：@layer 让开发者声明样式优先级层次——后声明的 layer 覆盖先声明的，不受选择器权重影响。解决了组件库样式覆盖的噩梦——不用靠 `!important` 或提高选择器权重。
+**回答要点**：
+- `flex: 1` = `flex-grow: 1; flex-shrink: 1; flex-basis: 0%`
+- `flex-grow`：有剩余空间时按比例分配（默认 0 不参与）；`flex-shrink`：空间不足时按 shrink × basis 加权收缩（默认 1）；`flex-basis`：主轴初始尺寸
+- `flex-basis` 非 auto 时优先级高于 `width`；basis 为 auto 时回退到 width，再回退到内容宽度
+- `flex: 1`（basis 0%）vs `flex: auto`（basis auto）：前者无视内容完全均分；后者先保留内容尺寸再分剩余空间
+- 计算示例：容器 600px、两项 basis 各 100px、grow 为 1:2 → 剩余 400px 按 1:2 分 → 最终 233px 和 367px
 
+📖 [Flexbox](../CSS/flexbox.md)
+🎤 回答稿：[../面试回答/CSS/flexbox-grid-layout.md](../面试回答/CSS/flexbox-grid-layout.md)
+
+**30秒答**：flex:1 是 flex-grow:1、flex-shrink:1、flex-basis:0% 的缩写。grow 管剩余空间怎么分，shrink 管空间不够时怎么缩，basis 是主轴上的初始尺寸。因为 basis 是 0%，内容宽度不参与分配，所以几个 flex:1 的项目能完全平分容器。它和 flex:auto 的区别就在 basis——auto 会先保留内容尺寸再分剩余空间。另外 basis 不是 auto 时优先级比 width 高。
 **追问预测**：
-- "@layer 和 !important 在同一个 layer 里谁赢" → !important 永远最高——但跨 layer 时后声明的 layer 中的 !important 优先
+- "flex:1 和 flex:auto 的区别" → basis 0% vs auto——flex:1 完全均分；flex:auto 内容多的项目分得更宽
+- "flex-basis 和 width 谁优先" → basis 非 auto 时 basis 赢；basis:auto 才回退到 width
+- "flex 子项为什么压不缩、内容溢出" → 子项默认 min-width:auto 不小于内容——设 min-width:0 或 overflow:hidden 才能缩下去
 
-> 答案参考：[../CSS/at-layer.md](../CSS/at-layer.md)
+---
+
+### Q20: `position` 的五个值分别有什么区别？⭐⭐⭐⭐
+
+> 🏷️ 对比题
+
+**考察点**：五种定位模式的参照系与文档流影响、sticky 的生效条件、fixed 不相对视口的例外。
+
+| 值 | 参照系 | 脱离文档流 | 典型场景 |
+|------|--------|-----------|----------|
+| `static` | 默认值，不定位 | ❌ | 正常流 |
+| `relative` | 自身原位置 | ❌ 占位 | 微调、给子元素当包含块 |
+| `absolute` | 最近非 static 祖先 | ✅ | 弹层、角标 |
+| `fixed` | 视口 | ✅ | 悬浮按钮、全局弹窗 |
+| `sticky` | 最近滚动容器 | ❌ 占位 | 吸顶导航、表头固定 |
+
+- `sticky` 生效三条件：设了 `top/left` 等阈值、祖先没有 `overflow: hidden`、父容器有滚动空间
+- `fixed` 例外：祖先有 `transform` / `filter` / `will-change` 时，包含块变成该祖先而不是视口
+
+📖 [position 定位](../CSS/position.md)
+
+**30秒答**：static 默认不定位；relative 相对自己原位置偏移、还占着位；absolute 相对最近的非 static 祖先、脱离文档流；fixed 相对视口、也脱流；sticky 是 relative 和 fixed 的混合——滚到阈值前占位、到了就吸附。我最常用子绝父相做弹层和角标。注意 fixed 有例外——祖先有 transform 时它改为相对那个祖先定位。
+**追问预测**：
+- "sticky 为什么不生效" → 三查：没设 top 阈值、祖先 overflow:hidden、父容器没有滚动空间
+- "fixed 什么时候不相对视口" → 祖先有 transform/filter/will-change——包含块变成该祖先，弹窗被裁剪的常见坑
+- "relative 和 absolute 怎么配合" → 子绝父相——父级 relative 提供包含块又不脱离文档流
+
+---
+
+### Q21: 容器查询 `@container` 和 `:has()` 解决了什么问题？⭐⭐⭐⭐
+
+> 🏷️ 概念题
+
+**考察点**：@container 与 @media 的响应式范式差异、:has() 补齐的选择能力、container-type 的作用、新特性兼容性判断。
+
+**回答要点**：
+- `@media` 响应**视口**尺寸；`@container` 响应**祖先容器**尺寸——组件级响应式，同一组件放侧栏和主区能各自适配
+- 用法：容器声明 `container-type: inline-size`（可加 `container-name`），后代写 `@container (min-width: 400px) { ... }`
+- `:has()` 是"父选择器"/关系选择器：按后代或后续兄弟反选元素——`.card:has(img)`、`form:has(:invalid)` 以前只能靠 JS 加类
+- 支持现状：两者 2023 年起 Chrome/Safari/Firefox 全支持、已进 Baseline，2026 生产可用；旧浏览器用 `@supports` 渐进增强
+
+📖 [:has() / 嵌套 / 容器查询](../CSS/has-nesting-container.md)
+
+**30秒答**：@media 按视口做响应式，@container 按父容器尺寸做响应式——同一个组件放在宽窄不同的容器里能各自适配，这才是组件级响应式。用法是父容器设 container-type:inline-size，后代里写 @container 条件。:has() 相当于父选择器——比如 .card:has(img) 选中含图卡片、form:has(:invalid) 让提交按钮置灰，以前这些都得靠 JS。这两个特性主流浏览器都已支持，我在新项目里会直接用。
+**追问预测**：
+- "@container 和 @media 怎么选" → 页面骨架跟视口走用 @media；可复用组件跟容器走用 @container
+- "container-type 为什么必须声明" → 建立尺寸隔离（containment）防止"子元素影响容器尺寸再触发查询"的循环——不声明查询不生效
+- ":has() 有性能问题吗" → 浏览器已优化、可放心用——但避免在 :has() 里放过于宽泛的选择器
+
+---
+
+### Q22: 哪些 CSS 属性触发回流、重绘、仅合成？动画为什么首选 transform/opacity？⭐⭐⭐⭐
+
+> 🏷️ 概念题
+
+**考察点**：CSS 属性在渲染流水线中的三档分类、合成层与 GPU 加速原理、减少回流的工程手段。
+
+**回答要点**：
+- **触发回流（Layout）**：几何类——`width/height`、`margin/padding`、`top/left`、`font-size`、`display`；回流必然连带重绘
+- **仅重绘（Paint）**：外观类——`color`、`background`、`border-color`、`visibility`、`box-shadow`
+- **仅合成（Composite）**：`transform`、`opacity`（`filter` 也是）——跳过 Layout 和 Paint，在合成器线程完成，主线程卡顿也不掉帧
+- 减少回流：批量改 class 而非逐条改 style、动画元素 `absolute/fixed` 脱流缩小影响范围、读写分离避免强制同步布局、`will-change` 提升合成层（慎用）
+
+📖 [CSS 渲染性能](../CSS/css-performance.md) · [回流与重绘](../浏览器/reflow-repaint.md)
+
+**30秒答**：改几何信息的属性触发回流——宽高、margin、top/left、font-size，回流一定连带重绘；只改外观的触发重绘——颜色、背景、box-shadow；transform 和 opacity 只触发合成——跳过布局和绘制、在合成器线程处理，所以动画我只用这两个属性。减少回流靠批量改 class、动画元素脱离文档流、读写分离避免布局抖动。
+**追问预测**：
+- "为什么 transform 动画主线程卡了也不掉帧" → 合成在独立的合成器线程执行——不依赖主线程
+- "读 offsetHeight 为什么强制回流" → 浏览器要返回最新布局值——把攒着的样式修改立刻结算；循环里读写交替就是布局抖动
+- "will-change 能随便加吗" → 不能——每个合成层占内存，滥用反而更卡；动画结束应移除
+
+**延伸**：回流/重绘的完整机制（触发时机、浏览器批处理优化）见 [浏览器题库 Q2「回流与重绘」](./浏览器.md)

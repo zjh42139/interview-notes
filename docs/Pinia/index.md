@@ -92,6 +92,7 @@ mindmap
 | 持久化 | ⭐⭐⭐⭐⭐ | [persist.md](./persist.md) | pinia-plugin-persistedstate 插件、安全注意事项 |
 | Pinia vs Vuex | ⭐⭐⭐⭐⭐ | [vs-vuex.md](./vs-vuex.md) | 核心差异对比、迁移建议 |
 | 插件 | ⭐⭐⭐ | [plugins.md](./plugins.md) | 插件机制、全局 loading、共享方法 |
+| 进阶 | ⭐⭐⭐ | [advanced.md](./advanced.md) | 组件外使用 store、TypeScript 类型、SSR 场景 |
 
 ## 面试高频考点
 

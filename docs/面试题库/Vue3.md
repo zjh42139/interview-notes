@@ -118,32 +118,9 @@ tags:
 
 ---
 
-### Q5: KeepAlive | 概念题 原理 + LRU 缓存策略
+### Q5: Composition | 对比题 API vs Options API
 
-> ⭐⭐⭐⭐ | 难度：中高级
-
-**题目**：`<KeepAlive>` 组件的实现原理是什么？它的缓存策略是怎样的？如何使用 LRU 算法管理缓存？
-
-**考察点**：
-- 组件实例缓存到 `cache` Map 中，`keys` Set 记录访问顺序
-- LRU（最近最少使用）：超过 `max` 时淘汰最久未访问的组件
-- `activated` / `deactivated` 生命周期钩子
-- 虚拟 DOM 层面：渲染缓存的 vnode 而非创建新 vnode
-- `include` / `exclude` 的字符串/正则/数组匹配
-
-**30秒答**：KeepAlive 内部 Map 缓存组件 VNode——切换时复用不走销毁重建。max 属性触发 LRU 淘汰最久未访问的。缓存组件多了 activated/deactivated 两个生命周期。
-**追问预测**：
-- "KeepAlive 怎么实现缓存" → 内部 Map——key 是组件名 value 是 VNode；有 max 属性时触发 LRU 淘汰
-- "缓存的组件多了哪些生命周期" → activated 切回时触发、deactivated 切出时触发
-- "LRU 怎么实现 O(1)" → 哈希表定位节点 + 双向链表管理顺序
-
-> 答案参考：[../Vue3/keepalive.md](../Vue3/keepalive.md)
-
----
-
-### Q6: Composition | 对比题 API vs Options API
-
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：Composition API 相比 Options API 解决了什么问题？请举例说明在大型组件中两者的差异。
 
@@ -165,32 +142,9 @@ tags:
 
 ---
 
-### Q7: 为什么 v-for | 概念题 需要绑定 key
+### Q6: Vue3 vs Vue2 | 对比题 全面对比
 
-> ⭐⭐⭐⭐ | 难度：中级
-
-**题目**：`v-for` 为什么必须使用 `key`？为什么不能用 `index` 作为 `key`？有什么场景下用 `index` 也问题不大？
-
-**考察点**：
-- `key` 是虚拟 DOM 的唯一标识，用于比对算法判断节点是否可复用
-- 没有 `key` 时默认"就地复用"，可能导致状态错乱
-- `index` 做 key：列表头尾增删导致大量 DOM 更新（所有 key 都变了）
-- `index` 可用场景：静态列表、不涉及增删改、无状态组件
-
-**30秒答**：key 是 Diff 中节点的唯一标识——同 key 同类型才复用 DOM。没有 key 只能靠索引匹配，内容完全可能不对。用 index 当 key——数组顺序变了 key 全错，Diff 认为全部是新节点。
-**追问预测**：
-- "用 index 当 key 可以吗" → 不可以——数组顺序变化时 index 全错，Diff 全部重建
-- "key 必须全局唯一吗" → 不需要——同层唯一即可，不同层级可以复用相同 key
-- "v-for 和 v-if 能一起用吗" → Vue3 v-if 优先级更高——不推荐。用 computed 过滤数据
-
-> 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
-> 🎤 回答稿：[../面试回答/Vue3/diff-patch.md](../面试回答/Vue3/diff-patch.md)
-
----
-
-### Q8: Vue3 vs Vue2 | 对比题 全面对比
-
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请从响应式、编译优化、API 设计、性能、TypeScript 支持等方面，全面对比 Vue3 和 Vue2 的差异。
 
@@ -214,32 +168,9 @@ tags:
 
 ---
 
-### Q9: 父子组件 | 概念题生命周期执行顺序
+### Q7: ref vs | 对比题 reactive 详解
 
-> ⭐⭐⭐⭐ | 难度：中级
-
-**题目**：父子组件在挂载和更新时，生命周期的执行顺序是怎样的？为什么是这个顺序？
-
-**考察点**：
-- 挂载：父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
-- 更新：父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
-- 卸载：父 beforeUnmount -> 子 beforeUnmount -> 子 unmounted -> 父 unmounted
-- 原因：父组件的挂载需要子组件先完成（递归渲染），更新也需要子组件先更新完才能确认父组件更新完
-
-**30秒答**：父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted。setup 在 beforeCreate 之前——替代了两者。keep-alive 组件多了 activated/deactivated。
-**追问预测**：
-- "完整生命周期顺序" → 父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted
-- "setup 替代了哪些生命周期" → beforeCreate 和 created——setup 在这两者之前执行
-- "keep-alive 组件多了什么" → activated 切回时触发、deactivated 切出时触发
-
-> 答案参考：[../Vue3/lifecycle.md](../Vue3/lifecycle.md)
-> 🎤 回答稿：[../面试回答/Vue3/lifecycle.md](../面试回答/Vue3/lifecycle.md)
-
----
-
-### Q10: ref vs | 对比题 reactive 详解
-
-> ⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐⭐ | 难度：中级
 
 **题目**：`ref` 和 `reactive` 分别适用于什么场景？`ref` 的内部实现是怎样的？为什么模板中 `ref` 可以自动解包 `.value`？
 
@@ -261,9 +192,79 @@ tags:
 
 ---
 
+### Q8: KeepAlive | 概念题 原理 + LRU 缓存策略
+
+> ⭐⭐⭐⭐ | 难度：中高级
+
+**题目**：`<KeepAlive>` 组件的实现原理是什么？它的缓存策略是怎样的？如何使用 LRU 算法管理缓存？
+
+**考察点**：
+- 组件实例缓存到 `cache` Map 中，`keys` Set 记录访问顺序
+- LRU（最近最少使用）：超过 `max` 时淘汰最久未访问的组件
+- `activated` / `deactivated` 生命周期钩子
+- 虚拟 DOM 层面：渲染缓存的 vnode 而非创建新 vnode
+- `include` / `exclude` 的字符串/正则/数组匹配
+
+**30秒答**：KeepAlive 内部 Map 缓存组件 VNode——切换时复用不走销毁重建。max 属性触发 LRU 淘汰最久未访问的。缓存组件多了 activated/deactivated 两个生命周期。
+**追问预测**：
+- "KeepAlive 怎么实现缓存" → 内部 Map——key 是组件名 value 是 VNode；有 max 属性时触发 LRU 淘汰
+- "缓存的组件多了哪些生命周期" → activated 切回时触发、deactivated 切出时触发
+- "LRU 怎么实现 O(1)" → 哈希表定位节点 + 双向链表管理顺序
+
+> 答案参考：[../Vue3/keepalive.md](../Vue3/keepalive.md)
+
+---
+
+### Q9: 为什么 v-for | 概念题 需要绑定 key
+
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：`v-for` 为什么必须使用 `key`？为什么不能用 `index` 作为 `key`？有什么场景下用 `index` 也问题不大？
+
+**考察点**：
+- `key` 是虚拟 DOM 的唯一标识，用于比对算法判断节点是否可复用
+- 没有 `key` 时默认"就地复用"，可能导致状态错乱
+- `index` 做 key：列表头尾增删导致大量 DOM 更新（所有 key 都变了）
+- `index` 可用场景：静态列表、不涉及增删改、无状态组件
+
+**30秒答**：key 是 Diff 中节点的唯一标识——同 key 同类型才复用 DOM。没有 key 只能靠索引匹配，内容完全可能不对。用 index 当 key——数组顺序变了 key 全错，Diff 认为全部是新节点。
+**追问预测**：
+- "用 index 当 key 可以吗" → 不可以——数组顺序变化时 index 全错，Diff 全部重建
+- "key 必须全局唯一吗" → 不需要——同层唯一即可，不同层级可以复用相同 key
+- "v-for 和 v-if 能一起用吗" → Vue3 v-if 优先级更高——不推荐。用 computed 过滤数据
+
+> 答案参考：[../Vue3/diff-patch.md](../Vue3/diff-patch.md)
+> 🎤 回答稿：[../面试回答/Vue3/diff-patch.md](../面试回答/Vue3/diff-patch.md)
+
+---
+
+### Q10: 父子组件 | 概念题生命周期执行顺序
+
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：父子组件在挂载和更新时，生命周期的执行顺序是怎样的？为什么是这个顺序？
+
+**考察点**：
+- 挂载：父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
+- 更新：父 beforeUpdate -> 子 beforeUpdate -> 子 updated -> 父 updated
+- 卸载：父 beforeUnmount -> 子 beforeUnmount -> 子 unmounted -> 父 unmounted
+- 原因：父组件的挂载需要子组件先完成（递归渲染），更新也需要子组件先更新完才能确认父组件更新完
+
+**30秒答**：父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted。setup 在 beforeCreate 之前——替代了两者。keep-alive 组件多了 activated/deactivated。
+**追问预测**：
+- "完整生命周期顺序" → 父 beforeCreate→created→beforeMount→子 created→mounted→父 mounted
+- "setup 替代了哪些生命周期" → beforeCreate 和 created——setup 在这两者之前执行
+- "keep-alive 组件多了什么" → activated 切回时触发、deactivated 切出时触发
+- "created vs mounted 发请求的区别，Vue3 setup 中怎么处理" → created 更早、拿不到 DOM，SSR 也会执行；mounted 仅客户端、可访问 DOM。Vue3 直接在 setup 顶层发请求（相当于 created 时机），依赖 DOM 的放 onMounted
+
+> 答案参考：[../Vue3/lifecycle.md](../Vue3/lifecycle.md)
+> 🎤 回答稿：[../面试回答/Vue3/lifecycle.md](../面试回答/Vue3/lifecycle.md)
+
+---
+
 ### Q11: watchEffect | 对比题 vs watch
 
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：`watchEffect` 和 `watch` 有什么区别？`watchEffect` 的自动依赖追踪是如何实现的？
 
@@ -333,7 +334,7 @@ tags:
 
 ### Q14: Pinia | 对比题 vs Vuex
 
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：Pinia 与 Vuex 相比有哪些优势？为什么 Vue 官方推荐使用 Pinia？
 
@@ -380,7 +381,7 @@ tags:
 
 ### Q16: v-model | 概念题 原理与组件通信
 
-> ⭐⭐⭐⭐⭐ | 难度：中级
+> ⭐⭐⭐⭐ | 难度：中级
 
 **题目**：请解释 v-model 的语法糖原理。Vue3 的 v-model 相比 Vue2 有哪些变化？如何实现多个 v-model 和自定义修饰符？
 
@@ -443,7 +444,9 @@ tags:
 
 ### Q19: Vue 事件总线手写 ($on/$emit/$off/$once)
 
-> ⭐⭐⭐ | 难度：中级
+> ⭐⭐ | 难度：中级
+
+> 📌 2026 该题作为 Vue3 独立题几乎绝迹——考法退化为 Q17 组件通信的追问。通用 EventEmitter 手写见手写题模块：[event-emitter](../手写题/event-emitter.md)
 
 **题目**：手写 Vue 事件机制，并说明 Vue3 为什么移除 `$on/$off`？
 
@@ -451,3 +454,74 @@ tags:
 
 > ✍️ 手写参考：[EventEmitter](../手写题/event-emitter.md)
 
+---
+
+### Q20: v-if vs v-show | 对比题 渲染机制与选型
+
+> ⭐⭐⭐⭐⭐ | 难度：初级
+
+**题目**：v-if 和 v-show 有什么区别？分别适用于什么场景？为什么 v-if 和 v-for 不推荐在同一个元素上使用？
+
+**考察点**：
+- v-if 是"真实的"条件渲染：切换时销毁/重建 DOM 和组件实例，触发 mounted/unmounted
+- v-show 只切换 CSS `display: none`，DOM 始终保留在页面中
+- v-if 的惰性（lazy）：初始条件为 false 时什么都不渲染
+- 开销对比：v-if 切换开销高、初始渲染开销低；v-show 相反
+- 选型原则：频繁切换用 v-show，条件很少改变（如权限一次性判断）用 v-if
+- Vue3 中 v-if 优先级高于 v-for（与 Vue2 相反）——不能在同一元素上使用
+
+**30秒答**：v-if 是真的条件渲染——切换时整个 DOM 和组件销毁重建、触发生命周期；v-show 只是切 display，DOM 一直在。v-if 是惰性的——初始 false 就什么都不渲染，初始开销小；v-show 不管条件先渲染出来，切换开销小。所以选型看切换频率：频繁切换用 v-show，条件很少变用 v-if。另外 Vue3 里 v-if 优先级比 v-for 高——同一元素上 v-if 拿不到 v-for 的作用域变量直接报错，要用 computed 过滤。
+**追问预测**：
+- "v-if 切换后组件内部状态还在吗" → 不在——组件销毁重建，状态全部重置。想保状态用 v-show 或 KeepAlive
+- "v-show 有什么限制" → 不支持 `template` 标签、不能配 v-else——它依赖切换真实元素的 display 属性
+- "v-if 和 v-for 为什么不能同用" → Vue3 v-if 优先级更高（Vue2 相反）——访问不到 v-for 的作用域变量会报错。用 computed 过滤数据或外层 `template` 拆开
+
+> 答案参考：[../Vue3/template-syntax.md](../Vue3/template-syntax.md)
+
+---
+
+### Q21: defineAsyncComponent | 概念题 异步组件
+
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：`defineAsyncComponent` 的作用是什么？有哪些配置项？它与 Suspense 如何协作？和路由懒加载有什么区别？
+
+**考察点**：
+- 基本用法：`defineAsyncComponent(() => import('./Modal.vue'))`——返回包装组件，用到时才加载对应 chunk
+- 完整配置：`loader` / `loadingComponent` / `errorComponent` / `delay`（默认 200ms）/ `timeout` / `onError` 重试控制
+- 与 Suspense 协作：异步组件默认 suspensible——loading 态交给 Suspense 的 fallback，自身 loadingComponent 被忽略
+- 与路由懒加载的区别：组件级 vs 路由级——routes 里直接写 `() => import()`，vue-router 自行处理，不要再包 defineAsyncComponent
+- 典型场景：弹窗、富文本编辑器、图表等页面内大组件按需加载，首屏优化
+
+**30秒答**：defineAsyncComponent 接收一个返回 import() 的 loader——组件真正用到时才去加载对应 chunk。完整配置里 loadingComponent 加载中显示、errorComponent 失败兜底、delay 默认 200 毫秒防 loading 闪烁、timeout 超时报错。外层有 Suspense 时 loading 态交给 fallback 统一处理，自己的 loadingComponent 会被忽略。它和路由懒加载的区别是粒度——路由懒加载是路由级的，routes 里直接写 () => import() 就行；defineAsyncComponent 是组件级的，我一般用在弹窗、图表这种页面内的大组件上。
+**追问预测**：
+- "delay 配置是干什么的" → 延迟显示 loadingComponent（默认 200ms）——网络快时避免 loading 一闪而过
+- "路由懒加载需要包 defineAsyncComponent 吗" → 不要——vue-router 自行处理异步解析，routes 里直接 `() => import()`
+- "加载失败怎么重试" → errorComponent 兜底展示 + `onError(error, retry, fail, attempts)` 回调里控制重试次数
+
+> 答案参考：[../Vue3/async-components.md](../Vue3/async-components.md)
+
+---
+
+### Q22: 自定义 hooks | 设计题 composables 封装
+
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：如何设计一个自定义 hook（composable）？与 mixin 相比有什么优势？结合项目举例说明你封装过的 useXxx。
+
+**考察点**：
+- 命名与约定：`use` 开头、输入显式传参（支持 ref/getter）、输出返回 ref + 方法供调用方解构
+- 生命周期清理：内部注册的定时器/事件监听/WebSocket 在 `onUnmounted` 中清理——对调用方透明
+- 调用限制：只能在 setup 顶层同步调用——生命周期钩子注册依赖当前组件实例
+- 与 mixin 对比：mixin 命名冲突、来源不清晰、隐式依赖；composable 显式引入、可重命名、TS 推导完整
+- 实战例子：useRequest（loading/data/error/取消）、useDebounce（搜索防抖）
+- 状态共享边界：每次调用创建独立状态——要共享需提升到模块作用域或用 Pinia
+
+**30秒答**：composable 就是 use 开头、返回响应式状态和方法的函数。我设计时守三条：输入显式传参不靠全局变量；返回 ref 让调用方解构重命名；内部副作用——定时器、事件监听——在 onUnmounted 里自动清理，对调用方透明。而且只能在 setup 顶层同步调用，不能放条件分支里。对比 mixin 的优势：mixin 隐式合并进实例、多个 mixin 命名冲突、来源不清；composable 显式 import、来源一眼看到、TS 推导完整。实战里我封装过 useRequest 统一管 loading/data/error 和请求取消，还有 useDebounce 做搜索防抖。
+**追问预测**：
+- "composable 能在 setup 外调用吗" → 生命周期钩子会注册失败——钩子依赖"当前活跃实例"，只在 setup 同步执行阶段存在
+- "两个组件调同一个 composable 状态共享吗" → 不共享——每次调用创建独立状态。要共享把 state 提到模块作用域或用 Pinia
+- "和 React hooks 的区别" → composable 在 setup 只执行一次——没有调用顺序限制、不需要依赖数组，靠响应式系统自动追踪
+
+> 答案参考：[../Vue3/composables-practice.md](../Vue3/composables-practice.md)
+> 延伸：[../Vue3/composition-api.md](../Vue3/composition-api.md)

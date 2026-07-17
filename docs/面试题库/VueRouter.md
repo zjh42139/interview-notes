@@ -1,6 +1,6 @@
 ---
 title: Vue Router 高频面试题
-description: Vue Router 面试真题——路由守卫、动态路由、history vs hash、懒加载、KeepAlive 集成
+description: Vue Router 面试真题——路由守卫、动态路由、history vs hash、懒加载、KeepAlive 集成、VR4 新特性、路由传参
 category: 面试题库
 type: interview
 score: 0
@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: filled
 created: 2026-07-11
-updated: 2026-07-11
+updated: 2026-07-18
 reviewed: null
 tags:
   - VueRouter
@@ -17,12 +17,14 @@ tags:
   - 动态路由
   - history
   - hash
+  - 路由传参
+  - CompositionAPI
 ---
 
 # Vue Router 高频面试题
 
-> 收录前端面试中的高频 Vue Router 真题，共 7 题。
-> 题目按出现频率从高到低排列。
+> 收录前端面试中的高频 Vue Router 真题，共 10 题。
+> Q1–Q7 按出现频率从高到低排列，Q8–Q10 为 2026-07 真题校验新增。
 
 ---
 
@@ -84,9 +86,9 @@ tags:
 - 退出登录调用 `router.removeRoute()` 清理或 location.reload
 - 前端权限只是 UX——真正的安全在后端 API 校验
 
-**30秒答**：登录后后台返回角色路由表→router.addRoute 动态注入。关键细节：addRoute 之后需要 next({...to}) 触发重新匹配——否则当前 `*` 路由会吃掉未匹配的路径。removeRoute 用于退出登录清路由。菜单基于 router.getRoutes() 动态渲染。
+**30秒答**：登录后后台返回角色路由表→router.addRoute 动态注入。关键细节：addRoute 之后需要 next({...to}) 触发重新匹配——否则当前路径已被 `:pathMatch(.*)*` 兜底路由吃掉（VR4 已移除 `*` 通配符）。removeRoute 用于退出登录清路由。菜单基于 router.getRoutes() 动态渲染。
 **追问预测**：
-- "addRoute 之后为什么需要 next" → addRoute 不会自动触发当前路由重新解析——未匹配的 `*` 通配符不会重新检查
+- "addRoute 之后为什么需要 next" → addRoute 不会自动触发当前路由重新解析——落在 `:pathMatch(.*)*` 兜底路由上的路径不会重新匹配
 - "怎么防止用户手动输 URL 访问无权限页面" → beforeEach 中检查 `to.meta.roles`——不在权限范围内则 403 或跳首页
 - "退出登录怎么清路由" → `router.removeRoute('name')` + 重置为初始静态路由。或者 `window.location.reload()` 简单粗暴
 
@@ -141,22 +143,22 @@ tags:
 
 ---
 
-### Q6: 导航故障 | 排查题 duplicate navigation 处理
+### Q6: 导航故障 | 排查题 NavigationFailure 处理
 
-> ⭐⭐⭐ | 难度：中级 | 🏷️ 排查题
+> ⭐⭐ | 难度：中级 | 🏷️ 排查题
 
-**题目**：Vue Router 中如何捕获和处理导航故障？`NavigationFailureType` 有哪些类型？
+**题目**：Vue Router 4 中如何检测和处理导航故障？`router.push().catch(() => {})` 这种写法还有必要吗？
 
 **考察点**：
-- `NavigationFailureType`：`redirected`/`aborted`/`cancelled`/`duplicated`
-- `router.push().catch()` 吞掉导航重复错误
-- `router.isReady()` 确保初始导航完成
-- `router.onError()` 全局导航错误处理
+- VR4 中 `router.push()` 返回 Promise——导航故障时 resolve 出 NavigationFailure 对象，而不是 reject
+- `isNavigationFailure(failure, NavigationFailureType.xxx)` 精确判断类型：`aborted`/`cancelled`/`duplicated`
+- `.catch(() => {})` 吞错是 VR3 时代的兼容手段——VR3 重复导航会 reject，VR4 不再需要
+- `router.isReady()` 确保初始导航完成，`router.onError()` 兜底真正的异常（如 chunk 加载失败）
 
-**30秒答**：重复导航（点同一路由）或导航取消会抛 NavigationFailure。Vue3 Router 用 `router.isReady()` 等待初始导航完成。`router.onError()` 全局捕获。常用兼容写法：`await router.push().catch(() => {})`——吞掉导航重复错误。
+**30秒答**：VR4 里 push 返回 Promise——导航被中止/取消/重复时不 reject，而是 resolve 出一个 NavigationFailure 对象，用 `isNavigationFailure()` 判断类型再决定提示还是静默。以前的 `router.push().catch(() => {})` 吞错写法是 VR3 兼容手段——VR3 重复导航会 reject，VR4 不会了，这么写反而会把 chunk 加载失败这类真错误也吞掉。全局兜底用 router.onError()，初始导航用 router.isReady() 等待。
 **追问预测**：
-- "为什么 push 同一个路由会报错" → Vue3 Router 默认拦截重复导航——避免不必要的组件重渲染和性能浪费
-- "怎么全局处理导航错误" → `router.onError(handler)` 或 beforeEach 中 try/catch——统一错误提示
+- "为什么 push 同一个路由会报错" → 那是 VR3 的行为——VR3 重复导航会 reject Promise，所以社区流行 catch 吞错。VR4 不再 reject，而是 resolve 一个 duplicated 类型的 NavigationFailure，按需静默即可
+- "怎么区分导航故障和真正的错误" → 导航故障从 push 的返回值里拿（isNavigationFailure 判断）；守卫抛异常、异步 chunk 加载失败才会 reject，走 router.onError 上报
 - "router.replace 和 router.push 的区别" → push 新增历史记录（可返回），replace 替换当前记录（不可返回）
 
 > 答案参考：[../VueRouter/navigation-failures.md](../VueRouter/navigation-failures.md)
@@ -182,3 +184,74 @@ tags:
 - "hash 锚点滚动怎么处理" → 返回 `{ el: hash }`——如 `{ el: '#section-3' }`
 
 > 答案参考：[../VueRouter/scroll-behavior.md](../VueRouter/scroll-behavior.md)
+
+---
+
+### Q8: Vue Router 4 新特性 | 概念题 Composition API 与破坏性变更
+
+> ⭐⭐⭐⭐⭐ | 难度：中级 | 🏷️ 概念题
+
+**题目**：Vue Router 4 相比 Vue Router 3 有哪些破坏性变更？setup 中怎么拿到路由？解构 `useRoute()` 的返回值会有什么问题？
+
+**考察点**：
+- 工厂函数替代构造函数：`createRouter` + `createWebHistory`/`createWebHashHistory` 替代 `new VueRouter({ mode })`
+- Composition API：setup 中用 `useRouter()`（操作实例）/`useRoute()`（响应式路由信息）替代 `this.$router`/`this.$route`
+- 响应性陷阱：`const { params } = useRoute()` 解构后丢失响应性——用 `computed(() => route.params.id)` 或 `toRefs(route)` 保住
+- `*` 通配符移除：404 兜底改为 `:pathMatch(.*)*` 自定义参数正则，惯例放路由表最后
+- 动态路由 API 变化：批量 `addRoutes` 移除，只保留单条 `addRoute`，配合 `removeRoute`/`hasRoute`/`getRoutes`
+
+**30秒答**：VR4 的核心变化四点：一是创建方式——createRouter 工厂函数替代 new VueRouter，mode 选项变成 history: createWebHistory() 这种显式工厂。二是 Composition API——setup 里 useRouter 拿操作实例、useRoute 拿响应式路由信息；坑在 useRoute 返回的是 reactive 对象，直接解构 params 会丢响应性，我一般用 computed 包一层。三是 `*` 通配符移除——404 兜底改写成 `:pathMatch(.*)*`，惯例放路由表最后。四是动态路由只留单条 addRoute，批量 addRoutes 移除了。
+**追问预测**：
+- "为什么解构 route 会丢响应性" → route 是 reactive 代理——解构相当于把当前值赋给普通变量，脱离了 Proxy 的依赖追踪。computed 或 toRefs 保留响应式引用
+- "`:pathMatch(.*)*` 末尾的 `*` 是什么意思" → 可重复修饰符——匹配结果按 `/` 切成数组放进 params.pathMatch；不加 `*` 拿到的是整段字符串
+- "为什么移除 addRoutes" → VR4 匹配器重写为基于评分排序——addRoute 单条注入返回删除函数、支持指定父路由嵌套，批量场景循环调用即可
+
+> 答案参考：[../VueRouter/dynamic-routing.md](../VueRouter/dynamic-routing.md)（addRoute 与 `:pathMatch(.*)*`）
+> 延伸：[../VueRouter/history-vs-hash.md](../VueRouter/history-vs-hash.md)（createRouter/createWebHistory 工厂函数）
+
+---
+
+### Q9: params vs query 传参 | 对比题 传参方式与场景决策
+
+> ⭐⭐⭐⭐⭐ | 难度：初级 | 🏷️ 对比题
+
+**题目**：路由传参 params 和 query 有什么区别？各适合什么场景？敏感数据想传到下一个页面但不出现在 URL 里怎么办？
+
+**考察点**：
+- URL 形态：params 是路径的一部分（`/user/1`，需在路由表声明 `:id`）；query 是查询串（`/user?id=1`，无需路由配置）
+- VR4 坑：params 必须配合命名路由——`push({ path, params })` 中 params 被直接忽略；未在 path 声明的"隐形 params"刷新必丢，4.1.4 起直接丢弃并告警
+- 场景决策：单个资源标识用 params（RESTful）、筛选/分页/批量 id 用 query（支持数组多值）、敏感数据不进 URL——history state 或 Pinia
+- 新标签页打开：`router.resolve(to).href` + `window.open()`——push 只作用于当前窗口
+- `$route` vs `$router`：一个是只读路由信息对象（params/query/meta），一个是路由器操作实例（push/replace/go）
+
+**30秒答**：params 是路径的一部分——/user/1，要在路由表声明 :id，RESTful 风格；query 是问号后的查询串——/user?id=1，不用改路由配置，天然支持多值，适合筛选分页和批量 id。VR4 有个坑：params 必须搭配命名路由，push({ path, params }) 里的 params 会被忽略；没在 path 里声明的隐形 params 刷新就丢，4.1.4 之后干脆废弃了。敏感数据不进 URL——用 push 的 state 选项或者 Pinia。顺带区分下 $route 和 $router：一个是当前路由信息对象，一个是执行导航的操作实例。
+**追问预测**：
+- "$router.push 和 location.href 的区别" → push 走路由匹配——SPA 内部导航、不刷新页面、经过守卫和 scrollBehavior；location.href 触发整页刷新——应用重新初始化、内存状态全丢，只适合跳外部链接
+- "params 传了但刷新后丢了，怎么回事" → 传的是未在 path 声明的隐形 params——只存在内存里，URL 上没有，刷新后路由重新解析自然拿不到。要持久就声明成 :id 或改用 query
+- "怎么在新标签页打开路由页面" → `router.resolve(to)` 拿到 href 再 `window.open(href)`——push/replace 只能在当前窗口导航
+
+> 答案参考：[../VueRouter/route-meta-props.md](../VueRouter/route-meta-props.md)
+
+---
+
+### Q10: 监听路由参数变化 | 场景题 组件复用与参数响应
+
+> ⭐⭐⭐⭐ | 难度：中级 | 🏷️ 场景题
+
+**题目**：从 /user/1 跳到 /user/2，页面数据没有刷新，为什么？有哪几种解决方案，各自的取舍是什么？
+
+**考察点**：
+- 原因：两条路由匹配同一组件——Vue 复用组件实例，setup/onMounted 不会重新执行
+- 方案一 watch：`watch(() => route.params.id, fetchData)`——最灵活，source 精确到字段、可控 immediate
+- 方案二 `:key="$route.fullPath"`：强制销毁重建组件——写法最省事，但组件全量重建、内部状态全丢
+- 方案三 onBeforeRouteUpdate：守卫时机——导航确认前拿到 to/from，可取消导航或提前请求
+- 与 KeepAlive 组合时 key 策略影响缓存粒度
+
+**30秒答**：因为两条路由渲染的是同一个组件——Vue 直接复用实例，onMounted 不会再跑，数据停在旧参数上。三种解法：一是 watch route.params.id 重新请求——最常用，粒度可控；二是给 `<router-view :key="$route.fullPath">` 加 key——一行解决但组件整个销毁重建，状态全丢、开销大；三是 onBeforeRouteUpdate 守卫——导航确认前就拿到 to/from，适合要拦截或提前校验的场景。日常我默认 watch，只有组件足够轻、状态简单时才用 key。
+**追问预测**：
+- "watch route.params 会不会被 query 变化误触发" → source 精确到具体字段（`() => route.params.id`）就不会——直接 watch 整个 route 或 params 对象才会被无关变化带动；多字段用数组 source
+- "onBeforeRouteUpdate 和 watch 的时机差异" → 守卫在导航确认前触发——可以 return false 取消导航；watch 在导航确认、响应式更新后触发。要拦截用守卫，只刷数据用 watch
+- ":key 方案和 KeepAlive 一起用会怎样" → fullPath 作 key 让每个参数组合都成为独立缓存实例——缓存数量膨胀，需要配 max 上限或精细的 include 控制
+
+> 答案参考：[../VueRouter/route-guards.md](../VueRouter/route-guards.md)（beforeRouteUpdate）
+> 延伸：[../VueRouter/keepalive-integration.md](../VueRouter/keepalive-integration.md)（fullPath key 与缓存粒度）

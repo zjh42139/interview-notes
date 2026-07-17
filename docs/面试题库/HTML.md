@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-09
-updated: 2026-07-09
+updated: 2026-07-18
 reviewed: null
 tags:
   - HTML
@@ -19,7 +19,7 @@ tags:
 ---
 # HTML 面试题库
 
-> 15 道高频 HTML 面试题，按频率排序。每道题标注难度和参考答案索引。
+> 20 道高频 HTML 面试题，按频率排序。每道题标注难度和参考答案索引。
 
 ## HTML5 语义化（5 题）
 
@@ -52,7 +52,7 @@ tags:
 **追问预测**：
 - "怪异模式和标准模式的区别" → 怪异模式模拟 IE5 盒模型 width 含 padding+border
 - "HTML4 和 HTML5 的 DOCTYPE 区别" → HTML4 依赖 DTD(SGML)又臭又长；HTML5 简化
-- "DOCTYPE 必须是第一行吗" → 必须——前面不能有空行或 BOM。否则 IE 可能触发怪异模式
+- "DOCTYPE 必须是第一行吗" → 必须——前面不能有空行或 BOM，否则任何浏览器都可能触发怪异模式
 > 🏷️ 概念题
 
 **频率**：⭐⭐⭐⭐
@@ -123,7 +123,7 @@ tags:
 - "b 和 strong 对 SEO 的影响" → SEO 给 strong 更高权重——关键词用 strong 包装有助排名
 > 🏷️ 对比题
 
-**频率**：⭐⭐⭐
+**频率**：⭐⭐
 
 **答题要点**：
 - `<em>` = 语义强调（读屏器改变语调），`<i>` = 纯视觉斜体
@@ -145,6 +145,7 @@ tags:
 - "defer 和 async 的执行时机" → defer DOMContentLoaded 前按顺序执行；async 下载完立即执行不保证顺序
 - "type=module 的行为" → 默认行为同 defer——异步下载、等 DOM 完成后执行
 - "多个 async script 的执行顺序" → 不保证——谁先下载完谁先执行
+- "async/defer 对内联脚本有效吗" → 无效——没有 src 的内联脚本会忽略这两个属性，仍同步执行
 > 🏷️ 对比题
 
 **频率**：⭐⭐⭐⭐⭐
@@ -174,7 +175,7 @@ tags:
 **频率**：⭐⭐⭐⭐
 
 **答题要点**：
-- `loading="lazy"`（Chrome 77+，零代码）
+- `loading="lazy"`（全浏览器基线支持，含 Safari/Firefox 及 iframe，零代码）
 - IntersectionObserver（~20 行，`rootMargin: '200px'` 提前加载）
 - scroll + getBoundingClientRect（不推荐，性能差）
 - 首屏图用 `fetchpriority="high"`，不应懒加载
@@ -243,7 +244,7 @@ tags:
 - "大量对象用 Canvas 还是 SVG" → Canvas——不创建 DOM 节点。SVG 节点多到 1000+ 会卡
 > 🏷️ 对比题
 
-**频率**：⭐⭐⭐⭐
+**频率**：⭐⭐⭐
 
 **答题要点**：
 - 本质：Canvas 位图 vs SVG 矢量图
@@ -340,7 +341,7 @@ tags:
 - "实际项目用 Web Components 吗" → 少——多数用框架。跨团队共享基础组件时有场景
 > 🏷️ 对比题
 
-**频率**：⭐⭐⭐⭐
+**频率**：⭐⭐⭐
 
 **答题要点**：
 - 三大标准：Custom Elements、Shadow DOM、HTML Template
@@ -376,15 +377,7 @@ tags:
 
 ---
 
-
-| 模块 | 题目数 | 覆盖文件 |
-|------|--------|----------|
-| HTML5 语义化 | 5 | html5-semantic, doctype-meta, form-validation |
-| 加载与性能 | 3 | script-defer-async, lazy-loading |
-| 元素与事件 | 3 | block-inline, canvas-svg, iframe |
-| 路由与架构 | 4 | history-api, web-worker, web-components, seo-ssr |
-
----
+## 补充题（5 题）
 
 ### Q16: `<dialog>` / Popover API
 
@@ -408,4 +401,75 @@ tags:
 
 > 答案参考：[../HTML/doctype-meta.md](../HTML/doctype-meta.md)
 
-**频率分布**：⭐⭐⭐⭐⭐ ×5｜⭐⭐⭐⭐ ×9｜⭐⭐⭐ ×3
+---
+
+### Q18: 无障碍（a11y）与 ARIA
+
+> ⭐⭐⭐⭐ | 难度：中级
+
+**题目**：前端怎么做无障碍（Accessibility）？role 和 aria-* 属性什么时候用？为什么 div 模拟的按钮不如原生 button？
+
+**考察点**：语义化与可访问性的关系、ARIA 使用原则、表单可访问性、键盘导航
+
+**30秒答**：我做 a11y 的第一道防线是语义化标签——button/nav/h1 自带角色、焦点和键盘行为，能用原生就不用 ARIA。语义不够时才补：aria-label 给无文本控件命名、aria-describedby 关联描述文本、aria-hidden 对读屏器隐藏装饰元素。表单用 label 的 for 关联输入框、fieldset+legend 分组。键盘导航靠 tabindex——0 加入焦点序列、-1 移出，inert 让整块区域不可交互。div 模拟按钮要自己补 role、tabindex 和 Enter/Space 键盘事件——原生 button 全部自带。
+
+**追问预测**：
+- "ARIA 的第一原则是什么" → 能用原生 HTML 语义就不用 ARIA——div 加 role="button" 不会自动获得键盘行为
+- "aria-label 和 aria-labelledby 的区别" → aria-label 直接写文本；aria-labelledby 引用另一个元素的 id
+- "tabindex 为什么不建议用正值" → 打乱自然 Tab 顺序难维护——只用 0 和 -1
+- "怎么测无障碍" → Lighthouse/axe 自动扫描 + 读屏器（VoiceOver/NVDA）+ 纯键盘走一遍核心流程
+> 🏷️ 概念题
+
+> 答案参考：[../HTML/accessibility.md](../HTML/accessibility.md)
+
+---
+
+### Q19: HTML5 新特性总览
+
+> ⭐⭐⭐⭐ | 难度：初级
+
+**题目**：相比 HTML4，HTML5 新增了哪些能力？请分类概述。
+
+**考察点**：HTML5 能力全景、分类归纳、每类的代表 API
+
+**30秒答**：我按六类记：语义化——header/nav/main/article 结构标签；多媒体——audio/video 原生播放摆脱 Flash；图形——canvas 位图、内联 svg 矢量图；存储——localStorage 持久、sessionStorage 会话级；通信——WebSocket 全双工、SSE 服务端单向推送；设备与交互 API——拖拽 draggable、Geolocation 地理位置、History API 无刷新路由。另外还有表单增强（新 input 类型+约束校验）和 Web Worker 多线程。
+
+**追问预测**：
+- "localStorage 和 sessionStorage 的区别" → localStorage 持久不过期；sessionStorage 标签页关闭即清除
+- "WebSocket 和 SSE 怎么选" → 双向实时（聊天/协作）用 WebSocket；服务端单向推送（行情/通知）用 SSE 更轻
+- "挑一两个讲讲项目里怎么用的" → History API 做 SPA 路由、localStorage 存用户偏好——准备好具体场景
+> 🏷️ 概念题
+
+> 答案参考：[../HTML/index.md](../HTML/index.md)（知识地图，暂无专门总览文件）
+
+---
+
+### Q20: src 和 href 有什么区别？
+
+> ⭐⭐⭐ | 难度：初级
+
+**题目**：src 和 href 都能引入外部资源，本质区别是什么？分别用在哪些元素上？
+
+**考察点**：资源嵌入 vs 超文本引用、加载阻塞行为、典型元素归类
+
+**30秒答**：src 是 source——资源嵌入，内容会替换进元素成为文档一部分，典型是 script/img/iframe/video；解析到 script src 会暂停 DOM 解析先下载执行，所以才有 defer/async。href 是 hypertext reference——只建立文档和资源的关联，典型是 a/link；link 引 CSS 并行下载不阻塞解析（但阻塞渲染）。一句话：src 拿内容来嵌入，href 建关联去引用。
+
+**追问预测**：
+- "为什么 CSS 用 link href 而不是 src" → CSS 是关联到文档的资源不是嵌入内容——并行下载互不阻塞
+- "script 的 src 为什么阻塞解析" → JS 可能 document.write 修改后续 HTML——必须等它执行完
+- "img 的 src 阻塞解析吗" → 不阻塞——图片异步下载，只影响 load 事件时机
+> 🏷️ 对比题
+
+> 答案参考：[../HTML/src-href.md](../HTML/src-href.md)
+
+---
+
+| 模块 | 题目数 | 覆盖文件 |
+|------|--------|----------|
+| HTML5 语义化 | 5 | html5-semantic, doctype-meta, form-validation |
+| 加载与性能 | 3 | script-defer-async, lazy-loading, src-href |
+| 元素与事件 | 3 | block-inline, canvas-svg, iframe |
+| 路由与架构 | 4 | history-api, web-worker, web-components, seo-ssr |
+| 补充题 | 5 | html5-semantic, doctype-meta, accessibility, src-href |
+
+**频率分布**：⭐⭐⭐⭐⭐ ×5｜⭐⭐⭐⭐ ×9｜⭐⭐⭐ ×5｜⭐⭐ ×1
