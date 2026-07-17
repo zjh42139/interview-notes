@@ -619,6 +619,7 @@ export default defineConfig({
           collapsible: false,
           items: [
             { text: 'Axios 封装', link: '/项目实战/基础设施/axios-encapsulation' },
+            { text: '请求重试', link: '/项目实战/基础设施/request-retry' },
             { text: '防重复请求', link: '/项目实战/基础设施/request-dedup' },
             { text: 'Mock', link: '/项目实战/基础设施/mock' },
             { text: '错误处理 / 前端监控', link: '/项目实战/基础设施/error-monitoring' },
@@ -660,6 +661,7 @@ export default defineConfig({
             { text: '大文件上传', link: '/项目实战/业务场景/big-file-upload' },
             { text: 'SSE 流式对话', link: '/项目实战/业务场景/sse-streaming' },
             { text: '水印安全', link: '/项目实战/业务场景/watermark-security' },
+            { text: '富文本编辑器', link: '/项目实战/业务场景/rich-text-editor' },
           ],
         },
         { text: '项目优化', link: '/项目实战/项目优化/project-optimization' },

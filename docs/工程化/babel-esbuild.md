@@ -126,6 +126,27 @@ swc:       0.5s  # Rust 实现的"超快 Babel"
 - 某些较新的 ES 提案特性支持滞后（如 decorators 标准提案），且不支持 AST 级别自定义转换
 - ESM/CJS 互操作在某些边界场景有 bug
 
+### SWC —— 另一个 Rust 选手
+
+**SWC（Speedy Web Compiler）** 和 ESBuild 一样用 Rust 编写，定位类似但生态不同：
+
+| 维度 | Babel | ESBuild | SWC |
+|------|-------|---------|-----|
+| 语言 | JavaScript | Go | **Rust** |
+| 速度 | 1x（基准） | ~100x | ~70x |
+| 插件系统 | 完善（AST 级别） | 有限（钩子级别） | 实验性 |
+| 生态 | 最大 | Vite 内置 | Next.js 内置 |
+| Vue3 项目使用 | 传统方案 | **Vite 默认** | 通过插件 |
+
+**SWC 在 Vue3 生态中的位置**：Next.js 已从 Babel 全面迁移到 SWC，但 Vue3 生态中 Vite 内置的是 ESBuild。SWC 可通过 `unplugin-swc` 或 `vite-plugin-swc` 接入 Vite，但主流方案仍是 ESBuild。
+
+**什么时候用 SWC**：
+1. 从 Next.js 项目迁移过来的团队习惯 SWC
+2. 需要 SWC 的特定插件（如 Relay、Emotion CSS-in-JS）
+3. 需要比 ESBuild 更灵活的 transform 能力（SWC 插件生态虽不成熟但比 ESBuild 强）
+
+**面试要点**：知道 SWC 存在、知道它是 Rust 写的、知道它和 ESBuild 的核心差异在插件系统而非速度。面试官问「除了 ESBuild 还有什么」时能接上 SWC 就够。
+
 ## 深度拓展
 
 ### 为什么 Vite 用 esbuild 做预构建而不是 Babel？
