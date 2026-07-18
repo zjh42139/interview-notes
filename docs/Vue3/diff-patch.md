@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: 2026-07-05
 tags:
   - Diff
@@ -197,7 +197,7 @@ Vue3 编译器的三项核心优化，让 Diff 从"遍历整个模板"变为"只
 | STYLE | 4 | style 动态 |
 | PROPS | 8 | 非 class/style 的动态属性 |
 | FULL_PROPS | 16 | 有动态 key 的属性 |
-| HYDRATE_EVENTS | 32 | 有事件监听 |
+| HYDRATE_EVENTS | 32 | 有事件监听（Vue 3.4 更名为 NEED_HYDRATION，值仍为 32，面试中两个名字都可能出现） |
 | STABLE_FRAGMENT | 64 | 子节点顺序稳定 |
 | KEYED_FRAGMENT | 128 | 子节点有 key |
 
@@ -347,3 +347,4 @@ Block Tree 的决策发生在**编译时**——哪些节点是动态的、Block
 ## 更新记录
 
 - 2026-07：完整填充（Phase 2），加入 patchKeyedChildren 流程图、LIS 手写、Vue2 vs Vue3 对比
+- 2026-07-18：PatchFlag 表 HYDRATE_EVENTS 处补充 Vue 3.4 更名为 NEED_HYDRATION 的注释（值仍为 32）

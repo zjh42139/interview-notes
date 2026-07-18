@@ -188,6 +188,32 @@ function create<T extends object>(obj: T & { id?: never }): void {}
 
 替代方案：能用 `unknown` + 类型守卫就不用 any；能用泛型就不用 any；能用 `Record<string, unknown>` 就不用 `any`。
 
+### 追问4：运行时类型校验——TS 的类型安全边界在哪？
+
+**TypeScript 只提供编译期安全**——类型注解在编译后全部擦除，运行时没有任何检查。所以在"数据从外部进入程序"的边界（API 响应、localStorage、URL 参数、postMessage、用户输入），必须做运行时校验，否则类型标注只是自欺欺人。
+
+推荐的数据流：**API 响应 → `unknown` → schema 校验（zod/yup）→ 类型安全**。
+
+```typescript
+import { z } from 'zod';
+
+// 1. 定义 schema —— 它既是运行时校验器，又能推导出静态类型
+const UserSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+});
+type User = z.infer<typeof UserSchema>; // 类型从 schema 推导，单一数据源
+
+// 2. 响应先落到 unknown，再经 schema 校验
+async function fetchUser(id: number): Promise<User> {
+  const raw: unknown = await fetch(`/api/user/${id}`).then(r => r.json());
+  return UserSchema.parse(raw); // 校验失败抛异常，成功则返回类型安全的 User
+}
+```
+
+**"为什么不用 any 直接用"**——这是理解 unknown 价值的关键：`const raw: any = await res.json()` 也能跑，但 any 跳过编译器，后续所有访问都无检查，错误留到运行时爆炸；`unknown` 则**迫使你写守卫**——不校验就无法使用，编译器逼着你在边界处补上运行时验证。any 是"绕过检查"，unknown 是"推迟到验证后再放行"，这正是前文手写 `isValidResponse` 类型守卫的工程化升级版：手写守卫适合简单结构，字段多、嵌套深时用 zod/yup 这类 schema 库更可维护。
+
 ## 项目实战
 
 ### 1. API 响应先用 unknown 再用类型守卫验证
@@ -388,3 +414,4 @@ let n: never = 1 as never;       // ✅ 强制断言可以
 
 - 2026-07-18：一致性审计——NonNullable 旧式实现旁标注 TS 4.8+ 官方 `T & {}` 实现（与 utility-types.md 对齐）
 - 2026-07-18：事实审计——修正"双向协变"术语为双向兼容、重写 never 禁止属性示例（改为 `id?: never`）并澄清 NoInfer 的实际用途（TS 5.4 内置）
+- 2026-07-18：新增「运行时类型校验」追问——编译期安全的边界、unknown + zod/yup schema 校验数据流、any 与 unknown 在边界处的本质区别

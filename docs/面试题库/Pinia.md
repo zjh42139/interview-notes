@@ -69,6 +69,7 @@ tags:
 - "setup 中 store 怎么用最方便" → `const { count, double } = storeToRefs(store)`——模板中直接 `{{ count }}` 不用 `.value`
 
 > 答案参考：[../Pinia/state.md](../Pinia/state.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/Pinia/store-to-refs.md)
 
 ---
 
@@ -228,7 +229,8 @@ tags:
 - "父子组件共享的状态放哪" → props/emit 或 v-model——父子通信不需要动用全局 store，Pinia 是给"不相关组件"用的
 - "跨层级但只在一棵子树内共享呢" → provide/inject——绑定在组件树上，同一子树两个实例各自独立，这是 Pinia（全局单例）替代不了的场景
 
-> 答案参考：[../Vue3/component-communication.md](../Vue3/component-communication.md)、[../Pinia/state.md](../Pinia/state.md)
+> 答案参考：[../Pinia/pinia-state-boundary.md](../Pinia/pinia-state-boundary.md)
+> 延伸：[../Vue3/component-communication.md](../Vue3/component-communication.md)、[../Pinia/state.md](../Pinia/state.md)
 
 ---
 

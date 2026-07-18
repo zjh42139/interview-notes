@@ -97,7 +97,7 @@ tags:
 - "用户不刷新，懒加载旧 chunk 404 了怎么办" → 全局捕获动态 import 失败，提示刷新。根因是覆盖式发布删了旧资源——见 Q6
 - "为什么不直接强制刷新" → 用户可能正在填表单，强刷丢数据。提示 + 用户确认才是合理体验
 
-> 答案参考：[../CICD/overview.md](../CICD/overview.md)（部署流程；版本更新通知暂无专门知识文件）
+> 答案参考：[../CICD/overview.md](../CICD/overview.md)（部署策略考量一节）
 
 ---
 
@@ -121,5 +121,6 @@ tags:
 - "覆盖式发布有什么隐患" → 旧 chunk 被删，停留在旧页面的用户懒加载报 404；部署瞬间还存在新旧 html/资源不一致的窗口
 - "CDN 上的旧缓存怎么处理" → hash 资源新 URL 自动回源不用管；index.html 发版后主动 purge/刷新 CDN 缓存
 
-> 答案参考：[../工程化/webpack.md](../工程化/webpack.md)（contenthash 配置；部署侧缓存策略暂无专门知识文件）
+> 答案参考：[../CICD/overview.md](../CICD/overview.md)（部署策略考量一节）
+> 延伸：[../工程化/webpack.md](../工程化/webpack.md)（contenthash 配置）
 > 延伸：强缓存/协商缓存机制见 [./浏览器.md](./浏览器.md) Q5

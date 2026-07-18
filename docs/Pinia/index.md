@@ -6,7 +6,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Pinia
   - 状态管理
@@ -51,6 +51,10 @@ mindmap
         日志 / 埋点
         全局 loading
         共享方法 / 状态
+      状态边界划分
+        判断三原则
+        本地 vs 全局
+        过度全局化代价
     对比与迁移
       Pinia vs Vuex
         无 mutation
@@ -80,6 +84,7 @@ mindmap
 6. ⭐⭐⭐⭐⭐ [persist](./persist.md) — 数据持久化
 7. ⭐⭐⭐ [plugins](./plugins.md) — 封装复用逻辑
 8. ⭐⭐⭐ [进阶(组件外/TS/SSR)](./advanced.md) — 边缘场景
+9. ⭐⭐⭐⭐ [状态边界划分](./pinia-state-boundary.md) — 什么放 Pinia 什么不放
 
 ## 知识点索引
 
@@ -93,6 +98,7 @@ mindmap
 | Pinia vs Vuex | ⭐⭐⭐⭐⭐ | [vs-vuex.md](./vs-vuex.md) | 核心差异对比、迁移建议 |
 | 插件 | ⭐⭐⭐ | [plugins.md](./plugins.md) | 插件机制、全局 loading、共享方法 |
 | 进阶 | ⭐⭐⭐ | [advanced.md](./advanced.md) | 组件外使用 store、TypeScript 类型、SSR 场景 |
+| 状态边界划分 | ⭐⭐⭐⭐ | [pinia-state-boundary.md](./pinia-state-boundary.md) | 判断三原则、本地 vs 全局、过度全局化代价 |
 
 ## 面试高频考点
 
@@ -111,4 +117,5 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-18：新增状态边界划分知识点，更新 mindmap、学习顺序、索引表
 - 2026-07-06：初始创建，完成 Pinia 知识地图

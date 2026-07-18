@@ -5,7 +5,31 @@ description: 知识库变更记录
 
 # Changelog
 
-## 2026-07-18
+## 2026-07-18（续）
+
+### 审计产出落地：3 新知识文件 + 7 回答稿 + 5 追加小节 + 3 个面试工具
+
+**知识文件**:
+- 新增 `Pinia/pinia-state-boundary.md`（状态边界划分三原则）、`HTML/html5-overview.md`（新特性全景总览）、`Git/fetch-vs-pull.md`（远程协作核心）
+- 5 处现有文件追加小节: TS 联合vs交叉/断言体系/运行时校验、工程化 Rspack/Turbopack、CICD 部署策略考量
+- HR 双文件去重：删除 `HR/面试题.md`，sidebar 改链题库版；HR 职业规划/离职原因频率同步为 5 星
+
+**回答稿 7 篇（67→74）**:
+- HTML: ssr-csr-ssg-isr / VueRouter: vue-router-4 + params-query / 网络: http-methods
+- Pinia: store-to-refs / 浏览器: reflow-repaint + memory-leak
+- 9 处题库 🎤 挂链（含跨模块 2 处）+ sidebar/index/首页计数全量同步
+
+**待确认项修复**:
+- Vue3 diff-patch HYDRATE_EVENTS 更名注记、keepalive 内存估算弱化
+- 算法 common-questions 「30 道」→「15 道」
+- TS NonNullable 新旧实现对齐注记、0.5px Android 两文口径统一
+
+**面试工具 3 篇**（审计产出落地，面试前直接使用）:
+- [面试前速查](面试前速查.md) — 23 个高频致命错误一句话纠正（来自 ~78 个 P0）
+- [常见错误说法对照表](常见错误说法对照表.md) — 10 模块 50 条陷阱问答，模拟面试训练材料
+- [冲刺计划](冲刺计划.md) — 集成真题校验发现的高频考点和纠正点
+
+### Phase 4 一致性审计 + Phase 5 结构收尾（5 阶段审计收官）
 
 ### Phase 4 一致性审计 + Phase 5 结构收尾（5 阶段审计收官）
 

@@ -384,6 +384,7 @@ tags:
 - 选型：toB 后台用 CSR，toC 内容站用 SSG，电商用 SSR
 
 **参考**：[SEO / SSR](../HTML/seo-ssr.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/HTML/ssr-csr-ssg-isr.md)
 
 ---
 
@@ -450,7 +451,7 @@ tags:
 - "挑一两个讲讲项目里怎么用的" → History API 做 SPA 路由、localStorage 存用户偏好——准备好具体场景
 > 🏷️ 概念题
 
-> 答案参考：[../HTML/index.md](../HTML/index.md)（知识地图，暂无专门总览文件）
+> 答案参考：[../HTML/html5-overview.md](../HTML/html5-overview.md)
 
 ---
 

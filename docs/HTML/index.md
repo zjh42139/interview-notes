@@ -11,6 +11,7 @@ status: reviewed
 mindmap
   root((HTML))
     语义化
+      HTML5 新特性总览
       HTML5 新标签
       DOCTYPE
       Meta / viewport
@@ -71,34 +72,36 @@ mindmap
 
 ### 一、语义与结构
 
-1.  ⭐⭐⭐⭐⭐ [HTML5 语义化](./html5-semantic.md)
-2.  ⭐⭐⭐⭐ [DOCTYPE / Meta](./doctype-meta.md)
-3.  ⭐⭐⭐⭐ [块级 / 行内元素](./block-inline.md)
-4.  ⭐⭐⭐ [HTML 实体与编码](./html-entities.md)
+1.  ⭐⭐⭐⭐ [HTML5 新特性总览](./html5-overview.md)
+2.  ⭐⭐⭐⭐⭐ [HTML5 语义化](./html5-semantic.md)
+3.  ⭐⭐⭐⭐ [DOCTYPE / Meta](./doctype-meta.md)
+4.  ⭐⭐⭐⭐ [块级 / 行内元素](./block-inline.md)
+5.  ⭐⭐⭐ [HTML 实体与编码](./html-entities.md)
 
 ### 二、资源与加载
 
-5.  ⭐⭐⭐⭐ [defer / async](./script-defer-async.md)
-6.  ⭐⭐⭐ [src / href](./src-href.md)
-7.  ⭐⭐⭐ [a 标签全面解析](./a-tag.md)
-8.  ⭐⭐⭐⭐⭐ [HTML5 表单与约束验证](./form-validation.md)
-9.  ⭐⭐⭐⭐ [图片懒加载](./lazy-loading.md)
+6.  ⭐⭐⭐⭐ [defer / async](./script-defer-async.md)
+7.  ⭐⭐⭐ [src / href](./src-href.md)
+8.  ⭐⭐⭐ [a 标签全面解析](./a-tag.md)
+9.  ⭐⭐⭐⭐⭐ [HTML5 表单与约束验证](./form-validation.md)
+10. ⭐⭐⭐⭐ [图片懒加载](./lazy-loading.md)
 
 ### 三、进阶主题
 
-10. ⭐⭐⭐⭐ [Canvas vs SVG](./canvas-svg.md)
-11. ⭐⭐⭐⭐⭐ [History API 与 SPA 路由](./history-api.md)
-12. ⭐⭐⭐⭐ [iframe](./iframe.md)
-13. ⭐⭐⭐⭐ [Web Worker](./web-worker.md)
-14. ⭐⭐⭐ [Web Components](./web-components.md)
-15. ⭐⭐⭐⭐⭐ [SEO / SSR / CSR / Hydration](./seo-ssr.md)
-16. ⭐⭐⭐⭐ [可访问性 ARIA](./accessibility.md)
-17. ⭐⭐⭐⭐ [响应式图片/Resource Hints](./responsive-images-resource-hints.md)
+11. ⭐⭐⭐⭐ [Canvas vs SVG](./canvas-svg.md)
+12. ⭐⭐⭐⭐⭐ [History API 与 SPA 路由](./history-api.md)
+13. ⭐⭐⭐⭐ [iframe](./iframe.md)
+14. ⭐⭐⭐⭐ [Web Worker](./web-worker.md)
+15. ⭐⭐⭐ [Web Components](./web-components.md)
+16. ⭐⭐⭐⭐⭐ [SEO / SSR / CSR / Hydration](./seo-ssr.md)
+17. ⭐⭐⭐⭐ [可访问性 ARIA](./accessibility.md)
+18. ⭐⭐⭐⭐ [响应式图片/Resource Hints](./responsive-images-resource-hints.md)
 
 ## 知识点索引
 
 | 知识点 | 频率 | 难度 | 状态 |
 |--------|------|------|------|
+| [HTML5 新特性总览](./html5-overview.md) | ⭐⭐⭐⭐ | 初级 | filled |
 | [HTML5 语义化](./html5-semantic.md) | ⭐⭐⭐⭐⭐ | 初级 | reviewed |
 | [DOCTYPE / Meta](./doctype-meta.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
 | [块级 / 行内元素](./block-inline.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
@@ -123,5 +126,6 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-18：新增 HTML5 新特性总览，更新 mindmap、学习顺序、索引表
 - 2026-07-12：学习顺序三组分类（语义与结构/资源与加载/进阶主题）
 - 2026-07-05：初始创建

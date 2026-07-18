@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - Babel
@@ -147,6 +147,23 @@ swc:       0.5s  # Rust 实现的"超快 Babel"
 
 **面试要点**：知道 SWC 存在、知道它是 Rust 写的、知道它和 ESBuild 的核心差异在插件系统而非速度。面试官问「除了 ESBuild 还有什么」时能接上 SWC 就够。
 
+### Rspack 与 Turbopack —— Rust 工具链的下一步
+
+ESBuild/SWC 解决的是"编译"提速，Rspack/Turbopack 把 Rust 化推进到了"打包器"层面。演进逻辑很清晰：**JS 写的工具（Webpack/Babel）受限于单线程串行解析和 JIT 开销，性能天花板已经摸到了**——项目规模翻倍、构建时间线性甚至超线性增长，唯一出路是换语言重写核心。
+
+| 维度 | Rspack | Turbopack |
+|------|--------|-----------|
+| 出品方 | 字节跳动开源 | Vercel 开发 |
+| 定位 | Webpack 的 Rust 替代品 | Next.js 专属打包器 |
+| 兼容性 | **兼容 Webpack loader/plugin API** | 不兼容 Webpack 生态 |
+| 核心优势 | 老项目无痛替换，冷启动快 5-10x | 增量计算（函数级缓存），改动越小重编译越快 |
+| 适用场景 | 存量 Webpack 项目迁移 | Next.js 项目（`next dev --turbo`） |
+
+- **Rspack**：核心卖点是**兼容 Webpack 生态**——大部分 loader/plugin 配置照搬即可跑，老项目几乎无痛替换，冷启动和热更新普遍快 5-10 倍。这是字节内部大量巨型 Webpack 工程逼出来的方案。
+- **Turbopack**：Vercel 为 Next.js 打造，不追求通用兼容，而是押注**增量计算**——底层引擎把构建拆成细粒度函数并缓存结果（函数级缓存），只重算受改动影响的部分，理论上项目越大增量优势越明显。
+
+**选型口诀**：新项目直接 Vite；存量 Webpack 项目迁 Rspack（成本最低）；Next.js 项目跟着官方走 Turbopack。面试官问「Webpack 太慢怎么办」时，Rspack 是比「换 Vite 重写配置」更现实的答案。
+
 ## 深度拓展
 
 ### 为什么 Vite 用 esbuild 做预构建而不是 Babel？
@@ -275,3 +292,4 @@ real    0m 32s   # 快了 4 倍
 ## 更新记录
 
 - 2026-07-05：Phase 2 深度填充（AST 三阶段 + preset-env + ESBuild 速度原理 + SWC 对比 + 项目配置）
+- 2026-07-18：新增「Rspack 与 Turbopack」小节——Rust 工具链演进逻辑、两者定位对比、选型建议

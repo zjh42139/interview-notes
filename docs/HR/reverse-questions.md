@@ -86,7 +86,7 @@ tags:
 ## 相关阅读
 
 - [薪资谈判](./salary-negotiation.md)
-- [HR 面试题库](./面试题.md)
+- [HR 面试题库](../面试题库/HR.md)
 
 ## 更新记录
 

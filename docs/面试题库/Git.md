@@ -240,4 +240,5 @@ tags:
 - "FETCH_HEAD 是什么？" → fetch 完成后 Git 把取回的分支头记录在 `.git/FETCH_HEAD`，`git merge FETCH_HEAD` 等价于 pull 的第二步
 - "fetch 之后怎么看远程有哪些新提交？" → `git log HEAD..origin/main --oneline` 或 `git diff HEAD origin/main`
 
-> 📖 答案参考：[merge vs rebase](../Git/merge-vs-rebase.md)（pull --rebase 依赖的 rebase 机制）
+> 📖 答案参考：[fetch vs pull](../Git/fetch-vs-pull.md)
+> 延伸：[merge vs rebase](../Git/merge-vs-rebase.md)（pull --rebase 依赖的 rebase 机制）

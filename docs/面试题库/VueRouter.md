@@ -210,6 +210,7 @@ tags:
 - "为什么移除 addRoutes" → VR4 匹配器重写为基于评分排序——addRoute 单条注入返回删除函数、支持指定父路由嵌套，批量场景循环调用即可
 
 > 答案参考：[../VueRouter/vue-router-4.md](../VueRouter/vue-router-4.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/VueRouter/vue-router-4.md)
 > 延伸：[../VueRouter/dynamic-routing.md](../VueRouter/dynamic-routing.md)（addRoute）、[../VueRouter/history-vs-hash.md](../VueRouter/history-vs-hash.md)
 
 ---
@@ -234,6 +235,7 @@ tags:
 - "怎么在新标签页打开路由页面" → `router.resolve(to)` 拿到 href 再 `window.open(href)`——push/replace 只能在当前窗口导航
 
 > 答案参考：[../VueRouter/route-meta-props.md](../VueRouter/route-meta-props.md)
+> 🎤 回答稿：[30秒+2分钟版本](../面试回答/VueRouter/params-query.md)
 
 ---
 

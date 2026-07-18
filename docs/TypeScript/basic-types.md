@@ -203,6 +203,23 @@ interface Admin extends User { role: string }            // interface 用 extend
 
 > 声明合并的深入用法（declare module 扩展第三方类型）见[声明文件 / declare](./declaration.md)。
 
+## 深度拓展
+
+### 联合类型 vs 交叉类型
+
+`|`（联合类型）和 `&`（交叉类型）是 TypeScript 类型运算中最基础的两个操作符，语义截然不同：
+
+- **联合类型 `|`**：值满足 A **或** B 其中一个即可。`string | number` 表示值可以是 string 或 number，访问时只能使用两者共有的成员。
+- **交叉类型 `&`**：值必须**同时满足** A 且 B 的所有约束。`{ a: string } & { b: number }` 表示对象既有属性 a 又有属性 b。
+
+**对象交叉行为**：对对象类型做 `&`，同名属性的类型会做交叉合并。如果两个同名属性类型不兼容，交叉结果是 `never`——例如 `{ x: string } & { x: number }` 中属性 x 的类型为 `string & number`，即 `never`，意味着没有任何值能同时满足。非对象类型（如原始类型）交叉取交集：`string & number` → `never`、`string & string` → `string`。
+
+**适用场景**：
+- 联合类型用于**枚举/状态/多态**：定义有限取值（`'pending' | 'approved' | 'rejected'`）、函数参数支持多类型、discriminated union 做模式匹配。
+- 交叉类型用于**组合/mixin**：合并多个 interface 的属性（`User & Admin`）、给已有类型附加额外字段、泛型约束叠加。
+
+面试中经常追问的点：`interface extends` 和 `&` 在对象合并上行为类似，但有一个关键差异——同名属性类型不兼容时，`&` 静默地把该属性交叉成 `never`（错误延迟到赋值时才暴露），而 `interface extends` 在声明处**直接编译报错**（错误暴露更早、信息更清晰）。所以做对象扩展优先用 `extends`，只在需要动态组合类型（泛型、mixin）时用 `&`。
+
 ## 项目实战
 
 后台管理系统中基础类型无处不在，关键在于"不写多余的类型注解"：
@@ -276,3 +293,4 @@ u = fn3();   // ✅ undefined 类型兼容
 
 - 2026-07-14：新建——合并基础类型注解、类型推断、字面量类型、函数重载、interface vs type 五大块
 - 2026-07-18：事实审计——修复 interface/type 同名示例冲突、exactOptionalPropertyTypes 适用范围、void 返回值宽容规则的适用场景
+- 2026-07-18：新增「联合类型 vs 交叉类型」小节——`|` 和 `&` 语义区别、对象交叉行为、适用场景

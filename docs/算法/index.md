@@ -6,7 +6,7 @@ difficulty: null
 frequency: null
 status: filled
 created: 2026-07-05
-updated: 2026-07-11
+updated: 2026-07-18
 reviewed: null
 tags:
   - 算法
@@ -32,7 +32,7 @@ mindmap
       DFS / BFS
       动态规划
     面试实战
-      高频题 Top 30
+      高频题 Top 15
 ```
 
 ## 推荐学习顺序
@@ -81,6 +81,7 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-18：mindmap"高频题 Top 30"改为"Top 15"（与 common-questions.md 实际题数对齐）
 - 2026-07-12：学习顺序三组分类（基础数据结构/核心算法思想/面试实战），链表+树归入数据结构
 - 2026-07-11：学习顺序编号去重（修复 #5 出现三次的 bug）；mindmap 三组缩并（数据结构/算法思想/实战）；去重 双指针/滑动窗口 的 mindmap 重复节点
 - 2026-07-05：初始创建

@@ -139,6 +139,7 @@ export default defineConfig({
           text: '语义与结构',
           collapsible: false,
           items: [
+            { text: 'HTML5 新特性总览', link: '/HTML/html5-overview' },
             { text: 'HTML5 语义化', link: '/HTML/html5-semantic' },
             { text: 'DOCTYPE / Meta', link: '/HTML/doctype-meta' },
             { text: '块级 / 行内元素', link: '/HTML/block-inline' },
@@ -179,6 +180,7 @@ export default defineConfig({
           items: [
             { text: 'Commit 规范', link: '/Git/commit-spec' },
             { text: 'merge vs rebase', link: '/Git/merge-vs-rebase' },
+            { text: 'fetch vs pull', link: '/Git/fetch-vs-pull' },
             { text: '冲突处理', link: '/Git/conflict-resolution' },
             { text: 'reset vs revert', link: '/Git/reset-vs-revert' },
           ],
@@ -301,6 +303,7 @@ export default defineConfig({
           text: '工程化',
           collapsible: false,
           items: [
+            { text: '状态边界划分', link: '/Pinia/pinia-state-boundary' },
             { text: '插件', link: '/Pinia/plugins' },
             { text: '进阶(组件外/TS/SSR)', link: '/Pinia/advanced' },
           ],
@@ -739,6 +742,7 @@ export default defineConfig({
         { text: '职业规划', link: '/HR/career-plan' },
         { text: '薪资谈判', link: '/HR/salary-negotiation' },
         { text: '反问面试官', link: '/HR/reverse-questions' },
+        { text: 'HR 高频面试题（17 道）', link: '/面试题库/HR' },
       ],
       '/模拟面试/': [
         { text: '模拟面试 总览', link: '/模拟面试/' },
@@ -759,6 +763,7 @@ export default defineConfig({
             { text: 'script 加载 / 懒加载 / Resource Hints', link: '/面试回答/HTML/script-lazy-loading' },
             { text: 'viewport / 表单', link: '/面试回答/HTML/form-meta-viewport' },
             { text: 'Canvas vs SVG / History API', link: '/面试回答/HTML/canvas-svg-history' },
+            { text: 'CSR / SSR / SSG / ISR', link: '/面试回答/HTML/ssr-csr-ssg-isr' },
           ],
         },
         {
@@ -831,6 +836,8 @@ export default defineConfig({
             { text: 'URL 到页面', link: '/面试回答/浏览器/url-to-page' },
             { text: '浏览器缓存', link: '/面试回答/浏览器/cache' },
             { text: '浏览器存储方案', link: '/面试回答/浏览器/storage' },
+            { text: '回流与重绘', link: '/面试回答/浏览器/reflow-repaint' },
+            { text: '内存泄漏排查', link: '/面试回答/浏览器/memory-leak' },
           ],
         },
         {
@@ -842,6 +849,7 @@ export default defineConfig({
             { text: 'TCP 连接管理', link: '/面试回答/网络/tcp' },
             { text: '跨域 CORS', link: '/面试回答/网络/cors' },
             { text: 'DNS / CDN', link: '/面试回答/网络/dns-cdn' },
+            { text: 'GET vs POST 方法语义', link: '/面试回答/网络/http-methods' },
           ],
         },
         {
@@ -861,6 +869,8 @@ export default defineConfig({
             { text: 'history vs hash', link: '/面试回答/VueRouter/history-hash' },
             { text: '动态路由 / 权限路由', link: '/面试回答/VueRouter/dynamic-routing' },
             { text: '路由守卫', link: '/面试回答/VueRouter/route-guards' },
+            { text: 'Vue Router 4 破坏性变更', link: '/面试回答/VueRouter/vue-router-4' },
+            { text: 'params vs query 传参', link: '/面试回答/VueRouter/params-query' },
           ],
         },
         {
@@ -868,6 +878,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: 'Pinia vs Vuex', link: '/面试回答/Pinia/pinia-vs-vuex' },
+            { text: 'storeToRefs 响应式保持', link: '/面试回答/Pinia/store-to-refs' },
           ],
         },
         {

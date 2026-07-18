@@ -5,10 +5,10 @@ category: HR
 type: interview
 score: 0
 difficulty: 初级
-frequency: ⭐⭐⭐⭐
+frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: 2026-07-05
 tags:
   - 离职原因
@@ -18,7 +18,7 @@ tags:
 
 # 离职原因
 
-> ⭐⭐⭐⭐｜难度：初级
+> ⭐⭐⭐⭐⭐｜难度：初级
 
 > "面试官问你离职原因，不是在审判你上一份工作该不该走——他是在判断：同样的事情会不会也发生在你跟他公司的关系里。所以你的回答必须让他放心。"
 
@@ -166,5 +166,6 @@ Be sincere + positive + growth-focused, avoid complaining about former company.
 
 ## 更新记录
 
+- 2026-07-18：frequency 调整为 ⭐⭐⭐⭐⭐（HR 面必问题），正文星级同步
 - 2026-07-18：事实审计（Phase 3）——场景3 脚本去掉过时的"在线教育受政策影响"叙事，改为通用的降本增效/业务收缩口径；易错点2 移除不适用的信息渠道（一亩三分地为北美求职论坛）
 - 2026-07-05：完成内容填充（Phase 2），新增安全/危险理由评级表、三大场景脚本（技术瓶颈/业务不匹配/被动离职）、工作不满1年的解释策略、核心话术公式
