@@ -349,7 +349,7 @@ function useEventEmitter() {
 
 - [手写 Promise](./promise.md) -- Promise 的回调队列与 EventEmitter 的 listener 数组有相似设计
 - [手写 compose/pipe](./compose-pipe.md) -- 函数组合，可以配合 EventEmitter 实现中间件管道
-- JavaScript 发布订阅模式 -- 发布订阅 vs 观察者模式对比
+- [设计模式](../前端架构/design-patterns.md) -- 发布订阅 vs 观察者模式对比（Vue 响应式是观察者，EventBus 是发布订阅）
 - [snippets/event-emitter](../snippets/ts/event-emitter.ts) -- 项目中的 EventEmitter 工具代码
 
 ## 更新记录

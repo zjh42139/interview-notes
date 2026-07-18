@@ -82,11 +82,11 @@ mindmap
 | [CSRF](./csrf.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
 | [CSP 内容安全策略](./csp.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
 | [Token 存储安全](./token-storage.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
-| [点击劫持 / iframe 安全](./clickjacking.md) | ⭐⭐⭐⭐ | 中级 | draft |
-| [HTTPS 与传输安全](./https-security.md) | ⭐⭐⭐⭐ | 中级 | draft |
-| [前端依赖安全](./supply-chain-security.md) | ⭐⭐⭐ | 中级 | draft |
-| [认证/授权安全](./auth-security.md) | ⭐⭐⭐ | 中高级 | draft |
-| [数据泄露/postMessage](./data-leak-postmessage.md) | ⭐⭐⭐ | 中级 | draft |
+| [点击劫持 / iframe 安全](./clickjacking.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [HTTPS 与传输安全](./https-security.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [前端依赖安全](./supply-chain-security.md) | ⭐⭐⭐ | 中级 | reviewed |
+| [认证/授权安全](./auth-security.md) | ⭐⭐⭐ | 中高级 | filled |
+| [数据泄露/postMessage](./data-leak-postmessage.md) | ⭐⭐⭐ | 中级 | filled |
 
 ## 相关模块
 

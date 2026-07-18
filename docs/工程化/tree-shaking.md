@@ -239,6 +239,7 @@ npm install -D webpack-bundle-analyzer
 ## 相关阅读
 
 - [工程化 知识地图](./index.md)
+- [ESM 模块](./esm-module.md) —— Tree Shaking 的前提：ESM 静态结构与值的实时引用
 - [Webpack](./webpack.md)
 - [Vite](./vite.md)
 - [Babel / ESBuild](./babel-esbuild.md)

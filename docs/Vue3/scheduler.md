@@ -192,6 +192,7 @@ onUpdated(() => {
 - [响应式原理](./reactivity.md) — effect 的 scheduler 如何注册到调度器
 - [nextTick](./nextTick.md) — nextTick 的 Promise 链与 scheduler 的关系
 - [computed / watch](./computed-watch.md) — computed/watch 的 flush 选项详解
+- [全链路渲染流程](./vue3-full-pipeline.md) — Scheduler 在整条更新链路中的位置
 
 ## 更新记录
 

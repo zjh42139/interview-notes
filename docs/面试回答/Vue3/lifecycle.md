@@ -32,13 +32,13 @@ tags:
 
 **父子组件的执行顺序**是面试高频追问：
 
-挂载阶段：父 beforeMount→子 beforeMount→子 mounted→父 mounted。为什么是这个顺序？因为父组件的挂载需要子组件先完成——父的 DOM 包含子的 DOM，子没挂完父就不能算挂好。
+挂载阶段：父 setup→父 beforeMount→子 setup（父 render 到子组件时才创建它）→子 beforeMount→子 mounted→父 mounted。为什么是这个顺序？因为父组件的挂载需要子组件先完成——父的 DOM 包含子的 DOM，子没挂完父就不能算挂好；而子组件的创建又发生在父 render 之后，所以子 setup 排在父 beforeMount 后面。
 
 更新阶段：父 beforeUpdate→子 beforeUpdate→子 updated→父 updated。父的更新影响子（props 变了），所以子先更新完父才算更新完。
 
 卸载阶段：父 beforeUnmount→子 beforeUnmount→子 unmounted→父 unmounted。和挂载对称——子先卸父后卸。
 
-**KeepAlive 组件的特殊钩子**：被缓存的组件多了 activated（切回来）和 deactivated（切出去），这两个在正常生命周期钩子之间触发。
+**KeepAlive 组件的特殊钩子**：被缓存的组件多了 activated（切回来）和 deactivated（切出去）。首次挂载时 activated 也会触发——在 mounted 之后；之后的切换只走 activated/deactivated，不再触发 mounted/unmounted。
 
 **setup 执行时机**：props 初始化→setup()→beforeCreate→created→…。setup 最早——连 beforeCreate 都在它后面。所以在 setup 里没有 this。"
 
@@ -77,4 +77,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——挂载顺序补全 setup 位置（父 setup→父 beforeMount→子 setup→子 beforeMount→子 mounted→父 mounted）、KeepAlive 钩子时机改为"首次挂载 activated 在 mounted 之后"
 - 2026-07-11：新建（30秒/2分钟/追问预判/易错点 标准格式）

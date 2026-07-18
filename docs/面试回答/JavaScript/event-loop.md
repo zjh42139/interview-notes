@@ -35,7 +35,7 @@ tags:
 
 **宏任务（Macrotask）**：setTimeout/setInterval、I/O、setImmediate(Node)、MessageChannel。每次只取一个宏任务执行。注意：UI 渲染是 Event Loop 中的独立步骤（在清空微任务之后、下一个宏任务之前），不是宏任务。
 
-**经典执行顺序**：`1(同步) → 4(Promise executor同步) → 7(同步) → 5(微) → 6(微任务又产生微任务) → 2(宏) → 3(宏里产生的微)`。能完整推演这段代码的顺序，Event Loop 就算掌握了。
+**经典执行顺序**：`console.log(1)`、`setTimeout(→2)`、`new Promise(executor 打印 3).then(→4)`、`console.log(5)`——输出 `1 3 5 4 2`：executor 同步执行、then 是微任务、setTimeout 是宏任务。进阶版：`.then` 里 `return Promise.resolve()` 时，外层 Promise 采纳这个内部 Promise 要花 **2 个额外微任务 tick**——两条 then 链交错时输出 `1 3 4 2`。能推演这两段，Event Loop 就算掌握了。
 
 **Node 差异**：浏览器是宏→清微→渲染→宏。Node 的 libuv 有 6 个阶段的循环。面试中大部分公司不要求 Node Event Loop 的细节。"
 
@@ -61,4 +61,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——"经典执行顺序"原引用一段不存在的 7 行代码，改为知识文件中的必考题（1 3 5 4 2）与微任务嵌套题（1 3 4 2，return Promise +2 tick）
 - 2026-07-10：重写（30秒/2分钟/追问预判/易错点 标准格式）

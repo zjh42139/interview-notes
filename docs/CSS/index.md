@@ -2,6 +2,7 @@
 title: CSS 知识地图
 description: CSS 面试知识体系
 category: CSS
+status: reviewed
 ---
 
 # CSS 知识地图
@@ -84,29 +85,29 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
-| [盒模型](./box-model.md) | ⭐⭐⭐⭐⭐ | 初级 | — | draft |
-| [选择器优先级](./specificity.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [position 定位](./position.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [BFC](./bfc.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [Flexbox](./flexbox.md) | ⭐⭐⭐⭐⭐ | 初级 | — | draft |
-| [居中方案](./center-layout.md) | ⭐⭐⭐⭐⭐ | 初级 | — | draft |
-| [CSS 继承性](./inheritance.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
-| [Grid](./grid.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [三栏布局](./three-column-layout.md) | ⭐⭐⭐⭐ | 中级 | ✅ | draft |
-| [层叠上下文](./stacking-context.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [rem / vw](./rem-vw.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
-| [移动端 1px](./mobile-1px.md) | ⭐⭐⭐ | 中级 | — | draft |
-| [文本溢出省略](./text-overflow.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
-| [transition vs animation](./transition-animation.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [伪类 vs 伪元素](./pseudo.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
-| [CSS 渲染性能](./css-performance.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
-| [CSS 变量](./css-variables.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
-| [BEM 命名](./bem.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
-| [CSS Modules / Scoped](./css-modules-scoped.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
-| [@layer 级联层](./at-layer.md) | ⭐⭐⭐⭐ | 中高级 | — | draft |
-| [包含块/边界合并](./containing-block-margin-collapse.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
-| [:has() / 嵌套 / 容器查询](./has-nesting-container.md) | ⭐⭐⭐ | 中级 | — | draft |
-| [响应式](./responsive.md) | ⭐⭐⭐ | 中级 | — | draft |
+| [盒模型](./box-model.md) | ⭐⭐⭐⭐⭐ | 初级 | — | filled |
+| [选择器优先级](./specificity.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
+| [position 定位](./position.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [BFC](./bfc.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
+| [Flexbox](./flexbox.md) | ⭐⭐⭐⭐⭐ | 初级 | — | reviewed |
+| [居中方案](./center-layout.md) | ⭐⭐⭐⭐⭐ | 初级 | — | reviewed |
+| [CSS 继承性](./inheritance.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
+| [Grid](./grid.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [三栏布局](./three-column-layout.md) | ⭐⭐⭐⭐ | 中级 | ✅ | filled |
+| [层叠上下文](./stacking-context.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [rem / vw](./rem-vw.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [移动端 1px](./mobile-1px.md) | ⭐⭐⭐ | 中级 | — | reviewed |
+| [文本溢出省略](./text-overflow.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
+| [transition vs animation](./transition-animation.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [伪类 vs 伪元素](./pseudo.md) | ⭐⭐⭐⭐ | 初级 | — | reviewed |
+| [CSS 渲染性能](./css-performance.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [CSS 变量](./css-variables.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [BEM 命名](./bem.md) | ⭐⭐⭐⭐ | 初级 | — | reviewed |
+| [CSS Modules / Scoped](./css-modules-scoped.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [@layer 级联层](./at-layer.md) | ⭐⭐⭐⭐ | 中高级 | — | filled |
+| [包含块/边界合并](./containing-block-margin-collapse.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
+| [:has() / 嵌套 / 容器查询](./has-nesting-container.md) | ⭐⭐⭐ | 中级 | — | filled |
+| [响应式](./responsive.md) | ⭐⭐⭐ | 中级 | — | reviewed |
 
 ## 相关阅读
 

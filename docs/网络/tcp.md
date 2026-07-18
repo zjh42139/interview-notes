@@ -150,8 +150,6 @@ upstream backend {
 - **主动关闭方是 TIME_WAIT，被动关闭方是 CLOSE_WAIT**：线上常见 CLOSE_WAIT 堆积的问题，通常是因为服务端代码没调用 `close()`，收到客户端的 FIN 后没发自己的 FIN。
 - **TCP 是字节流不是消息边界**：TCP 不保证一次 `send` 对应一次 `recv`，粘包和拆包是应用层的事。这就是为什么 HTTP 要用 `Content-Length` 或 `Transfer-Encoding: chunked` 来界定消息边界。
 
-## 相关阅读
-
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
@@ -160,6 +158,8 @@ upstream backend {
 | "TCP 和 UDP 有什么区别" | 追问为什么 HTTP/3 选 UDP（QUIC） |
 | "TCP 怎么保证可靠传输" | 追问滑动窗口和拥塞控制的区别 |
 | "四次挥手为什么多一次" | 追问 TIME_WAIT 为什么等 2MSL |
+
+## 相关阅读
 
 - [MDN: TCP](https://developer.mozilla.org/en-US/docs/Glossary/TCP)
 - [Cloudflare: What is TCP?](https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/)

@@ -2,6 +2,7 @@
 title: JavaScript 知识地图
 description: JavaScript 面试知识体系
 category: JavaScript
+status: reviewed
 ---
 
 # JavaScript 知识地图
@@ -33,15 +34,13 @@ mindmap
     异步编程
       Event Loop
         宏任务 / 微任务
+        Node.js Event Loop
       Promise
         链式调用
         Promise/A+ 规范
       async / await
         语法糖
         错误处理
-      Event Loop
-        宏任务 / 微任务
-        Node.js Event Loop
     进阶工具
       Set / Map / WeakMap
         弱引用

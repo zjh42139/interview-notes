@@ -56,10 +56,10 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
-| [Sentry 错误监控](./sentry.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
-| [线上问题定位](./online-debug.md) | ⭐⭐⭐⭐⭐ | 高级 | — | filled |
-| [性能监控](./performance-monitor.md) | ⭐⭐⭐⭐ | 高级 | — | filled |
-| [埋点系统](./tracking.md) | ⭐⭐⭐⭐ | 中级 | ✅ | filled |
+| [Sentry 错误监控](./sentry.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [线上问题定位](./online-debug.md) | ⭐⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [性能监控](./performance-monitor.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [埋点系统](./tracking.md) | ⭐⭐⭐⭐ | 中级 | ✅ | reviewed |
 
 ## 模块概述
 

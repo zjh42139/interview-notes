@@ -42,7 +42,7 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
-| [CommonJS / ESM](./commonjs-esm.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [Node Event Loop](./node-event-loop.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |
-| [Express / Koa](./express-koa.md) | ⭐⭐⭐ | 中级 | — | filled |
-| [npm / pnpm](./package-manager.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
+| [CommonJS / ESM](./commonjs-esm.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [Node Event Loop](./node-event-loop.md) | ⭐⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [Express / Koa](./express-koa.md) | ⭐⭐⭐ | 中级 | — | reviewed |
+| [npm / pnpm](./package-manager.md) | ⭐⭐⭐⭐ | 初级 | — | reviewed |

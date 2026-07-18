@@ -145,8 +145,6 @@ export function useDashboardWS() {
 - **Nginx 反向代理需额外配置才支持 WebSocket**：因为长连接，Nginx 默认超时和缓冲会导致过早断开，需要 `proxy_http_version 1.1` + `proxy_set_header Upgrade` + `proxy_set_header Connection "upgrade"`。
 - **服务端 WebSocket 连接数有限**：浏览器没有硬性限制，但 Node.js 服务端有。通过心跳及时回收死连接，单节点可支撑 5000+ 并发。
 
-## 相关阅读
-
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
@@ -155,6 +153,8 @@ export function useDashboardWS() {
 | "WebSocket 和 SSE 怎么选" | 追问 SSE 的自动重连和 event ID 机制 |
 | "WebSocket 断线了怎么办" | 追问心跳检测（ping/pong）+ 指数退避重连 |
 | "多实例 WebSocket 怎么共享" | 追问 Redis Pub/Sub 或 MQ 跨进程广播 |
+
+## 相关阅读
 
 - [MDN: WebSocket API](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 - [MDN: Server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)

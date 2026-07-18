@@ -2,6 +2,7 @@
 title: 浏览器 知识地图
 description: 浏览器面试知识体系
 category: 浏览器
+status: reviewed
 ---
 
 # 浏览器 知识地图
@@ -128,26 +129,26 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 状态 |
 |--------|------|------|------|
-| [输入 URL 到页面展示](./url-to-page.md) | ⭐⭐⭐⭐⭐ | 高级 | filled |
-| [浏览器多进程架构](./browser-architecture.md) | ⭐⭐⭐⭐ | 中级 | filled |
-| [渲染流程](./render-process.md) | ⭐⭐⭐⭐⭐ | 高级 | draft |
-| [重绘 / 回流](./reflow-repaint.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [浏览器缓存](./cache.md) | ⭐⭐⭐⭐ | 中级 | draft |
-| [同源策略](./same-origin-policy.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
-| [Cookie 深度解析](./cookie.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
-| [Web Storage](./storage.md) | ⭐⭐⭐⭐ | 初级 | draft |
-| [Web 安全](./安全/index.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [V8 引擎 / JIT 编译](./v8-engine.md) | ⭐⭐⭐⭐ | 高级 | drafted |
-| [页面生命周期](./page-lifecycle.md) | ⭐⭐⭐⭐ | 中级 | drafted |
-| [Observer API](./observer-api.md) | ⭐⭐⭐⭐ | 中级 | drafted |
-| [DOM 事件机制 / 事件委托](./dom-event-delegation.md) | ⭐⭐⭐⭐ | 中级 | draft |
-| [requestAnimationFrame](./request-animation-frame.md) | ⭐⭐⭐⭐ | 中级 | filled |
-| [内存泄漏排查](./memory-leak.md) | ⭐⭐⭐⭐⭐ | 高级 | drafted |
-| [垃圾回收 GC](./gc.md) | ⭐⭐⭐⭐ | 高级 | filled |
-| [Service Worker](./service-worker.md) | ⭐⭐⭐⭐ | 高级 | filled |
-| [浏览器 DevTools](./devtools.md) | ⭐⭐⭐ | 中级 | drafted |
-| [BOM 全景](./bom.md) | ⭐⭐⭐ | 初级 | drafted |
-| [Performance API](./performance-api.md) | ⭐⭐⭐⭐ | 中高级 | draft |
-| [Web Worker](./web-worker.md) | ⭐⭐⭐ | 中级 | draft |
-| [IndexedDB](./indexeddb.md) | ⭐⭐⭐ | 中级 | filled |
-| [跨标签页通信](./cross-tab-communication.md) | ⭐⭐⭐ | 中级 | draft |
+| [输入 URL 到页面展示](./url-to-page.md) | ⭐⭐⭐⭐⭐ | 高级 | reviewed |
+| [浏览器多进程架构](./browser-architecture.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [渲染流程](./render-process.md) | ⭐⭐⭐⭐⭐ | 高级 | reviewed |
+| [重绘 / 回流](./reflow-repaint.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [浏览器缓存](./cache.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [同源策略](./same-origin-policy.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [Cookie 深度解析](./cookie.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [Web Storage](./storage.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [Web 安全](./安全/index.md) | ⭐⭐⭐⭐⭐ | 中级 | filled |
+| [V8 引擎 / JIT 编译](./v8-engine.md) | ⭐⭐⭐⭐ | 高级 | reviewed |
+| [页面生命周期](./page-lifecycle.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [Observer API](./observer-api.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [DOM 事件机制 / 事件委托](./dom-event-delegation.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [requestAnimationFrame](./request-animation-frame.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [内存泄漏排查](./memory-leak.md) | ⭐⭐⭐⭐⭐ | 高级 | reviewed |
+| [垃圾回收 GC](./gc.md) | ⭐⭐⭐⭐ | 高级 | reviewed |
+| [Service Worker](./service-worker.md) | ⭐⭐⭐⭐ | 高级 | reviewed |
+| [浏览器 DevTools](./devtools.md) | ⭐⭐⭐ | 中级 | reviewed |
+| [BOM 全景](./bom.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [Performance API](./performance-api.md) | ⭐⭐⭐⭐ | 中高级 | filled |
+| [Web Worker](./web-worker.md) | ⭐⭐⭐ | 中级 | reviewed |
+| [IndexedDB](./indexeddb.md) | ⭐⭐⭐ | 中级 | reviewed |
+| [跨标签页通信](./cross-tab-communication.md) | ⭐⭐⭐ | 中级 | filled |

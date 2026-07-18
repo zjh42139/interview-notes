@@ -191,7 +191,7 @@ Element Plus 内部对 1px 问题有统一处理，`el-table` 的边框在 Retin
 
 ## 易错点
 
-1. **直接写 `border: 0.5px`** —— iOS Safari 支持但 Android Chrome 渲染为 1px，不可靠
+1. **直接写 `border: 0.5px`** —— iOS Safari 支持，但 Android 上表现不一致（多数机型渲染为 1px 或不显示，因厂商而异），不可依赖
 2. **伪元素 scale 后忘了 `pointer-events: none`** —— 0.5px 的伪元素会遮挡点击
 3. **`initial-scale=0.5` 让所有内容缩小** —— 不是只影响 border，而是影响了整个页面
 4. **伪元素方案需要父元素 `position: relative`** —— 否则伪元素定位会跑偏
@@ -213,5 +213,6 @@ Element Plus 内部对 1px 问题有统一处理，`el-table` 的边框在 Retin
 
 ## 更新记录
 
+- 2026-07-18：一致性审计——0.5px 在 Android 的表现统一为「表现不一致，不可依赖」口径（与 rem-vw.md 对齐）
 - 2026-07-18：事实审计——修正 viewport 缩放方案的像素换算注释、补 min-resolution 标准写法
 - 2026-07-08：新建（dpr 原理 + 四种方案对比 + 四边框写法 + Element Plus 实践）

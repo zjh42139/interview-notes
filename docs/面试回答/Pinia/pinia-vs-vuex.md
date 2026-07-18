@@ -24,7 +24,7 @@ tags:
 
 ### 30 秒版本
 
-"四个维度——API 设计（Pinia 无 mutations，actions 直接改 state）、模块化（Pinia 多个独立 store 代替 Vuex 的 modules 嵌套）、TypeScript（Pinia 原生类型推导，Vuex 需额外适配）、体积（Pinia ~1KB vs Vuex ~10KB）。核心差异：Pinia 是 Composition API 时代的状态管理，Vuex 是 Options API 时代的。"
+"四个维度——API 设计（Pinia 无 mutations，actions 直接改 state）、模块化（Pinia 多个独立 store 代替 Vuex 的 modules 嵌套）、TypeScript（Pinia 原生类型推导，Vuex 需额外适配）、体积（min+gzip 约 2KB，约为 Vuex 的一半）。定位上：Pinia 实现了 Vuex 5 RFC 的绝大部分提案，是官方认定的'事实上的 Vuex 5'——Vuex 5 本身从未发布。"
 
 ### 2 分钟版本
 
@@ -33,7 +33,7 @@ tags:
 | mutations | 必须通过 mutation 改 state | 无 mutations——actions 直接改 |
 | 模块化 | modules 嵌套——命名空间 | 多个独立 store——扁平引入 |
 | TS 支持 | 需要额外类型声明 | defineStore 自动推导所有类型 |
-| 体积 | ~10KB | ~1KB |
+| 体积 | ~4KB（min+gzip） | ~2KB（min+gzip，官方宣传 1.5KB） |
 | devtools | 支持 | 支持 |
 
 **为什么 Pinia 去掉了 mutations？** Vuex 的 mutations 是为了 devtools 追踪状态变更。Pinia 直接用 actions + devtools 追踪——无需中间层。去掉 mutations 后代码量少了三分之一——不再需要 `commit('SET_USER')` 这种模板代码。
@@ -58,7 +58,7 @@ export const useCounterStore = defineStore('counter', () => {
 // 类型自动推导——不需要任何手动标注
 ```
 
-**为什么推荐 setup store**：和 Composition API 写法统一、composables 可以直接复用、类型推导零手动标注。缺点是不能用 `$reset` 和 `$patch`——但 `$patch` 本来就不推荐（破坏可变点单一原则）。"
+**为什么推荐 setup store**：和 Composition API 写法统一、composables 可以直接复用、类型推导零手动标注。缺点是 `$reset` 不再自动提供——需要自己写 reset 方法（`$patch` 在 setup store 里照常可用）。"
 
 ### 追问预判
 
@@ -71,7 +71,7 @@ export const useCounterStore = defineStore('counter', () => {
 ## 别踩的坑
 
 1. **解构 store 丢响应式** —— `const { count } = useCounterStore()` 后 count 不再响应式。用 `storeToRefs(store)` 解构保持响应性。
-2. **setup store 不能用 $reset** —— Vuex 的 `$reset` 是 options store 特有的。setup store 手动写 reset 方法。
+2. **setup store 不能用 $reset** —— `$reset` 是 Pinia 给 options store 自动生成的（基于 state 函数重建初始值），setup store 拿不到初始 state 快照——手动写 reset 方法。
 3. **在 setup 外使用 store** —— `useXxxStore()` 必须在 setup 或 action 内部使用——依赖 Pinia 的 active pinia 实例。在 router.beforeEach 里可以用——Pinia 自动注入。
 
 ## 相关阅读
@@ -81,4 +81,5 @@ export const useCounterStore = defineStore('counter', () => {
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——体积数字统一为 min+gzip 口径（~2KB vs ~4KB）、30 秒版补"Pinia 是事实上的 Vuex 5（Vuex 5 从未发布）"、修正"setup store 不能用 $patch"（$patch 照常可用，只有 $reset 需手写）、$reset 归属从 Vuex 改为 Pinia options store
 - 2026-07-15：新建（四大对比 + mutations 取消原因 + setup store vs options store + 三个坑）

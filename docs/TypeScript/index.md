@@ -2,6 +2,7 @@
 title: TypeScript 知识地图
 description: TypeScript 面试知识体系——17 篇知识点覆盖从基础类型到 Vue3 工程实战
 category: TypeScript
+status: reviewed
 ---
 
 # TypeScript 知识地图
@@ -105,23 +106,23 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 状态 |
 |--------|------|------|------|
-| [基础类型 / 类型注解](./basic-types.md) 🆕 | ⭐⭐⭐⭐⭐ | 初级 | draft |
-| [any / unknown / never](./any-unknown-never.md) | ⭐⭐⭐⭐ | 初级 | draft |
-| [类型兼容性](./structural-typing.md) 🆕 | ⭐⭐⭐ | 中高级 | draft |
-| [enum / class 类型](./enum-class.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
-| [类型收窄](./type-narrowing.md) 🆕 | ⭐⭐⭐⭐ | 中级 | draft |
-| [as const / const assertion](./as-const.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
-| [satisfies](./satisfies.md) | ⭐⭐⭐ | 初级 | draft |
-| [泛型](./generics.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [extends / infer](./extends-infer.md) | ⭐⭐⭐⭐ | 高级 | draft |
-| [keyof / mapped / conditional](./keyof-mapped-conditional.md) | ⭐⭐⭐ | 高级 | draft |
-| [Utility Types](./utility-types.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [模板字面量类型](./template-literal-types.md) 🆕 | ⭐⭐⭐ | 中高级 | draft |
+| [基础类型 / 类型注解](./basic-types.md) 🆕 | ⭐⭐⭐⭐⭐ | 初级 | reviewed |
+| [any / unknown / never](./any-unknown-never.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [类型兼容性](./structural-typing.md) 🆕 | ⭐⭐⭐ | 中高级 | reviewed |
+| [enum / class 类型](./enum-class.md) 🆕 | ⭐⭐⭐ | 中级 | reviewed |
+| [类型收窄](./type-narrowing.md) 🆕 | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [as const / const assertion](./as-const.md) 🆕 | ⭐⭐⭐ | 中级 | reviewed |
+| [satisfies](./satisfies.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [泛型](./generics.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [extends / infer](./extends-infer.md) | ⭐⭐⭐⭐ | 高级 | filled |
+| [keyof / mapped / conditional](./keyof-mapped-conditional.md) | ⭐⭐⭐ | 高级 | reviewed |
+| [Utility Types](./utility-types.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [模板字面量类型](./template-literal-types.md) 🆕 | ⭐⭐⭐ | 中高级 | filled |
 | [声明文件 / declare](./declaration.md) | ⭐⭐⭐⭐⭐ | 高级 | reviewed |
-| [tsconfig.json 配置](./tsconfig.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
-| [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕 | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [模块系统](./module-system.md) 🆕 | ⭐⭐⭐ | 中级 | draft |
-| [T[K] / typeof](./indexed-access-typeof.md) 🆕 | ⭐⭐⭐⭐ | 中级 | draft |
+| [tsconfig.json 配置](./tsconfig.md) 🆕 | ⭐⭐⭐ | 中级 | reviewed |
+| [Vue3 + TS 最佳实践](./vue3-ts-practice.md) 🆕 | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [模块系统](./module-system.md) 🆕 | ⭐⭐⭐ | 中级 | filled |
+| [T[K] / typeof](./indexed-access-typeof.md) 🆕 | ⭐⭐⭐⭐ | 中级 | filled |
 
 > 🆕 标记为本次 TypeScript 模块补齐新增的 7 篇知识点
 

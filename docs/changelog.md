@@ -7,6 +7,22 @@ description: 知识库变更记录
 
 ## 2026-07-18
 
+### Phase 4 一致性审计 + Phase 5 结构收尾（5 阶段审计收官）
+
+**Phase 4-A 知识链一致性（8 条链 ~40 文件）**:
+- 修复 3 处跨文件矛盾：persist.md 示例把 token 放进持久化白名单（与自家安全章节矛盾）、axios-encapsulation 重试延迟与 request-retry.md 权威口径不一（统一 1s→2s→4s）、0.5px Android 两文口径统一为「厂商差异不可依赖」
+- 补 10 条互引链接（响应式全链路 4 回链、渲染链/构建链/TS 链各 1、监控双向互引等）
+- Node 11+ 微任务口径、HTTP 缓存优先级四处、Web Vitals 阈值、SameSite 三处——核对全库一致
+
+**Phase 4-B 回答稿对齐（67 篇 vs 已修正的知识文件）**:
+- 修复 8 篇 12 处（7 处高危结论相反）：async tick 数、event-loop 引用不存在的代码、lifecycle 挂载顺序缺 setup、Pinia 体积单位混用/$patch 误禁/Vuex5 定位、specificity !important 层叠方向反、TLS RSA→ECDHE、KeepAlive include 匹配对象、opacity 子元素恢复矛盾
+
+**Phase 5 结构收尾**:
+- 12 个模块 index 索引表 status 列与文件 frontmatter 全量同步（~130 行）；10 个 index 补 frontmatter status
+- 补缺行: 算法+回溯、手写题+6 新文件（含 mindmap）、网络+3（含 mindmap）、HTML+2、工程化+3、Git+2
+- 网络 6 篇「相关阅读」空标题错位归位；JS index mindmap 去重；星级不一致 5 处对齐
+- 首页 9 处计数更新、题库总数 ~200→347 道、面试回答 index status 列 67 篇同步
+
 ### Phase 3 事实审计（第 2+3 批：TS/HTML/手写题/算法/网络/Git/Pinia/VueRouter/性能/CICD/HR）
 
 11 个模块 ~133 文件逐篇核对，修复 38 P0 + ~186 P1（含 tsc strict 实测与 node 运行验证）：

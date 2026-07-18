@@ -2,6 +2,7 @@
 title: HTML 知识地图
 description: HTML 面试知识体系
 category: HTML
+status: reviewed
 ---
 
 # HTML 知识地图
@@ -79,7 +80,7 @@ mindmap
 
 5.  ⭐⭐⭐⭐ [defer / async](./script-defer-async.md)
 6.  ⭐⭐⭐ [src / href](./src-href.md)
-7.  ⭐⭐⭐⭐ [a 标签全面解析](./a-tag.md)
+7.  ⭐⭐⭐ [a 标签全面解析](./a-tag.md)
 8.  ⭐⭐⭐⭐⭐ [HTML5 表单与约束验证](./form-validation.md)
 9.  ⭐⭐⭐⭐ [图片懒加载](./lazy-loading.md)
 
@@ -92,27 +93,29 @@ mindmap
 14. ⭐⭐⭐ [Web Components](./web-components.md)
 15. ⭐⭐⭐⭐⭐ [SEO / SSR / CSR / Hydration](./seo-ssr.md)
 16. ⭐⭐⭐⭐ [可访问性 ARIA](./accessibility.md)
-17. ⭐⭐⭐ [响应式图片/Resource Hints](./responsive-images-resource-hints.md)
+17. ⭐⭐⭐⭐ [响应式图片/Resource Hints](./responsive-images-resource-hints.md)
 
 ## 知识点索引
 
 | 知识点 | 频率 | 难度 | 状态 |
 |--------|------|------|------|
-| [HTML5 语义化](./html5-semantic.md) | ⭐⭐⭐⭐⭐ | 初级 | filled |
-| [DOCTYPE / Meta](./doctype-meta.md) | ⭐⭐⭐⭐ | 初级 | filled |
-| [块级 / 行内元素](./block-inline.md) | ⭐⭐⭐⭐ | 初级 | filled |
-| [defer / async](./script-defer-async.md) | ⭐⭐⭐⭐ | 中级 | filled |
-| [src / href](./src-href.md) | ⭐⭐⭐ | 初级 | filled |
-| [a 标签全面解析](./a-tag.md) | ⭐⭐⭐ | 初级 | drafted |
-| [HTML 实体与编码](./html-entities.md) | ⭐⭐⭐ | 初级 | drafted |
-| [HTML5 表单与约束验证](./form-validation.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
-| [图片懒加载](./lazy-loading.md) | ⭐⭐⭐ | 中级 | filled |
-| [Canvas vs SVG](./canvas-svg.md) | ⭐⭐⭐⭐ | 中级 | drafted |
-| [History API 与 SPA 路由](./history-api.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
-| [iframe](./iframe.md) | ⭐⭐⭐⭐ | 中级 | drafted |
-| [Web Worker](./web-worker.md) | ⭐⭐⭐⭐ | 高级 | drafted |
-| [Web Components](./web-components.md) | ⭐⭐⭐⭐ | 高级 | drafted |
-| [SEO / SSR / CSR / Hydration](./seo-ssr.md) | ⭐⭐⭐⭐⭐ | 高级 | filled |
+| [HTML5 语义化](./html5-semantic.md) | ⭐⭐⭐⭐⭐ | 初级 | reviewed |
+| [DOCTYPE / Meta](./doctype-meta.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [块级 / 行内元素](./block-inline.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [defer / async](./script-defer-async.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [src / href](./src-href.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [a 标签全面解析](./a-tag.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [HTML 实体与编码](./html-entities.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [HTML5 表单与约束验证](./form-validation.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [图片懒加载](./lazy-loading.md) | ⭐⭐⭐ | 中级 | reviewed |
+| [Canvas vs SVG](./canvas-svg.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [History API 与 SPA 路由](./history-api.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [iframe](./iframe.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [Web Worker](./web-worker.md) | ⭐⭐⭐⭐ | 高级 | reviewed |
+| [Web Components](./web-components.md) | ⭐⭐⭐⭐ | 高级 | reviewed |
+| [SEO / SSR / CSR / Hydration](./seo-ssr.md) | ⭐⭐⭐⭐⭐ | 高级 | reviewed |
+| [可访问性 ARIA](./accessibility.md) | ⭐⭐⭐⭐ | 中级 | filled |
+| [响应式图片/Resource Hints](./responsive-images-resource-hints.md) | ⭐⭐⭐⭐ | 中级 | filled |
 
 ## 相关阅读
 

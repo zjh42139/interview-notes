@@ -108,6 +108,7 @@ git push main
 ## 相关阅读
 
 - [Web Vitals](../../性能优化/web-vitals.md)
+- [Sentry 深入](../../工程化/日志监控/sentry.md) — Source Map/Release/Breadcrumbs 三件套的完整机制
 - [项目优化](../项目优化/project-optimization.md)
 
 ## 更新记录

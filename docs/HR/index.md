@@ -2,6 +2,7 @@
 title: HR 面试地图
 description: HR 面试准备
 category: HR
+status: reviewed
 ---
 
 # HR 面试地图

@@ -182,8 +182,6 @@ https://img-cdn.example.com/avatar/user123.jpg?x-oss-process=image/format,webp
 - **CNAME 展平（Flattening）**：根域名不能用 CNAME 但又要指向 CDN，怎么办？Cloudflare 提供 CNAME flattening（在权威 DNS 侧帮你把 CNAME 解析成 A 记录返回），AWS Route 53 提供 ALIAS 记录——都是"看起来是 A 记录，行为像 CNAME"的变通方案。
 - **CDN 缓存和 Service Worker 冲突**：如果 PWA 用 Service Worker 缓存了资源，CDN 上刷新了版本用户也可能拿不到，因为 SW 拦截了请求。需要确保 SW 的缓存策略和 CDN 版本化 URL 策略配合好。
 
-## 相关阅读
-
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
@@ -192,6 +190,8 @@ https://img-cdn.example.com/avatar/user123.jpg?x-oss-process=image/format,webp
 | "CDN 的原理是什么" | 追问 DNS 调度 vs Anycast 就近接入方式 |
 | "DNS 有哪些记录类型" | 追问 CNAME 和 A 的区别、MX/TXT 的用途 |
 | "DNS 安全怎么保障" | 追问 DNS over HTTPS（DoH）和 DNSSEC |
+
+## 相关阅读
 
 - [MDN: DNS](https://developer.mozilla.org/en-US/docs/Glossary/DNS)
 - [Cloudflare: What is a CDN?](https://www.cloudflare.com/learning/cdn/what-is-a-cdn/)

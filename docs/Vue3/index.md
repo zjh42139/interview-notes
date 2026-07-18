@@ -99,28 +99,28 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
-| [Vue3 vs Vue2 对比](./vue3-vs-vue2.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
+| [Vue3 vs Vue2 对比](./vue3-vs-vue2.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
 | [响应式原理](./reactivity.md) | ⭐⭐⭐⭐⭐ | 高级 | — | reviewed |
 | [computed / watch](./computed-watch.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [nextTick](./nextTick.md) | ⭐⭐⭐⭐ | 中级 | [✅](./nextTick.md) | reviewed |
 | [Scheduler](./scheduler.md) | ⭐⭐⭐ | 高级 | — | reviewed |
 | [Diff / Patch](./diff-patch.md) | ⭐⭐⭐⭐⭐ | 高级 | [✅ LIS](./diff-patch.md) | reviewed |
 | [Renderer](./renderer.md) | ⭐⭐⭐ | 高级 | — | reviewed |
-| [全链路渲染流程](./vue3-full-pipeline.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |
+| [全链路渲染流程](./vue3-full-pipeline.md) | ⭐⭐⭐⭐⭐ | 高级 | — | reviewed |
 | [组件通信](./component-communication.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [v-model 原理](./v-model.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
-| [条件/列表渲染](./template-syntax.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
-| [透传 Attributes](./fallthrough-attrs.md) | ⭐⭐⭐ | 中级 | — | draft |
-| [异步组件/自定义指令](./async-components.md) | ⭐⭐⭐ | 中级 | — | draft |
-| [动态组件/插件/SSR](./dynamic-components-plugins-ssr.md) | ⭐⭐⭐ | 中高级 | — | draft |
+| [条件/列表渲染](./template-syntax.md) | ⭐⭐⭐⭐ | 初级 | — | filled |
+| [透传 Attributes](./fallthrough-attrs.md) | ⭐⭐⭐ | 中级 | — | filled |
+| [异步组件/自定义指令](./async-components.md) | ⭐⭐⭐ | 中级 | — | filled |
+| [动态组件/插件/SSR](./dynamic-components-plugins-ssr.md) | ⭐⭐⭐ | 中高级 | — | filled |
 | [插槽深入](./slots-deep.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [生命周期](./lifecycle.md) | ⭐⭐⭐⭐ | 初级 | — | reviewed |
 | [KeepAlive](./keepalive.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
 | [Teleport / Suspense](./teleport-suspense.md) | ⭐⭐ | 初级 | — | reviewed |
-| [Transition 动画](./transition-animation.md) | ⭐⭐⭐ | 中级 | — | draft |
+| [Transition 动画](./transition-animation.md) | ⭐⭐⭐ | 中级 | — | reviewed |
 | [Composition API](./composition-api.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
 | [Composables 实战](./composables-practice.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
-| [性能优化 Checklist](./vue3-performance.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
+| [性能优化 Checklist](./vue3-performance.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
 
 ## 相关阅读
 

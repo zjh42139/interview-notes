@@ -77,7 +77,7 @@ mindmap
 
 9. ⭐⭐⭐     [Tailwind CSS](./tailwindcss.md)
 10. ⭐⭐⭐     [前端测试体系](./testing.md)
-11. ⭐⭐⭐     [ESLint / Husky](./eslint-husky.md)
+11. ⭐⭐⭐⭐⭐ [ESLint / Husky](./eslint-husky.md)
 
 ### 四、优化与扩展
 
@@ -90,16 +90,19 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
-| [npm 深入](./npm-deep.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
-| [Vite](./vite.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [Vite 深入](./vite-deep.md) | ⭐⭐⭐⭐⭐ | 高级 | — | filled |
-| [Webpack](./webpack.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
-| [pnpm](./pnpm.md) | ⭐⭐⭐⭐ | 初级 | — | draft |
-| [Tree Shaking](./tree-shaking.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [ESM / CommonJS](./esm-module.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [Babel / ESBuild](./babel-esbuild.md) | ⭐⭐⭐ | 高级 | — | draft |
-| [Tailwind CSS](./tailwindcss.md) | ⭐⭐⭐ | 中级 | — | draft |
-| [前端测试体系](./testing.md) | ⭐⭐⭐ | 中高级 | — | draft |
+| [npm 深入](./npm-deep.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [Vite](./vite.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [Vite 深入](./vite-deep.md) | ⭐⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [Webpack](./webpack.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [pnpm](./pnpm.md) | ⭐⭐⭐⭐ | 初级 | — | reviewed |
+| [Tree Shaking](./tree-shaking.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [ESM / CommonJS](./esm-module.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [Babel / ESBuild](./babel-esbuild.md) | ⭐⭐⭐ | 高级 | — | reviewed |
+| [Tailwind CSS](./tailwindcss.md) | ⭐⭐⭐ | 中级 | — | filled |
+| [前端测试体系](./testing.md) | ⭐⭐⭐ | 中高级 | — | filled |
+| [ESLint / Husky](./eslint-husky.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
+| [Code Splitting](./code-splitting.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [Rollup / Prettier / SourceMap](./rollup-prettier-sourcemap.md) | ⭐⭐⭐ | 中级 | — | filled |
 
 ## 相关阅读
 

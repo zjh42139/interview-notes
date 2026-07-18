@@ -222,7 +222,6 @@ class Container {
 - [JavaScript new](../JavaScript/new.md) -- new 操作符的完整原理和规范
 - [手写 bind/call/apply](./bind-call-apply.md) -- this 绑定机制，new 优先级
 - [JavaScript 原型链](../JavaScript/prototype-chain.md) -- 原型链的建立和查找过程
-- [JavaScript new](../JavaScript/new.md) -- 构造函数和 class 的关系
 
 ## 更新记录
 

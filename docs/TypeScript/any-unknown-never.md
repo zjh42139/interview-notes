@@ -158,6 +158,7 @@ function handleStatus(status: Status): string {
 ```typescript
 // 利用 never 在联合类型中消失的特性实现类型过滤
 type NonNullable<T> = T extends null | undefined ? never : T;
+// 注：TS 4.8+ 官方实现已简化为 type NonNullable<T> = T & {}，见 utility-types.md
 type FilterNumber<T> = T extends number ? never : T;
 
 type Result = FilterNumber<string | number | boolean>; // string | boolean
@@ -385,4 +386,5 @@ let n: never = 1 as never;       // ✅ 强制断言可以
 
 ## 更新记录
 
+- 2026-07-18：一致性审计——NonNullable 旧式实现旁标注 TS 4.8+ 官方 `T & {}` 实现（与 utility-types.md 对齐）
 - 2026-07-18：事实审计——修正"双向协变"术语为双向兼容、重写 never 禁止属性示例（改为 `id?: never`）并澄清 NoInfer 的实际用途（TS 5.4 内置）

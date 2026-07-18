@@ -185,8 +185,6 @@ axios.defaults.withCredentials = true
 - **预检请求不带认证信息**：OPTIONS 时浏览器故意不携带 Cookie/Authorization 头。如果后端对所有请求（含 OPTIONS）要求鉴权，预检 401 导致实际请求发不出去。
 - **HTML 标签 src 不受 CORS 限制**：`<script>`、`<img>`、`<link>` 可加载跨域资源，这正是 JSONP 存在的理由。
 
-## 相关阅读
-
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
@@ -195,6 +193,8 @@ axios.defaults.withCredentials = true
 | "JSONP 和 CORS 有什么区别" | 追问 JSONP 为什么只能 GET、有什么风险 |
 | "CORS 请求发出去了吗" | 追问同源策略只拦读不拦发——CSRF 的根因 |
 | "withCredentials 怎么配" | 追问带凭证时 origin 为什么不能用通配符 |
+
+## 相关阅读
 
 - [MDN: Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
 - [MDN: Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)

@@ -203,6 +203,7 @@ async function submitForm() {
 - [响应式原理](./reactivity.md) — 数据变更如何触发 effect
 - [Scheduler](./scheduler.md) — nextTick 和 scheduler 的协同机制
 - [Event Loop](../JavaScript/event-loop.md) — 宏任务/微任务的基础知识
+- [全链路渲染流程](./vue3-full-pipeline.md) — nextTick 在整条更新链路中的位置
 
 ## 更新记录
 

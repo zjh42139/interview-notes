@@ -342,6 +342,7 @@ Block Tree 的决策发生在**编译时**——哪些节点是动态的、Block
 - [Renderer](./renderer.md) — patch 函数的宿主，如何驱动真实 DOM
 - [响应式原理](./reactivity.md) — 数据变更如何触发 Diff
 - [KeepAlive](./keepalive.md) — Diff 到 KeepAlive 组件时的特殊处理
+- [全链路渲染流程](./vue3-full-pipeline.md) — Diff/Patch 在整条更新链路中的位置
 
 ## 更新记录
 

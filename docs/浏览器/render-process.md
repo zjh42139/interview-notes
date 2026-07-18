@@ -199,6 +199,7 @@ flowchart TD
 - [Google: Critical rendering path](https://web.dev/articles/critical-rendering-path)
 - [reflow-repaint](./reflow-repaint) —— 回流与重绘的触发条件和优化策略
 - [cache](./cache) —— 浏览器缓存如何影响渲染阶段的资源获取
+- [性能优化/critical-rendering-path](../性能优化/critical-rendering-path) —— 关键渲染路径的阻塞关系与首屏优化视角
 - [性能优化/first-screen](../性能优化/first-screen) —— 首屏加载优化的完整方案
 
 ---

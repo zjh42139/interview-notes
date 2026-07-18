@@ -144,13 +144,15 @@ instance.interceptors.response.use(undefined, async (error) => {
   config.__retryCount = config.__retryCount ?? 0
   if (config.method === 'get' && config.__retryCount < 3) {
     config.__retryCount++
-    const delay = Math.pow(2, config.__retryCount) * 1000  // 2s, 4s, 8s
+    const delay = Math.pow(2, config.__retryCount - 1) * 1000  // 1s, 2s, 4s
     await new Promise((r) => setTimeout(r, delay))
     return instance(config)
   }
   return Promise.reject(error)
 })
 ```
+
+完整的重试策略（重试条件判定、随机抖动防惊群、幂等键）见[请求重试](./request-retry.md)。
 
 ### 追问 3：并发请求的错误处理
 
@@ -246,6 +248,7 @@ export function useRequest<T>(fetcher: (signal: AbortSignal) => Promise<T>) {
 ## 相关阅读
 
 - [防重复请求](./request-dedup.md) — 如何用拦截器实现请求去重
+- [请求重试](./request-retry.md) — 指数退避/重试条件/幂等键的完整策略
 - [Mock](./mock.md) — 开发阶段的 mock 数据方案
 - [Token 刷新](../认证鉴权/token-refresh.md) — 401 拦截 + 双 Token 无感刷新
 - [登录鉴权](../认证鉴权/login-auth.md) — 登录流程与路由守卫鉴权
@@ -255,4 +258,5 @@ export function useRequest<T>(fetcher: (signal: AbortSignal) => Promise<T>) {
 
 ## 更新记录
 
+- 2026-07-18：一致性审计——重试延迟示例统一为 1s/2s/4s（与 request-retry.md 对齐），补请求重试互链
 - 2026-07-05：完成内容填充（Phase 2），新增完整 TypeScript 代码示例、错误分级策略、易错点

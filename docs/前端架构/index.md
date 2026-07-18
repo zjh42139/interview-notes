@@ -2,6 +2,7 @@
 title: 前端架构 知识地图
 description: 前端架构面试知识体系：项目分层、模块解耦、组件设计、设计模式、插件化、配置化、Monorepo
 category: 前端架构
+status: reviewed
 ---
 
 # 前端架构 知识地图

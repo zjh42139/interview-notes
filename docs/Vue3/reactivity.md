@@ -401,6 +401,7 @@ const count = reactive(1)  // ❌ Proxy 只能代理对象
 - [Scheduler](./scheduler.md) — trigger 之后的调度层，批量异步更新
 - [Composables 实战](./composables-practice.md) — effectScope 如何支撑 composable 的自动清理
 - [Renderer](./renderer.md) — effect 执行后如何更新 DOM
+- [全链路渲染流程](./vue3-full-pipeline.md) — track/trigger 在整条更新链路中的位置
 
 ## 跨模块连线——从数据变化到 DOM 更新
 

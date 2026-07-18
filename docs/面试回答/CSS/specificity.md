@@ -26,7 +26,7 @@ tags:
 
 ### 30 秒版本
 
-"权重按 a-b-c 三级——ID、类/伪类/属性、元素/伪元素。内联样式 > 外部样式。!important 最高，但注意 @layer 中 !important 是反转的——先声明的 layer 中的 !important 反而优先。非 layer 的 !important 始终最高。"
+"权重按 a-b-c 三级——ID、类/伪类/属性、元素/伪元素。内联样式 > 外部样式。!important 最高，但注意 @layer 中 !important 是反转的——先声明的 layer 中的 !important 反而优先，而且分层的 !important 全部压过未分层的 !important（未分层是'隐式最后一层'，反转后垫底）。"
 
 ### 2 分钟版本
 
@@ -48,14 +48,15 @@ tags:
 
 ```
 胜出顺序（从高到低）：
-1. CSS Transitions（临时覆盖一切）
-2. 非 layer 的 !important（不受任何 layer 影响，最高优先级）
-3. @layer 先声明的 !important（layer 内 !important 反转——先声明的反而赢）
-4. @layer 后声明的 !important
-5. 非 layer 的普通声明 + 内联样式
-6. @layer 后声明的普通声明（layer 内正序——后声明的赢）
-7. 选择器权重（同层内部）
-8. 书写顺序（最后的胜出）
+1. CSS Transitions（过渡进行中的值，临时覆盖一切）
+2. 先声明的 layer 的 !important（!important 跨层反转——越早声明的层越强）
+3. 后声明的 layer 的 !important
+4. 非 layer 的 !important（未分层样式视为"隐式最后一层"，反转后在 !important 组里垫底）
+5. 内联样式（普通声明）
+6. 非 layer 的普通声明（比所有 layer 的普通声明优先级都高）
+7. 后声明的 layer 的普通声明（layer 间正序——后声明的赢）
+8. 先声明的 layer 的普通声明
+9. 同一层内部：比选择器权重，权重相同比书写顺序（最后的胜出）
 ```
 
 **覆盖率问题**：写了 `.class { color: red !important }` 后被另一个 `.class { color: blue !important }` 覆盖——回权重比较。被 `#id { color: green !important }` 覆盖——ID 权重大于类。"
@@ -64,13 +65,13 @@ tags:
 
 | 面试官追问 | 你的回答 |
 |-----------|---------|
-| "怎么覆盖一个已经设了 !important 的样式" | 同权重也加 !important 写在后面、提高权重后用 !important。注意：非 layer 的 !important 始终最高；layer 内则是先声明 layer 的 !important 反而赢（反转） |
+| "怎么覆盖一个已经设了 !important 的样式" | 同权重也加 !important 写在后面、或提高权重后加 !important。@layer 场景记住反转：分层的 !important 压过未分层的 !important，且越早声明的 layer 的 !important 越强——把带 !important 的覆盖样式放进更早声明的层才能赢 |
 | "CSS 变量和优先级的关系" | CSS 变量本身不参与优先级——`var(--color)` 只是一个值的占位符。变量值的解析发生在级联之后 |
 | "`*` 通配符的权重" | (0,0,0,0)——最低。能被任何选择器覆盖，包括元素选择器 |
 
 ## 别踩的坑
 
-1. **"!important 永远最高"** —— 不跨 @layer，且 layer 内 !important 反转（先声明的 layer 中的 !important 反而赢）。两个 !important 之间还要比权重和 layer 顺序。
+1. **"!important 永远最高"** —— @layer 下会反转：先声明的 layer 中的 !important 反而赢，未分层的 !important 在 !important 组里垫底。两个 !important 之间还要比 layer 顺序和权重。
 2. **权重进位思维** —— 11 个 class 选择器不等于 1 个 ID 选择器。权重不进位。
 3. **`*` 不是最低** —— `*` 权重 (0,0,0)，继承的属性权重更低（无权重）。继承 vs `*`，继承输。
 
@@ -80,4 +81,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——修正 !important 与 @layer 的关系（原稿称"非 layer 的 !important 始终最高"，与 at-layer.md 相反）：分层 !important 全部压过未分层 !important，先声明层最强；胜出顺序表同步重排
 - 2026-07-15：新建（权重计算 + !important 坑 + @layer 新规则 + 级联层）

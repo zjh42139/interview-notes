@@ -58,23 +58,25 @@ mindmap
 ### 三、工作流与调试
 
 8. ⭐⭐⭐⭐ [Git Flow](./git-flow.md) — 在核心操作上的流程组织
-9. ⭐⭐ [reflog/rebase -i/内部原理](./reflog-rebase-interactive.md) — 理解内部机制
-10. ⭐⭐ [diff/log/blame/hooks](./diff-log-blame-hooks.md) — 调试和自动化
+9. ⭐⭐⭐⭐ [reflog/rebase -i/内部原理](./reflog-rebase-interactive.md) — 理解内部机制
+10. ⭐⭐⭐ [diff/log/blame/hooks](./diff-log-blame-hooks.md) — 调试和自动化
 11. ⭐⭐⭐ [bisect](./bisect.md) — 调试大杀器
 
 ## 知识点索引
 
 | 知识点 | 频率 | 难度 | 状态 |
 |--------|------|------|------|
-| [Commit 规范](./commit-spec.md) | ⭐⭐⭐⭐⭐ | 初级 | filled |
-| [merge vs rebase](./merge-vs-rebase.md) | ⭐⭐⭐⭐⭐ | 中级 | filled |
-| [冲突处理](./conflict-resolution.md) | ⭐⭐⭐⭐⭐ | 中级 | filled |
-| [cherry-pick](./cherry-pick.md) | ⭐⭐⭐⭐ | 中级 | filled |
-| [stash](./stash.md) | ⭐⭐⭐⭐ | 初级 | filled |
-| [reset vs revert](./reset-vs-revert.md) | ⭐⭐⭐⭐ | 中级 | filled |
-| [Git Flow](./git-flow.md) | ⭐⭐⭐⭐ | 中级 | filled |
-| [tag](./tag.md) | ⭐⭐⭐ | 初级 | filled |
-| [bisect](./bisect.md) | ⭐⭐⭐ | 初级 | filled |
+| [Commit 规范](./commit-spec.md) | ⭐⭐⭐⭐⭐ | 初级 | reviewed |
+| [merge vs rebase](./merge-vs-rebase.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [冲突处理](./conflict-resolution.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [cherry-pick](./cherry-pick.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [stash](./stash.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [reset vs revert](./reset-vs-revert.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [Git Flow](./git-flow.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
+| [tag](./tag.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [bisect](./bisect.md) | ⭐⭐⭐ | 初级 | reviewed |
+| [reflog / rebase -i / 内部原理](./reflog-rebase-interactive.md) | ⭐⭐⭐⭐ | 中高级 | filled |
+| [diff / log / blame / hooks](./diff-log-blame-hooks.md) | ⭐⭐⭐ | 中级 | filled |
 
 ## 面试速览
 

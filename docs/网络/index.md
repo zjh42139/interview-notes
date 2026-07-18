@@ -2,6 +2,7 @@
 title: 网络 知识地图
 description: 网络面试知识体系
 category: 网络
+status: reviewed
 ---
 
 # 网络 知识地图
@@ -14,6 +15,8 @@ mindmap
       TCP
         三次握手
         四次挥手
+      UDP
+        QUIC 底层
       HTTP / HTTPS
       HTTP2 / HTTP3
     缓存与安全
@@ -23,7 +26,11 @@ mindmap
       CORS
     基础设施
       DNS / CDN
+      代理与负载均衡
+        正向代理
+        反向代理
     数据交互
+      HTTP 请求方法
       WebSocket / SSE
       Fetch API
         AbortController
@@ -50,11 +57,11 @@ mindmap
 
 ### 四、数据交互
 
-8. ⭐⭐       [HTTP 请求方法](./http-methods.md) — GET/POST/PUT/DELETE 基础
+8. ⭐⭐⭐⭐⭐ [HTTP 请求方法](./http-methods.md) — GET/POST/PUT/DELETE 基础
 9. ⭐⭐⭐⭐   [Fetch API 深度解析](./fetch-api.md) — 浏览器端 HTTP 编程
 10. ⭐⭐⭐     [WebSocket / SSE](./websocket-sse.md) — 实时通信进阶
-11. ⭐⭐       [UDP 协议](./udp.md) — HTTP3/QUIC 底层
-12. ⭐⭐       [代理/负载均衡](./proxy-lb.md) — 网络架构
+11. ⭐⭐⭐⭐   [UDP 协议](./udp.md) — HTTP3/QUIC 底层
+12. ⭐⭐⭐⭐   [代理/负载均衡](./proxy-lb.md) — 网络架构
 
 > 说明：HTTP 方法在前（基础），Fetch API 会用 HTTP 方法，WebSocket 是进阶方向。UDP/代理/负载均衡 偏基础设施，理解概念即可。
 
@@ -62,15 +69,18 @@ mindmap
 
 | 知识点 | 频率 | 难度 | 手写 | 状态 |
 |--------|------|------|------|------|
-| [OSI 七层 / TCP/IP 四层](./osi-model.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [TCP](./tcp.md) | ⭐⭐⭐⭐⭐ | 高级 | — | draft |
-| [HTTP / HTTPS](./http-https.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [HTTP2 / HTTP3](./http2-http3.md) | ⭐⭐⭐⭐ | 高级 | — | draft |
-| [HTTP 缓存](./http-cache.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [CORS](./cors.md) | ⭐⭐⭐⭐⭐ | 中级 | — | draft |
-| [DNS / CDN](./dns-cdn.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
-| [WebSocket / SSE](./websocket-sse.md) | ⭐⭐⭐ | 中级 | — | draft |
-| [Fetch API 深度解析](./fetch-api.md) | ⭐⭐⭐⭐ | 中级 | — | draft |
+| [OSI 七层 / TCP/IP 四层](./osi-model.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [TCP](./tcp.md) | ⭐⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [HTTP / HTTPS](./http-https.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [HTTP2 / HTTP3](./http2-http3.md) | ⭐⭐⭐⭐ | 高级 | — | reviewed |
+| [HTTP 缓存](./http-cache.md) | ⭐⭐⭐⭐⭐ | 中级 | — | filled |
+| [CORS](./cors.md) | ⭐⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [DNS / CDN](./dns-cdn.md) | ⭐⭐⭐⭐ | 中级 | — | reviewed |
+| [HTTP 请求方法](./http-methods.md) | ⭐⭐⭐⭐⭐ | 初级 | — | filled |
+| [WebSocket / SSE](./websocket-sse.md) | ⭐⭐⭐ | 中级 | — | reviewed |
+| [Fetch API 深度解析](./fetch-api.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [UDP 协议](./udp.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
+| [代理/负载均衡](./proxy-lb.md) | ⭐⭐⭐⭐ | 中级 | — | filled |
 
 ## 相关阅读
 

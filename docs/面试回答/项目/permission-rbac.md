@@ -76,7 +76,7 @@ tags:
 |-----------|---------|
 | "addRoute 和 addRoutes 有什么区别" | `addRoutes` 是 Vue Router 3 的 API，一次加多个路由。Vue Router 4 移除了 `addRoutes`，只能用 `addRoute` 逐个添加。 |
 | "如果后端返回了前端不存在的 component 怎么办" | 在 componentMap 里查不到的就过滤掉——并上报错误日志到 Sentry。不能让一个错误的路由配置导致整个应用崩溃。 |
-| "动态路由怎么和 KeepAlive 配合" | 动态路由的 name 字段需要显式设置——KeepAlive 的 `include` 依赖 `route.name`。路由 name 必须和后端返回的 name 一致，否则缓存匹配不上。 |
+| "动态路由怎么和 KeepAlive 配合" | KeepAlive 的 `include` 匹配的是**组件 name**（`defineOptions({ name })`），不是 route.name——实践中让组件 name 和路由 name 保持一致，`include` 再绑定缓存的 name 数组才能命中。动态路由组件的 name 必须和后端返回的 name 对齐，否则缓存匹配不上。 |
 
 ---
 
@@ -97,4 +97,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——KeepAlive include 匹配对象从 route.name 修正为组件 name（与 keepalive.md 知识文件一致）
 - 2026-07-10：新建（RBAC 三层 + 动态路由 addRoute 实现 + 前后端方案 + 追问预判）

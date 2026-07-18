@@ -67,7 +67,7 @@ const [user, orders] = await Promise.all([fetchUser(), fetchOrders()]);
 | 面试官追问 | 你的回答 |
 |-----------|---------|
 | "async 函数返回的是什么" | Promise——即使你 return 原始值，JS 自动包成 Promise.resolve() |
-| "await 后面的代码什么时候执行" | await 后的代码相当于 .then() 回调——在当前微任务之后的下一个微任务中执行 |
+| "await 后面的代码什么时候执行" | 作为微任务执行——await 一个已 resolve 的原生 Promise 只花 1 个 tick（ES2019 优化后）；但 async 函数 return 一个 Promise 要额外多 2 个 tick（thenable 采纳）。输出题里"某个数字排最后"多半是这个原因 |
 | "多个 await 有什么问题" | 独立请求被串行化——本来可以并行的变慢。用 Promise.all 同时发出 |
 
 ## 别踩的坑
@@ -84,4 +84,5 @@ const [user, orders] = await Promise.all([fetchUser(), fetchOrders()]);
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——追问"await 后代码执行时机"改为与知识文件一致（await 已 resolve 原生 Promise 1 tick；async return Promise 额外 +2 tick）
 - 2026-07-15：新建（Generator 语法糖本质 + 性能陷阱 + try/catch 模式）

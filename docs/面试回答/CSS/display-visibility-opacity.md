@@ -36,7 +36,7 @@ tags:
 
 **事件响应**：display:none 不可点击——元素不在渲染树中。visibility:hidden 不可点击——虽然占位但交互被禁用。opacity:0 仍可点击——鼠标事件正常触发。配合 pointer-events:none 可以同时透明+禁用交互。
 
-**子元素影响**：display:none 子元素全部隐藏——无法单独显示。visibility:hidden 子元素可设 `visibility: visible` 单独恢复可见（invisible 父元素中 visible 子元素）。opacity:0 子元素全部透明——但可以设 opacity:1 单独恢复（CSS 级联中 opacity 是乘法关系——0×1=0 所以不能恢复，需要用其他方式）。
+**子元素影响**：display:none 子元素全部隐藏——无法单独显示。visibility:hidden 子元素可设 `visibility: visible` 单独恢复可见（invisible 父元素中 visible 子元素）。opacity:0 子元素全部透明——且**无法**单独恢复：opacity 是乘法合成，父 0 × 子 1 = 0，子元素设 opacity:1 也显示不出来。
 
 **性能影响**：display:none 触发回流——最贵。visibility:hidden 只触发重绘——中等。opacity:0 只触发合成——最便宜，适合动画。transform 同样只触发合成——这就是为什么 fadeIn 动画应该用 opacity 而不是 display。"
 
@@ -68,4 +68,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-18：Phase 4 对齐——修正 opacity:0 子元素表述前后矛盾（明确"无法单独恢复"，opacity 为乘法合成）
 - 2026-07-16：新建——Q3 隐藏方式对比 + Q15 清除浮动

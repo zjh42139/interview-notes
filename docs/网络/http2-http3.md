@@ -121,8 +121,6 @@ server {
 - **多路复用可能导致"请求优先级反转"**：所有请求同时发出，重要请求（比如首屏数据）可能被不重要的请求（比如埋点上报）挤占带宽。HTTP/2 有优先级机制，但实现复杂，实际靠浏览器自身调度。
 - **HTTP/3 不是"未来"，是"现在"**：2024 年全球 Top 1000 网站超过 40% 已支持 HTTP/3，主流 CDN 全部支持。面试里如果只聊 HTTP/2 不提 HTTP/3，会给面试官"你落后了"的印象。
 
-## 相关阅读
-
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
@@ -131,6 +129,8 @@ server {
 | "HTTP/3 为什么换 QUIC" | 追问 TCP 队头阻塞为什么无法在应用层解决 |
 | "服务端推送和 WebSocket 区别" | 追问各自的适用场景和协议层级 |
 | "HPACK 头部压缩怎么工作" | 追问静态表和动态表分别存什么 |
+
+## 相关阅读
 
 - [MDN: HTTP/2](https://developer.mozilla.org/en-US/docs/Glossary/HTTP_2)
 - [Cloudflare: What is HTTP/3?](https://www.cloudflare.com/learning/performance/what-is-http3/)

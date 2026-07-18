@@ -2,6 +2,7 @@
 title: Vue Router 知识地图
 description: Vue Router 面试知识体系，从路由模式到实战场景
 category: VueRouter
+status: reviewed
 ---
 
 # Vue Router 知识地图

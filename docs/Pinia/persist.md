@@ -59,7 +59,8 @@ export const useUserStore = defineStore('user', () => {
   persist: {
     key: 'user-store',                        // localStorage 中的 key，默认是 store id
     storage: localStorage,                    // 存储介质，默认 localStorage
-    pick: ['token', 'userInfo', 'theme'],     // 只持久化这些字段（白名单），反向排除用 omit
+    pick: ['userInfo', 'theme'],              // 只持久化这些字段（白名单），反向排除用 omit
+    // 注意：token/refreshToken 不进白名单——XSS 可读 localStorage，见下文「安全注意事项」
   },
 })
 ```
@@ -319,5 +320,6 @@ const connected = ref(false)  // 序列化布尔值安全
 
 ## 更新记录
 
+- 2026-07-18：一致性审计——基础配置示例的 pick 白名单移除 token（与本文安全章节及 token-storage.md 口径对齐）
 - 2026-07-18：事实审计：配置项更新为 v4 命名（paths→pick、beforeRestore/afterRestore→beforeHydrate/afterHydrate）并标注版本差异，删去插件「自动去抖/处理循环引用」的不实说法
 - 2026-07-06：初始创建

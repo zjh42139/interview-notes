@@ -182,8 +182,6 @@ location /api/v2/ { proxy_pass http://backend-v2:3000; }
 - **304 不是重定向**：面试常有人把 304 归类到 3xx 重定向里，实际上 304 是告诉浏览器用缓存，不会发生 URL 跳转。
 - **TLS 握手不是"每次请求都做"**：HTTP/1.1 的 keep-alive 让同一个 TCP 连接可以承载多个请求，TLS 握手只在连接建立时发生一次。但 HTTP/1.1 的连接数有限制（一般是 6 个），多了还是要新握手。
 
-## 相关阅读
-
 ## 面试信号表
 
 | 面试官问 | 下一问大概率是 |
@@ -192,6 +190,8 @@ location /api/v2/ { proxy_pass http://backend-v2:3000; }
 | "HTTPS 是怎么保证安全的" | 追问对称加密和非对称加密分别用在哪 |
 | "HTTP 状态码有哪些" | 追问 301 vs 302、401 vs 403 的区别 |
 | "HTTP/1.1 Keep-Alive 是什么" | 追问 HTTP/2 多路复用怎么解决队头阻塞 |
+
+## 相关阅读
 
 - [MDN: HTTP overview](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview)
 - [MDN: HTTPS](https://developer.mozilla.org/en-US/docs/Glossary/HTTPS)

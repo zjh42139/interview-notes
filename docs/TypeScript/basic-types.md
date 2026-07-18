@@ -270,6 +270,7 @@ u = fn3();   // ✅ undefined 类型兼容
 - [声明文件 / declare](./declaration.md) —— interface 声明合并的深入用法
 - [any / unknown / never](./any-unknown-never.md) —— 特殊类型的正确用法
 - [类型收窄](./type-narrowing.md) —— typeof/instanceof/in/is 收窄类型
+- [泛型（Generics）](./generics.md) —— 基础类型之后的下一步：类型参数化
 
 ## 更新记录
 
