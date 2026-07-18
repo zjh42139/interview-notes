@@ -123,4 +123,4 @@ tags:
 
 > 答案参考：[../CICD/overview.md](../CICD/overview.md)（部署策略考量一节）
 > 延伸：[../工程化/webpack.md](../工程化/webpack.md)（contenthash 配置）
-> 延伸：强缓存/协商缓存机制见 [./浏览器.md](./浏览器.md) Q5
+> 延伸：强缓存/协商缓存机制见 [./浏览器.md](./浏览器.md) Q8
