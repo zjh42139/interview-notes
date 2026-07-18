@@ -40,7 +40,7 @@ tags:
 - **CSS 阻塞渲染**：Render Tree 需要 CSSOM——CSSOM 不完整则无法渲染
 - **CSS 阻塞后续 JS**：JS 可能查询样式（`getComputedStyle`）——CSSOM 必须完整
 
-**优化关键**：把首屏需要的关键 CSS 内联到 `&lt;head>` 中——浏览器不需要等待外部 CSS 文件就能渲染首屏。非关键 CSS 用 `media="print"` 延迟加载。
+**优化关键**：把首屏需要的关键 CSS 内联到 `<head>` 中——浏览器不需要等待外部 CSS 文件就能渲染首屏。非关键 CSS 用 `media="print"` 延迟加载。
 
 ### JS 的阻塞行为
 
@@ -61,7 +61,7 @@ tags:
 | defer | 并行 | DOM 解析后 | 不阻塞 | 按文档顺序 |
 | async | 并行 | 下载完即执行 | 可能阻塞 | 不保证 |
 
-**选型**：关键 JS 用 defer——不阻塞解析但保证顺序。独立工具（统计/埋点）用 async——不阻塞、不需要顺序。普通 script 放在 `&lt;body>` 底部——减少对首屏 DOM 构建的阻塞。
+**选型**：关键 JS 用 defer——不阻塞解析但保证顺序。独立工具（统计/埋点）用 async——不阻塞、不需要顺序。普通 script 放在 `<body>` 底部——减少对首屏 DOM 构建的阻塞。
 
 ## 深度拓展
 
@@ -88,7 +88,7 @@ Chrome DevTools → Performance → 录制 → 看"加载"阶段：`Parse HTML` 
 
 ❌ **所有 JS 都用 async** —— async 的不确定执行顺序可能导致依赖问题。`app.js` 依赖 `vendor.js` 时用 defer 保证顺序。
 
-❌ **defer 的 JS 在 DOMContentLoaded 之前执行** —— 面试经常搞混：defer 是 DOM 解析后、DCL 之前；async 执行时可能在任何阶段。
+❌ **defer 的 JS 在 DOMContentLoaded 之后执行** —— 搞反了：defer 在 DOM 解析完成后、DCL 事件触发前按顺序执行（所以 defer 会推迟 DCL）；async 执行时机不确定，可能在 DCL 前也可能在后。
 
 ## 面试信号表
 
@@ -105,4 +105,5 @@ Chrome DevTools → Performance → 录制 → 看"加载"阶段：`Parse HTML` 
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计修正（易错点 3 的误区表述原本是正确结论、`&lt;` 实体改回正常代码写法）
 - 2026-07-16：新建——六步骤+CSS/JS阻塞行为+defer/async+Critical CSS

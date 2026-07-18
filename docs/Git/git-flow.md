@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - 分支策略
@@ -56,37 +56,37 @@ hotfix/bug                     ●──●──●──●
 **完整流程**：
 
 ```bash
-# 1. 创建 feature 分支
-git checkout -b feature/user-export develop
+# 1. 创建 feature 分支（Git 2.23+ 用 switch -c，替代 checkout -b）
+git switch -c feature/user-export develop
 # 开发 → 多次提交 → 开发完成
 
 # 2. 合入 develop
-git checkout develop
+git switch develop
 git merge --no-ff feature/user-export
 git branch -d feature/user-export
 
 # 3. 准备发布：从 develop 分出 release 分支
-git checkout -b release/2.1.0 develop
+git switch -c release/2.1.0 develop
 # 在 release 上：修小 bug、更新版本号、更新 CHANGELOG
 # 禁止在这里加新功能
 
 # 4. 发布到 main
-git checkout main
+git switch main
 git merge --no-ff release/2.1.0
 git tag -a v2.1.0 -m "Release version 2.1.0"
 
 # 5. 把 release 的修改合回 develop
-git checkout develop
+git switch develop
 git merge --no-ff release/2.1.0
 git branch -d release/2.1.0
 
 # 6. 紧急修复（hotfix）
-git checkout -b hotfix/login-crash main
+git switch -c hotfix/login-crash main
 # 修复 → 提交
-git checkout main
+git switch main
 git merge --no-ff hotfix/login-crash
 git tag -a v2.1.1 -m "Hotfix: login crash on Safari"
-git checkout develop
+git switch develop
 git merge --no-ff hotfix/login-crash
 git branch -d hotfix/login-crash
 ```
@@ -109,11 +109,11 @@ feature/A ●──●──●   feature/B ●──●
 
 ```bash
 # GitHub Flow 全流程
-git checkout -b feature/dark-mode main
+git switch -c feature/dark-mode main
 # 开发 + 推送
 git push origin feature/dark-mode
 # 创建 PR → Code Review → 合并
-git checkout main
+git switch main
 git pull origin main
 # 部署（自动或手动）
 ```

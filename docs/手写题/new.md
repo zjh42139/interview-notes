@@ -116,9 +116,10 @@ const f = myNew(Factory, () => 'hello from fn');
 console.log(f());               // "hello from fn"
 console.log(f instanceof Factory); // false
 
-// 测试 5：箭头函数不能 new（模拟原生行为，实际 TypeScript 编译期禁止）
+// 测试 5：箭头函数不能 new（原生抛 TypeError: xxx is not a constructor）
 // const Arrow = () => {};
-// myNew(Arrow); // 运行时不报错，但没有 prototype，行为与原生不同
+// myNew(Arrow); // 同样会抛错：箭头函数没有 prototype，Object.create(undefined) 抛 TypeError
+//               // 报错信息与原生不同——想给出更友好的提示可按追问点 2 提前检查 prototype
 
 // ==================== 对比原生 new ====================
 console.log('\n--- 对比原生 new ---');
@@ -173,9 +174,11 @@ if (!Constructor.prototype) {
 ### 追问点 3：为什么用 `Object.create` 而不是直接 `obj.__proto__ = ...`？
 
 ```typescript
-// __proto__ 虽然被大多数引擎支持，但在 ES 规范中不是标准的属性访问器
-// Object.create(proto) 是 ES5 标准方法，兼容性更好
-// 而且性能更优（JIT 对 Object.create 有专门优化）
+// __proto__ 直到 ES2015 才进入规范，且只在附录 B（浏览器兼容的遗留特性）中定义，
+// 属于 normative optional——不推荐在新代码中使用
+// Object.create(proto) 是 ES5 正式标准方法，语义明确
+// 性能上：对象创建时就指定原型没有额外开销；而给已存在的对象改 __proto__/setPrototypeOf
+// 会破坏引擎对该对象的优化（hidden class 失效），应当避免
 
 // 面试中可以直接说：
 // "我用 Object.create(Constructor.prototype) 创建一个新对象，

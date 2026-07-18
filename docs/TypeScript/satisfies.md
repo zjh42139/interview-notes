@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - satisfies
@@ -36,17 +36,18 @@ const colors = {
   blue: '#0000ff',
 };
 
-// 问题1：不加类型注解 —— TS 能推断出每个 value 是字面量 '#ff0000' | '#00ff00' | '#0000ff'
-//        但无法保证类型结构正确（万一有人加了个 number 值呢？
-type R = typeof colors['red']; // '#ff0000' ✅ 精确！
+// 问题1：不加类型注解 —— 属性名精确（keyof 是 'red' | 'green' | 'blue'）
+//        但值被扩宽为 string，且没有任何结构约束（有人加个 number 值也不报错）
+type R = typeof colors['red']; // string（const 对象的属性值会被扩宽，拿不到 '#ff0000'）
 
-// 问题2：加类型注解 —— 结构安全了，但类型信息丢失
+// 问题2：加类型注解 —— 结构安全了，但属性名精确度丢失
 const colors2: Record<string, string> = {
   red: '#ff0000',
   green: '#00ff00',
   blue: '#0000ff',
 };
-type R2 = typeof colors2['red']; // string ❌ 丢失了 '#ff0000'！
+type K2 = keyof typeof colors2; // string ❌ 丢失了 'red' | 'green' | 'blue'！
+// 访问 colors2.yellow 也不报错——任何 string key 都合法
 
 // 问题3：as const —— 保留了精确值，但完全写死了
 const colors3 = {
@@ -135,7 +136,9 @@ const routes = [
     component: () => import('@/views/user/Detail.vue'),
     meta: { title: '用户详情', hidden: true },
   },
-] as const satisfies RouteRecordRaw[];
+] as const satisfies readonly RouteRecordRaw[];
+// 注意：as const 后数组是 readonly 元组，satisfies 的目标必须写成 readonly RouteRecordRaw[]
+// 写 satisfies RouteRecordRaw[]（可变数组）会直接编译报错
 
 // 现在 router.push 时路径是精确字面量，重构路径时所有引用处自动报错
 ```
@@ -179,14 +182,15 @@ const themeColors = {
   warning: '#E6A23C',
   danger: '#F56C6C',
   info: '#909399',
-} satisfies Record<string, string>;
+} as const satisfies Record<string, string>;
 
-// 遍历时每个 value 是 '#409EFF' 字面量，不是 string
+// as const 保留字面量，satisfies 校验"value 必须是 string"
 const cssVariables = Object.entries(themeColors).map(([key, value]) => {
-  // value 类型是 '#409EFF' | '#67C23A' | ... 精确！
+  // value 类型是 '#409EFF' | '#67C23A' | ... 的字面量联合，不是 string
   return `--el-color-${key}: ${value};`;
 });
-// ✅ 这比类型注解的 string 精确得多，又比 as const 灵活（as const 会把 value 定死为 readonly 无法拼接）
+// ✅ readonly 只是不能改属性，不影响读取和模板字符串拼接
+// （只写 satisfies 不加 as const 的话，value 会被扩宽为 string——检查还在，精度没了）
 ```
 
 ## 易错点
@@ -203,7 +207,7 @@ const keys = ['id', 'name', 'email'] as const satisfies readonly string[];
 // typeof keys => readonly ['id', 'name', 'email']
 ```
 
-❌ **误以为 `satisfies` 只检查顶层**：`satisfies` 本身会递归检查嵌套结构。下面例子中嵌套结构没被约束，是因为 `Record<string, object>` 的值类型 `object` 太宽泛了——任何对象都满足它，不是 `satisfies` 不递归。
+❌ **误以为 `satisfies` 只检查顶层**：`satisfies` 会递归检查嵌套结构。如果你见过"嵌套没被约束"的现象，那是因为目标类型写得太宽（如 `Record<string, object>`——`object` 不约束任何属性），不是 `satisfies` 不递归。
 
 ```typescript
 // 用具体类型就能看到递归检查效果：
@@ -213,8 +217,8 @@ const config = {
 //                                     ^^^^^^^ 报错！number 不能赋给 string
 // ✅ 证明 satisfies 确实递归检查了嵌套结构
 
-// 之前示例中的 Record<string, object> 之所以不报错，
-// 是因为 object 类型不约束任何属性——任何对象都满足 object
+// 若换成 satisfies Record<string, object> 则不会报错——
+// 因为 object 类型不约束任何属性，任何对象都满足它
 ```
 
 ## 面试信号表
@@ -231,3 +235,7 @@ const config = {
 - [utility-types](utility-types.md) —— 配合工具类型使用效果更佳
 - [any-unknown-never](any-unknown-never.md) —— 类型安全体系的基石
 - [keyof-mapped-conditional](keyof-mapped-conditional.md) —— 理解类型推断和类型收窄的底层原理
+
+## 更新记录
+
+- 2026-07-18：事实审计——修正"不加注解可保留值字面量"的错误结论（属性值会扩宽为 string）、路由示例改为 `satisfies readonly RouteRecordRaw[]`、主题色示例改为 as const satisfies 并删除"readonly 无法拼接"的错误说法、理顺嵌套检查易错点的表述

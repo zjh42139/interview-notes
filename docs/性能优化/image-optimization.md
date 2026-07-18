@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 图片
@@ -22,7 +22,7 @@ tags:
 
 > ⭐⭐⭐｜难度：初级
 
-**图片通常是页面上体积最大的资源（平均占页面总大小的 40-60%），但图片优化也是最容易被忽视的性能切入点。** 这道题看起来简单，但回答出"从格式选择到 CDN 参数拼接到响应式图片再到 LQIP 占位"的完整链路，就超过了 90% 的候选人。
+**图片通常是页面上体积最大的资源（约占页面总字节的一半），但图片优化也是最容易被忽视的性能切入点。** 这道题看起来简单，但回答出"从格式选择到 CDN 参数拼接到响应式图片再到 LQIP 占位"的完整链路，就超过了 90% 的候选人。
 
 ## 一句话总结
 
@@ -51,7 +51,7 @@ tags:
 // JPEG:   有损压缩，不支持透明，适合照片，文件小，兼容性 100%
 // PNG:    无损压缩，支持透明，适合 Logo/截图（大面积纯色），文件较大
 // WebP:   有损+无损+透明+动画全支持，比 JPEG 小 25-35%，兼容性 97%+
-// AVIF:   比 WebP 再小 ~30%，支持 HDR，兼容性 93%+（Chrome 85+/Firefox 93+）
+// AVIF:   比 WebP 再小 ~30%，支持 HDR，兼容性 93%+（Chrome 85+/Firefox 93+/Safari 16.4+/Edge 121+，2024 年起 Baseline）
 // SVG:    矢量 XML，无限缩放，适合图标/Logo，文件极小
 ```
 
@@ -81,7 +81,7 @@ tags:
 ### 懒加载 -- 从一行属性到自定义逻辑
 
 ```ts
-// 原生懒加载（Chrome 77+，最简单的用法）
+// 原生懒加载（Chrome 76+，最简单的用法）
 <img src="below-fold.jpg" loading="lazy" alt="" />
 // loading="lazy" 告诉浏览器：这张图等到接近视口时再加载
 
@@ -174,7 +174,7 @@ function compressBeforeUpload(file: File): Promise<File> {
       maxWidth: 1920,       // 限制最大宽度
       maxHeight: 1920,
       quality: 0.8,         // 压缩质量
-      convertSize: 500_000, // 超过 500KB 才压缩
+      convertSize: 500_000, // 大于 500KB 的 PNG 自动转成 JPEG（只控制 PNG→JPEG 转换阈值，压缩本身始终执行）
       success: (result) => resolve(result as File),
     })
   })
@@ -247,4 +247,5 @@ async function uploadCropped() {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计修正（原生懒加载 Chrome 76+、compressorjs convertSize 语义更正、AVIF 兼容范围补 Safari/Edge、页面图片占比弱化精确数字）
 - 2026-07-05：Phase 2 深度填充（格式选择 + 响应式图片 + 懒加载 + CDN 处理 + LQIP + 项目实战）

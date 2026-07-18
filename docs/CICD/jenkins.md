@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Jenkins
   - CI/CD
@@ -19,6 +19,8 @@ tags:
 # Jenkins
 
 > ⭐⭐⭐｜难度：高级
+
+> **时效性注记（2026）**：Jenkins 在前端团队和前端面试中已明显边缘化，当前主流是 GitHub Actions / GitLab CI。本篇作为生态认知保留，学习优先级放最低即可。
 
 **Jenkins 是 CI/CD 的"上古神器"——2005 年诞生，至今仍是很多大型企业的 CI/CD 标配。面试中你大概率不会被要求写 Jenkinsfile，但"知道 Jenkins 的存在、了解它和 GitHub Actions 的区别、能说出声明式和脚本式语法的不同"——这三点足以让面试官觉得你对 CI/CD 生态有全面的认知。**
 
@@ -169,7 +171,7 @@ Checkout ──► Build ──► Unit Test ──► Package ──► Deploy 
 1. **多项目统一管理**：一个 Jenkins 实例管理全公司几百个项目的 CI/CD，统一配置安全策略和审批流程
 2. **与内部工具集成**：对接 LDAP 认证、SonarQube 代码质量门禁、Jira 工单状态联动
 3. **复杂的审批流程**：Input Step 实现"测试经理审批后才上生产"
-4. **SSH 到内网服务器**：Jenkins 部署在内网，可以直接 SSH 到生产服务器做部署（GitHub Actions 做不到）
+4. **SSH 到内网服务器**：Jenkins 部署在内网，可以直接 SSH 到生产服务器做部署（GitHub 托管 Runner 进不了内网，GitHub Actions 要做到这点需自建 self-hosted Runner）
 
 ---
 
@@ -193,4 +195,5 @@ Checkout ──► Build ──► Unit Test ──► Package ──► Deploy 
 
 ## 更新记录
 
+- 2026-07-18：事实审计——开头新增时效性注记（GitHub Actions/GitLab CI 为当前主流）；修正"GitHub Actions 做不到 SSH 内网"的说法（self-hosted Runner 可以做到）
 - 2026-07-06：完成完整内容，补充声明式/脚本式语法对比、与 GitHub Actions 的选型对比、企业应用场景

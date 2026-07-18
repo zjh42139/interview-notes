@@ -71,12 +71,12 @@ sequenceDiagram
     participant C as 客户端
     participant S as 服务端
 
-    Note over C,S: TLS 1.2 握手 (2-RTT)
+    Note over C,S: TLS 1.2 握手 (2-RTT, ECDHE)
     C->>S: ClientHello<br/>(TLS版本 + 加密套件 + 随机数1)
-    S->>C: ServerHello + 证书<br/>(选定加密套件 + 随机数2 + 公钥)
-    C->>C: 验证证书链
-    C->>S: 加密的 Premaster Secret<br/>(用服务端公钥加密)
-    Note over C,S: 双方推导出会话密钥
+    S->>C: ServerHello + 证书 + ServerKeyExchange<br/>(随机数2 + 用证书私钥签名的 ECDHE 参数)
+    C->>C: 验证证书链 + 验证签名
+    C->>S: ClientKeyExchange<br/>(客户端的 ECDHE 公钥)
+    Note over C,S: 双方独立计算出相同的会话密钥
     C->>S: Finished (加密)
     S->>C: Finished (加密)
     Note over C,S: 之后全部用对称密钥加密通信
@@ -203,4 +203,5 @@ location /api/v2/ { proxy_pass http://backend-v2:3000; }
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——TLS 1.2 握手图改为 ECDHE 流程（原图为已废弃的 RSA 密钥交换，与正文矛盾）
 - 2026-07-05：完成 Phase 2 填充（reviewed）

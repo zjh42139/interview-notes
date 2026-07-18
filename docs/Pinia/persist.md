@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 持久化
   - persist
@@ -24,7 +24,7 @@ tags:
 
 ## 一句话总结
 
-`pinia-plugin-persistedstate` 让 Pinia state 自动同步到 localStorage/sessionStorage。配置 `paths` 可精确控制持久化字段，`beforeRestore`/`afterRestore` 钩子实现数据清洗。核心安全原则：敏感数据（token）不存 localStorage，必须放 httpOnly cookie。
+`pinia-plugin-persistedstate` 让 Pinia state 自动同步到 localStorage/sessionStorage。配置 `pick`（v4 起，v3 叫 `paths`）可精确控制持久化字段，`beforeHydrate`/`afterHydrate`（v3 叫 `beforeRestore`/`afterRestore`）钩子实现数据清洗。核心安全原则：敏感数据（token）不存 localStorage，必须放 httpOnly cookie。
 
 ## 核心机制
 
@@ -57,12 +57,14 @@ export const useUserStore = defineStore('user', () => {
   return { token, refreshToken, userInfo, theme }
 }, {
   persist: {
-    key: 'user-store',                         // localStorage 中的 key，默认是 store id
-    storage: localStorage,                     // 存储介质，默认 localStorage
-    paths: ['token', 'userInfo', 'theme'],     // 只持久化这些字段（白名单模式）
+    key: 'user-store',                        // localStorage 中的 key，默认是 store id
+    storage: localStorage,                    // 存储介质，默认 localStorage
+    pick: ['token', 'userInfo', 'theme'],     // 只持久化这些字段（白名单），反向排除用 omit
   },
 })
 ```
+
+> 版本注意：以上是 v4（2024-09 起）写法。v3 及更早版本中白名单选项叫 `paths`（无 `omit`），钩子叫 `beforeRestore`/`afterRestore`（v4 改名为 `beforeHydrate`/`afterHydrate`）。老项目升级 v4 时需同步改名。
 
 ### 3. 选择 localStorage vs sessionStorage
 
@@ -84,7 +86,7 @@ export const useUserStore = defineStore('user', () => {
 }, {
   persist: {
     storage: sessionStorage,    // 关闭标签页即清除
-    paths: ['userInfo'],        // token 不放这里！
+    pick: ['userInfo'],         // token 不放这里！
   },
 })
 
@@ -97,7 +99,7 @@ export const useAppStore = defineStore('app', () => {
 }, {
   persist: {
     storage: localStorage,      // 永久保留
-    paths: ['theme', 'sidebarCollapsed'],
+    pick: ['theme', 'sidebarCollapsed'],
   },
 })
 ```
@@ -112,7 +114,7 @@ XSS（跨站脚本攻击）可以通过注入脚本读取 `localStorage.getItem(
 // ❌ 危险：token 持久化到 localStorage
 persist: {
   storage: localStorage,
-  paths: ['token', 'refreshToken'],  // XSS 可以直接读取！
+  pick: ['token', 'refreshToken'],   // XSS 可以直接读取！
 }
 
 // ✅ 安全方案：
@@ -127,7 +129,7 @@ persist: {
 - 设置较短的过期时间
 - 配合 CSP（内容安全策略）防止 XSS
 
-### 5. beforeRestore / afterRestore 钩子
+### 5. beforeHydrate / afterHydrate 钩子（v3：beforeRestore / afterRestore）
 
 ```ts
 export const useUserStore = defineStore('user', () => {
@@ -139,14 +141,14 @@ export const useUserStore = defineStore('user', () => {
   persist: {
     storage: localStorage,
 
-    // 恢复前：可以校验数据合法性、做数据迁移
-    beforeRestore(context) {
+    // 恢复前：可以校验/清理 storage 中的数据（v3 中叫 beforeRestore）
+    beforeHydrate(context) {
       console.log('准备恢复数据:', context)
-      // 如果存储的数据过期或格式不对，可以返回新对象替换
+      // 例如：检测到数据版本过期，直接 removeItem 丢弃旧数据
     },
 
-    // 恢复后：可以做一些初始化操作
-    afterRestore(context) {
+    // 恢复后：可以做一些初始化操作（v3 中叫 afterRestore）
+    afterHydrate(context) {
       // 数据已恢复到 store，可以在这里做后续处理
       if (context.store.userInfo) {
         console.log('用户信息已恢复:', context.store.userInfo.name)
@@ -218,7 +220,7 @@ if (saved) {
 }
 ```
 
-插件比自己实现的好处：自动去抖、支持 `paths` 过滤、支持多种 storage、处理了循环引用等边缘情况。
+插件比自己实现的好处：恢复时机正确（store 创建时同步恢复，不会闪一帧初始值）、支持 `pick`/`omit` 字段过滤、可自定义 storage 和 serializer、提供恢复前后钩子、兼容 SSR/Nuxt。
 
 ### 追问2：多个标签页如何同步状态？
 
@@ -253,7 +255,7 @@ export const useAppStore = defineStore('app', () => {
   persist: {
     key: 'app-config',
     storage: localStorage,     // 用户偏好，长保留
-    paths: ['theme', 'locale', 'sidebarCollapsed'],
+    pick: ['theme', 'locale', 'sidebarCollapsed'],
   },
 })
 
@@ -266,7 +268,7 @@ export const useUserStore = defineStore('user', () => {
   persist: {
     key: 'user-session',
     storage: sessionStorage,   // 会话级，关闭即清
-    paths: ['userInfo'],
+    pick: ['userInfo'],
   },
 })
 
@@ -280,7 +282,7 @@ export const useTagsViewStore = defineStore('tagsView', () => {
   persist: {
     key: 'tags-view',
     storage: sessionStorage,
-    paths: ['visitedViews'],
+    pick: ['visitedViews'],
   },
 })
 ```
@@ -306,7 +308,7 @@ const connected = ref(false)  // 序列化布尔值安全
 
 - 核心信号：能清楚解释为什么 token 不放在 localStorage（XSS 可读取，httpOnly cookie 不可读）
 - 能区分 localStorage 和 sessionStorage 的适用场景（用户偏好 vs 会话状态）
-- 能说出持久化插件的核心配置项：key、storage、paths、serializer
+- 能说出持久化插件的核心配置项：key、storage、pick/omit（v3 为 paths）、serializer
 - 能将持久化策略和后台管理系统实际场景结合（主题、语言、标签页、用户信息）
 
 ## 相关阅读
@@ -317,4 +319,5 @@ const connected = ref(false)  // 序列化布尔值安全
 
 ## 更新记录
 
+- 2026-07-18：事实审计：配置项更新为 v4 命名（paths→pick、beforeRestore/afterRestore→beforeHydrate/afterHydrate）并标注版本差异，删去插件「自动去抖/处理循环引用」的不实说法
 - 2026-07-06：初始创建

@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Module Federation
   - Webpack 5
@@ -50,7 +50,7 @@ module.exports = {
       },
       shared: {
         vue: {
-          singleton: true,    // 整个页面只能有一个 Vue 实例
+          singleton: true,    // 整个页面只加载一份 vue，所有应用共享
           requiredVersion: '^3.3.0',
         },
         lodash: {
@@ -88,9 +88,9 @@ import AppAButton from 'app_a/Button'
 import { formatDate } from 'app_a/utils/format'
 ```
 
-通过一个异步 `import()`，Webpack 在运行时从 `http://localhost:3001/remoteEntry.js` 加载模块并执行。
+远程模块本质是**运行时异步加载的 chunk**：Webpack 从 `http://localhost:3001/remoteEntry.js` 拿到模块清单后按需下载执行。所以消费端要么用动态 `import('app_a/Button')`，要么在入口用 `import('./bootstrap')` 制造异步边界——否则会报经典错误 `Shared module is not available for eager consumption`。
 
-### 2. shared 配置的三种策略
+### 2. shared 配置的关键选项
 
 | 配置项 | 作用 | 典型值 |
 |--------|------|--------|
@@ -243,12 +243,13 @@ new ModuleFederationPlugin({
 
 ## 相关阅读
 
-- [微前端概述](./overview.md) — 四种方案全景对比
+- [微前端概述](./overview.md) — 六种方案全景对比
 - [qiankun 深度解析](./qiankun.md) — 应用级隔离的另一种思路
-- [Webpack 基础](../../工程化/webpack) — 理解 loader/plugin 机制才能看懂 MF 配置
+- [Webpack 基础](../../工程化/webpack.md) — 理解 loader/plugin 机制才能看懂 MF 配置
 
 ---
 
 ## 更新记录
 
+- 2026-07-18：二审修正——远程模块加载描述补齐异步边界（bootstrap 模式 / eager consumption 报错）；"shared 三种策略"改为"关键选项"（表中实为 4 项）；singleton 注释改为"只加载一份 vue"（避免与 app 实例混淆）；相关阅读"四种"→"六种"
 - 2026-07-06：完成内容填充，新增加载流程图、MF vs qiankun 决策表、MF vs npm 包对比、组件共享平台实战、版本管理方案

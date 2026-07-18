@@ -70,19 +70,20 @@ function flattenIterative(arr: any[]): number[] {
   return result.reverse()  // 栈是反的，反转回来
 }
 
-// 控制深度版本
-function flattenDepth(arr: any[], depth: number = 1): number[] {
-  if (depth === 0) return arr.filter(v => typeof v === 'number')
-  const result: number[] = []
+// 控制深度版本——对齐原生 flat(depth)：只展开 depth 层，更深的嵌套保留原样
+function flattenDepth(arr: any[], depth: number = 1): any[] {
+  if (depth <= 0) return [...arr]
+  const result: any[] = []
   for (const item of arr) {
     if (Array.isArray(item)) {
       result.push(...flattenDepth(item, depth - 1))
-    } else if (typeof item === 'number') {
+    } else {
       result.push(item)
     }
   }
   return result
 }
+console.log(flattenDepth([1, [2, [3, [4]]]], 1))  // [1, 2, [3, [4]]]，同 arr.flat(1)
 ```
 
 ## 面试追问

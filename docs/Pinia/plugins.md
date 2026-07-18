@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 插件
   - plugin
@@ -88,19 +88,19 @@ declare module 'pinia' {
 }
 ```
 
-使用：
+使用（在组件中通过 store 实例调用；注意 Setup Store 的函数体内没有可用的 `this`，不要写 `this.$confirmAction`）：
 
 ```ts
-export const useUserStore = defineStore('user', () => {
-  async function deleteUser(id: number) {
-    // $confirmAction 由插件注入，所有 store 可用
-    await this.$confirmAction(
-      () => api.deleteUser(id),
-      `确定要删除用户 ${id} 吗？`
-    )
-  }
-  return { deleteUser }
-})
+// 组件中
+const userStore = useUserStore()
+
+async function handleDelete(id: number) {
+  // $confirmAction 由插件注入，所有 store 实例上都可用
+  await userStore.$confirmAction(
+    () => api.deleteUser(id),
+    `确定要删除用户 ${id} 吗？`
+  )
+}
 ```
 
 ### 3. 给所有 store 添加共享状态
@@ -110,17 +110,18 @@ export const useUserStore = defineStore('user', () => {
 import { ref } from 'vue'
 
 export function globalStatePlugin({ store }: PiniaPluginContext) {
-  // 给每个 store 添加一个全局计数器
+  // 给每个 store 添加一个计数器
+  // 注意：store 本身是 reactive 对象，挂上去的 ref 会被自动解包
   store.$actionCount = ref(0)
   store.$createdAt = new Date()
 
-  // 也可以把全局状态挂到 pinia 实例上
-  // 但挂到 store 上让每个 store 都能访问
+  // 之后读写都不带 .value：store.$actionCount++ / store.$actionCount === 0
 }
 
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    $actionCount: Ref<number>
+    // 按解包后的类型声明（访问时 ref 已被自动解包）
+    $actionCount: number
     $createdAt: Date
   }
 }
@@ -223,14 +224,15 @@ import { ref } from 'vue'
 import type { PiniaPluginContext } from 'pinia'
 
 export function loadingPlugin({ store }: PiniaPluginContext) {
-  // 给每个 store 注入一个全局的 $loading 状态
+  // 给每个 store 注入一个 $loading 状态
+  // store 是 reactive 对象，挂上去的 ref 会被自动解包，之后读写不带 .value
   store.$loading = ref(false)
   // 记录当前正在执行的 action 数量
   let pendingCount = 0
 
   store.$onAction(({ name, after, onError }) => {
     pendingCount++
-    store.$loading.value = true
+    store.$loading = true
     // 可选：记录正在执行的具体 action 名称
     console.log(`[Loading] ${store.$id}.${name} 开始 (pending: ${pendingCount})`)
 
@@ -238,7 +240,7 @@ export function loadingPlugin({ store }: PiniaPluginContext) {
       pendingCount--
       if (pendingCount <= 0) {
         pendingCount = 0
-        store.$loading.value = false
+        store.$loading = false
         console.log(`[Loading] ${store.$id} 所有 action 完成`)
       }
     }
@@ -251,7 +253,7 @@ export function loadingPlugin({ store }: PiniaPluginContext) {
 // 类型声明
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    $loading: Ref<boolean>
+    $loading: boolean  // ref 挂到 store 上会被解包，按解包后类型声明
   }
 }
 ```
@@ -335,9 +337,9 @@ export function errorReportPlugin({ store }: PiniaPluginContext) {
 
 ## 易错点
 
-**插件中直接修改 store 的 state**
+**在插件里改 state 并指望触发订阅**
 
-插件在 store 创建阶段执行，此时 state 可能还未完全初始化。应该在 `$onAction` 的回调中或通过添加新属性来扩展，而不是直接修改 state 自身。
+插件执行时 store 还未「激活」，此阶段对 state 的修改（包括调用 `store.$patch()`）**不会触发任何 `$subscribe` 订阅**。另外，插件里新增 state 属性时应同时写入 `store` 和 `store.$state`，否则 devtools 和 SSR 序列化拿不到该字段。
 
 **忘记 TypeScript 类型声明**
 
@@ -346,7 +348,7 @@ export function errorReportPlugin({ store }: PiniaPluginContext) {
 ```ts
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    $loading: Ref<boolean>
+    $loading: boolean          // ref 挂到 store 上会被自动解包，按解包后类型声明
     $myMethod: () => void
   }
 }
@@ -372,4 +374,5 @@ declare module 'pinia' {
 
 ## 更新记录
 
+- 2026-07-18：事实审计：修正插件挂载 ref 的自动解包（$loading 读写不带 .value、类型按解包后声明）、Setup Store action 中 this 用法、易错点改为「插件阶段修改不触发订阅」
 - 2026-07-06：初始创建

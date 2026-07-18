@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 reviewed: null
 tags:
   - DFS
@@ -179,9 +179,9 @@ function numIslands(grid) {
 
 - [算法 知识地图](./index.md)
 - [树](./tree.md)
-- [树](./tree)
 - [高频题](./common-questions.md)
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——删除相关阅读中重复且缺 `.md` 后缀的"树"链接
 - 2026-07-06：初始创建，覆盖 DFS/BFS 原理、二叉树遍历、回溯、岛屿数量、选择依据、面试套路

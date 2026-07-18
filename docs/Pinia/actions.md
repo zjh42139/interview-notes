@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - actions
   - $onAction
@@ -125,7 +125,7 @@ async function handleLogin() {
 </script>
 ```
 
-这和 Vuex 完全不同：Vuex 中 action 虽然可以返回 Promise，但你不能在 action 中直接修改 state（必须通过 commit mutation），导致链式调用体验割裂。
+这和 Vuex 不同：Vuex 中 action 虽然也能返回 Promise 供 await，但规范上不允许在 action 中直接修改 state（strict 模式下会报错，必须 commit mutation），同一份业务逻辑被拆到 action 和 mutation 两处。
 
 ### 4. $onAction：订阅 action（高级特性）
 
@@ -193,7 +193,7 @@ userStore.$onAction(({ name, after, onError }) => {
 这是 Pinia 和 Vuex 最本质的设计哲学差异：
 
 - **Vuex**：受 Flux 架构影响，强制 state -> mutation -> action 的单向数据流。mutation 必须是同步的（方便 devtools 追踪），异步操作只能在 action 中通过 commit mutation 间接修改 state。
-- **Pinia**：意识到在 Vue3 的响应式系统下，没有必要区分同步/异步修改。Proxy 可以在任何时候追踪到状态变化，devtools 也能正确记录。去掉 mutation 后，开发体验大幅提升。
+- **Pinia**：mutation 的本质是「显式收敛修改入口 + 强制同步保证 devtools 快照可追踪」，这是设计约束，不是响应式系统的能力限制。Pinia 通过 `$subscribe` 和新版 devtools API 同样能记录每次变更的类型与快照，权衡后认为 mutation 层的样板代码得不偿失，于是把修改统一收敛到 action。去掉 mutation 后，开发体验大幅提升。
 
 ```ts
 // Vuex 中修改 state：必须 commit mutation
@@ -212,7 +212,7 @@ async function login(payload: LoginPayload) {
 }
 ```
 
-**关键收益**：代码量减少约 40%，不再需要在 mutations 里写大量的 SET_XXX 模板代码。TypeScript 类型推断也更好（不再需要为每个 mutation 写类型）。
+**关键收益**：状态修改相关的样板代码大幅减少，不再需要在 mutations 里写大量的 SET_XXX 模板代码。TypeScript 类型推断也更好（不再需要为每个 mutation 写类型）。
 
 ### 追问2：$onAction 和中间件的对比
 
@@ -321,20 +321,23 @@ export function setupActionMonitor() {
 
 ## 易错点
 
-**在 action 中忘记拿 anotherStore 的最新状态**
+**跨 store 引用的两个误区**
 
 ```ts
-// ❌ 在顶层获取 otherStore，后续 otherStore 更新不会反映
-const userStore = useUserStore()  // store 顶层
+// 误区一：以为顶层拿到的 store 状态会「过时」—— 不会。
+// useUserStore() 返回的是同一个单例，属性读取发生在 action 执行时，永远是最新值
+const userStore = useUserStore()  // setup store 顶层单向引用，官方支持的写法
 
 async function submitOrder() {
-  const userId = userStore.userInfo?.id  // 可能获取到过时的值
+  const userId = userStore.userInfo?.id  // ✅ 读到的就是当前最新状态
 }
 
-// ✅ 在 action 内获取，确保拿到最新状态
+// 误区二（真正的坑）：两个 store 顶层互相 useXxxStore() 会造成初始化循环依赖
+// A 的 setup 顶层调 useB，B 的 setup 顶层调 useA -> 初始化死循环
+// ✅ 互相引用时，把 useXxxStore() 挪到 action/getter 内部延迟获取
 async function submitOrder() {
-  const userStore = useUserStore()
-  const userId = userStore.userInfo?.id  // 每次调用 action 时重新获取
+  const userStore = useUserStore()  // 延迟到调用时再获取，打破循环
+  const userId = userStore.userInfo?.id
 }
 ```
 
@@ -381,4 +384,5 @@ async function login(username: string, password: string) {
 
 ## 更新记录
 
+- 2026-07-18：事实审计：修正去 mutation 原因的 Proxy 归因、重写「顶层 store 状态会过时」这一错误易错点（真实风险是互相引用的循环依赖）、删去无出处的 40% 数据
 - 2026-07-06：初始创建

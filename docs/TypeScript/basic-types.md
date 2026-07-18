@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - 类型注解
@@ -66,7 +66,7 @@ function greet(name: string, title?: string): string {
 }
 ```
 
-**`?` 和 `undefined` 的区别**：`title?: string` 允许调用时不传这个参数，而 `title: string | undefined` 必须显式传值（可以传 `undefined`）。类型层面两者近似但不完全等价——开启 `exactOptionalPropertyTypes` 后，`?` 表示"属性可缺失"，`| undefined` 表示"属性存在但值可能是 undefined"，语义不同。
+**`?` 和 `undefined` 的区别**：`title?: string` 允许调用时不传这个参数，而 `title: string | undefined` 必须显式传值（可以传 `undefined`）。类型层面两者近似但不完全等价——对对象属性而言（该选项不影响函数参数），开启 `exactOptionalPropertyTypes` 后，`?` 表示"属性可缺失"，`| undefined` 表示"属性存在但值可能是 undefined"，语义不同。
 
 ### 2. 类型推断（Type Inference）
 
@@ -189,9 +189,9 @@ type WithCode<T> = { data: T } & { code: number }        // 交叉类型
 type Readonly<T> = { readonly [K in keyof T]: T[K] }     // 映射类型
 // interface 都做不到
 
-// 区别三：extends 方式不同
+// 区别三：extends 方式不同（两种写法二选一——interface 和 type 同名声明会报 Duplicate identifier）
 interface Admin extends User { role: string }            // interface 用 extends
-type Admin = User & { role: string }                     // type 用 & 交叉
+// type Admin = User & { role: string }                  // type 用 & 交叉
 
 // 推荐实践：
 // 描述对象形状 → interface（声明合并 + extends 语义更清晰）
@@ -246,7 +246,7 @@ u = fn3();   // ✅ undefined 类型兼容
 // u = fn1(); // ❌ void 不能赋值给 undefined（strictNullChecks 下）
 ```
 
-> `void` 的语义是"这个返回值你别用"——函数可以返回任何东西，但 TS 会阻止调用方依赖它。`undefined` 的语义是"返回的就是 undefined"——调用方可以安全使用。所以声明回调函数返回值时优先用 `void`（兼容各种实现），只有真的需要调用方拿到 `undefined` 时才用 `undefined`。
+> `void` 的语义是"这个返回值你别用"——不过"实现可以返回任何值"只对**函数类型**成立：类型为 `() => void` 的回调，其实现返回什么都行，TS 只是阻止调用方使用返回值；而直接给函数声明标注 `: void` 时，函数体内 `return 具体值` 会直接报错。`undefined` 的语义是"返回的就是 undefined"——调用方可以安全使用。所以声明回调函数返回值时优先用 `void`（兼容各种实现），只有真的需要调用方拿到 `undefined` 时才用 `undefined`。
 
 ❌ **字面量类型收窄被类型断言覆盖**：`const n = 10 as number` 会强制扩宽为 `number` 类型，覆盖了字面量推导——很少需要这样做。
 
@@ -274,3 +274,4 @@ u = fn3();   // ✅ undefined 类型兼容
 ## 更新记录
 
 - 2026-07-14：新建——合并基础类型注解、类型推断、字面量类型、函数重载、interface vs type 五大块
+- 2026-07-18：事实审计——修复 interface/type 同名示例冲突、exactOptionalPropertyTypes 适用范围、void 返回值宽容规则的适用场景

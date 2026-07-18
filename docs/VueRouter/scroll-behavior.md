@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - scrollBehavior
   - savedPosition
@@ -41,7 +41,7 @@ const router = createRouter({
 
     // 场景1：浏览器前进/后退 → 恢复到上次的滚动位置
     if (savedPosition) {
-      return savedPosition  // { x: number, y: number }
+      return savedPosition  // { left: number, top: number }（VR3 的 x/y 在 VR4 改名为 left/top）
     }
 
     // 场景2：有锚点（hash）→ 滚动到锚点
@@ -67,9 +67,9 @@ sequenceDiagram
 
     User->>Browser: 点击"后退"按钮
     Browser->>Browser: 触发 popstate 事件
-    Browser->>Router: popstate: 取出历史记录中保存的 {x,y}
-    Router->>Router: scrollBehavior(to, from, {x,y})
-    Router->>Page: 在导航完成后执行 window.scrollTo(x,y)
+    Browser->>Router: popstate: 取出历史记录中保存的 {left, top}
+    Router->>Router: scrollBehavior(to, from, {left, top})
+    Router->>Page: 在导航完成后执行 window.scrollTo(left, top)
     Note over Page: 滚动位置恢复到离开时的样子
 ```
 
@@ -84,27 +84,27 @@ sequenceDiagram
 3. 在 `pushState` 之前，Vue Router 已经在内部记录了页面 A 当前的 `(scrollX, scrollY)`，并存入浏览器的历史记录条目中（通过 `history.state`）
 4. 用户点击后退，浏览器触发 `popstate`
 5. Vue Router 从 `history.state` 中读出之前保存的位置
-6. Vue Router 调用 `scrollBehavior(to, from, savedPosition)`，其中 `savedPosition` = 之前在步骤 3 中保存的 `{x, y}`
+6. Vue Router 调用 `scrollBehavior(to, from, savedPosition)`，其中 `savedPosition` = 之前在步骤 3 中保存的 `{ left, top }`
 7. 返回值决定最终的滚动位置
 
 ```ts
 // Vue Router 内部简化逻辑
-// 1. 离开页面时保存滚动位置
+// 1. 离开页面时保存滚动位置（VR4 坐标格式是 { left, top }，对齐 ScrollToOptions）
 function saveScrollPosition(route: RouteLocation) {
-  const pos = { x: window.scrollX, y: window.scrollY }
+  const pos = { left: window.scrollX, top: window.scrollY }
   history.replaceState(
-    { ...history.state, position: pos },  // 保存到当前 history entry 的 state 中
+    { ...history.state, scroll: pos },  // 保存到当前 history entry 的 state 中
     ''
   )
 }
 
 // 2. popstate 时读取
 window.addEventListener('popstate', (e) => {
-  const savedPosition = e.state?.position  // 读出来
+  const savedPosition = e.state?.scroll  // 读出来
   const result = router.scrollBehavior?.(to, from, savedPosition)
   if (result) {
     // 导航完成后应用到窗口
-    window.scrollTo(result.x ?? result.left ?? 0, result.y ?? result.top ?? 0)
+    window.scrollTo({ left: result.left ?? 0, top: result.top ?? 0 })
   }
 })
 ```
@@ -299,4 +299,6 @@ const routes = [
 
 ## 更新记录
 
+- 2026-07-18：事实修正（Phase 3 二审）——时序图中残留的 VR3 坐标 `{x,y}` 同步为 VR4 的 `{left, top}`
+- 2026-07-18：事实修正（Phase 3）——savedPosition 坐标格式由 VR3 的 `{ x, y }` 更正为 VR4 的 `{ left, top }`，内部伪代码同步（history.state 的 scroll 字段）
 - 2026-07：完整填充（Phase 1），含 savedPosition 与 popstate 联动机制、异步滚动、锚点偏移

@@ -131,7 +131,7 @@ window.addEventListener('scroll', () => {
 
 ```html
 <div class="image-wrapper">
-  <!-- 模糊占位：22 字节的 base64 缩略图 -->
+  <!-- 模糊占位：几百字节的 base64 缩略图 -->
   <img src="data:image/jpeg;base64,/9j/2wBDA..." class="placeholder" />
 
   <!-- 真实图片：加载后覆盖占位 -->

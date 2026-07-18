@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 打包
@@ -98,8 +98,8 @@ const _ = require("lodash")           // 整个 lodash 都打包进来
 ```ts
 // 文件名 hash 的三种策略：
 // [hash]      每次构建全局 hash 都变，不利于缓存
-// [chunkhash] 同 chunk 内容不变 hash 不变，推荐
-// [contenthash] 文件内容不变 hash 不变，最精细
+// [chunkhash] chunk 内任一模块变化，整个 chunk 的 hash 就变
+// [contenthash] 文件内容不变 hash 不变，长期缓存首选（webpack 官方推荐）
 
 // 输出配置示例（Vite / Rollup）
 output: {
@@ -136,7 +136,8 @@ export default defineConfig({
 ### 动态 import 的 magic comments
 
 ```ts
-// webpack 的 magic comments（Vite/Rollup 部分支持）
+// webpack 的 magic comments（仅 webpack 生效；Vite/Rollup 会直接忽略，
+// 等价能力用 manualChunks / output.chunkFileNames 实现）
 import(
   /* webpackChunkName: "my-chunk" */       // 命名 chunk
   /* webpackPrefetch: true */              // 空闲时预加载（<link rel="prefetch">）
@@ -209,7 +210,7 @@ export default {
 ### 3. lodash 按需引入的正确姿势
 
 ```ts
-// ❌ 全量引入 — 280KB 全部打包
+// ❌ 全量引入 — 整个 lodash（约 70KB min / 25KB gzip）全部打包
 import _ from "lodash"
 
 // ✅ 按需引入 ESM 版本 — 只打包用到的函数
@@ -242,9 +243,9 @@ import debounce from "lodash-es/debounce"
 - [Code Splitting（工程化）](../工程化/code-splitting.md)
 - [Tree Shaking](../工程化/tree-shaking.md)
 - [Vite 工程化](../工程化/vite.md)
-- [Tree Shaking 原理](../工程化/tree-shaking.md)
 - [性能优化知识地图](./index.md)
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计修正（contenthash 才是长期缓存推荐、magic comments 仅 webpack 生效、lodash 体积数字更正、删重复链接）
 - 2026-07-05：Phase 2 深度填充（Code Splitting + Tree Shaking + 压缩三层体系 + manualChunks 策略 + 项目实战）

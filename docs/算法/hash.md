@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 reviewed: null
 tags:
   - 哈希表
@@ -124,7 +124,7 @@ function lengthOfLongestSubstring(s) {
 
 ### 哈希冲突解决
 
-1. **链地址法（Chaining）**：每个桶存一个链表/红黑树，冲突时追加到链表。Java HashMap 和 JS 引擎内部均使用此方法。当链表长度超过阈值（如 8）时转为红黑树，最坏情况从 O(n) 降到 O(log n)。
+1. **链地址法（Chaining）**：每个桶存一个链表/红黑树，冲突时追加到链表。Java HashMap 和 JS 引擎的 Map/Set 实现均使用此方法。Java 8+ 的 HashMap 还会在链表长度超过阈值（8）时转为红黑树，把最坏情况从 O(n) 降到 O(log n)（JS 引擎没有这一红黑树转换）。
 
 2. **开放寻址法（Open Addressing）**：冲突时按某种规则（线性探测、二次探测、双重哈希）找下一个空桶。缓存友好，但删除麻烦（需要墓碑标记），负载因子高时性能下降严重。
 
@@ -164,4 +164,5 @@ function lengthOfLongestSubstring(s) {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——红黑树转换限定为 Java 8+ HashMap（JS 引擎无此机制）
 - 2026-07-06：初始创建，覆盖哈希表原理、JS Map/Set 系列、经典面试题、冲突解决、面试套路

@@ -7,6 +7,7 @@ difficulty: 中高级
 frequency: ⭐⭐⭐
 status: filled
 created: 2026-07-17
+updated: 2026-07-18
 tags:
   - 配置化
   - JSON Schema
@@ -66,19 +67,19 @@ const ConfigForm = defineComponent({
     }
 
     return () => (
-      <el-form>
+      <ElForm>
         {props.config.fields.map((field) => {
           const Comp = componentMap[field.type] || componentMap.input
           return (
-            <el-form-item key={field.key} label={field.label} prop={field.key}>
+            <ElFormItem key={field.key} label={field.label} prop={field.key}>
               <Comp
                 placeholder={field.placeholder}
                 {...field.props}
               />
-            </el-form-item>
+            </ElFormItem>
           )
         })}
-      </el-form>
+      </ElForm>
     )
   },
 })
@@ -113,8 +114,8 @@ const columns: ColumnConfig[] = [
   { key: 'age', title: '年龄', width: 80 },
   { key: 'dept', title: '部门', width: 150, render: (v) => deptMap[v] },
   { key: 'status', title: '状态', width: 100,
-    render: (v) => <el-tag type={v === 1 ? 'success' : 'danger'}>
-      {v === 1 ? '在职' : '离职'}</el-tag> },
+    render: (v) => <ElTag type={v === 1 ? 'success' : 'danger'}>
+      {v === 1 ? '在职' : '离职'}</ElTag> },
   { key: 'actions', title: '操作', width: 200,
     render: (_, row) => // 操作按钮也是配置驱动的
       <ActionButtons config={rowActionConfig} record={row} />
@@ -186,4 +187,5 @@ function validateConfig(config: FormConfig): string[] {
 
 ## 更新记录
 
+- 2026-07-18：二审修正——JSX 示例中 `el-form`/`el-form-item`/`el-tag` 字符串标签改为导入的 PascalCase 组件（`h()`/JSX 的字符串标签不会解析全局注册组件，会渲染成原生自定义元素）
 - 2026-07-17：新建——覆盖率审计补齐（面经真题校准）

@@ -48,10 +48,10 @@ Array.prototype.myMap = function <T, U>(
   callback: (value: T, index: number, array: T[]) => U,
   thisArg?: any
 ): U[] {
-  const result: U[] = []
+  const result: U[] = new Array(this.length)  // 原生 map 的结果 length 与原数组一致
   for (let i = 0; i < this.length; i++) {
-    if (i in this) {  // 跳过稀疏数组的空位
-      result.push(callback.call(thisArg, this[i], i, this))
+    if (i in this) {  // 空位不调用 callback，且在结果中保留为空位（不能用 push——会压缩长度）
+      result[i] = callback.call(thisArg, this[i], i, this)
     }
   }
   return result
@@ -82,14 +82,28 @@ Array.prototype.myReduce = function <T, U>(
   callback: (acc: U, value: T, index: number, array: T[]) => U,
   initialValue?: U
 ): U {
-  let acc = initialValue !== undefined ? initialValue : this[0]
-  const startIndex = initialValue !== undefined ? 0 : 1
+  // 用 arguments.length 区分「没传初始值」和「显式传了 undefined」（对齐原生）
+  const hasInit = arguments.length >= 2
+  let startIndex = 0
+  let acc: any
+
+  if (hasInit) {
+    acc = initialValue
+  } else {
+    // 无初始值：取第一个非空位元素作为 acc；空数组直接抛错（对齐原生）
+    while (startIndex < this.length && !(startIndex in this)) startIndex++
+    if (startIndex >= this.length) {
+      throw new TypeError('Reduce of empty array with no initial value')
+    }
+    acc = this[startIndex++]
+  }
+
   for (let i = startIndex; i < this.length; i++) {
     if (i in this) {
       acc = callback(acc, this[i], i, this)
     }
   }
-  return acc!
+  return acc
 }
 ```
 
@@ -139,7 +153,7 @@ function myStringify(value: any): string {
 | 追问 | 回答 |
 |------|------|
 | "map 和 forEach 的区别" | map 返回新数组、forEach 无返回值。手写时 map 多了 result.push |
-| "reduce 不加 initialValue 会怎样" | 第一次取数组第一个元素作为 acc，循环从 index=1 开始。空数组会报错 |
+| "reduce 不加 initialValue 会怎样" | 取数组第一个（非空位）元素作为 acc，从下一个元素开始循环。空数组会抛 TypeError |
 | "JSON.stringify 处理不了什么" | function/undefined/symbol/循环引用——生产级需要 WeakMap 去重和类型判断 |
 
 ## 相关阅读

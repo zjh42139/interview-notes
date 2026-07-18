@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 路由守卫
   - beforeEach
@@ -243,7 +243,7 @@ router.beforeEach((to) => {
 })
 ```
 
-但仍需注意：如果守卫中有**异步操作**，需要 `await` 完成后再决定，此时 `next` 仍然是推荐的方式，因为返回 Promise 的形式更冗长。
+异步场景同样用 return：守卫可以直接写成 `async` 函数，Vue Router 会等待它返回的 Promise 兑现，再根据 resolve 出的值决定放行 / 取消 / 重定向。`await` 完成后 `return` 即可，不需要退回 `next` 写法。
 
 ### 追问2：为什么 beforeRouteEnter 访问不到 `this`？
 
@@ -251,7 +251,7 @@ router.beforeEach((to) => {
 
 ### 追问3：多个守卫的执行顺序（同一个级别的守卫）
 
-如果同一个路由有多个组件的守卫（如嵌套路由），执行顺序由**路由匹配的深度**决定：先从最外层（失活组件）开始，向内层逐级执行 `beforeRouteLeave`；然后从最外层开始，向目标路由的内层执行进入守卫。
+如果同一次导航涉及嵌套路由的多层组件守卫，执行顺序由**路由匹配的深度**决定，且离开与进入方向相反：`beforeRouteLeave` 从**最内层（子组件）向外层**逐级执行——先离开子、再离开父；进入守卫（`beforeRouteEnter`）则从**最外层（父组件）向内层**执行——先进入父、再进入子。
 
 ## 项目实战
 
@@ -367,4 +367,5 @@ router.beforeEach((to, from, next) => {
 
 ## 更新记录
 
+- 2026-07-18：事实修正（Phase 3）——async 守卫推荐直接 return（删去「异步时仍推荐 next」的错误说法）、嵌套路由守卫执行方向修正（leave 由内向外、enter 由外向内）
 - 2026-07：完整填充（Phase 1），含完整导航解析流程图、三种守卫使用方式、项目实战

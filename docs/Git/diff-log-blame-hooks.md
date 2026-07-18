@@ -8,6 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: filled
 created: 2026-07-16
+updated: 2026-07-18
 tags:
   - diff
   - log
@@ -29,8 +30,9 @@ tags:
 ```bash
 # diff：改动对比
 git diff                    # 工作区 vs 暂存区（还没 add 的改动）
-git diff --cached           # 暂存区 vs 最新 commit（add 了还没 commit）
-git diff HEAD~1             # 最新 commit vs 当前
+git diff --cached           # 暂存区 vs 最新 commit（add 了还没 commit，--staged 同义）
+git diff HEAD~1             # 工作区 vs 上一个 commit
+git diff HEAD~1 HEAD        # 最近两个 commit 之间的差异
 
 # log：历史查看（最常用组合）
 git log --oneline --graph --decorate --all
@@ -61,4 +63,5 @@ npx commitlint --edit $1
 
 ## 更新记录
 
+- 2026-07-18：事实修正——`git diff HEAD~1` 是工作区 vs 上一个 commit（原注释"最新 commit vs 当前"有误），补充 `--staged` 同义参数与 commit 间对比写法
 - 2026-07-16：新建——diff/log/blame 高频组合+hooks 工程落地

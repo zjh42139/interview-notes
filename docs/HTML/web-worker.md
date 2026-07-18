@@ -125,8 +125,8 @@ worker.postMessage(buffer, [buffer])
 // 适合：大块数据的单向传递
 // ⚠️ 转移后原线程无法再访问该数据
 
-// Transferable 支持的类型：
-// ArrayBuffer, MessagePort, ImageBitmap, OffscreenCanvas
+// Transferable 常见支持类型：
+// ArrayBuffer, MessagePort, ImageBitmap, OffscreenCanvas（还有 Stream、VideoFrame 等）
 ```
 
 ## 深度拓展
@@ -141,7 +141,6 @@ Worker 中**不能**做的事：
 | 不能访问 localStorage/sessionStorage | Worker 全局作用域没有这些 API | 用 IndexedDB（Worker 可用），或 postMessage 让主线程读写 |
 | 不能使用 `alert`/`confirm` | 没有 UI 能力 | postMessage 通知主线程弹窗 |
 | 不能访问 `window.parent`/`window.top` | 没有窗口树 | — |
-| — | — | — |
 
 Worker 中**可以**做的事：
 

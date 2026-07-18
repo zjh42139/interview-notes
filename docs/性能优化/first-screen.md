@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 首屏
@@ -21,7 +21,7 @@ tags:
 
 > ⭐⭐⭐⭐⭐｜难度：中级
 
-**首屏优化是面试中"性能优化"话题的入口题。** 同时也是实际项目中最直接影响用户留存的工作--用户打开页面 3 秒还白屏，80% 会选择离开。这道题的回答层次直接决定面试官对你性能功底的判断。
+**首屏优化是面试中"性能优化"话题的入口题。** 同时也是实际项目中最直接影响用户留存的工作--移动端加载超过 3 秒，过半用户会选择离开（Google 统计约 53%）。这道题的回答层次直接决定面试官对你性能功底的判断。
 
 ## 一句话总结
 
@@ -72,8 +72,8 @@ graph LR
 <link rel="dns-prefetch" href="https://cdn.example.com" />
 
 // async vs defer — 控制脚本的下载和执行时机
-<script async src="analytics.js" />   // 下载完立刻执行，适合独立脚本
-<script defer src="app.js" />          // DOM 解析完再按顺序执行，适合依赖 DOM 的脚本
+<script async src="analytics.js"></script>  // 下载完立刻执行，适合独立脚本
+<script defer src="app.js"></script>        // DOM 解析完再按顺序执行，适合依赖 DOM 的脚本
 ```
 
 ### 代码分割 -- 路由级别的懒加载
@@ -217,7 +217,7 @@ const Dashboard = () => import(/* webpackChunkName: "dashboard" */ "@/views/Dash
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "首屏加载怎么优化" | 追问关键资源内联 + 非关键延迟 + preload + CDN + SSR/SSG 的组合 |
-| "FCP 和 LCP 有什么区别" | 追问 FCP 是第一个像素渲染——LCP 是最大内容渲染（通常首屏主图/H1） |
+| "FCP 和 LCP 有什么区别" | 追问 FCP 是首个文本/图片内容绘制（首个像素是 FP）——LCP 是最大内容渲染（通常首屏主图/H1） |
 | "白屏时间怎么减少" | 追问骨架屏 + 关键 CSS 内联 + JS 异步加载 |
 
 ## 相关阅读
@@ -231,4 +231,5 @@ const Dashboard = () => import(/* webpackChunkName: "dashboard" */ "@/views/Dash
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计修正（3 秒流失率改为 Google 53% 口径、script 标签补闭合、FCP 定义与 FP 区分）
 - 2026-07-05：Phase 2 深度填充（CRP 机制 + 资源加载策略 + 骨架屏 + SSR 权衡 + 项目实战）

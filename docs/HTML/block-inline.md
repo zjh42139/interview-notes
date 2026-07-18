@@ -32,7 +32,7 @@ tags:
 | 可设 width/height | 是 | **否** | 是 |
 | 可设 margin/padding | 四周 | **只有水平方向** | 四周 |
 | 默认宽度 | 父容器 100% | 内容宽度 | 内容宽度 |
-| 常见元素 | `div, p, h1, ul, li, section` | `span, a, strong, em, label` | `button, input, select, img` |
+| 常见元素 | `div, p, h1, ul, li, section` | `span, a, strong, em, label` | `button, input, select`（`img` 是替换元素，默认 inline） |
 
 ### 为什么行内元素不能设置宽高
 
@@ -43,11 +43,11 @@ tags:
 **替换元素**是一类特殊的行内元素：它的内容由**外部资源**决定，CSS 可以控制宽高。
 
 ```html
-<img src="photo.jpg" />   → 内容由图片文件决定
-<input type="text" />      → 内容由用户输入决定
-<video src="movie.mp4" />  → 内容由视频文件决定
-<iframe src="..." />       → 内容由嵌入的页面决定
-<canvas />                 → 内容由 JS 绘制决定
+<img src="photo.jpg" />          → 内容由图片文件决定
+<input type="text" />             → 内容由用户输入决定
+<video src="movie.mp4"></video>   → 内容由视频文件决定
+<iframe src="..."></iframe>       → 内容由嵌入的页面决定
+<canvas></canvas>                 → 内容由 JS 绘制决定
 ```
 
 替换元素的特殊行为：
@@ -77,7 +77,7 @@ tags:
 </div>
 ```
 
-**原因**：HTML 中标签之间的换行和空格被解析为一个空格字符，inline-block 元素的基线对齐产生了可见间隙。
+**原因**：HTML 中标签之间的换行和空格被解析为一个空格字符，这个空格按父元素的 `font-size` 渲染出宽度——所以 `font-size: 0` 能消除它。（与 baseline 对齐无关，基线对齐导致的是图片底部空隙那类**垂直**问题。）
 
 **4 种解决方案**：
 
@@ -125,13 +125,13 @@ img {
 
 ### 4. button 的默认 type
 
-`<button>` 在大多数浏览器中默认 `type="submit"`——如果不显式指定 `type="button"`，放在表单里点击会触发表单提交。
+`<button>` 按规范默认 `type="submit"`——如果不显式指定 `type="button"`，放在表单里点击会触发表单提交。
 
 ## 面试信号
 
 这道题如果只回答"块级独占一行、行内不独占一行"连初级都算不上。面试官想听到的是：
 
-> "块级和行内的本质区别不在于是否换行，而在于布局模型的差异。行内元素的宽高由内容决定，CSS 的 width/height 失效。有一个特殊类别是**替换元素**——img、input、video——它们虽然是 inline 但可以设宽高，因为有由外部资源决定的 intrinsic size。还有一个坑是 inline-block 之间会因为 HTML 源码中的换行产生空隙，本质是 baseline 对齐留下的空格字符。"
+> "块级和行内的本质区别不在于是否换行，而在于布局模型的差异。行内元素的宽高由内容决定，CSS 的 width/height 失效。有一个特殊类别是**替换元素**——img、input、video——它们虽然是 inline 但可以设宽高，因为有由外部资源决定的 intrinsic size。还有一个坑是 inline-block 之间会因为 HTML 源码中的换行产生空隙，本质是源码里的空白符被渲染成了一个空格字符。"
 
 如果还能提到 inline 元素的 padding-top 虽然显示但不占空间，以及 p 不能嵌套 div 的规范限制，评分会明显提高。
 

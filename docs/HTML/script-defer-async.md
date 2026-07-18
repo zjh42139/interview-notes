@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script type="module" src="app.js"></script>
 ```
 
-`type="module"` 默认行为**等同于 defer**：异步下载、不阻塞解析、DOMContentLoaded 之前按顺序执行。但如果加了 `async`，行为变为 inline async。
+`type="module"` 默认行为**等同于 defer**：异步下载、不阻塞解析、DOMContentLoaded 之前按顺序执行。但如果加了 `async`，则模块及其依赖加载完成后立即执行，不保证顺序（内联 module 加 `async` 同样生效）。
 
 ### 内联 script 的 defer 和 async
 
@@ -116,11 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
   <!-- 监控 SDK：async 最早加载，不阻塞任何东西 -->
   <script src="/monitor.js" async></script>
 
-  <!-- 主应用：Vite 构建产物，type="module" 默认 defer -->
-  <script type="module" src="/assets/index-xxx.js"></script>
-
-  <!-- Polyfill：放在 body 底部，用 defer 保证在 app 之前 -->
+  <!-- Polyfill：defer，写在主应用之前——defer 与 module 共用同一个按序队列 -->
   <script src="/polyfills.js" defer></script>
+
+  <!-- 主应用：Vite 构建产物，type="module" 默认 defer，在 polyfill 之后执行 -->
+  <script type="module" src="/assets/index-xxx.js"></script>
 </head>
 ```
 

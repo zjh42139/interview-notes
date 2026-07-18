@@ -28,7 +28,7 @@ tags:
 
 ## 核心机制
 
-### 一、HTML5 新增的 input 类型（10 种）
+### 一、HTML5 新增的 input 类型（12 种）
 
 ```html
 <!-- 传统：text + password + checkbox + radio + file + submit + reset -->
@@ -70,21 +70,22 @@ tags:
 ### 二、HTML5 新增的表单属性
 
 ```html
-<form novalidate>  <!-- 禁用浏览器默认校验 -->
+<!-- novalidate（form 上）：禁用浏览器默认校验 -->
+<!-- 注意：HTML 注释不能写在标签内部的属性之间，各属性含义见下表 -->
+<form novalidate>
   <input
     type="text"
-    required                    <!-- 必填 -->
-    placeholder="请输入姓名"     <!-- 占位提示文字 -->
-    pattern="[a-zA-Z一-龥]+"  <!-- 正则校验 -->
-    minlength="2"               <!-- 最小字符数 -->
-    maxlength="20"              <!-- 最大字符数 -->
-    autocomplete="name"         <!-- 自动填充标识 -->
-    autofocus                   <!-- 自动聚焦 -->
-    readonly                    <!-- 只读，值会提交 -->
-    disabled                    <!-- 禁用，值不会提交 -->
-    inputmode="numeric"         <!-- 虚拟键盘类型提示 -->
-    spellcheck="true"           <!-- 拼写检查 -->
+    required
+    placeholder="请输入姓名"
+    pattern="[a-zA-Z一-龥]+"
+    minlength="2"
+    maxlength="20"
+    autocomplete="name"
+    autofocus
+    inputmode="numeric"
+    spellcheck="true"
   />
+  <!-- readonly：只读，值会提交；disabled：禁用，值不会提交 -->
 </form>
 ```
 
@@ -141,7 +142,7 @@ form.reportValidity()    // 检查并展示第一个错误元素的提示
 ```css
 input:valid   { border-color: #67c23a; }    /* 校验通过 */
 input:invalid { border-color: #f56c6c; }     /* 校验失败 */
-input:required > label::after { content: ' *'; color: red; }
+label:has(input:required)::after { content: ' *'; color: red; }  /* 用 :has 标记必填项 */
 input:optional { opacity: 0.6; }
 input:in-range { background: #f0f9eb; }      /* 在 min-max 范围内 */
 input:out-of-range { background: #fef0f0; }  /* 超出 min-max */
@@ -158,7 +159,7 @@ input:user-invalid { box-shadow: 0 0 0 2px var(--danger); }
 
 1. 浏览器默认气泡 UI 不可自定义位置/样式
 2. `required` 的空值校验是在 submit 时才触发，不是实时反馈
-3. 复杂校验（两个密码一致、用户名唯一性异步检查）超出 Constraint Validation API 的能力
+3. 复杂校验（两个密码一致、用户名唯一性异步检查）没有对应的声明式属性，只能靠 `setCustomValidity` 手动桥接，不如 JS 校验库直接
 
 **推荐策略**：浏览器校验 + JS 增强。对于做官网/活动页/简单后台，用 `novalidate` + 自定义 UI 覆盖。但要**理解 Constraint Validation API**——因为面试官很可能让你手写一个校验框架。
 
@@ -259,7 +260,7 @@ class FormValidator {
 3. **`pattern` 正则不需要 `/` 包裹** —— `<input pattern="\d{11}">` 而非 `pattern="/\d{11}/"`
 4. **`setCustomValidity('')` 不等于移除错误** —— 空字符串表示"没有自定义错误"，不是"没有错误"。如果还有其他约束违反，input 仍然 invalid
 5. **`novalidate` 在 `<form>` 上才生效** —— 仅放在 submit 按钮上无效
-6. **移动端 `type="number"` 的 step 默认值是 1** —— 输入小数时如果没配 `step="0.01"`，浏览器可能拒绝
+6. **`type="number"` 的 step 默认值是 1** —— 输入小数时如果没配 `step="0.01"`，浏览器可能拒绝
 
 ## 面试信号表
 

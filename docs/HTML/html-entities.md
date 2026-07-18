@@ -117,7 +117,7 @@ const url = `https://api.example.com/search?q=${encoded}`
 const path = '/搜索/你好.js'
 
 encodeURI(path)           // '/%E6%90%9C%E7%B4%A2/%E4%BD%A0%E5%A5%BD.js'
-// 保留：: / ? # [ ] @ ! $ & ' ( ) * + , ; =（认为这些是 URL 语法字符）
+// 保留：: / ? # @ ! $ & ' ( ) * + , ; =（认为这些是 URL 语法字符）
 // 用途：编码完整 URL
 
 encodeURIComponent(path)  // '%2F%E6%90%9C%E7%B4%A2%2F%E4%BD%A0%E5%A5%BD.js'
@@ -146,7 +146,7 @@ btoa(String.fromCharCode(...new TextEncoder().encode('Hello 你好')))
 
 // 3. emoji 编码
 '😀'.codePointAt(0)     // 128512
-'\\u{1F600}'            // ES6 Unicode 转义
+'\u{1F600}'             // ES6 Unicode 转义
 '&#x1F600;'             // HTML 实体
 ```
 
@@ -209,7 +209,7 @@ btoa(String.fromCharCode(...new TextEncoder().encode('Hello 你好')))
 2. **`encodeURI` 不会编码 `&` `?` `=` `#`** —— 用 `encodeURI` 编码 URL 参数值是常见错误，参数值必须用 `encodeURIComponent`
 3. **HTML 实体在 `<script>` 标签内不生效** —— `<script>` 的内容是 raw text，`&lt;` 不会被解析为 `<`。在 `<script>` 中对用户数据用 `JSON.stringify` + `.slice(1, -1)`
 4. **两次编码问题** —— 前端 `encodeURIComponent` 后，后端又做了一次 URL decode → 参数值变成未编码的原始值 → 拼 SQL / HTML 时出现注入。规则：只做一次编码，消费端对应做一次解码
-5. **`innerHTML` 配合 `textContent` 的误区** —— 先用 `textContent` 赋值再读 `innerHTML` 不会有转义效果，这是两个独立路径
+5. **用 `textContent` 赋值再读 `innerHTML` 做转义的局限** —— 这个 DOM 转义法确实会把 `<` `>` `&` 转成实体，但**不转义引号** `"` `'`——转义结果拼进 HTML 属性值时仍可能被注入。属性上下文要用覆盖引号的转义函数
 
 ## 面试信号表
 

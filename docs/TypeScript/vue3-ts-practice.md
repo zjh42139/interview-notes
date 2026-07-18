@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - Vue3
@@ -90,10 +90,11 @@ const emit = defineEmits<{
 
 ```typescript
 const emit = defineEmits<{
-  update: [value: string];
+  'update:modelValue': [value: string];
   change: [id: number, name: string];
+  delete: [id: number];
 }>();
-// 等价于上面的写法，只是语法不同
+// 与写法一完全等价，只是语法更简洁
 ```
 
 ### 3. `ref<T>()` / `reactive<T>()` —— 类型自动推导
@@ -141,6 +142,19 @@ const inputRef = ref<HTMLInputElement>();
 // inputRef.value?.focus() —— 有原生 DOM API 类型提示
 </script>
 ```
+
+**Vue 3.5+ 推荐 `useTemplateRef`**——通过字符串 key 关联模板 ref，不再要求变量名与 ref 属性同名：
+
+```ts
+import { useTemplateRef } from 'vue';
+
+// 参数对应模板中的 ref="formRef" / ref="userForm"
+const formRef = useTemplateRef<FormInstance>('formRef');
+const userFormRef = useTemplateRef<InstanceType<typeof UserForm>>('userForm');
+// 返回只读 ref，值为 T | null，使用时同样要判空
+```
+
+旧的 `ref<T>()` 写法在 3.5+ 依然可用。
 
 ### 5. `InjectionKey<T>` —— Provide/Inject 类型安全
 
@@ -347,7 +361,7 @@ const selectedRows = computed(() => {
 
 ## 易错点
 
-❌ **`defineProps` 不用泛型而用运行时声明**：`defineProps({ name: String })` 是 Vue2 的包袱写法——类型推断弱、无法处理复杂类型。Vue3 已推荐全用泛型 `defineProps<Props>()`。
+❌ **`defineProps` 不用泛型而用运行时声明**：运行时声明处理复杂类型要靠 `PropType` 手动断言（`user: Object as PropType<User>`），写法冗长；`script setup` + TS 下官方推荐纯类型语法 `defineProps<Props>()`。但运行时声明并未废弃——选项式 API 或需要 `validator` 运行时校验时仍会用到。
 
 ❌ **忘记给 ref 显式泛型导致 `Ref<null>`**：`const user = ref(null)` → TS 推断为 `Ref<null>`，后续赋值 `user.value = { ... }` 报错。方案：`const user = ref<User | null>(null)`。
 
@@ -362,7 +376,7 @@ const selectedRows = computed(() => {
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
 | "Vue3 中怎么给 props 加 TS 类型" | 追问 `defineProps<T>()` + `withDefaults` 消除 undefined |
-| "emits 怎么声明类型" | 追问 3.3+ 函数签名语法 vs 3.2- 元组语法 |
+| "emits 怎么声明类型" | 追问 3.2+ 函数调用签名 vs 3.3+ 命名元组语法 |
 | "provide/inject 怎么类型安全" | 追问 InjectionKey 让两端类型同步 |
 | "project 里 TS 的最佳实践" | 追问 composable 显式返回类型 + ref 泛型 + strict 全开 |
 
@@ -377,3 +391,4 @@ const selectedRows = computed(() => {
 ## 更新记录
 
 - 2026-07-14：新建——defineProps/Emits 类型 + ref/reactive 推导 + InjectionKey + Pinia Store + composable + 泛型表格
+- 2026-07-18：事实审计——修正信号表 emits 版本标注（函数调用签名 3.2+ / 命名元组 3.3+，此前写反）、命名元组示例与写法一对齐、易错点补 PropType 说明、新增 Vue 3.5 useTemplateRef

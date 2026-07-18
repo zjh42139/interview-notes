@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - any
@@ -23,7 +23,7 @@ tags:
 
 ## 一句话总结
 
-> `any` 是类型系统的"后门"——直接放弃检查，赋值给别人或接收别人的赋值都畅通无阻（双向协变）；`unknown` 是类型安全的 `any`——你可以把任何东西赋给它，但要用它必须**先做类型收窄**；`never` 是"永远不会发生的类型"——它是 bottom type，在联合类型中自动消失，常用来做穷举检查。面试时别只说定义，要讲清楚**什么时候用、为什么这样设计**。
+> `any` 是类型系统的"后门"——直接放弃检查，赋值给别人或接收别人的赋值都畅通无阻（双向兼容）；`unknown` 是类型安全的 `any`——你可以把任何东西赋给它，但要用它必须**先做类型收窄**；`never` 是"永远不会发生的类型"——它是 bottom type，在联合类型中自动消失，常用来做穷举检查。面试时别只说定义，要讲清楚**什么时候用、为什么这样设计**。
 
 ## 核心机制
 
@@ -164,16 +164,18 @@ type Result = FilterNumber<string | number | boolean>; // string | boolean
 // number 被映射为 never，然后在联合类型中消失
 ```
 
-**3. 阻止意外的赋值：**
+**3. 用 `never` 禁止某个属性被传入：**
 
 ```typescript
-// 定义一个"不可赋值"的占位类型
-type NoInfer<T> = [T][T extends any ? 0 : never];
-
-// 用在泛型约束中，阻止某些类型参数的推断
-function create<T extends object>(obj: T & { id: never }): void {}
-// create({ id: 1 })  ❌ 报错：id 不能有值
+// 交叉一个 { id?: never }，表示"这个属性不允许有值"
+function create<T extends object>(obj: T & { id?: never }): void {}
+// create({ name: 'a' })  ✅
+// create({ id: 1 })      ❌ 报错：number 不能赋给 never
+// 注意要用可选的 id?: never——如果写成必选 id: never，
+// 任何调用都无法提供合法的 id 值，函数会变得完全不可调用
 ```
+
+顺带区分：社区手写的 `type NoInfer<T> = [T][T extends any ? 0 : never]` 也是 never 的应用，但它解决的是另一个问题——**阻止 TS 从该参数位置推断泛型**（TS 5.4 起已内置 `NoInfer<T>`），和"禁止赋值"是两回事。
 
 ### 追问3：为什么要避免 any？
 
@@ -380,3 +382,7 @@ let n: never = 1 as never;       // ✅ 强制断言可以
 - [utility-types](utility-types.md) —— 工具类型中大量使用 never 做条件类型过滤
 - [satisfies](satisfies.md) —— satisfies 和 unknown 都是"类型安全"理念的体现
 - [generics](generics.md) —— 泛型约束中经常涉及 never 的用法
+
+## 更新记录
+
+- 2026-07-18：事实审计——修正"双向协变"术语为双向兼容、重写 never 禁止属性示例（改为 `id?: never`）并澄清 NoInfer 的实际用途（TS 5.4 内置）

@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 项目分层
   - 目录结构
@@ -24,7 +24,7 @@ tags:
 
 ## 一句话总结
 
-Vue3 + TypeScript 项目按**职责分层**组织代码，核心原则是**上层依赖下层、下层不引用上层**。典型分层为：`assets`（静态资源） -> `types`（类型定义） -> `utils`（纯工具函数） -> `api`（接口封装） -> `hooks`（逻辑复用） -> `store`（全局状态） -> `components`（组件） -> `views`（页面） -> `layout`（布局壳子） -> `router`（路由编排）。插件层 `plugins` 横切全局能力。
+Vue3 + TypeScript 项目按**职责分层**组织代码，核心原则是**上层依赖下层、下层不引用上层**。典型分层为：`assets`（静态资源） -> `types`（类型定义） -> `utils`（纯工具函数） -> `api`（接口封装） -> `store`（全局状态） -> `hooks`（逻辑复用） -> `components`（组件） -> `views`（页面） -> `layout`（布局壳子） -> `router`（路由编排）。插件层 `plugins` 横切全局能力。
 
 ---
 
@@ -229,4 +229,5 @@ onMounted(() => fetch())
 
 ## 更新记录
 
+- 2026-07-18：二审修正——一句话总结的分层顺序与依赖方向图对齐（store 在 hooks 之下：hooks 可以 useStore，store 不应依赖 hooks）
 - 2026-07-06：完成内容填充，新增每层职责边界表、hooks vs utils 核心区分、依赖方向图

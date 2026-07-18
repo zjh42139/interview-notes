@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - stash
@@ -50,10 +50,9 @@ git stash
 # 等效于 git stash push
 
 # 暂存并附带备注（强烈推荐，否则以后分不清）
-git stash save "正在开发用户列表的分页功能"
-
-# 或者用 push 语法（新版推荐）
 git stash push -m "正在开发用户列表的分页功能"
+
+# 旧写法 git stash save "message" 自 Git 2.16 起已废弃，统一用 push -m
 
 # 包含未跟踪的文件
 git stash -u
@@ -112,11 +111,9 @@ git stash push -- src/views/user/index.vue src/api/user.js
 
 ### 追问：stash 后的文件去哪里了？
 
-stash 的数据存在 `.git/refs/stash` 里，结构类似一个特殊的 merge commit——它有两个 parent：
-- parent 1：HEAD（当前分支的最新提交）
-- parent 2：暂存区 + 工作区的状态
+每个 stash 本质是一个 commit：它自己记录**工作区**的状态，并有两个 parent——parent 1 是 HEAD（stash 时所在的提交），parent 2 是记录**暂存区**状态的 commit（加 `-u` 时还有第三个 parent 记录未跟踪文件）。最新的 stash 由 `.git/refs/stash` 引用，整个"栈"通过 refs/stash 的 reflog 实现——`stash@{n}` 就是 reflog 语法。
 
-你可以用 `git log --graph stash` 看到 stash 的引用。这也是 `git stash pop` 失败时 stash 还在的原因——它本质上是一个 dangling commit。
+你可以用 `git log --graph stash` 看到 stash 的提交结构。pop 产生冲突时 Git 不会执行 drop，所以 stash 记录还在；即使误 drop，短期内也能用 `git fsck --unreachable | grep commit` 找回对应的 commit。
 
 ### 追问：stash 和临时 commit（WIP）怎么选？
 
@@ -145,16 +142,16 @@ stash 的数据存在 `.git/refs/stash` 里，结构类似一个特殊的 merge 
 git stash push -m "dashboard: 重构数据大屏 ECharts 配置抽离，完成 60%"
 
 # 2. 创建 hotfix 分支修 bug
-git checkout main
-git checkout -b hotfix/dashboard-timeout
+git switch main
+git switch -c hotfix/dashboard-timeout
 
 # 3. 修 bug、提交、合入 main、发布
 git add . && git commit -m "fix(dashboard): request timeout when data > 10000 rows"
-git checkout main && git merge --no-ff hotfix/dashboard-timeout
+git switch main && git merge --no-ff hotfix/dashboard-timeout
 git push origin main
 
 # 4. 回到 feature 分支继续开发
-git checkout feature/dashboard
+git switch feature/dashboard
 git stash pop
 # 工作区恢复到上午 10:00 的状态，继续开发
 
@@ -182,10 +179,10 @@ git stash drop  # 手动删除
 
 ## 易错点
 
-- **不写备注导致 stash 堆积**：一个月下来 `git stash list` 有 20 条，每条都是 "WIP on feature/xxx"，完全分不清哪个是哪个。习惯只用 `git stash save "message"`
+- **不写备注导致 stash 堆积**：一个月下来 `git stash list` 有 20 条，每条都是 "WIP on feature/xxx"，完全分不清哪个是哪个。习惯只用 `git stash push -m "message"`
 - **`git stash pop` 后忘记处理冲突**：pop 产生冲突后不会自动删除 stash，如果下次再 pop，会把同一个 stash 再次应用到已经部分恢复的代码上，雪上加霜
 - **stash 里包含 node_modules**：如果在项目根目录执行 `git stash -u`，会暂存所有未跟踪文件包括 node_modules——巨大无比，potentially 几万文件的 stash。确保 `.gitignore` 配置正确
-- **误以为 stash 是备份机制**：stash 是临时暂存，不是长期存储。换电脑、clone 新仓库、clean 操作都会导致 stash 丢失。重要代码及时 commit
+- **误以为 stash 是备份机制**：stash 是临时暂存，不是长期存储。stash 只存在本地仓库，换电脑、重新 clone 都不会带过来；`git stash clear` 或误 drop 也会直接丢失。重要代码及时 commit
 - **stash 后忘了自己 stash 了什么**：用 `git stash show -p stash@{0}` 查看具体变更内容
 
 ## 面试信号表

@@ -1,6 +1,6 @@
 ---
 title: 设计模式在前端
-description: 结合 Vue3 源码讲设计模式：策略、观察者、单例、装饰器、代理、适配器在前端工程中的实际应用
+description: 结合 Vue3 源码讲设计模式：策略、观察者/发布订阅、单例、装饰器、代理、适配器在前端工程中的实际应用
 category: 前端架构
 type: comparison
 score: 0
@@ -8,11 +8,12 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 设计模式
   - 策略模式
   - 观察者模式
+  - 发布订阅
   - 单例模式
   - 代理模式
   - 适配器模式
@@ -54,9 +55,12 @@ const validators: Record<string, Validator> = {
   required: (v) => (!v ? '必填' : null),
   email:    (v) => (!/^[\w-]+@/.test(v) ? '邮箱格式错误' : null),
   phone:    (v) => (!/^1[3-9]\d{9}$/.test(v) ? '手机号格式错误' : null),
-  maxLength: (len: number) => (v) =>
-    v?.length > len ? `最多${len}个字符` : null,
 }
+
+// 带参数的规则用"工厂函数"生成 Validator——
+// 注意它的类型是 (len: number) => Validator，不能直接塞进上面的 Record<string, Validator>
+const maxLength = (len: number): Validator => (v) =>
+  v?.length > len ? `最多${len}个字符` : null
 
 function validate(value: any, rules: Validator[]): string | null {
   for (const rule of rules) {
@@ -68,7 +72,8 @@ function validate(value: any, rules: Validator[]): string | null {
 
 // 使用时：新增规则只需加一个函数，不修改 validate 逻辑
 const emailRules = [validators.required, validators.email]
-validate('', emailRules)  // '必填'
+validate('', emailRules)                    // '必填'
+validate('a'.repeat(20), [maxLength(10)])   // '最多10个字符'
 ```
 
 **第二个经典场景：权限判断**
@@ -88,10 +93,30 @@ const permissionStrategies: Record<string, string[]> = {
 const permissions = permissionStrategies[role] || []
 ```
 
-### 2. 观察者模式（发布-订阅）：Vue 响应式的灵魂
+### 2. 观察者 vs 发布订阅：Vue 响应式的灵魂
+
+两者常被混为一谈，但面试官爱问的恰恰是区别：**有没有中间人**。
+
+**观察者模式**：Subject 直接持有 Observer 列表，状态变了就地遍历通知——没有中间层，目标和观察者互相知道对方的接口。
 
 ```ts
-// 手写 EventEmitter — 理解 Vue3 的 effect track/trigger 前身
+// 观察者模式：目标直接持有观察者集合——Vue3 的 Dep 就是这个结构
+class Subject {
+  private observers = new Set<() => void>()
+
+  subscribe(fn: () => void) { this.observers.add(fn) }  // 登记观察者
+  notify() { this.observers.forEach(fn => fn()) }       // 直接遍历通知
+}
+
+const dep = new Subject()
+dep.subscribe(() => console.log('组件重新渲染'))
+dep.notify()  // 数据变更 → Subject 直接通知所有观察者
+```
+
+**发布订阅模式**：发布者和订阅者互不感知，全部经过一个**事件中心**（Broker）按事件名转发。
+
+```ts
+// 发布订阅：多了一个事件中心（events 映射表），双方只认识它
 class EventEmitter {
   private events = new Map<string, Set<Function>>()
 
@@ -108,14 +133,27 @@ class EventEmitter {
     this.events.get(event)?.forEach(fn => fn(...args))
   }
 }
+
+const bus = new EventEmitter()
+bus.on('user:login', user => console.log('侧边栏刷新', user))  // 订阅者不知道谁在发布
+bus.emit('user:login', { name: 'admin' })                     // 发布者不知道谁在订阅
 ```
 
-Vue3 响应式系统本身就是一个**加强版发布-订阅**：
-- `track()` = `on('read_key', activeEffect)` —— 订阅数据变更
-- `trigger()` = `emit('write_key', newValue)` —— 通知订阅者
-- `effect(fn)` = 创建订阅者（观察者）
+| 维度 | 观察者模式 | 发布订阅模式 |
+|------|-----------|-------------|
+| **结构** | Subject 直接持有 Observer 列表 | 发布者/订阅者经**事件中心**转发 |
+| **耦合** | 目标知道观察者的存在（接口级耦合） | 双方互不感知，只依赖事件中心 |
+| **典型实现** | Vue3 的 dep→effect、IntersectionObserver | EventEmitter、EventBus、Node.js events |
 
-面试时把这个关联讲清楚，比背"观察者模式有 Subject 和 Observer"强 10 倍。
+一句话记忆：**发布订阅 = 观察者 + 中间人**——把"谁通知谁"从直连改成经纪人转发，解耦更彻底，代价是数据流更难追踪（EventBus 难维护的根源）。
+
+**Vue3 响应式属于观察者模式**：每个响应式属性的 dep 直接持有依赖它的 effect 集合，没有独立的事件中心。
+
+- `track()` —— 把当前 `activeEffect` 加入该属性的 dep（登记观察者）
+- `trigger()` —— 属性变更时遍历 dep 里的 effect 依次执行（直接通知）
+- `effect(fn)` —— 创建观察者本身
+
+面试时能说清"Vue 响应式是观察者（dep 直连 effect），EventBus 是发布订阅（经事件中心）"，比背"观察者模式有 Subject 和 Observer"强 10 倍。
 
 ### 3. 单例模式：全局只有一个实例
 
@@ -266,7 +304,7 @@ request.interceptors.response.use(
 |---------|------------------|
 | **观察者** | `effect/track/trigger` — 整个响应式系统 |
 | **代理** | `reactive()` 返回的 Proxy 对象 |
-| **单例** | `createApp()` 创建的应用实例（全局唯一） |
+| **单例** | 调度器的任务队列 `queue` 与 `nextTick` 共用的微任务 Promise（模块级唯一）——注意 `createApp()` 是工厂而非单例，Vue3 特意用它摆脱 Vue2 全局 Vue 对象的单例污染 |
 | **策略** | `patchKeyedChildren` 中的 Diff 算法分支（快速路径 vs 全量 Diff） |
 | **装饰器** | Compiler 的 `transform` 插件体系（transformElement、vModel 等） |
 | **适配器** | `renderer` 的 `nodeOps` — 适配 DOM / SSR / Canvas 不同渲染目标 |
@@ -312,4 +350,5 @@ request.interceptors.response.use(
 
 ## 更新记录
 
+- 2026-07-18：二审——观察者与发布订阅拆分为两种结构（新增 Subject 直连示例、有无中间人对比表），Vue3 响应式归位为观察者模式（原文误作"加强版发布-订阅"）；修正策略模式 maxLength 类型错误（工厂函数移出 `Record<string, Validator>`）；修正源码模式表单例行（createApp 是工厂而非单例，改为调度器任务队列）
 - 2026-07-06：完成内容填充，所有模式均绑定 Vue3 源码或项目场景，新增 Vue3 源码模式索引表

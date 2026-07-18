@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - getters
   - computed
@@ -69,7 +69,7 @@ getters: {
   totalCount(state): number {
     return state.items.length
   },
-  // 使用 this 时需要标注 this 类型
+  // 使用 this 的 getter 必须显式标注返回值类型（TS 推断限制）
   filteredList(): Product[] {
     return this.items.filter(item => item.name.includes(this.filterKeyword))
   },
@@ -120,21 +120,24 @@ const getById = computed(() => {
 const product = store.getById(42)
 ```
 
-**原理**：`getById` 本身是 computed，缓存的是一个函数引用。当 `items` 不变时，这个函数引用不变（被缓存），但每次调用时实际执行的查找逻辑是不同的。注意：这种模式的 getter 不再具有缓存计算结果的功能（每次调用都重新查找），但它能让你给 getter 传递参数。
+**原理**：`getById` 这个 computed 缓存的只是一个函数引用——computed 体内没有读取任何响应式数据（`items.value` 是在返回的函数被调用时才读取），所以它不会因 `items` 变化而重新求值，函数引用保持稳定。真正的依赖收集发生在**调用处**：模板里调用 `getById(42)` 时，渲染函数读取了 `items.value`，`items` 变化时组件照常重新渲染。注意：这种模式的 getter 不再具有缓存计算结果的能力（每次调用都重新查找），它只是让 getter 能接收参数。
 
-**性能提示**：如果同一个 id 被频繁查询，可以在 getter 内部用 Map 做缓存：
+**性能提示**：如果按 id 查询非常频繁，用 computed 预建一张索引 Map——computed 体内遍历 `items.value` 建立了依赖，items 变化时索引表自动重建，真正享受 computed 缓存且不会返回过期数据：
 
 ```ts
-const getById = computed(() => {
-  const cache = new Map<number, Product | undefined>()
-  return (id: number) => {
-    if (!cache.has(id)) {
-      cache.set(id, items.value.find(item => item.id === id))
-    }
-    return cache.get(id)
+const productById = computed(() => {
+  const map = new Map<number, Product>()
+  for (const item of items.value) {
+    map.set(item.id, item)
   }
+  return map
 })
+
+// 使用：O(1) 查找
+const product = productById.value.get(42)
 ```
+
+反面写法是在返回的闭包里塞一个 Map 做缓存——computed 体内没有响应式依赖，永远不会重新求值，`items` 更新后缓存不失效，会一直返回过期数据。
 
 ### 4. 跨 store 访问 getter
 
@@ -157,16 +160,16 @@ export const useOrderStore = defineStore('order', () => {
 })
 ```
 
-**重要规则**：在 getter/action 内部调用其他 store 是安全且推荐的，因为此时 store 已经初始化。但不要在 store 的顶层（setup 函数体内的最外层）调用 -- 那会导致循环依赖风险。
+**重要规则**：在 getter/action 内部调用其他 store 是安全且推荐的。单向引用时，在 setup 函数顶层调用 `useOtherStore()` 也是官方支持的写法；但两个 store **互相引用**时，双方都在顶层调用会造成初始化循环依赖，必须把其中一方挪到 getter/action 内部延迟获取。
 
 如果两个 store 互相引用，按以下方式处理：
 
 ```ts
-// store A 中：在具体使用的地方才调用，不要顶层调用
-const userStore = useUserStore()  // ❌ 顶层调用可能引发循环依赖
+// A、B 互相引用时：
+const userStore = useUserStore()  // ❌ 双方都在顶层调用 -> 初始化循环依赖
 
 const someGetter = computed(() => {
-  const userStore = useUserStore()  // ✅ 懒加载，computed 内部调用
+  const userStore = useUserStore()  // ✅ 懒加载：computed/action 内部调用，打破循环
   return userStore.someData
 })
 ```
@@ -245,15 +248,17 @@ export const usePermissionStore = defineStore('permission', () => {
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { usePermissionStore } from '@/stores/usePermissionStore'
 
 const permissionStore = usePermissionStore()
-// getter 是 computed，通过 storeToRefs 解构可保持响应式
-const { hasPermission } = usePermissionStore()
-// 但注意：返回函数的 computed，解构出来的 `hasPermission` 就是那个返回的函数
-// 可以直接调用 hasPermission('code')
-// 但如果权限列表变了，hasPermission 这个函数引用也会变（因为是 computed），
-// 会引起使用此 getter 的组件重新渲染
+// getter 是 computed，解构要用 storeToRefs 保持响应式
+const { hasPermission } = storeToRefs(permissionStore)
+// hasPermission 是 Ref<(code: string) => boolean>：
+// - 模板中自动解包，可直接写 hasPermission('admin:user:delete')
+// - script 中调用需要 .value：hasPermission.value('admin:user:delete')
+// 权限列表变化时，函数内部读取的 permissions 是响应式的，
+// 模板里调用它的组件会随 permissions 变化重新渲染
 </script>
 ```
 
@@ -302,4 +307,5 @@ const total = computed(() => items.value.length)
 
 ## 更新记录
 
+- 2026-07-18：事实审计：修正传参 getter 的缓存原理（依赖收集在调用处）、替换闭包 Map 缓存反例为索引 Map（原示例缓存永不失效）、修正组件示例的 storeToRefs 用法、澄清顶层跨 store 调用规则
 - 2026-07-06：初始创建

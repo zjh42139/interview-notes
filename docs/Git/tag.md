@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - tag
@@ -77,9 +77,9 @@ git push origin --delete v1.0.0
 git push origin :refs/tags/v1.0.0
 
 # 检出标签（进入 detached HEAD 状态）
-git checkout v1.0.0
+git switch --detach v1.0.0      # 旧写法：git checkout v1.0.0
 # 如果需要在标签上修改代码，从标签创建分支：
-git checkout -b hotfix/from-v1.0.0 v1.0.0
+git switch -c hotfix/from-v1.0.0 v1.0.0
 ```
 
 **注意**：`git push` 默认不推送标签，需要显式指定。这是常见的新手坑——本地打了 tag，以为已经发布，实际远程什么都没有。
@@ -121,7 +121,7 @@ v2.0.0  # MAJOR：不兼容的 API 变更
 3. 重新打一个新的 tag（不能覆盖旧的 tag）
 
 ```bash
-git checkout -b release/1.0.1 v1.0.0
+git switch -c release/1.0.1 v1.0.0
 git cherry-pick <hotfix-commit>
 git tag -a v1.0.1 -m "hotfix: login page crash on Safari"
 ```
@@ -165,7 +165,7 @@ Vue3 后台管理系统中，当 tag `v2.1.0` 被推送，CI 自动：
 
 ```bash
 # 第一步：开发完成，所有功能合入 main
-git checkout main
+git switch main
 git merge --no-ff feature/user-management
 git merge --no-ff feature/order-export
 
@@ -173,7 +173,8 @@ git merge --no-ff feature/order-export
 npm run test
 npm run build
 
-# 第三步：生成 changelog + 自动打 tag（用 standard-version）
+# 第三步：生成 changelog + 自动打 tag（用 standard-version；该工具已停止维护，
+# 新项目建议用兼容替代品 commit-and-tag-version 或 release-please）
 npm run release -- --release-as minor
 # 自动完成：
 # - 分析上次 tag 以来的所有 feat/fix commit
@@ -213,7 +214,7 @@ git push origin v2.1.0
 - **用轻量标签代替附注标签做正式发布**：丢失了 tagger、日期、备注信息，半年后没人知道 v1.0.0 是谁什么时候打的
 - **`git push` 忘记推送 tag**：默认不推送，记得 `git push origin vX.X.X` 或配置 `push.followTags = true`
 - **`git push origin --tags` 推送了脏标签**：会把所有本地临时标签（如 `test`、`temp`）都推送到远程，污染团队的标签列表。建议只用 `git push origin vX.X.X` 明确推送
-- **在标签上直接开发**：`git checkout v1.0.0` 进入 detached HEAD 状态，在这里提交会"悬空"。如果需要修改，先从 tag 创建分支
+- **在标签上直接开发**：`git switch --detach v1.0.0`（或旧写法 `git checkout v1.0.0`）进入 detached HEAD 状态，在这里提交会"悬空"。如果需要修改，先从 tag 创建分支
 - **tag 名称没有统一规范**：有的用 `v1.0.0`，有的用 `1.0.0`，有的用 `release-1.0.0`。团队统一 `v` 前缀 + 三数版本号
 
 ## 面试信号表

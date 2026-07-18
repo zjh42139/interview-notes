@@ -103,7 +103,8 @@ Promise.myAll = function(iterable) {
 
 ```javascript
 Promise.myAllSettled = function(promises) {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
+    // reject 只用于非法参数校验——allSettled 本身永远不因任务失败而 reject
     if (!Array.isArray(promises)) {
       return reject(new TypeError('Argument must be an array'))
     }

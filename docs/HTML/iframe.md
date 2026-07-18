@@ -36,7 +36,7 @@ tags:
   src="https://example.com/widget"
   width="100%"
   height="400"
-  frameborder="0"
+  style="border: 0"
   allowfullscreen
   loading="lazy"
   sandbox="allow-scripts allow-same-origin"
@@ -150,13 +150,13 @@ window.addEventListener('message', (e) => {
 | — （无 sandbox 属性） | **一切**都允许 | 无隔离 |
 | `sandbox`（空值） | **一切**都禁止 | 无 |
 | `allow-scripts` | 执行 JS（但不允许 `allow-same-origin` 的同时开启） | 可执行恶意脚本 |
-| `allow-same-origin` | 同源策略豁免（访问 cookie/localStorage） | ⚠️ **与 allow-scripts 同时使用时，iframe 可以移除自己的 sandbox 属性，绕过所有限制** |
+| `allow-same-origin` | 同源策略豁免（访问 cookie/localStorage） | ⚠️ **与 allow-scripts 同用、且 iframe 内容与父页面同源时，iframe 可以移除自己的 sandbox 属性，绕过所有限制** |
 | `allow-forms` | 提交表单 | 可发起 CSRF |
 | `allow-popups` | `window.open()` 弹窗 | 弹窗广告 |
 | `allow-top-navigation` | 修改 `top.location` | **可劫持父页面跳转钓鱼站** |
 | `allow-downloads` | 触发下载 | 下载恶意文件 |
 
-**`allow-scripts` + `allow-same-origin` 的组合漏洞**：当两者同时存在时，iframe 内的脚本可以移除自己的 sandbox 属性——因为 sandbox 是 DOM 属性 + `allow-same-origin` 允许修改。解决方案：**不要同时使用这两个属性**。如果需要脚本执行又需要读写 cookie，把内容放到同源独立域名下。
+**`allow-scripts` + `allow-same-origin` 的组合漏洞**：当两者同时存在**且 iframe 内容与父页面同源**时，iframe 内的脚本可以直接访问父文档、移除自己的 sandbox 属性——沙箱形同虚设（跨域内容拿不到父文档，不受此影响，但仍应最小化授权）。解决方案：**同源内容不要同时开这两个权限**。如果需要脚本执行又需要读写 cookie，把内容放到独立域名下。
 
 ### 三、安全攻防
 
@@ -199,11 +199,13 @@ window.addEventListener('message', (e) => {
 **解决方案**：
 
 ```javascript
-// 动态创建 iframe（避开阻塞父页面 onload）：
-const iframe = document.createElement('iframe')
-iframe.src = '/widget.html'
-document.body.appendChild(iframe)
-// 此时 iframe 的 onload 不会阻塞父页面
+// 在父页面 load 之后再动态创建 iframe（避开阻塞父页面 onload）：
+window.addEventListener('load', () => {
+  const iframe = document.createElement('iframe')
+  iframe.src = '/widget.html'
+  document.body.appendChild(iframe)
+})
+// 注意：load 事件之前插入的 iframe（包括动态插入的）依然会阻塞父页面 load
 
 // 或用 loading="lazy" 延迟加载非首屏 iframe：
 <iframe src="/below-fold.html" loading="lazy"></iframe>
@@ -226,7 +228,8 @@ wujie（腾讯）：
   用 Web Components 的 Shadow DOM 实现 CSS 隔离，
   通过 proxy 将 iframe 的 DOM 渲染到主应用的 Web Component 中。
   优势：真实浏览器隔离（比 Proxy sandbox 更可靠）
-  劣势：通信成本高（每次 DOM 操作走 postMessage）
+  劣势：实现复杂——iframe 中的 DOM 操作要经 Proxy 转发到主应用，
+        且每个子应用多一个 iframe 实例，内存占用更高
 
 micro-app（京东）：
   CustomElement + 类 iframe 沙箱。

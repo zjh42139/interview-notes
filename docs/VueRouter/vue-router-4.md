@@ -157,7 +157,7 @@ router.beforeEach(async (to) => {
 
 - 源码用 TS 重写，`RouteRecordRaw` 注解 routes 数组、`RouteLocationNormalized` 注解守卫参数，全部开箱即用
 - `meta` 类型增强：`declare module 'vue-router'` 扩展 `RouteMeta` 接口，`to.meta.requiresAuth` 就有类型检查
-- typed routes：4.2+ 实验性能力，通常配合 `unplugin-vue-router` 从文件生成路由类型映射，`push({ name: 'user' })` 时路由名和 `params` 都有编译期校验
+- typed routes：4.4+ 实验性能力，通常配合 `unplugin-vue-router` 从文件生成路由类型映射，`push({ name: 'user' })` 时路由名和 `params` 都有编译期校验
 
 ### 追问4：其他破坏性变化速览
 
@@ -234,7 +234,7 @@ VR3.1 时代全局 patch `router.push` 吞 `NavigationDuplicated` 的代码在 V
 2. **路由匹配**：`*` 通配符移除，404 用 `/:pathMatch(.*)*`；匹配改为路径评分制，与声明顺序无关
 3. **Composition API**：`useRouter` 拿实例、`useRoute` 拿响应式当前路由——主动讲"解构丢响应性、setup 外不可用"两个坑
 4. **导航行为**：守卫用返回值替代 `next`；push 失败不再 reject，用 `isNavigationFailure` 判断 `NavigationFailure`
-5. **TS 支持**：源码 TS 重写，`RouteRecordRaw` / `RouteMeta` 增强，4.2+ 实验性 typed routes
+5. **TS 支持**：源码 TS 重写，`RouteRecordRaw` / `RouteMeta` 增强，4.4+ 实验性 typed routes
 
 ## 相关阅读
 
@@ -246,4 +246,5 @@ VR3.1 时代全局 patch `router.push` 吞 `NavigationDuplicated` 的代码在 V
 
 ## 更新记录
 
+- 2026-07-18：事实修正（Phase 3 二审）——typed routes 版本标注 4.2+ 更正为 4.4+（官方文档 Typed Routes v4.4.0+）
 - 2026-07-18：初次填充（Phase 2 补缺）——API 变化、Composition API 两大坑、NavigationFailure、TS 支持

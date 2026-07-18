@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - 冲突
@@ -102,8 +102,7 @@ git rebase --abort    # 回到 rebase 前的状态
 
 VS Code 内置了三路合并编辑器，比手改标记高效得多：
 
-- 左侧窗口：当前分支（ours）
-- 右侧窗口：被合并分支（theirs）
+- 上方两个窗口：分别是被合并分支（Incoming/theirs）和当前分支（Current/ours）
 - 底部窗口：合并结果
 - 点击 `Accept Current` / `Accept Incoming` / `Accept Both` 按钮选择版本
 - 也可以直接在合并结果区域手动编辑
@@ -130,7 +129,7 @@ git rebase --continue
 # 直到所有 commit 重放完毕
 ```
 
-另一个细节：rebase 中 **ours 和 theirs 的含义是反的**。merge 时 HEAD 是当前分支，theirs 是被合入分支。rebase 时因为你在"借用"目标分支的提交来重放，ours/theirs 的指向会让人困惑。建议用 VS Code 的 "Accept Incoming" 等术语，不要用 ours/theirs。
+另一个细节：rebase 中 **ours 和 theirs 的含义是反的**。merge 时 HEAD 是当前分支，theirs 是被合入分支。rebase 时 HEAD 先移到目标分支（新 base）一侧，你自己的提交是被逐个重放的"补丁"——所以 ours 是目标分支，theirs 反而是你自己的提交。建议用 VS Code 的 "Accept Incoming" 等术语，不要用 ours/theirs。
 
 ### 追问：怎么判断哪些文件有冲突？
 
@@ -141,10 +140,10 @@ git status
 # 只看冲突文件名
 git diff --name-only --diff-filter=U
 
-# 查看某一处冲突的三个版本
-git diff :1:file.js  # base（共同祖先）
-git diff :2:file.js  # ours（当前分支）
-git diff :3:file.js  # theirs（被合并分支）
+# 查看某个冲突文件的三个版本（:n: 是暂存区 stage 编号）
+git show :1:file.js  # base（共同祖先）
+git show :2:file.js  # ours（当前分支）
+git show :3:file.js  # theirs（被合并分支）
 
 # 查看所有冲突位置
 git diff --check

@@ -44,11 +44,11 @@ mindmap
 
 | 主题 | 频率 | 难度 | 状态 |
 |------|------|------|------|
-| [自我介绍](./self-intro.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [项目介绍](./project-intro.md) | ⭐⭐⭐⭐⭐ | 中级 | draft |
-| [离职原因](./leave-reason.md) | ⭐⭐⭐⭐ | 初级 | draft |
-| [优缺点](./strength-weakness.md) | ⭐⭐⭐⭐ | 初级 | draft |
-| [职业规划](./career-plan.md) | ⭐⭐⭐⭐ | 中级 | filled |
+| [自我介绍](./self-intro.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [项目介绍](./project-intro.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |
+| [离职原因](./leave-reason.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [优缺点](./strength-weakness.md) | ⭐⭐⭐⭐ | 初级 | reviewed |
+| [职业规划](./career-plan.md) | ⭐⭐⭐⭐ | 中级 | reviewed |
 | [薪资谈判](./salary-negotiation.md) | ⭐⭐⭐⭐⭐ | 中级 | filled |
 | [反问面试官](./reverse-questions.md) | ⭐⭐⭐⭐⭐ | 初级 | filled |
-| [HR 高频面试题](./面试题.md) | ⭐⭐⭐⭐⭐ | 中级 | filled |
+| [HR 高频面试题](./面试题.md) | ⭐⭐⭐⭐⭐ | 中级 | reviewed |

@@ -43,7 +43,7 @@ flowchart TB
 
 ### 强缓存：不发请求，直接从本地拿
 
-通过 `Cache-Control`（HTTP/1.1）或 `Expires`（HTTP/1.0）控制：
+通过 `Cache-Control`（HTTP/1.1，相对时间）或 `Expires`（HTTP/1.0，绝对时间）控制，两者同时存在时 `Cache-Control: max-age` 优先级更高，`Expires` 被忽略：
 
 ```http
 # 响应头（服务端设置）
@@ -117,7 +117,7 @@ location ~* \.(json|xml|txt)$ {
 
 ### 浏览器行为补充
 
-- **刷新（F5）**：跳过强缓存，所有请求带 `Cache-Control: max-age=0` 走协商
+- **刷新（F5）**：主文档跳过强缓存，带 `Cache-Control: max-age=0` 走协商；现代 Chrome（2017 年起）对子资源仍走正常缓存流程，不会全部重新验证
 - **强制刷新（Ctrl+F5）**：跳过所有缓存，带 `Cache-Control: no-cache` 和 `Pragma: no-cache`
 - **地址栏回车/链接跳转**：走正常两级缓存流程（强缓存优先）
 
@@ -150,4 +150,5 @@ location ~* \.(json|xml|txt)$ {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——补 Cache-Control 与 Expires 的优先级；修正 F5 刷新行为（现代 Chrome 仅重验证主文档）
 - 2026-07-13：新建——从 http-https.md 独立，补全强缓存/协商缓存 + 项目策略 + 浏览器行为

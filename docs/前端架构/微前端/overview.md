@@ -1,6 +1,6 @@
 ---
 title: 微前端概述
-description: 微前端四大方案对比：iframe / single-spa / qiankun / Module Federation 的适用场景、核心差异与选型决策
+description: 微前端六大方案对比：iframe / single-spa / qiankun / Module Federation / micro-app / wujie 的适用场景、核心差异与选型决策
 category: 微前端
 type: comparison
 score: 0
@@ -8,13 +8,15 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 微前端
   - iframe
   - single-spa
   - qiankun
   - Module Federation
+  - micro-app
+  - wujie
   - 方案对比
 ---
 
@@ -26,7 +28,7 @@ tags:
 
 ## 一句话总结
 
-微前端解决的问题是：**巨石应用**随着业务增长，多个团队在同一个仓库中协作，构建、部署、发布互相阻塞。微前端将巨石应用拆分为**独立开发、独立部署、独立运行**的子应用，通过主应用（基座）组装。目前主流方案有 4 种：`iframe`（天然隔离但体验差）、`single-spa`（路由编排）、`qiankun`（阿里封装，沙箱+隔离+通信）、`Module Federation`（Webpack 5 运行时模块共享）。选型的关键不是技术先进性，而是**团队规模、技术栈异构程度、性能要求**的匹配度。
+微前端解决的问题是：**巨石应用**随着业务增长，多个团队在同一个仓库中协作，构建、部署、发布互相阻塞。微前端将巨石应用拆分为**独立开发、独立部署、独立运行**的子应用，通过主应用（基座）组装。目前主流方案有 6 种：`iframe`（天然隔离但体验差）、`single-spa`（路由编排）、`qiankun`（阿里封装，沙箱+隔离+通信）、`Module Federation`（Webpack 5 运行时模块共享）、`micro-app`（京东，Web Components 组件式接入）、`wujie`（腾讯，iframe JS 沙箱 + Shadow DOM）。选型的关键不是技术先进性，而是**团队规模、技术栈异构程度、性能要求**的匹配度。
 
 ---
 
@@ -61,18 +63,33 @@ flowchart LR
 | **应用间通信** | 子应用之间的数据传递 | 全局状态池（initGlobalState）/ 自定义事件 / URL 参数 |
 | **公共依赖** | React、Vue、lodash 等公共库的复用 | externals / shared（MF） / CDN 引入 |
 
-### 3. 四种方案全景对比
+### 3. 六种方案全景对比
 
-| 维度 | iframe | single-spa | qiankun | Module Federation |
-|------|--------|------------|---------|-------------------|
-| **隔离方式** | 浏览器原生隔离 | 无隔离 | JS 沙箱 + CSS 隔离 | 模块级隔离 |
-| **学习成本** | 极低 | 中 | 中 | 高 |
-| **技术栈异构** | 天然支持 | 支持 | 支持 | 支持 |
-| **通信方式** | postMessage | 自定义事件 | initGlobalState | 模块导出/导入 |
-| **性能** | 差（独立渲染进程） | 好 | 好 | 最好 |
-| **子应用接入成本** | 无 | 需改造入口 | 需导出生命周期 | 需配置 webpack |
-| **SEO** | 不友好 | 需 SSR 配合 | 需 SSR 配合 | 需 SSR 配合 |
-| **社区生态** | 标准 API | 一般 | 活跃（阿里） | Webpack 官方 |
+| 维度 | iframe | single-spa | qiankun | Module Federation | micro-app | wujie |
+|------|--------|------------|---------|-------------------|-----------|-------|
+| **出品方** | 浏览器原生 | 社区 | 阿里 | Webpack 官方 | 京东 | 腾讯 |
+| **隔离方式** | 浏览器原生隔离 | 无隔离 | JS 沙箱 + CSS 隔离 | 无隔离（共享运行时） | Web Components + 沙箱 | iframe JS 沙箱 + Shadow DOM |
+| **学习成本** | 极低 | 中 | 中 | 高 | 低 | 低 |
+| **技术栈异构** | 天然支持 | 支持 | 支持 | 支持 | 支持 | 支持 |
+| **通信方式** | postMessage | 自定义事件 | initGlobalState | 模块导出/导入 | 组件传参 + 事件中心 | props / eventBus |
+| **性能** | 差（每次完整加载文档） | 好 | 好 | 最好 | 好 | 好（支持保活） |
+| **子应用接入成本** | 无 | 需改造入口 | 需导出生命周期 | 需配置 webpack | 极低（近零改造） | 低（组件式使用） |
+| **SEO** | 不友好 | 需 SSR 配合 | 需 SSR 配合 | 需 SSR 配合 | 需 SSR 配合 | 需 SSR 配合 |
+
+#### micro-app 与 wujie：两个后起方案的核心思路
+
+**micro-app（京东）**：借鉴 Web Components 思想，用 CustomElement + 自定义沙箱把子应用封装成一个类 WebComponent 标签。主应用不需要注册路由规则，像用组件一样接入：
+
+```html
+<!-- 主应用中，一行标签接入子应用 -->
+<micro-app name="user-app" url="http://localhost:8081/"></micro-app>
+```
+
+卖点是**组件式接入 + 近零改造**：子应用不强制导出生命周期函数（保留 Vite/webpack 原有构建即可），样式隔离和元素隔离默认开启。
+
+**wujie（腾讯）**：思路是"各取所长"——**JS 放进 iframe 里执行**（拿到浏览器原生级别的 JS 隔离，天然支持多实例），**DOM/CSS 渲染在 Web Components（Shadow DOM）里**（避开 iframe 的 UI 割裂问题）。iframe 的 URL 不同步问题则通过 proxy 代理 iframe 的 `history`/`location` 与主应用路由保持同步。额外能力：子应用保活（切走不销毁 iframe，状态全留）、预执行。
+
+一句话对比：qiankun 靠"改造子应用 + 自研沙箱"，micro-app 靠"组件化封装降低接入成本"，wujie 靠"iframe 原生隔离 + Shadow DOM 修补体验"。
 
 ### 4. 选型决策表
 
@@ -82,6 +99,8 @@ flowchart LR
 | 阿里系团队，Vue/React 混用，需快速落地 | **qiankun** | 中文文档完善，沙箱和通信开箱即用 |
 | Webpack 5 项目，共享组件/模块级别 | **Module Federation** | 运行时共享模块，无需中心化基座 |
 | 简单路由分发，不需要沙箱（自己控制子应用） | **single-spa** | 轻量，只做路由编排 |
+| 子应用不想做任何改造，希望像组件一样引入 | **micro-app** | CustomElement 标签接入，近零改造 |
+| 隔离要求最高 + 需要子应用保活/多应用同屏 | **wujie** | iframe 原生 JS 隔离 + Shadow DOM 样式隔离 + 保活模式 |
 | 10+ 子应用，性能敏感，SEO 要求高 | **qiankun + SSR** | 沙箱保证稳定性，SSR 解决首屏 |
 
 ---
@@ -137,7 +156,7 @@ qiankun 在 single-spa 基础上做了**3 层增强**：
 3. **最后说踩坑**："实际落地中最大问题是样式冲突和公共依赖重复加载，通过 CSS 前缀命名空间和 externals 配置解决"
 4. **加分项**：能说出 qiankun 的 ProxySandbox 原理、预加载机制、更新机制（`update` 生命周期）
 
-> "能对比四类方案的适用场景，而不是只背概念"
+> "能对比六类方案的适用场景，而不是只背概念"
 
 ---
 
@@ -151,4 +170,5 @@ qiankun 在 single-spa 基础上做了**3 层增强**：
 
 ## 更新记录
 
+- 2026-07-18：扩为六方案——新增 micro-app（京东）/ wujie（腾讯）小节、对比表增两列、选型表增两行；二审修正 MF 隔离方式（"模块级隔离"→"无隔离（共享运行时）"，与 module-federation.md 对齐）、iframe 性能表述、"四类方案"→"六类方案"
 - 2026-07-06：完成内容填充，新增四种方案全景对比表、选型决策表、微前端改造实战思路

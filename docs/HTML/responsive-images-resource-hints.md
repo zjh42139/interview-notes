@@ -21,7 +21,7 @@ tags:
 
 ## 一句话总结
 
-**`srcset` 让浏览器根据屏幕分辨率选择最佳图片尺寸——省流量。`&lt;picture>` 实现艺术方向切换——不同断点显示不同裁剪的图片。Resource Hints 四种 `&lt;link>` 告诉浏览器"现在/未来需要什么资源"——preload 首屏关键、prefetch 下一页、preconnect 第三方域名、dns-prefetch 轻量解析。**
+**`srcset` 让浏览器根据屏幕分辨率选择最佳图片尺寸——省流量。`<picture>` 实现艺术方向切换——不同断点显示不同裁剪的图片。Resource Hints 四种 `<link>` 告诉浏览器"现在/未来需要什么资源"——preload 首屏关键、prefetch 下一页、preconnect 第三方域名、dns-prefetch 轻量解析。**
 
 ## 核心机制
 
@@ -38,7 +38,7 @@ tags:
 <picture>
   <source media="(min-width: 800px)" srcset="hero-desktop.jpg">
   <source media="(min-width: 400px)" srcset="hero-tablet.jpg">
-  <img src="hero-mobile.jpg" alt="Hreo">
+  <img src="hero-mobile.jpg" alt="Hero">
 </picture>
 ```
 

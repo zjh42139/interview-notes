@@ -19,9 +19,8 @@ mindmap
   root((性能优化))
     Web Vitals
       LCP
-      FID
-      CLS
       INP
+      CLS
     性能分析工具
       Performance
       Lighthouse

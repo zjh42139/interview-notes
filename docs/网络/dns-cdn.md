@@ -69,7 +69,7 @@ sequenceDiagram
 | MX | 邮件服务器 | `example.com -> mail.example.com`（优先级 10） |
 | TXT | 文本记录，常用于验证 | SPF、DKIM、域名所有权验证 |
 
-面试注意：**CNAME 不能用于根域名**（apex domain），因为根域名通常还有 MX 等其他记录，CNAME 会覆盖所有记录类型。这是 RFC 的规定。
+面试注意：**CNAME 不能用于根域名**（apex domain）——RFC 规定 CNAME 不能与其他任何记录共存，而根域名必须有 SOA、NS 记录（通常还有 MX），所以放不下 CNAME。
 
 ### CDN 的工作原理
 
@@ -200,4 +200,5 @@ https://img-cdn.example.com/avatar/user123.jpg?x-oss-process=image/format,webp
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——修正 CNAME 不能用于 apex 的原因表述（CNAME 不能与任何记录共存 + apex 必须有 SOA/NS）
 - 2026-07-05：完成 Phase 2 填充（reviewed）

@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 栈
   - 队列
@@ -53,7 +53,7 @@ stack[stack.length - 1]  // 查看栈顶元素（peek），不弹出
 ```js
 const queue = []
 queue.push(1)    // 入队，现在队列为 [1]
-queue.push(2)    // 入队，现在队列为 [2, 1] ← 看这里
+queue.push(2)    // 入队，现在队列为 [1, 2]（push 追加到队尾）
 queue.shift()    // 出队，返回 1（先进先出）
 queue[0]         // 查看队头元素
 ```
@@ -249,4 +249,5 @@ class BrowserHistory {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——修正入队示例注释（`[2, 1]` → `[1, 2]`，push 追加到队尾）
 - 2026-07-06：完成完整内容，覆盖栈/队列原理、经典题、单调栈、JS 调用栈和任务队列（Phase 2）

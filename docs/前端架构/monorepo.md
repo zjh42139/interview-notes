@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Monorepo
   - pnpm workspace
@@ -122,7 +122,8 @@ import { BaseTable, UserSelector } from '@my-admin/components'
     },
     "dev": {
       "dependsOn": ["^build"],
-      "persistent": true             // 长期运行，不缓存
+      "cache": false,                // dev 产物不缓存
+      "persistent": true             // 长期运行进程
     }
   }
 }
@@ -300,4 +301,5 @@ my-admin-monorepo/
 
 ## 更新记录
 
+- 2026-07-18：二审修正——turbo.json 的 dev 任务补 `"cache": false`（原注释写"不缓存"但配置未关闭缓存）
 - 2026-07-06：完成内容填充，新增 pnpm workspace 完整配置、Turbo 增量构建流程图、Monorepo vs Multirepo 对比表、Changesets 版本管理

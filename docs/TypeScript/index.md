@@ -1,6 +1,6 @@
 ---
 title: TypeScript 知识地图
-description: TypeScript 面试知识体系——14 篇知识点覆盖从基础类型到 Vue3 工程实战
+description: TypeScript 面试知识体系——17 篇知识点覆盖从基础类型到 Vue3 工程实战
 category: TypeScript
 ---
 
@@ -145,3 +145,5 @@ flowchart TD
 ---
 
 ## 更新记录
+
+- 2026-07-18：事实审计——修正 description 计数（14 篇 → 17 篇，与学习顺序/索引表一致）

@@ -219,8 +219,8 @@ const ee3 = new EventEmitter();
 ee3.on('error', () => { throw new Error('oops'); });
 ee3.on('error', () => console.log('still running'));
 ee3.emit('error');
-// 先打出 "still running"（因为 for...of 遍历拷贝的数组）
-// 然后 console.error 打印 oops
+// 第一个回调抛错被 try-catch 捕获：console.error 先打印 oops
+// 然后循环继续执行第二个回调：输出 "still running"（错误未中断遍历）
 ```
 
 ## 深度拓展
@@ -350,7 +350,7 @@ function useEventEmitter() {
 - [手写 Promise](./promise.md) -- Promise 的回调队列与 EventEmitter 的 listener 数组有相似设计
 - [手写 compose/pipe](./compose-pipe.md) -- 函数组合，可以配合 EventEmitter 实现中间件管道
 - JavaScript 发布订阅模式 -- 发布订阅 vs 观察者模式对比
-- [snippets/event-emitter](../../snippets/ts/event-emitter.ts) -- 项目中的 EventEmitter 工具代码
+- [snippets/event-emitter](../snippets/ts/event-emitter.ts) -- 项目中的 EventEmitter 工具代码
 
 ## 更新记录
 

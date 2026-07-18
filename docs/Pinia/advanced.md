@@ -8,6 +8,7 @@ difficulty: 中高级
 frequency: ⭐⭐⭐⭐
 status: filled
 created: 2026-07-16
+updated: 2026-07-18
 tags:
   - Pinia
   - TypeScript
@@ -20,7 +21,7 @@ tags:
 
 ## 一句话总结
 
-**在 setup 外使用 Pinia Store 是项目中最容易踩的坑——需要手动传入 pinia 实例。Pinia 的 TS 类型推导是自动的——setup store 零手动标注。SSR 中需要 `hydrate` 把服务端状态同步到客户端——防止状态污染。**
+**在 setup 外使用 Pinia Store 是项目中最容易踩的坑——要么保证调用发生在 `app.use(pinia)` 之后，要么手动传入 pinia 实例。Pinia 的 TS 类型推导是自动的——setup store 零手动标注。SSR 中服务端序列化状态、客户端挂载前水合；跨请求状态污染靠「每个请求新建 app + pinia 实例」避免。**
 
 ## 核心机制
 
@@ -55,7 +56,7 @@ export const useCounterStore = defineStore('counter', () => {
   function increment() { count.value++ }
   return { count, double, increment };
 });
-// useCounterStore() 的返回值类型自动推导：{ count: Ref<number>; double: ComputedRef<number>; increment: () => void }
+// useCounterStore() 返回的 store 实例上 ref 会被自动解包：count: number、double: number（只读）、increment: () => void
 
 // Options Store：同样自动推导
 export const useUserStore = defineStore('user', {
@@ -75,13 +76,14 @@ const pinia = createPinia();
 const app = createApp(App).use(pinia);
 // ... 渲染完成后
 const state = JSON.stringify(pinia.state.value); // 序列化所有 store
+// 注意：直接 stringify 注入 HTML 有 XSS 风险（如 </script> 截断），生产环境用 devalue 等安全序列化
 
 // 客户端：hydrate 服务端状态
 // 在 createPinia 后、app.mount 前
 pinia.state.value = JSON.parse(window.__INITIAL_STATE__);
 ```
 
-**状态污染问题**：SSR 中所有请求共享同一个 app 实例——如果 store 状态没清理，A 用户的数据会泄漏给 B 用户。每个请求创建新的 pinia 实例——或请求结束后 reset 所有 store。
+**状态污染问题（Cross-Request State Pollution）**：如果把 app/pinia 实例创建在模块顶层被所有请求共享（错误做法），A 用户的数据会泄漏给 B 用户。正确做法：在每个请求的处理函数里新建 app + pinia 实例（Vue SSR 的标准模式），不要复用单例。
 
 ## 面试信号表
 
@@ -97,4 +99,5 @@ pinia.state.value = JSON.parse(window.__INITIAL_STATE__);
 
 ## 更新记录
 
+- 2026-07-18：事实审计：修正 store 实例类型注释（ref 自动解包，非 Ref 类型）、SSR 状态污染前提（模块级单例才共享，标准模式是每请求新建实例）、补充序列化 XSS 注意
 - 2026-07-16：新建——组件外使用+TS推导+SSR水合+状态污染

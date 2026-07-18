@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - tsconfig
@@ -30,12 +30,12 @@ tags:
 
 ### strict 全家桶：逐项拆解
 
-`"strict": true` 本质是 **8 项子规则的快捷开关**：
+`"strict": true` 本质是**一组子规则的快捷开关**（TS 5.6 起共 9 项）：
 
 ```jsonc
 {
   "compilerOptions": {
-    "strict": true,  // 一行开启下面全部 8 项
+    "strict": true,  // 一行开启下面全部 9 项
   },
 }
 ```
@@ -53,6 +53,7 @@ tags:
     "noImplicitThis": true,              // ⑥
     "alwaysStrict": true,                // ⑦
     "useUnknownInCatchVariables": true,  // ⑧
+    "strictBuiltinIteratorReturn": true, // ⑨ TS 5.6+
   },
 }
 ```
@@ -65,10 +66,11 @@ tags:
 | ② | **noImplicitAny** | 类型推断不出时必须显式写出来 | 函数参数没写类型、回调函数参数没写类型 |
 | ③ | **strictFunctionTypes** | 函数参数**逆变**（不允许收窄回调参数类型） | `(dog: Dog) => void` 赋给 `(animal: Animal) => void` 报错 |
 | ④ | **strictBindCallApply** | `bind` / `call` / `apply` 参数类型检查 | `fn.call(wrongThis, wrongArg)` 报错 |
-| ⑤ | **strictPropertyInitialization** | class 属性必须在构造器中赋值 | 声明了 `name: string` 但构造器中没赋值（或在构造器外声明） |
+| ⑤ | **strictPropertyInitialization** | class 属性必须初始化 | 声明了 `name: string` 但既没有初始化器、构造器里也没赋值（可用 `name!: string` 断言跳过） |
 | ⑥ | **noImplicitThis** | 函数内 `this` 必须有明确类型 | standalone 函数中 `this.foo()`——TS 不知道 this 是什么类型 |
 | ⑦ | **alwaysStrict** | 编译输出 `"use strict"`，ECMAScript strict 模式 | 影响运行时行为——禁止给未声明变量赋值、禁止删除变量等 |
 | ⑧ | **useUnknownInCatchVariables** | `catch (e)` 中 `e` 默认是 `unknown` 而不是 `any` | `catch (e) { e.message }` 报错——必须先收窄类型 |
+| ⑨ | **strictBuiltinIteratorReturn**（TS 5.6+） | 内置迭代器 `next().value` 的结束分支是 `undefined` 而不是 `any` | `arr.values().next().value` 不排除 `undefined` 就直接当元素用——报错 |
 
 **逐步开启策略**：老项目从 JS 迁移时，不要一次性全开——建议顺序：②→①→⑧→⑤→③→④→⑥。每开一项修复一轮类型错误，确认通过后再开下一项。
 
@@ -90,9 +92,9 @@ tags:
 | **classic** | 已废弃 | 从当前目录逐级向上找——和 Node.js 行为不一致 |
 | **node** | Node.js CJS | 模拟 Node.js `require()` 解析：查 `node_modules`、查 `package.json` 的 `main` |
 | **node16 / nodenext** | Node.js ESM | 完整模拟 Node.js ESM + CJS interop——要求 `.js` 扩展名、处理 `exports` 字段 |
-| **bundler** | Vite/Webpack 等打包工具 | 跟 node 类似但不要求文件扩展名——打包工具会在构建时处理路径，不需要扩展名 |
+| **bundler** | Vite/Webpack 等打包工具 | 支持 `exports` 字段（同 node16），但不要求文件扩展名——打包工具会在构建时处理路径 |
 
-**面试关键点**：`bundler` 是 Vite 项目的推荐配置——它不要求 `.js`/`.ts` 扩展名，因为打包器会帮你处理。`node16` 是 Node.js ESM 环境下的唯一正确选择——要求完整的文件扩展名和 `package.json` 的 `exports` 字段。
+**面试关键点**：`bundler` 是 Vite 项目的推荐配置——它不要求 `.js`/`.ts` 扩展名，因为打包器会帮你处理。`node16`/`nodenext` 是 Node.js ESM 环境下的正确选择——相对导入要求完整的文件扩展名，并按 `package.json` 的 `exports` 字段解析包入口。
 
 ### 路径别名（paths）
 
@@ -104,8 +106,8 @@ tags:
       "@/*": ["src/*"],         // import { foo } from '@/utils/foo'
       "@components/*": ["src/components/*"],
     },
-    // "baseUrl": "." 是 paths 的前置条件
-    // paths 中的路径是相对于 baseUrl 的
+    // TS 4.1 起 paths 不再强制要求 baseUrl——不配 baseUrl 时相对 tsconfig.json 所在目录解析
+    // 配置了 baseUrl 时，paths 中的路径相对于 baseUrl
   },
 }
 ```
@@ -155,6 +157,9 @@ import lib from './lib';         // ❌ 编译报错
 // 开启 esModuleInterop 后：
 import lib from './lib';         // ✅ 编译器自动加 __importDefault helper
 // 同时允许 .d.ts 中用 export default 描述 CJS 导出
+
+// 两者关系：allowSyntheticDefaultImports 只放宽类型检查、不改变编译产物
+// esModuleInterop 才注入运行时 helper，且开启时自动隐含 allowSyntheticDefaultImports
 ```
 
 面试话术："esModuleInterop 让 CJS 模块的默认导入行为跟 ESM 一致——开启后编译器自动注入一个 `__importDefault` 辅助函数。"
@@ -238,7 +243,7 @@ import lib from './lib';         // ✅ 编译器自动加 __importDefault helpe
 }
 ```
 
-面试时描述你的 tsconfig："strict 全开（8 项子规则全覆盖）、moduleResolution: bundler 适配 Vite、paths 别名配合 vite alias、noUnusedLocals + noUnusedParameters 保持代码干净。"
+面试时描述你的 tsconfig："strict 全开（9 项子规则全覆盖）、moduleResolution: bundler 适配 Vite、paths 别名配合 vite alias、noUnusedLocals + noUnusedParameters 保持代码干净。"
 
 ## 易错点
 
@@ -246,7 +251,7 @@ import lib from './lib';         // ✅ 编译器自动加 __importDefault helpe
 
 ❌ **moduleResolution 跟 module 不匹配**：`module: ESNext` 但 `moduleResolution: node`——此时编译器用 CJS 策略解析 ESM 导入，行为不一致，可能遗漏报错。
 
-❌ **skipLibCheck 后引入不兼容的类型定义**：`skipLibCheck` 跳过所有 `.d.ts` 检查，如果你的自定义 `.d.ts` 有错误也会被跳过——把自己的声明文件放在单独的目录下确保不被跳过。
+❌ **以为自己的 .d.ts 不受 skipLibCheck 影响**：`skipLibCheck` 跳过**所有** `.d.ts` 检查（包括自定义声明文件，无法按目录豁免）——需要被检查的类型写进 `.ts` 文件，或在 CI 里单独跑一次不开 skipLibCheck 的 `tsc --noEmit`。
 
 ❌ **strict: true 后新增的规则会自动开启**：TS 新版本可能给 `strict` 添加新的子规则——升级 TS 版本后突然多了类型错误，通常是新规则导致的。
 
@@ -270,3 +275,4 @@ import lib from './lib';         // ✅ 编译器自动加 __importDefault helpe
 ## 更新记录
 
 - 2026-07-14：新建——strict 8 项逐项解释 + 模块解析策略对比 + paths+alias 三处配合 + 三种项目类型推荐配置
+- 2026-07-18：事实审计——strict 家族更新为 9 项（TS 5.6 strictBuiltinIteratorReturn）、bundler/node16 解析描述修正、paths 不再强制 baseUrl（TS 4.1+）、skipLibCheck 易错点修正（无法按目录豁免）、补 allowSyntheticDefaultImports 与 esModuleInterop 的关系

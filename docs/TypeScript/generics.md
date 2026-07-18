@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 泛型
@@ -79,7 +79,7 @@ interface RequestConfig<T = Record<string, unknown>> {
 
 ### 追问点 1：分布式条件类型
 
-当泛型 `T` 是联合类型且在条件类型左侧时，条件类型**分发**到联合的每个成员：
+当 `extends` 左侧是**裸类型参数**（没有被 `[]`、`Promise<>` 等结构包裹的 `T`），且传入联合类型时，条件类型**分发**到联合的每个成员：
 
 ```typescript
 type ToArray<T> = T extends unknown ? T[] : never;
@@ -161,7 +161,9 @@ const columns: TableColumn<UserInfo>[] = [
 
 ```typescript
 function useForm<T extends Record<string, unknown>>(initial: T) {
-  const form = reactive<T>({ ...initial });
+  // reactive 返回 Reactive<T>（深层解包 ref 后的类型），泛型场景下
+  // TS 无法证明它等于 T，直接写 reactive<T>(...) 再传给 api 会报错，需断言回 T
+  const form = reactive({ ...initial }) as T;
   const submit = async (api: (data: T) => Promise<void>) => {
     await api(form);
   };
@@ -202,3 +204,4 @@ function useForm<T extends Record<string, unknown>>(initial: T) {
 ## 更新记录
 
 - 2026-07：Phase 2 填充 —— 完整面试内容
+- 2026-07-18：事实审计 —— 补充分布式条件类型"裸类型参数"触发条件；修正 useForm 中 `reactive<T>()` 的泛型赋值错误（`Reactive<T>` 不可赋值给 T，改为断言）

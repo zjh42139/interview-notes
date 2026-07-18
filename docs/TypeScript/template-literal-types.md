@@ -8,6 +8,7 @@ difficulty: 中高级
 frequency: ⭐⭐⭐
 status: filled
 created: 2026-07-16
+updated: 2026-07-18
 tags:
   - 模板字面量
   - 字符串体操
@@ -67,7 +68,7 @@ type ParseRoute<T extends string> =
 type R = ParseRoute<'/api/user/123/edit'>  // { id: "123"; action: "edit" }
 ```
 
-### 递归模板字面量类型（TS 4.5+ 尾递归优化）
+### 联合类型 + as 重映射——批量生成事件类型
 
 ```typescript
 // 将联合类型转为对象类型的 key 映射
@@ -123,3 +124,4 @@ const errors: FormErrors = {
 ## 更新记录
 
 - 2026-07-16：新建——模板字面量类型 + 内置工具 + 项目实战
+- 2026-07-18：事实审计 —— 修正小节标题"递归模板字面量类型（TS 4.5+ 尾递归优化）"：该节代码是映射类型 + as 重映射，并非递归，标题按内容重写

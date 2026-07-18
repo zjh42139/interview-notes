@@ -56,7 +56,7 @@ HTTP/1.1 每个请求都要带上完整的头部（Cookie、User-Agent 等），
 
 ### HTTP/3 的核心：QUIC
 
-HTTP/3 最大的变化就是把底层从 TCP 换成了 QUIC（Quick UDP Internet Connections）——一个运行在 UDP 之上的可靠传输协议。这听起来矛盾：UDP 是不可靠的，但 QUIC 在应用层自己实现了可靠性（重传、拥塞控制）。
+HTTP/3（2022 年 6 月标准化为 RFC 9114）最大的变化就是把底层从 TCP 换成了 QUIC（RFC 9000）——一个运行在 UDP 之上的可靠传输协议。名字源自 Google 实验协议 "Quick UDP Internet Connections"，IETF 标准化后 QUIC 只是名字、不再是缩写。这听起来矛盾：UDP 是不可靠的，但 QUIC 在应用层自己实现了可靠性（重传、拥塞控制）。
 
 关键特性：
 
@@ -95,9 +95,11 @@ export default defineConfig({
 })
 ```
 
+两个注意点：Vite 3 起 `https: true` 不再自动生成证书，需要配 `@vitejs/plugin-basic-ssl` 或自备证书；且一旦同时配置了 `server.proxy`，Vite 会降级为仅 TLS、不启用 HTTP/2（底层 http-proxy 不支持 h2）。
+
 ### CDN 支持 HTTP/3
 
-生产环境中，我们的后台管理系统静态资源部署在阿里云 CDN 或 Cloudflare 上，这些 CDN 默认开启 HTTP/3。用户浏览器会在首次连接时通过 HTTPS 记录中的 Alt-Svc 头发现 HTTP/3 端点，后续连接升级到 QUIC。在网络不稳定时（比如移动端弱网场景），QUIC 的 0-RTT 和连接迁移带来的体验提升非常明显——页面加载时间从 3 秒以上降到 1 秒左右。
+生产环境中，我们的后台管理系统静态资源部署在阿里云 CDN 或 Cloudflare 上，这些 CDN 默认开启 HTTP/3。用户浏览器首次连接时通过响应中的 `Alt-Svc` 头（或 DNS 的 HTTPS 记录）发现 HTTP/3 端点，后续连接升级到 QUIC。在网络不稳定时（比如移动端弱网场景），QUIC 的 0-RTT 和连接迁移带来的体验提升非常明显——页面加载时间从 3 秒以上降到 1 秒左右。
 
 ### Nginx 开启 HTTP/2
 
@@ -139,4 +141,5 @@ server {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——补 RFC 9114/9000 标准化信息；修正 Alt-Svc 与 DNS HTTPS 记录混写；补 Vite https 的证书与 proxy 降级注意点
 - 2026-07-05：完成 Phase 2 填充（reviewed）

@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - addRoute
   - removeRoute
@@ -74,6 +74,7 @@ addRoute 的规则：
 ```ts
 // store/permission.ts
 import { defineStore } from 'pinia'
+import type { RouteRecordRaw } from 'vue-router'
 import router from '@/router'
 import { asyncRoutes, constantRoutes } from '@/router/routes'
 
@@ -203,11 +204,11 @@ const allRoutes = router.getRoutes()
 
 ### 追问1：addRoute 底层做了什么？
 
-核心就是把路由记录插入到 `matcher`（路径匹配器）的数据结构中。Vue Router 4 的 matcher 内部维护了两棵树：
-- **`pathMap`**：路径 string → 路由记录的 Map（path-to-regexp 编译后的正则）
-- **`nameMap`**：路由 name → 路由记录的 Map
+核心就是把路由记录编译成 matcher（路径匹配器）插入内部数据结构。注意 VR4 已**不再使用 path-to-regexp**（`pathList` / `pathMap` 那套是 VR3 的实现），而是自研路径解析器，为每条 path 计算**评分**。matcher 内部维护两个结构：
+- **`matchers` 数组**：所有路由的 matcher，按路径评分插入排序——匹配时按分数从高到低找第一个命中的
+- **`matcherMap`**：路由 name → matcher 的 Map，供命名路由跳转和 `removeRoute('name')` 查找
 
-`addRoute` 本质上就是同时更新这两张 Map，并重建 path 的优先级队列。名称冲突时先删后加，保证 `nameMap` 中始终只有最新的一条。
+`addRoute` 本质上就是编译新记录、按评分插入 `matchers` 数组、同步更新 name 的 Map。名称冲突时先删后加，保证同名路由始终只有最新的一条。
 
 ### 追问2：为什么要用 `replace: true` 而不是 `push`？
 
@@ -256,7 +257,7 @@ export const asyncRoutes: RouteRecordRaw[] = [
 ]
 ```
 
-这样设计的好处是：**前端代码打包时，所有业务路由组件都会被打包（因为 static import），但只有当前角色有权限的路由才会被加入到路由表中。菜单渲染也完全基于 `router.getRoutes()` 来生成**，保证了"真正的权限控制在前端路由层面"，而不是仅靠菜单的 `v-if` 隐藏。
+这样设计的好处是：**前端代码打包时，所有业务路由组件都会进入构建产物（懒加载的 `import()` 也只是拆成独立 chunk，并非不打包），但只有当前角色有权限的路由才会被加入到路由表中。菜单渲染也完全基于 `router.getRoutes()` 来生成**，保证了"真正的权限控制在前端路由层面"，而不是仅靠菜单的 `v-if` 隐藏。
 
 ## 项目实战
 
@@ -318,8 +319,8 @@ const vPermission: Directive = {
 **❌ 用 localStorage 存路由表而不是根据角色实时计算**
 路由权限应该基于当前用户的角色**在内存中实时计算**，而不是从 localStorage 读一个缓存的路由表。后者会导致角色变更后权限不更新的安全问题。
 
-**❌ `router.addRoute` 在 `beforeEach` 外调用**
-如果不在守卫中调用（例如在组件 `setup` 中），用户可以通过直接改 URL 跳过 `beforeEach` 触发时机之前的路由匹配阶段。
+**❌ `router.addRoute` 只在登录成功的回调里调用，不在 `beforeEach` 里兜底**
+只在登录页组件里 addRoute 的话，用户在业务页面**刷新**时（token 还在，但路由表已重置为初始状态）不会再走登录逻辑，当前 URL 直接被 404 兜底路由吃掉。权限路由的注入必须放在 `beforeEach` 的"有 token 但路由未注入"分支里，保证刷新、直接输 URL 等任何入口都先注入、再重新匹配。
 
 ## 面试信号
 
@@ -335,9 +336,11 @@ const vPermission: Directive = {
 
 - [路由守卫](./route-guards.md) — 动态路由与 beforeEach 的配合是权限系统的核心
 - [路由懒加载](./lazy-loading.md) — asyncRoutes 中的组件应全部使用懒加载
-- [导航故障处理](./navigation-failures.md) — addRoute 后重导航可能触发的 duplicate 场景
+- [导航故障处理](./navigation-failures.md) — `next({ ...to })` 重发导航按重定向处理，不产生 failure，用 `redirectedFrom` 检测
 - [../项目实战/权限系统/动态路由原理](../项目实战/权限系统/dynamic-route.md) — 权限系统完整设计
 
 ## 更新记录
 
+- 2026-07-18：事实修正（Phase 3 二审）——补 `RouteRecordRaw` 类型导入；打包说明更正（懒加载 `import()` 同样产出 chunk，非 static import）；重发导航定性改为重定向语义（`redirectedFrom`），非 cancelled 失败
+- 2026-07-18：事实修正（Phase 3）——matcher 内部结构改为 VR4 口径（自研解析器 + 评分排序，非 path-to-regexp / pathMap）、addRoute 调用时机易错点重写、相关阅读的失败类型改为 cancelled
 - 2026-07：完整填充（Phase 1），含权限路由全流程、addRoute 底层逻辑、next 重匹配原理

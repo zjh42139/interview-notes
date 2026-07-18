@@ -8,6 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: filled
 created: 2026-07-16
+updated: 2026-07-18
 tags:
   - 命名视图
   - 数据获取
@@ -49,6 +50,8 @@ tags:
 // 方式一：导航完成后获取（推荐）
 // 页面立即渲染 + loading 骨架 → 数据回来填充
 import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 const data = ref(null);
 const loading = ref(true);
 onMounted(async () => {
@@ -98,4 +101,5 @@ beforeRouteEnter(to, from, next) {
 
 ## 更新记录
 
+- 2026-07-18：事实修正（Phase 3 二审）——数据获取示例补 `useRoute` 导入与定义（原代码引用未定义的 `route`）
 - 2026-07-16：新建——命名视图+数据获取时机+路由过渡动画

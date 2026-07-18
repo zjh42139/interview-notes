@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - enum
@@ -88,7 +88,7 @@ const bg = Color.Red;
 
 | 特性 | 数字 enum | 字符串 enum | const enum | as const + typeof |
 |------|----------|------------|------------|-------------------|
-| 运行时产物 | IIFE | IIFE | 无（内联） | 无 |
+| 运行时产物 | IIFE | IIFE | 无（内联） | 普通对象字面量（无额外生成代码） |
 | Tree-shaking | 差 | 差 | N/A | 优 |
 | `isolatedModules` 兼容 | ✅ | ✅ | ❌ 跨文件有问题 | ✅ |
 | 联合类型提取 | `Status` 即类型 | `Status` 即类型 | `Color` 即类型 | 需 `typeof` 提取 |
@@ -294,3 +294,4 @@ const operations: { key: Operation; label: string; icon: string }[] = [
 ## 更新记录
 
 - 2026-07-14：新建——enum 编译产物 + const enum 陷阱 + class 访问修饰符 + implements vs extends
+- 2026-07-18：事实审计——修正对比表中 as const 方案"运行时产物：无"的表述（对象字面量保留，只是没有 IIFE 等额外代码）

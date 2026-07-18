@@ -24,6 +24,7 @@ mindmap
     qiankun
       基于single-spa
       ProxySandbox
+      LegacySandbox
       SnapshotSandbox
       CSS隔离
       initGlobalState
@@ -35,11 +36,21 @@ mindmap
       shared共享
       运行时模块共享
       技术栈无关
+    micro-app
+      京东出品
+      CustomElement
+      组件式接入
+      近零改造
+    wujie
+      腾讯出品
+      iframe执行JS
+      Shadow DOM渲染
+      子应用保活
 ```
 
 ## 推荐学习顺序
 
-1. ⭐⭐⭐⭐   [微前端概述](./overview.md) —— 四种方案的适用场景对比
+1. ⭐⭐⭐⭐   [微前端概述](./overview.md) —— 六种方案的适用场景对比
 2. ⭐⭐⭐⭐⭐ [qiankun 深度解析](./qiankun.md) —— 阿里系微前端框架，面试高频
 3. ⭐⭐⭐⭐   [Module Federation](./module-federation.md) —— Webpack 5 原生联邦模块
 4. ⭐⭐⭐     [iframe 方案的优劣](./iframe.md) —— 最简单也最容易被忽视的方案

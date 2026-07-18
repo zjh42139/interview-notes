@@ -61,7 +61,7 @@ tags:
 
 **Gzip**：兼容性最好，几乎所有服务器/CDN 默认开启。压缩比约 70%。
 
-**Brotli**：Google 开发的现代压缩算法，比 Gzip 小 20-30%。所有现代浏览器都支持。HTTPS 下自动可用。
+**Brotli**：Google 开发的现代压缩算法，文本资源比 Gzip 再小约 20%。所有现代浏览器都支持。仅在 HTTPS 下可用。
 
 ```nginx
 # Nginx 开启 Brotli（需 brotli 模块）
@@ -80,7 +80,7 @@ brotli_types text/plain text/css application/javascript image/svg+xml;
 
 ### HTTP2 多路复用——改变了打包策略
 
-HTTP/1.1 的瓶颈：每个 TCP 连接同时只能处理 6-8 个请求（浏览器限制）。所以以前会做**资源合并**——把所有 JS 打成一个 vendor.js、所有 CSS 拼成一个 app.css。
+HTTP/1.1 的瓶颈：一个 TCP 连接同一时刻只能处理一个请求（响应回来才能发下一个），浏览器对同域名最多开 6 个并发连接。所以以前会做**资源合并**——把所有 JS 打成一个 vendor.js、所有 CSS 拼成一个 app.css。
 
 HTTP/2 支持**多路复用**——一个 TCP 连接可以并发传多个文件：
 
@@ -125,4 +125,5 @@ location / {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计修正（HTTP/1.1 是"1 连接 1 请求 + 同域 6 连接"而非"1 连接 6-8 请求"、Brotli 压缩率口径统一为约 20%）
 - 2026-07-16：新建——Resource Hints + 压缩 + CDN + HTTP2 影响

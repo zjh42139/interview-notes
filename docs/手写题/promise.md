@@ -433,16 +433,17 @@ new MyPromise((res) => res(42))
 
 ```typescript
 // 规范 2.2.4：onFulfilled/onRejected 必须在执行上下文栈只包含平台代码时调用
-// 也就是：必须异步。queueMicrotask 比 setTimeout 更精确。
+// 也就是：必须异步。queueMicrotask 比 setTimeout 更精确（微任务 vs 宏任务）。
 
-// ❌ 如果同步调用的话：
-new MyPromise((res) => {
-  res(1);
-  console.log('A');
-}).then((v) => {
-  console.log('B', v);  // 如果同步，输出：B1 A；如果微任务，输出：A B1
+// 对比实验：对一个已经 FULFILLED 的 promise 调用 then
+const p = new MyPromise<number>((res) => res(1));
+p.then((v) => {
+  console.log('B', v);
 });
+console.log('A');
 
+// 如果 then 同步执行回调：注册时状态已是 FULFILLED，立刻执行 → 输出 B1 → A
+// 如果用微任务：回调排队，等同步代码跑完 → 输出 A → B1
 // 浏览器原生 Promise 输出 "A" → "B1"，所以必须用微任务
 ```
 

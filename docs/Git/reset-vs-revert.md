@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - git
   - reset
@@ -25,7 +25,7 @@ tags:
 
 > `git reset` 是"回到过去"——移动 HEAD 指针到指定的历史 commit，可以改写提交历史。`git revert` 是"否定某个 commit"——新建一个反向 commit 来撤销指定 commit 的更改，不改写历史。面试核心：**reset 改历史（危险，适合本地），revert 不改历史（安全，适合公共分支）。**
 
-面试时这样开口："reset 和 revert 都能撤销代码，但本质完全不同。reset 是移动 HEAD 指针，让分支回到某个历史状态——可以理解成'删除'了后面的 commit；revert 是创建一个新的反向 commit 来抵消目标 commit 的改动——原来的 commit 还在，只是效果被反转了。已推送的分支永远用 revert，本地未推送的分支用 reset。"
+面试时这样开口："reset 和 revert 都能撤销代码，但本质完全不同。reset 是移动 HEAD 指针，让分支回到某个历史状态——可以理解成'删除'了后面的 commit；revert 是创建一个新的反向 commit 来抵消目标 commit 的改动——原来的 commit 还在，只是效果被反转了。已推送的公共分支永远用 revert，本地未推送的分支用 reset。"
 
 ## 核心机制
 
@@ -72,7 +72,9 @@ git reflog                   # 找到之前 HEAD 的 hash（例如 abc1234）
 git reset --hard abc1234     # 恢复到 reset 之前的状态
 ```
 
-> `git reflog` 记录了 HEAD 的所有移动历史（默认保留 90 天），是 reset --hard 的后悔药。但要注意：只有曾经 commit 过的内容才能通过 reflog 找回，从未 commit 的工作区修改无法恢复。
+> `git reflog` 记录了 HEAD 的所有移动历史（可达的记录默认保留 90 天；**不可达的记录——比如被 reset 丢弃的 commit——默认只保留 30 天**），是 reset --hard 的后悔药。但要注意：只有曾经 commit 过的内容才能通过 reflog 找回，从未 commit 的工作区修改无法恢复。
+
+**补充（Git 2.23+）**：只想撤销**单个文件**时，现代命令是 `git restore`——`git restore <file>` 丢弃工作区改动，`git restore --staged <file>` 取消暂存。它们分别替代旧写法 `git checkout -- <file>` 和 `git reset HEAD <file>`，语义更清晰。
 
 ### git revert 的原理
 
@@ -110,7 +112,7 @@ git revert -m 1 <merge-commit-hash>
 | 本地 commit 了，还没 push | `reset` | 没推送就改历史，没人受影响 |
 | 本地 commit + push 了，别人没基于你的分支工作 | `reset` + `force push` | 确认独享分支才能 force push |
 | 已推送到公共分支（main/develop） | `revert` | 黄金规则：不改已推送的历史 |
-| 需要撤销的不是最新 commit，而是中间的某个 | `revert` | reset 只能从 HEAD 往回退，无法跳过中间的 commit |
+| 需要撤销的不是最新 commit，而是中间的某个 | `revert` | reset 回退会把后面的 commit 一并丢弃，无法只撤销中间某一个 |
 | 线上出 bug，需要紧急回滚 | `revert` | 最快、最安全，留下完整审计记录 |
 | 想清理本地的 "wip"、"fix typo" 类垃圾 commit | `revert` 不适用 | 用 `git rebase -i` 的 squash/fixup |
 

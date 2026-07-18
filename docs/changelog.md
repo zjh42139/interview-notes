@@ -7,6 +7,28 @@ description: 知识库变更记录
 
 ## 2026-07-18
 
+### Phase 3 事实审计（第 2+3 批：TS/HTML/手写题/算法/网络/Git/Pinia/VueRouter/性能/CICD/HR）
+
+11 个模块 ~133 文件逐篇核对，修复 38 P0 + ~186 P1（含 tsc strict 实测与 node 运行验证）：
+
+- **TypeScript**（14 P0）: 结构化类型兼容规则方向反、Array 方法双变误作逆变、emits 版本标注互换、satisfies.md 前后自相矛盾、手写三件套 `unknown[]` 约束实测报错、.d.ts 顶层 declare 规则、strict 家族 9 项（TS 5.6+）
+- **HTML**（4 P0）: a 标签无效 rel 用法、Shadow DOM retarget 示例反、html-entities 易错点本身是错的、`input:required > label` 不可能选择器
+- **手写题**（4 P0）: node 实测验证全模块——throttle 窗口内参数丢失、allSettled ReferenceError、三处输出注释错；Promise 主实现确认无 bug 可放心背
+- **Git**（4 P0）: cherry-pick -x 默认行为反、`feat(api)!:` 写法、`git show :1:` 、bisect kill %1 无效
+- **算法**（2 P0）: 队列 push 注释反、MinHeap 空堆污染；Floyd 判圈/三套二分模板/LRU 等核对无误
+- **CICD**（2 P0）: actions/artifact v3 已停服（2025-01）、pnpm store 缓存路径为 v6 旧值（形同虚设）
+- **网络**（1 P0）: cors.md Nginx 反射 Origin+credentials 危险配置；TLS 1.2 图 RSA→ECDHE、AbortSignal.timeout 补齐；Phase 1 遗留 2 项补齐
+- **Pinia**（1 P0）: actions「顶层获取 store 会过时」错误心智模型；persist 插件 v3→v4 API 升级（pick/omit）；vs-vuex 与 Vuex5/mutation 归因的软化变体清理
+- **HR**（1 P0）: 薪资谈判补「虚报现薪会被流水核验」红线；双减「去年」失真、jQuery 起步叙事现代化
+- **性能优化**: mindmap FID→INP、DevTools 瀑布图颜色全表更正、Lighthouse 12 口径、CrUX 28 天窗口
+- **VueRouter**: navigation-failures.md 整篇 VR3→VR4 重写（NavigationFailure/isNavigationFailure/redirectedFrom）、scrollBehavior mermaid VR3 坐标残留、typed routes 4.2→4.4
+
+### Phase 3 事实审计（第 2 批：前端架构 13 文件二审）
+
+- **P0 修正 5 处**：iframe.md postMessage「字符串序列化」改为结构化克隆（Date/Map/Set 可传，函数/Symbol/DOM 节点抛 DataCloneError）、「每个 iframe 独立渲染进程」限定为跨站 + Site Isolation；overview.md 对比表 MF「模块级隔离」→「无隔离（共享运行时）」——消除与 module-federation.md 的直接矛盾；design-patterns.md「Vue3 响应式 = 加强版发布订阅」归位为观察者模式、源码表「createApp 单例」改为调度器队列（createApp 是工厂）
+- **一审缺口补齐**：上一批声称已补的 design-patterns.md 观察者 vs 发布订阅拆分实际未落盘——本次补齐（Subject 直连示例 + 有无中间人对比表 + Vue dep→effect 归类），并同步修正题库前端架构 Q9 的两处旧说法
+- **P1 修正 ~13 处**：qiankun.md SnapshotSandbox 示例字段未初始化（首次 active 必报错）、update 生命周期触发条件、loose 模式无 with 细节；MF 远程模块加载补异步边界（eager consumption 报错）、「shared 三种策略」实为 4 项；design-patterns.md maxLength 工厂函数类型错误；component-design.md 作用域插槽 v-for 缺 index 声明；project-structure.md 一句话总结与依赖方向图 store/hooks 顺序矛盾；config-driven.md JSX 字符串标签不解析全局注册组件；monorepo.md turbo dev 任务缺 `cache: false`；「四种方案」→「六种」5 处；微前端 index.md mindmap 补 LegacySandbox/micro-app/wujie；overview.md 缺失的 07-18 更新记录补齐；3 处相关阅读链接补 `.md` 后缀
+
 ### Phase 2 覆盖率补齐 + Phase 3 事实审计（第 1 批：浏览器/JS/Vue3/CSS/工程化）
 
 **Phase 2（覆盖率）**:

@@ -44,7 +44,7 @@ function compareVersion(v1: string, v2: string): number {
 
 ```typescript
 // 字节/阿里场景题：实现 LazyMan('Tony').eat('apple').sleep(2).eat('banana')
-class LazyMan {
+class LazyManClass {
   private queue: (() => Promise<void>)[] = []
 
   constructor(name: string) {
@@ -91,8 +91,11 @@ class LazyMan {
 }
 
 function createLazyMan(name: string) {
-  return new LazyMan(name)
+  return new LazyManClass(name)
 }
+// class 不能不加 new 直接调用（会抛 TypeError），所以再包一层工厂函数，
+// 对齐题目要求的 LazyMan('Tony') 调用方式：
+const LazyMan = createLazyMan
 ```
 
 ## 3. 寄生组合继承

@@ -64,7 +64,9 @@ function myInstanceofStrict(instance: any, constructor: Function): boolean {
 
 // 2. 箭头函数不能做 constructor
 // (() => {}).prototype === undefined —— 箭头函数没有 prototype
-// myInstanceof(obj, arrowFn) 中 constructor.prototype 为 undefined，循环直接结束返回 false
+// myInstanceof(obj, arrowFn)：原型链上不会出现 undefined，遍历到 null 后返回 false
+// 注意：原生 instanceof 此时会抛 TypeError（Function has non-object prototype），
+// 想完全对齐原生，需要先校验 constructor.prototype 是否为对象，不是就抛错
 ```
 
 ## 面试追问

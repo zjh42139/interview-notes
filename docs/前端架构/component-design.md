@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - 组件设计
   - Props
@@ -130,7 +130,7 @@ const show = computed({
     </div>
 
     <!-- 3. 作用域插槽：暴露内部数据给父组件 -->
-    <div v-for="item in list" :key="item.id">
+    <div v-for="(item, index) in list" :key="item.id">
       <slot name="item" :item="item" :index="index" />
     </div>
   </div>
@@ -209,7 +209,7 @@ function selectUser(user: User) {
 ```vue
 <!-- src/components/business/UserSelector.vue -->
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { getUserList } from '@/api/user'
 
 interface Props {
@@ -289,7 +289,7 @@ function handleVisibleChange(visible: boolean) {
 
 ## 易错点
 
-1. **❌ Props 直接解构赋值**：`const { name } = props` 会丢失响应式，要解构用 `toRefs(props)`。
+1. **❌ Props 直接解构赋值**：`const { name } = props` 会丢失响应式，要解构用 `toRefs(props)`。（Vue 3.5+ 的响应式 props 解构只对 `defineProps()` 声明处的解构生效，事后解构 `props` 变量依然丢响应式）
 2. **❌ 通用组件里写业务枚举**：`<BaseButton :type="UserType.Admin">` —— 业务语义泄露到了通用层。
 3. **❌ emit 命名不规范**：应该用 `update:modelValue` 而非 `input`/`change`，方便 v-model 绑定。
 
@@ -317,4 +317,5 @@ function handleVisibleChange(visible: boolean) {
 
 ## 更新记录
 
+- 2026-07-18：二审修正——作用域插槽示例 `v-for` 补 `index` 声明（原代码 index 未定义）；删除 UserSelector 示例未使用的 `watch` 导入；易错点 1 补 Vue 3.5 响应式 props 解构的边界说明
 - 2026-07-06：完成内容填充，新增受控/非受控双模式实现、UserSelector 完整封装思路、props/events/slots 三维设计法

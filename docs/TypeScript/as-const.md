@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - as const
@@ -107,19 +107,19 @@ const STATUS = {
 
 type Status = (typeof STATUS)[keyof typeof STATUS];
 // 'pending' | 'approved' | 'rejected'
-// 编译后：完全消失，只有 'pending' | 'approved' | 'rejected' 字面量
-// → Tree-shaking 友好、运行时代码更小
+// 编译后：类型全部擦除，STATUS 就是一个普通对象字面量（没有 IIFE 包装）
+// → Tree-shaking 友好、无额外生成代码
 ```
 
 | | enum | as const + type |
 |---|------|-----------------|
-| 运行时产物 | 额外的 IIFE 代码 | 无（零成本） |
+| 运行时产物 | 额外的 IIFE 代码 | 普通对象字面量（无额外生成代码） |
 | 反向映射 | 数字枚举有 | 无（但很少需要） |
 | Tree-shaking | 差 | 优 |
 | `isolatedModules` 兼容 | const enum 有问题 | 完全兼容 |
 | 联合类型推断 | 自动 | 需要 typeof 提取 |
 
-> 推荐：新项目用 `as const` + `typeof` 替代 enum，除非你需要数字枚举的反向映射。const enum 在 `isolatedModules` 下行为不一致，Babel/ESBuild 直接忽略。
+> 推荐：新项目用 `as const` + `typeof` 替代 enum，除非你需要数字枚举的反向映射。const enum 在 `isolatedModules` 下行为不一致——Babel/esbuild 这类单文件转译器拿不到跨文件的常量值，无法内联，只能当普通 enum 处理（或直接报错）。
 
 ### as const + satisfies 组合
 
@@ -209,9 +209,9 @@ function checkPermission(permission: Permission): boolean {
 
 ❌ **把 `as const` 当 `readonly` 用**：`as const` 比 `readonly` 更强——它除了加只读，还把类型收窄到字面量。如果你只需要只读不要字面量收窄，用 `Readonly<T>` 或 `readonly` 关键字。
 
-❌ **`as const` 后无法 push 数组**：数组变成只读元组后 `push`/`pop`/`sort` 全部失效——如果需要可变数组，用 `readonly` 类型注解替代。
+❌ **`as const` 后无法 push 数组**：数组变成只读元组后 `push`/`pop`/`sort` 全部失效——需要可变数组就不要加 `as const`；只想要只读、不需要字面量收窄时，用 `readonly string[]` 这类类型注解。
 
-❌ **`as const` 不阻止类型层面的约束**：即使用了 `as const`，如果配合 `satisfies Record<string, string>`，value 的类型会受 `string` 约束——`satisfies` 只检查，不改变类型推断。
+❌ **以为 `satisfies` 会抹掉 `as const` 的字面量**：`as const satisfies Record<string, string>` 中，value 仍要通过 `string` 的兼容性检查，但 `satisfies` 只检查、不改变推断——字面量类型依然保留。
 
 ❌ **`const enum`** 在 `isolatedModules` 或 Babel/ESBuild 编译时行为不一致——跨项目不建议使用，用 `as const` + `typeof` 替换。
 
@@ -219,7 +219,7 @@ function checkPermission(permission: Permission): boolean {
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
-| "as const 做了什么" | 追问字数面量类型 + readonly + 数组变元组三件事 |
+| "as const 做了什么" | 追问字面量类型 + readonly + 数组变元组三件事 |
 | "as const 和 enum 怎么选" | 追问零运行时开销 + tree-shaking 优势 |
 | "as const 和 satisfies 怎么配合" | 追问 as const satisfies 双重效果——约束 + 保留字面量 |
 
@@ -234,3 +234,4 @@ function checkPermission(permission: Permission): boolean {
 ## 更新记录
 
 - 2026-07-14：新建——as const 三件事 + 与 enum 对比 + 与 satisfies 组合 + 项目实战
+- 2026-07-18：事实审计——修正编译产物描述（对象字面量保留、只是无 IIFE）、const enum 在 Babel/esbuild 下的行为、两条易错点表述、错别字

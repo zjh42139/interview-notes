@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - Commit
@@ -50,7 +50,7 @@ docs: 文档变更         # docs(readme): update install guide
 style: 代码格式       # style(dashboard): fix eslint warnings
 refactor: 重构        # refactor(utils): extract common logic
 test: 测试相关        # test(auth): add unit test for login
-chore: 构建/工具变更   # chore(deps): upgrade axios to 1.x
+chore: 杂项变更          # chore(deps): upgrade axios to 1.x（依赖升级、.gitignore 等，不改 src/test）
 
 # 较少用但规范要求知道的
 perf: 性能优化
@@ -86,9 +86,10 @@ module.exports = {
   }
 }
 
-# 在 package.json 中配置 husky
-# npx husky install
-# npx husky add .husky/commit-msg 'npx --no -- commitlint --edit $1'
+# 在 package.json 中配置 husky（v9+ 写法）
+# npx husky init
+# echo 'npx --no -- commitlint --edit "$1"' > .husky/commit-msg
+# （husky v8 及以前的 husky install / husky add 命令在 v9 中已废弃/移除）
 ```
 
 校验失败的效果：提交被拦截，终端提示 "subject must not be sentence-case"，开发者不得不修改 message 后重新提交。
@@ -129,6 +130,8 @@ module.exports = {
 
 ```bash
 # 3. standard-version：自动生成 changelog + 打 tag
+# 注意：standard-version 已停止维护，新项目建议用兼容替代品
+# commit-and-tag-version（drop-in 替换）或 release-please
 npm install --save-dev standard-version
 
 # package.json scripts
@@ -172,8 +175,8 @@ feat(api): change user endpoint response format
 BREAKING CHANGE: getUser 接口返回格式从数组改为对象，
 包含 data 和 total 字段
 
-# 方式二：type 后加 !（GitHub 风格）
-feat!(api): change user endpoint response format
+# 方式二：在 type/scope 后、冒号前加 !（Conventional Commits 规范写法）
+feat(api)!: change user endpoint response format
 ```
 
 遇到 BREAKING CHANGE，版本号需要从 1.x.x 升级到 2.0.0。
@@ -197,16 +200,16 @@ docs(api): update interface文档 for user module
 
 ### commitlint 配置踩坑记录
 
-**坑 1：header-max-length 限制中文长度**。默认 `subject` 最多 72 字符，但中文 commit 很容易超过，因为一个中文算 1 字符但编码后占更多。建议放宽到 100。
+**坑 1：header-max-length 超限**。`@commitlint/config-conventional` 默认整行 header（type + scope + subject）最多 100 字符（中文也按 1 字符计）。描述较长时容易被拦截，可按团队需要放宽：
 
 ```js
 // commitlint.config.js
 rules: {
-  'header-max-length': [2, 'always', 100]
+  'header-max-length': [2, 'always', 150]
 }
 ```
 
-**坑 2：husky 在 CI 环境失败**。CI 中可能没有安装 husky hooks，需要在 CI 配置中跳过或单独处理。可以在 `.husky/commit-msg` 中判断是否在 CI 环境。
+**坑 2：husky 在 CI 环境失败**。CI 中可能没有安装 husky hooks，需要在 CI 配置中跳过或单独处理。可以设置环境变量 `HUSKY=0` 直接禁用 husky，或在 `.husky/commit-msg` 中判断是否在 CI 环境。
 
 ## 易错点
 

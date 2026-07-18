@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - keyof
@@ -38,7 +38,7 @@ type UserKey = keyof User; // "id" | "name" | "email"
 type AllKeys = keyof any;  // string | number | symbol
 ```
 
-索引签名类型里 `keyof` 返回索引参数类型；对交叉类型 `keyof (A & B)` 取并集，对联合类型 `keyof (A | B)` 取交集——这是很精妙的对称设计。
+索引签名类型里 `keyof` 返回索引键类型——注意 `{ [k: string]: unknown }` 的 `keyof` 是 `string | number`（数字键也会命中字符串索引）；对交叉类型 `keyof (A & B)` 取并集，对联合类型 `keyof (A | B)` 取交集——这是很精妙的对称设计。
 
 **第二层：映射类型 —— 遍历键，改造类型**
 
@@ -72,7 +72,7 @@ type PersonGetters = Getters<Person>;
 
 **第四层：条件类型 —— 类型层面的 if/else**
 
-语法 `T extends U ? X : Y`。当 `T` 是联合类型时**分发**到每个成员：
+语法 `T extends U ? X : Y`。当 `T` 是**裸类型参数**且传入联合类型时**分发**到每个成员：
 
 ```typescript
 type MyExclude<T, U> = T extends U ? never : T;
@@ -99,7 +99,7 @@ type PrefixStringKeys<T, Prefix extends string> = {
 ## 深度拓展
 ### 追问点 1：`[K in keyof T]` 中 K 的类型
 
-`K` 保留的是**字面量类型**。遍历 `{ id: number; name: string }` 时，`K` 第一轮是 `"id"`（不是宽泛的 `string`），第二轮是 `"name"`。所以能用它做模板字面量拼接。如果 T 有索引签名 `[key: string]: unknown`，K 退化为 `string`。
+`K` 保留的是**字面量类型**。遍历 `{ id: number; name: string }` 时，`K` 第一轮是 `"id"`（不是宽泛的 `string`），第二轮是 `"name"`。所以能用它做模板字面量拼接。如果 T 有索引签名 `[key: string]: unknown`，K 退化为 `string | number`（字符串索引同时覆盖数字键）。
 
 ### 追问点 2：模板字面量 + infer 组合
 
@@ -140,7 +140,7 @@ type DateFields = PickByValueType<SearchForm, Date>;
 // { startDate: Date; endDate: Date; }
 ```
 
-`as T[K] extends V ? K : never` 是关键——值类型匹配保留键，不匹配映射为 `never`（`never` 类型的属性被 TS 自动移除）。面试手写这个能把 keyof + 映射 + as + 条件类型全用上，非常加分。
+`as T[K] extends V ? K : never` 是关键——值类型匹配保留键，不匹配的键被重映射为 `never`，`as` 出 `never` 的键会被整个丢弃。注意被丢弃的是"键为 `never`"的情况——属性的**值类型**是 `never` 并不会导致属性被移除。面试手写这个能把 keyof + 映射 + as + 条件类型全用上，非常加分。
 
 **2. 实现 PrefixKeys<T, P> —— 给所有 key 加前缀**
 
@@ -156,7 +156,7 @@ type QueryParams = PrefixKeys<FilterParams, "search_">;
 // { search_keyword: string; search_status: number; }
 ```
 
-`keyof T & string` 过滤掉 symbol/number 键，因为模板字面量只接受 `string`。
+`keyof T & string` 过滤掉 symbol/number 键——模板字面量插值不接受 `symbol`（`number` 其实可以插值，这里一并收窄为 `string` 处理更简单）。
 
 **3. 路由配置类型安全**——Vue Router 路径参数和 Props 对应，模板字面量 + infer + 映射类型保证编译期检查：
 
@@ -166,7 +166,7 @@ type RouteParams<P extends string> =
     ? { [K in Param]: string } & RouteParams<`/${Rest}`>
     : P extends `${string}:${infer Param}`
       ? { [K in Param]: string }
-      : Record<string, never>;
+      : Record<never, never>; // 基例要用空对象；写 Record<string, never> 会因 never 索引签名污染交叉结果，拒绝一切真实对象
 
 // "/user/:id" → { id: string }
 // "/order/:orderId/detail" → { orderId: string }
@@ -208,3 +208,4 @@ type RouteParams<P extends string> =
 ## 更新记录
 
 - 2026-07：Phase 2 填充 —— 完整面试内容
+- 2026-07-18：事实审计 —— RouteParams 递归基例 `Record<string, never>` 改为 `Record<never, never>`（前者实测拒绝所有对象）；修正索引签名 keyof 为 `string | number`；澄清 as 重映射丢弃的是"键为 never"而非值为 never；修正"模板字面量只接受 string"（number 可插值，symbol 不行）；补充分发的"裸类型参数"限定

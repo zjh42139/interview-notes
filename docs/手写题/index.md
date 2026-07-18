@@ -60,9 +60,9 @@ mindmap
 | 手写题 | 频率 | 难度 | 关联知识 | 状态 |
 |--------|------|------|---------|------|
 | [Promise](./promise.md) | ⭐⭐⭐⭐⭐ | 高级 | [JavaScript Promise](../JavaScript/promise.md) | draft |
-| [Promise.all / allSettled / any / race](./promise-static.md) | ⭐⭐⭐⭐⭐ | 中级 | drafted |
-| [LRU Cache](./lru-cache.md) | ⭐⭐⭐⭐ | 中级 | drafted |
-| [批量请求并发控制](./concurrency-control.md) | ⭐⭐⭐⭐ | 高级 | drafted |
+| [Promise.all / allSettled / any / race](./promise-static.md) | ⭐⭐⭐⭐⭐ | 中级 | — | drafted |
+| [LRU Cache](./lru-cache.md) | ⭐⭐⭐⭐ | 中级 | — | drafted |
+| [批量请求并发控制](./concurrency-control.md) | ⭐⭐⭐⭐ | 高级 | — | drafted |
 | [bind / call / apply](./bind-call-apply.md) | ⭐⭐⭐⭐⭐ | 中级 | [JavaScript call/apply/bind](../JavaScript/call-apply-bind.md) | draft |
 | [new](./new.md) | ⭐⭐⭐⭐ | 初级 | [JavaScript new](../JavaScript/new.md) | draft |
 | [debounce / throttle](./debounce-throttle.md) | ⭐⭐⭐⭐ | 初级 | [JavaScript 防抖节流](../JavaScript/debounce-throttle.md) | draft |

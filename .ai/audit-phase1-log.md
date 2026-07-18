@@ -1,6 +1,31 @@
 # Phase 1-2 审计工作记录（临时文件，Phase 5 结束后删除）
 
-## Phase 3 事实审计进度（第 1 批）
+## Phase 3 事实审计进度（第 2 批）
+
+| 模块 | P0 | P1 | 备注 |
+|------|:---:|:---:|------|
+| 算法 | 2 | 4 | 队列 push 注释反、MinHeap 空堆污染；待确认: common-questions「30 道」实际 15 道 |
+| 网络 | 1 | 15 | cors.md Nginx 反射 Origin+credentials 危险配置；Phase 1 遗留 2 项已补（Expect 100-continue、轮询小节） |
+| Git | 4 | 24 | cherry-pick -x 默认行为反、feat(api)!: 写法、git show :1: 、bisect kill %1 |
+| 手写题 | 4 | 15 | node 实测验证；throttle 参数丢失、allSettled ReferenceError；Promise 主实现确认无 bug |
+| HTML | 4 | 26 | a-tag 无效 rel、retarget 示例、html-entities 易错点本身错、form-validation 不可能选择器 |
+| TypeScript | 14 | 43 | 四子组齐: A 4+11(satisfies 重灾) B 3+8(tsc 实测) C 4+15(strict 9 项/declare 规则) D 3+9(兼容规则方向反/方法双变/emits 版本互换) |
+| CICD | 2 | 7 | artifact v3 已停服（25/1/30）、pnpm store 路径错（~6 时代为空目录） |
+| HR | 1 | 6 | P0: 薪资谈判缺虚报现薪红线警示；双减「去年」失真、jQuery 起步叙事、index status 同步 |
+| Pinia | 1 | 22 | actions「获取 store 会过时」错误心智模型修正；persist v3→v4 升级（8处改名） |
+| 性能优化 | 0 | 9 | mindmap FID→INP、DevTools 瀑布图颜色全表更正、Mermaid 图语法修复；P2×14 |
+| VueRouter | 0 | 8 | Koa 保留字、.env BASE_URL 错误归因、scrollBehavior mermaid VR3 残留、typed routes 4.2→4.4 |
+| 前端架构 | ⏳ | | 复核 qiankun/overview/design-patterns 补写质量 |
+
+**VueRouter Phase 4 待办（通知主会话）**: navigation-failures.md L327 相关阅读「旧导航会被 cancelled」与其自身 L59「重定向不是失败」矛盾——该文件仍在 VR3→VR4 过渡中
+
+**HR 待人工确认**: 职业规划/离职原因频率——题库 5 星 vs 文件 4 星，改哪边（涉及 4 处）
+| HTML | ⏳ | | |
+| 手写题 | ⏳ | | |
+| Git | ⏳ | | |
+
+**网络 Phase 5 待办**: 6 篇「相关阅读」空标题错位、index 缺 http-methods/udp/proxy-lb 三行 + 星级不一致
+**算法 Phase 5 待办**: index 缺回溯行、common-questions 30/15 道口径（待用户确认）
 
 | 模块 | P0 修复 | P1 修复 | 备注 |
 |------|:---:|:---:|------|

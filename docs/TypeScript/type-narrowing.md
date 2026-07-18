@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - 类型收窄
@@ -47,7 +47,7 @@ function format(input: string | number | boolean): string {
 }
 ```
 
-TS 能识别 `typeof` 的以下返回值：`"string"` / `"number"` / `"bigint"` / `"boolean"` / `"symbol"` / `"undefined"` / `"object"` / `"function"`。注意 `typeof null === "object"` 是一个陷阱——TS 不会因为 `typeof x === "object"` 就把 `x` 收窄为 `object`，因为 TS 知道 `null` 也返回 `"object"`。
+TS 能识别 `typeof` 的以下返回值：`"string"` / `"number"` / `"bigint"` / `"boolean"` / `"symbol"` / `"undefined"` / `"object"` / `"function"`。注意 `typeof null === "object"` 是一个陷阱——TS 不会因为 `typeof x === "object"` 就把 `x` 收窄为 `object`，因为 TS 知道 `null` 也返回 `"object"`：`unknown` 经此判断只收窄为 `object | null`，仍需再排除 `null`。
 
 ### 2. `instanceof` —— 类实例的收窄
 
@@ -300,3 +300,4 @@ const formRules = {
 ## 更新记录
 
 - 2026-07-14：新建——五种 Type Guard + 可辨识联合 + 穷举检查 + 项目实战
+- 2026-07-18：事实审计——补充 `typeof x === "object"` 对 unknown 的收窄结果（object | null，tsc strict 实测），其余示例全部编译验证通过

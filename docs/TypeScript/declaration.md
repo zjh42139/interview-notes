@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 reviewed: null
 tags:
   - declare
@@ -52,7 +52,7 @@ declare module '*.vue' {
 // declare module '*.css' { const content: Record<string, string>; export default content }
 // declare module '*.scss' { const content: Record<string, string>; export default content }
 
-// declare global：扩展全局类型
+// declare global：扩展全局类型（只能写在模块里——文件需含顶层 import/export，见易错点 5）
 declare global {
   interface Window {
     __ADMIN_CONFIG__: { apiBaseUrl: string; version: string }
@@ -65,7 +65,8 @@ declare global {
 
 ```ts
 // src/types/global.d.ts —— 典型声明文件结构
-// 1. .d.ts 文件中写 declare 可以省略 declare 关键字（顶层声明自动 ambient）
+// 1. .d.ts 顶层的 var/function/class 声明必须带 declare 或 export（否则报 TS1046）；
+//    interface/type 可直接写；declare module / declare namespace 内部成员可省略 declare
 // 2. 编译时只用于类型检查，不产生任何 JS 输出
 // 3. @types/xxx 就是社区维护的三方库 .d.ts 文件集合
 
@@ -115,6 +116,7 @@ declare namespace MyLib {
 ```ts
 // 场景 1：为 Vue 插件扩展组件实例类型
 // 如 Element Plus 的 $message 挂载到 app.config.globalProperties
+// 前提：该文件必须是模块（至少一个顶层 import/export），否则 declare module 'vue' 会整体覆盖原类型
 declare module 'vue' {
   interface ComponentCustomProperties {
     $message: (options: { type: string; message: string }) => void
@@ -152,15 +154,16 @@ declare module 'my-internal-lib' {
 // tsconfig.json 中的关键配置
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./src/types"],  // 声明文件查找路径
-    "types": [],                                            // 只加载指定的 @types 包
+    "typeRoots": ["./node_modules/@types", "./src/types"],  // 自动包含的类型包根目录（默认只有 node_modules/@types）
+    "types": [],                                            // 白名单：只自动加载列出的类型包，[] 表示全都不自动加载
+    // 注意：types 一旦设置，typeRoots 下未列出的包就不再自动包含
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"]               // .d.ts 需要被 include 覆盖
+  "include": ["src/**/*.ts", "src/**/*.d.ts"]               // 自己的散装 .d.ts 靠 include 生效，而不是 typeRoots
 }
 
 // 查找规则：
-// 1. 先在同级目录找 .d.ts
-// 2. 再在 typeRoots 下找
+// 1. import 按模块解析规则找 .ts / .d.ts（发包时 .d.ts 与 .js 同名配对）
+// 2. typeRoots 下的每个子目录被当作一个类型包自动包含（需要 index.d.ts 入口）
 // 3. node_modules/@types 是默认的 typeRoots
 ```
 
@@ -183,6 +186,8 @@ declare global {
     }
   }
 }
+
+export {}  // 关键：declare global 只能出现在模块中——export {} 把这个 .d.ts 标记为模块
 
 // 使用时有完整的类型提示和校验
 const config = window.__ADMIN_CONFIG__
@@ -227,7 +232,7 @@ declare module 'vue' {
 2. **.d.ts 里写了实现** -- .d.ts 文件只能有声明，不能有实现代码；写了 `export function foo() {}` 会编译报错
 3. **declare module 未声明导出** -- `declare module 'xxx'` 里如果不 export，外部文件无法引用
 4. **忽略声明文件的 include** -- tsconfig 的 `include` 没有覆盖 `.d.ts` 文件路径，导致声明不生效
-5. **declare global 未放在 .d.ts 中或未使用 export {}** -- 在 .ts 文件中写 `declare global`，模块化文件需要 `export {}` 标记为模块才能使用 global 增强
+5. **declare global / 模块增强所在文件不是模块** -- `declare global` 只能出现在模块中，文件没有任何顶层 import/export 时要补 `export {}`（否则报 TS2669）；同理 `declare module 'xxx'` 写在非模块文件里是"环境模块声明"，会整体覆盖原模块类型而不是增强
 
 ## 面试信号
 
@@ -251,3 +256,4 @@ declare module 'vue' {
 ## 更新记录
 
 - 2026-07-06：初始创建，覆盖 declare 关键字 + .d.ts 文件 + interface vs type 三个核心区别 + declare module 四种实战场景
+- 2026-07-18：事实审计——修正".d.ts 顶层可省略 declare"（TS1046 要求 declare/export）、typeRoots/types 注释矛盾、declare global 必须在模块中（示例补 export {}）、模块增强需模块文件的前提

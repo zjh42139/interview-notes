@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - bisect
@@ -103,6 +103,7 @@ git bisect start HEAD v2.0.0
 # 用一个简单的 curl 检查登录接口是否正常
 git bisect run sh -c '
   npm run dev &
+  DEV_PID=$!
   sleep 5
   curl -s http://localhost:3000/api/login \
     -X POST \
@@ -110,7 +111,7 @@ git bisect run sh -c '
     -d "{\"username\":\"test\",\"password\":\"123456\"}" \
     | grep -q "token"
   RESULT=$?
-  kill %1 2>/dev/null
+  kill $DEV_PID 2>/dev/null
   exit $RESULT
 '
 ```

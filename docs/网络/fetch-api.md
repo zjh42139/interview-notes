@@ -20,11 +20,11 @@ tags:
 
 > ⭐⭐⭐⭐｜难度：中级｜必须知道 fetch 的坑
 
-**fetch 是现代浏览器内置的请求 API，比 XHR 更简洁，但有三个致命陷阱面试必问：不 reject 非 200、不支持超时、中断要用 AbortController。**
+**fetch 是现代浏览器内置的请求 API，比 XHR 更简洁，但有三个致命陷阱面试必问：不 reject 非 200、没有 timeout 选项、中断要用 AbortController。**
 
 ## 一句话总结
 
-**fetch 是浏览器原生请求 API——Promise 风格、流式响应、更现代的架构。但默认不 reject 非 200 状态码、不支持超时、需手动处理 cookie。axios 在这些方面做了封装。**
+**fetch 是浏览器原生请求 API——Promise 风格、流式响应、更现代的架构。但默认不 reject 非 200 状态码、没有 timeout 选项（需 AbortSignal 实现）、需手动处理 cookie。axios 在这些方面做了封装。**
 
 ## fetch vs XHR
 
@@ -37,7 +37,7 @@ tags:
 | 下载进度 | `response.body.getReader()` 流式读取 | `xhr.onprogress` |
 | 请求取消 | AbortController | `xhr.abort()` |
 | Cookie | 默认 `same-origin`（同源请求发送 cookie，跨域请求不发送） | 默认发送同源 cookie，跨域需 `withCredentials = true` |
-| 超时 | **不支持**（需 AbortController + setTimeout） | `xhr.timeout` |
+| 超时 | 无 timeout 选项（用 `AbortSignal.timeout()` 或 AbortController + setTimeout） | `xhr.timeout` |
 | 非 200 处理 | **不 reject**，需手动 `if (!res.ok) throw` | `onload` + 手动判断 `xhr.status` |
 
 **结论**：日常开发推荐 axios（封装了超时、自动 JSON 解析、拦截器），但也必须会手写 fetch——面试手写题常考基于 fetch + AbortController 实现超时和请求取消。
@@ -86,9 +86,15 @@ fetch('/api/slow-endpoint', { signal: controller.signal })
 setTimeout(() => controller.abort(), 500);
 ```
 
-### 超时实现——fetch 不支持超时，用 AbortController 模拟
+### 超时实现——fetch 没有 timeout 选项
 
 ```javascript
+// 现代写法（2022+ Baseline：Chrome 103 / Firefox 100 / Safari 16）
+const res = await fetch(url, { signal: AbortSignal.timeout(10000) });
+// 注意：超时抛出的是 TimeoutError，不是 AbortError
+// 「手动取消 + 超时」共存：AbortSignal.any([controller.signal, AbortSignal.timeout(10000)])
+
+// 兼容写法/手写题写法：AbortController + setTimeout
 function fetchWithTimeout(url, options = {}, timeout = 10000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
@@ -169,7 +175,7 @@ fetch('/api/user', { credentials: 'include' });
 |------|-------|-------|
 | 自动 JSON 转换 | 手动 `.json()` | 自动，`response.data` |
 | 请求/响应拦截器 | 无，需自行封装 | 内置 `interceptors` |
-| 超时 | 需 AbortController 模拟 | `timeout: 5000` |
+| 超时 | 需 `AbortSignal.timeout()` 实现 | `timeout: 5000` |
 | 上传进度 | 不支持 | `onUploadProgress` |
 | 取消请求 | AbortController（较新 API） | CancelToken 或 AbortController |
 | 浏览器兼容 | 现代浏览器均支持 | 支持 IE11（XHR 内核） |
@@ -183,7 +189,7 @@ fetch('/api/user', { credentials: 'include' });
 |----------|-------------|
 | "fetch 和 axios 有什么区别" | 追问陷阱——"fetch 404 会进 catch 吗" |
 | "怎么取消 fetch 请求" | 追问 AbortController——"abort 后服务端还会执行吗" |
-| "fetch 怎么实现超时" | 追问"除了 setTimeout + abort 还有别的方法吗"——没有 |
+| "fetch 怎么实现超时" | 追问"除了 setTimeout + abort 还有别的方法吗"——有，`AbortSignal.timeout()`（组合手动取消用 `AbortSignal.any`） |
 
 ## 相关阅读
 
@@ -193,4 +199,5 @@ fetch('/api/user', { credentials: 'include' });
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——补 `AbortSignal.timeout()` 现代超时写法（原文"没有别的方法"已过时），修正相关表格与信号表
 - 2026-07-16：新建——fetch vs XHR + AbortController + Stream + 三个陷阱 + axios 对比

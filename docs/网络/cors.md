@@ -127,9 +127,9 @@ server {
     location / { root /app/dist; try_files $uri /index.html; }
     location /api/ {
         proxy_pass http://backend-cluster:3000/;
-        add_header Access-Control-Allow-Origin $http_origin;
-        add_header Access-Control-Allow-Credentials true;
-        if ($request_method = 'OPTIONS') { return 204; }
+        # 同域转发后浏览器不会触发 CORS，无需任何 Access-Control-* 头。
+        # 切忌 add_header Access-Control-Allow-Origin $http_origin 搭配
+        # Allow-Credentials: true——反射任意 Origin 等于对所有网站开放凭证请求。
     }
 }
 ```
@@ -204,4 +204,5 @@ axios.defaults.withCredentials = true
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——移除 Nginx 示例中反射 `$http_origin` + `Allow-Credentials: true` 的反模式（同域转发本就不触发 CORS）
 - 2026-07-05：完成 Phase 2 填充（reviewed）

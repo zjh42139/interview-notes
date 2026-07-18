@@ -169,6 +169,8 @@ function throttle<T extends (...args: any[]) => any>(
 
   let lastTime = 0;
   let timer: ReturnType<typeof setTimeout> | null = null;
+  let lastArgs: Parameters<T> | null = null;
+  let lastThis: any = null;
 
   return function (this: any, ...args: Parameters<T>) {
     const now = Date.now();
@@ -181,6 +183,11 @@ function throttle<T extends (...args: any[]) => any>(
     // 距离下次可执行剩余的时间
     const remaining = delay - (now - lastTime);
 
+    // 每次调用都更新 this/args——trailing 必须用「最后一次调用」的参数
+    // （若在 setTimeout 闭包里直接用 args，拿到的是创建定时器那次调用的旧参数）
+    lastThis = this;
+    lastArgs = args;
+
     if (remaining <= 0) {
       // 时间到了，立即执行
       if (timer) {
@@ -189,12 +196,16 @@ function throttle<T extends (...args: any[]) => any>(
       }
       lastTime = now;
       fn.apply(this, args);
+      lastThis = lastArgs = null;
     } else if (trailing && !timer) {
       // 时间没到但需要 trailing，设置定时器兜底
       timer = setTimeout(() => {
         timer = null;
         lastTime = leading ? Date.now() : 0; // 重置 lastTime
-        fn.apply(this, args);
+        if (lastArgs) {
+          fn.apply(lastThis, lastArgs);
+          lastThis = lastArgs = null;
+        }
       }, remaining);
     }
   };
@@ -338,7 +349,7 @@ function useInfiniteScroll(callback: () => void, threshold = 200) {
 
 1. **debounce 中忘记保存 `this`**：在对象方法上使用时 this 会丢失。保存 `lastThis` 并在最终调用时 `apply`。
 
-2. **throttle 时间戳版 `lastTime = 0`** 导致首次必然执行。如果需要 `leading: false`，必须把 `lastTime` 初始化为当前时间。
+2. **throttle 时间戳版 `lastTime = 0`** 导致首次必然执行。如果需要 `leading: false`，要在**首次调用时**把 `lastTime` 设为当前时间（即终极版的 `lastTime === 0 && !leading` 分支）。注意不能在创建 throttle 时就初始化为 `Date.now()`——首次调用可能发生在 delay 之后，照样会立即执行。
 
 3. **事件回调中直接写 debounce(fn, 300)** 会导致每次渲染都创建新的 debounce 实例，相当于没防抖。必须在组件外部或 `useRef`/`useMemo` 中保持引用。
 

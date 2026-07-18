@@ -8,6 +8,7 @@ difficulty: 中高级
 frequency: ⭐⭐⭐⭐
 status: filled
 created: 2026-07-16
+updated: 2026-07-18
 tags:
   - reflog
   - rebase -i
@@ -38,7 +39,7 @@ git reflog                     # 找到分支 tip
 git branch feature-x <hash>   # 恢复
 ```
 
-**reflog 只记录本地操作**——push/fetch 不记录。默认保留 90 天（可达对象）和 30 天（不可达对象）。
+**reflog 是纯本地的**——不会随 push 共享，clone 出来的新仓库里也没有。默认保留 90 天（可达的记录）和 30 天（不可达的记录，比如被 reset 丢弃的 commit）。
 
 ### rebase -i —— 交互式变基
 
@@ -61,14 +62,14 @@ git rebase -i HEAD~5   # 对最近 5 个 commit 做交互
 # blob：文件内容（不含文件名）——SHA-1 哈希存储
 # tree：目录结构——记录文件名→blob 映射 + 子 tree
 # commit：指向 tree + 父 commit + author/committer/message
-# tag：指向 commit + 标签信息（轻量标签不含额外信息）
+# tag：附注标签的对象——指向 commit + 标签信息（轻量标签只是一个 ref，不产生 tag 对象）
 
 git cat-file -p HEAD       # 查看 HEAD 指向的 commit 内容
 git cat-file -p HEAD^{tree} # 查看 tree 内容
 git cat-file -p <blob-hash> # 查看文件内容
 ```
 
-**面试话术**："Git 的底层是一个内容寻址文件系统——文件名不重要，内容 hash 是 key。同样的内容存一次——Git 的压缩就是这么来的。"
+**面试话术**："Git 的底层是一个内容寻址文件系统——文件名不重要，内容 hash 是 key。同样的内容只存一份，这是 Git 天然的去重机制。"
 
 ## 面试信号表
 
@@ -85,4 +86,5 @@ git cat-file -p <blob-hash> # 查看文件内容
 
 ## 更新记录
 
+- 2026-07-18：事实修正——reflog"push/fetch 不记录"改为"纯本地、不随 push/clone 共享"；tag 对象仅附注标签产生；去掉"去重=压缩"的不准确表述
 - 2026-07-16：新建——reflog+rebase -i+内部对象

@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-10
-updated: 2026-07-10
+updated: 2026-07-18
 reviewed: null
 tags:
   - 堆
@@ -63,6 +63,7 @@ class MinHeap {
   }
 
   pop() {
+    if (this.heap.length === 0) return undefined  // 空堆边界，见易错点 3
     if (this.heap.length === 1) return this.heap.pop()
     const top = this.heap[0]
     this.heap[0] = this.heap.pop()        // 末尾元素提到堆顶
@@ -205,4 +206,5 @@ class PriorityQueue {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——`pop()` 补空堆守卫（原实现空堆 pop 会把 undefined 写入堆顶，与易错点 3 自述矛盾）
 - 2026-07-10：新建（二叉堆手写 + Top-K + 数据流中位数 + 大小顶堆选择逻辑）

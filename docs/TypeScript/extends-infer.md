@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: filled
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - extends
@@ -44,7 +44,7 @@ type A = IsString<"hello">; // "yes"
 type B = IsString<42>;       // "no"
 ```
 
-关键：**分布式条件类型**——当 `T` 是联合类型时，条件自动分发到每个成员：
+关键：**分布式条件类型**——当 `extends` 左侧是**裸类型参数**（没有被 `[]`、`Promise<>` 等包裹的 `T`），且传入联合类型时，条件自动分发到每个成员：
 
 ```typescript
 type ToArray<T> = T extends unknown ? T[] : never;
@@ -71,8 +71,9 @@ type ElementType<T> = T extends (infer U)[] ? U : never;
 type A = ElementType<string[]>;   // string
 type C = ElementType<boolean>;    // never（不匹配数组模式）
 
-// 提取函数返回类型
-type MyReturnType<T> = T extends (...args: unknown[]) => infer R ? R : never;
+// 提取函数返回类型（参数位要写 any[]：函数参数是逆变位置，
+// unknown[] 匹配不上 (x: number) => string 这类具体签名，条件会走 false 分支）
+type MyReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 
 // 递归解包 Promise（面试必考题）
 type Awaited<T> = T extends Promise<infer V> ? Awaited<V> : T;
@@ -113,15 +114,17 @@ type T2 = Contra<{ a: (x: string) => void; b: (x: number) => void }>;
 面试高频题，模式都一样——先用 `extends` 约束、再用 `infer` 提取：
 
 ```typescript
-type MyReturnType<T extends (...args: unknown[]) => unknown> =
-  T extends (...args: unknown[]) => infer R ? R : never;
+type MyReturnType<T extends (...args: any[]) => any> =
+  T extends (...args: any[]) => infer R ? R : never;
 
-type MyParameters<T extends (...args: unknown[]) => unknown> =
-  T extends (...args: infer P) => unknown ? P : never;
+type MyParameters<T extends (...args: any[]) => any> =
+  T extends (...args: infer P) => any ? P : never;
 
-type MyInstanceType<T extends abstract new (...args: unknown[]) => unknown> =
-  T extends abstract new (...args: unknown[]) => infer R ? R : never;
+type MyInstanceType<T extends abstract new (...args: any[]) => any> =
+  T extends abstract new (...args: any[]) => infer R ? R : never;
 ```
+
+参数位置必须用 `any[]`（官方 lib 的 `ReturnType` 同款写法）。写成 `(...args: unknown[]) => unknown` 会因为参数逆变，既通不过泛型约束、也匹配不上 `(x: number) => string` 这类具体签名——这是 `any` 少数不可替代的场景。
 
 ## 项目实战
 
@@ -177,7 +180,7 @@ type UnionToIntersection<U> =
 
 **为什么能工作——逆变（contravariance）**：
 
-函数参数是逆变位置：`(k: A) => void | (k: B) => void` 的联合 → 可以赋值给 `(k: A & B) => void` 的交叉（联合类型的函数可以接收 A 或 B，交叉参数必须同时满足 A 和 B）。
+函数参数是逆变位置：`((k: A) => void) | ((k: B) => void)` 这个联合类型要安全调用，实参必须同时满足两个签名（即 `A & B`），所以它可以赋值给 `(k: A & B) => void`——参数位置的推断因此取交叉。
 
 分解步骤：
 1. `U extends any ? ... : never` → 分布式条件类型将 `U` 分发为单个成员
@@ -222,3 +225,4 @@ type UnionToIntersection<U> =
 ## 更新记录
 
 - 2026-07：Phase 2 填充 —— 完整面试内容
+- 2026-07-18：事实审计 —— 手写 ReturnType/Parameters/InstanceType 参数位从 `unknown[]` 改为 `any[]`（逆变导致 unknown[] 匹配失败，实测报错）；补充分布式条件类型"裸类型参数"限定；重写 UnionToIntersection 逆变赋值的解释

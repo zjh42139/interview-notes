@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - state
   - storeToRefs
@@ -105,7 +105,7 @@ store.$patch((state) => {
 })
 ```
 
-**对象形式 vs 函数形式**：对象形式是一次性覆盖，适合简单的赋值场景；函数形式在 patch 函数内能做任意复杂操作，且可以访问当前的 state 值，适合数组 push/splice 等操作。
+**对象形式 vs 函数形式**：对象形式是「部分更新」——嵌套对象会被深度合并（未列出的字段保留），但数组会被整体替换，所以数组的 push/splice 等集合操作必须用函数形式；函数形式在 patch 函数内能做任意复杂逻辑，且能访问当前 state 值。
 
 ### 4. $state：替换整个 state
 
@@ -146,8 +146,8 @@ store.$subscribe((_mutation, state) => {
   localStorage.setItem('app-state', JSON.stringify(state))
 })
 
-// component unmount 时需要取消订阅
-// onUnmounted(() => { unsubscribe() })
+// 在组件 setup 中注册的订阅，默认随组件卸载自动移除
+// 只有需要提前停止监听时才手动调用 unsubscribe()
 
 // 第二个参数：{ detached: true } 表示组件卸载后依然监听
 store.$subscribe(callback, { detached: true })
@@ -170,7 +170,9 @@ const counterStore = useCounterStore()
 counterStore.count = 100
 counterStore.$reset()  // count 回到初始值 0
 
-// Setup Store 需要手动实现
+// Setup Store 直接调用 $reset() 会抛错（高频坑）：
+// "Store "counter" is built using the setup syntax and does not implement $reset()."
+// 需要手动实现：
 export const useCounterStore = defineStore('counter', () => {
   const count = ref(0)
 
@@ -255,12 +257,12 @@ const { count } = store          // ❌ count 是普通 number，不再响应式
 const { count } = storeToRefs(store)  // ✅ count 是 Ref<number>
 ```
 
-**给 ref 赋值用了 ref 而非 .value**
+**修改 ref 时漏了 .value**
 
 ```ts
-// state 中的 ref 在 js/ts 代码中必须 .value
+// state 中的 ref 在 js/ts 代码中必须通过 .value 修改
 const count = ref(0)
-count = 1        // ❌ 错误，这会让 count 变成普通变量
+count = 1        // ❌ 直接报错：count 是 const 不能重新赋值（改用 let 也只是拿普通值覆盖 ref，丢失响应式）
 count.value = 1  // ✅ 正确
 ```
 
@@ -288,4 +290,5 @@ store.increment()
 
 ## 更新记录
 
+- 2026-07-18：事实审计：修正 $patch 对象形式为深度合并（非覆盖）、$subscribe 默认随组件卸载自动移除、补充 Setup Store $reset 抛错、修正 const ref 赋值报错说明
 - 2026-07-06：初始创建

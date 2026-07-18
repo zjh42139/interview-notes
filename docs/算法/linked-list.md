@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 链表
@@ -135,7 +135,7 @@ function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
 
 ### 1. 反转链表（迭代+递归）
 
-见上方核心机制代码。面试官常追问问"递归的空间复杂度是多少？" -- O(n)（递归栈），迭代是 O(1)。
+见上方核心机制代码。面试官常追问"递归的空间复杂度是多少？" -- O(n)（递归栈），迭代是 O(1)。
 
 ### 2. 环形链表 I 和 II
 
@@ -270,7 +270,7 @@ class TaskQueue {
 2. **dummy 节点忘记返回 `dummy.next`**：`return dummy.next` 而不是 `return head`，因为 head 可能已被删除。
 3. **环检测边界**：`while (fast && fast.next)` 不能写成 `while (fast.next && fast.next.next)`，因为 fast 本身可能为空。
 4. **反转时断开链表导致丢失**：迭代反转必须**先保存 next**，再修改 `curr.next`，顺序错了链表后半段就丢了，无法恢复。
-5. **回文链表比较时忘记前半段可能更长**：奇数个节点时，前半段比后半段多一个（中间节点），所以比较循环条件是 `while (right)` 而不是 `while (left)`。
+5. **回文链表比较循环条件用 `while (right)`**：反转后前半段尾节点仍连着反转段的尾部，沿 left 方向可走的节点数不少于 right 链长度（偶数长度时恰好多 1 个共享的尾节点）。写成 `while (left)` 时，偶数长度下 right 先耗尽变 null，继续访问 `right.val` 会报错。
 
 ## 相关阅读
 
@@ -282,4 +282,5 @@ class TaskQueue {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——修正易错点 5 回文链表比较条件的说明（原"奇数时前半段多一个中间节点"有误，实际是偶数长度时 right 链先耗尽）；修正笔误"追问问"
 - 2026-07-05：Phase 2 深度填充（反转链表 + Floyd 快慢指针 + dummy 节点 + 5 道高频题 + 项目实战）

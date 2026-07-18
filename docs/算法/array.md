@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 数组
@@ -264,7 +264,7 @@ function compareVersion(v1: string, v2: string): number {
 
 ### 大数相加
 
-两个字符串数字逐位相加，处理进位。不能在 JS 中用 `BigInt` 或 `Number` 直接加（可能溢出或精度丢失）：
+两个字符串数字逐位相加，处理进位。不能用 `Number` 直接相加——超过 `Number.MAX_SAFE_INTEGER`（2^53 - 1）会精度丢失；`BigInt` 能精确计算，但面试考察的正是手写进位，通常约定不允许用：
 
 ```ts
 function addStrings(num1: string, num2: string): string {
@@ -296,4 +296,5 @@ function addStrings(num1: string, num2: string): string {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计——修正大数相加说明（BigInt 不会精度丢失，真正受限的是 Number；面试要求手写进位）
 - 2026-07-05：Phase 2 深度填充（双指针 + 滑动窗口 + 前缀和 + 项目实战）

@@ -75,7 +75,8 @@ Function.prototype.myApply = function (
   if (argsArray == null || argsArray.length === 0) {
     result = context[fnKey]();
   } else if (!Array.isArray(argsArray)) {
-    // 严格模式下，apply 要求第二个参数是数组或类数组
+    // 简化处理：只接受真数组。原生 apply 还接受类数组对象（arguments、NodeList 等），
+    // 只有第二个参数不是对象（如数字、字符串等原始值）时才抛这个 TypeError
     throw new TypeError('CreateListFromArrayLike called on non-object');
   } else {
     result = context[fnKey](...argsArray);
@@ -135,7 +136,7 @@ function greet(greeting: string, punctuation: string) {
 console.log(greet.myCall(person, 'Hello', '!'));  // "Hello, Alice!"
 
 // context 为 null → globalThis
-console.log(greet.myCall(null, 'Hi', '.'));       // "Hi, undefined."
+console.log(greet.myCall(null, 'Hi', '.'));       // Node 中输出 "Hi, undefined."；浏览器中 window.name 默认是 ''，输出 "Hi, ."
 
 // context 为原始值 → 包装对象
 function showThisType() {
@@ -202,7 +203,8 @@ const F = function() {};
 F.prototype.method = () => 'hello';
 
 const BoundF = F.myBind(null);
-// BoundF 没有 prototype → new BoundF() 无法访问 method
+// 若不处理：BoundF.prototype 是一个全新的普通对象，与 F.prototype 无关联
+// → new BoundF() 的实例沿原型链找不到 method
 
 // 正确做法：
 // boundFn.prototype 应该继承 originalFn.prototype
@@ -245,7 +247,7 @@ const max = Math.max.myApply(null, scores); // 95
 
 1. **call/apply 中 context 为 null/undefined 时**：应指向 globalThis（浏览器中是 window），不能直接 `context || window`，因为 context 可能为 falsy 值（如 0、''）。
 
-2. **原始值 context 要转为包装对象**：`greet.call(123)` 中 this 是 `Number(123)`，不是原始值 123。用 `Object(context)` 包装即可。
+2. **原始值 context 要转为包装对象**：非严格模式下 `greet.call(123)` 中 this 是 `Number(123)` 包装对象，不是原始值 123（严格模式下原生 call 不做包装，this 就是 123）。手写版模拟的是非严格模式行为，用 `Object(context)` 包装即可。
 
 3. **bind 中忘记 `this instanceof boundFn` 会怎样？** new 调用时也会强行把 this 绑到 bound context，导致构造函数无法给新实例赋值。
 

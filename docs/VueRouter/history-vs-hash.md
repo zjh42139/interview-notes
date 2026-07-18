@@ -8,7 +8,7 @@ difficulty: 初级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - hash
   - history
@@ -39,7 +39,7 @@ window.addEventListener('hashchange', (e) => {
   const { oldURL, newURL } = e
   // 提取 # 后面的路径进行路由匹配
   const path = window.location.hash.slice(1)  // '#/foo' → '/foo'
-  router.match(path)
+  matchAndRender(path)  // 代指内部"匹配 + 渲染"流程（VR4 对外的解析 API 是 router.resolve）
 })
 
 // 触发 hashchange 的三种方式：
@@ -95,13 +95,13 @@ const router = createRouter({
 window.addEventListener('popstate', (e) => {
   // 用户点击前进/后退按钮时触发
   const path = window.location.pathname
-  router.match(path)  // 匹配对应路由并渲染组件
+  matchAndRender(path)  // 匹配对应路由并渲染组件
 })
 
 // 编程式导航内部调用 pushState（不触发 popstate，所以需要手动处理）
 function navigate(path: string) {
   history.pushState({}, '', path)   // 修改 URL，不刷新页面
-  router.match(path)                 // 手动触发路由匹配
+  matchAndRender(path)               // 手动触发路由匹配
 }
 ```
 
@@ -224,10 +224,10 @@ const router = createRouter({
   ]
 })
 
-// 如果后续改为 History 模式部署到 /admin/ 子路径
-// 只需修改 .env.production:
-//   VITE_ROUTER_MODE=history
-//   BASE_URL=/admin/
+// 如果后续改为 History 模式部署到 /admin/ 子路径：
+//   .env.production 里设 VITE_ROUTER_MODE=history
+//   vite.config.ts 里设 base: '/admin/'
+//   （import.meta.env.BASE_URL 由 base 配置决定，写进 .env 无效）
 // 同时 Nginx 对应配置 try_files
 ```
 
@@ -247,12 +247,12 @@ Hash 模式占用了 `#`，原生的 `<a href="#section">` 锚点跳转失效。
 ```ts
 // Koa 后端的 fallback 配置
 const Koa = require('koa')
-const static = require('koa-static')
+const serve = require('koa-static')  // 不要命名为 static：strict/TS 下是保留字
 const { historyApiFallback } = require('koa2-connect-history-api-fallback')
 
 const app = new Koa()
 app.use(historyApiFallback({ whiteList: ['/api'] }))  // /api 开头的依然走后端
-app.use(static('./dist'))
+app.use(serve('./dist'))
 ```
 
 ## 面试信号
@@ -271,4 +271,6 @@ app.use(static('./dist'))
 
 ## 更新记录
 
+- 2026-07-18：事实修正（Phase 3 二审）——Koa 示例变量名 `static`（strict 保留字）改为 `serve`；子路径部署说明更正：`BASE_URL` 由 vite.config.ts 的 `base` 决定，不能写进 .env
+- 2026-07-18：事实修正（Phase 3）——原理伪代码去除 `router.match`（VR4 已并入 `router.resolve`），改用中性函数名避免误导
 - 2026-07：完整填充（Phase 1），含 Nginx 配置、子路径部署、开发环境 fallback

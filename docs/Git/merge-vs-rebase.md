@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - Git
   - merge
@@ -62,7 +62,7 @@ D---E---F---G---H  main
 
 - `git merge <branch>`：默认行为，能 fast-forward 就 fast-forward
 - `git merge --no-ff <branch>`：强制创建合并节点（推荐，保留合并痕迹）
-- `git merge --squash <branch>`：把所有提交压缩成一个，不保留历史（适合临时分支）
+- `git merge --squash <branch>`：把所有提交的变更压缩后放入暂存区，**需要再手动 `git commit`** 才会生成那一个提交，不保留原分支历史（适合临时分支）
 
 ### rebase 的原理
 
@@ -134,8 +134,8 @@ git rebase -i HEAD~3  # 对最近 3 个 commit 进行操作
 
 ```bash
 # 日常开发：从最新 main 切出功能分支
-git checkout main && git pull
-git checkout -b feature/user-management
+git switch main && git pull      # Git 2.23+ 用 switch 切分支，替代职责混杂的 checkout
+git switch -c feature/user-management
 
 # 开发过程中，每天下班前同步 main 的最新代码（用 rebase）
 git fetch origin main
@@ -146,7 +146,7 @@ git rebase origin/main
 git rebase -i main  # 把 "wip"、"fix lint" 等临时提交合并
 
 # 代码审查通过，合入 main
-git checkout main
+git switch main
 git merge --no-ff feature/user-management
 # 这样 main 上会留下一个 merge commit：
 # "Merge branch 'feature/user-management' into main"

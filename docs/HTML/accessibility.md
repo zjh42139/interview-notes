@@ -21,7 +21,7 @@ tags:
 
 ## 一句话总结
 
-**ARIA 是弥补 HTML 语义不足的属性集——`role` 告诉屏幕阅读器"我是什么"、`aria-label` 告诉"我有什么含义"、`aria-hidden` 告诉"忽略我"。但第一条永远是：先用原生语义化 HTML——`&lt;button>` 比 `&lt;div role="button">` 好一万倍。**
+**ARIA 是弥补 HTML 语义不足的属性集——`role` 告诉屏幕阅读器"我是什么"、`aria-label` 告诉"我有什么含义"、`aria-hidden` 告诉"忽略我"。但第一条永远是：先用原生语义化 HTML——`<button>` 比 `<div role="button">` 好一万倍。**
 
 ## 核心机制
 
@@ -45,12 +45,12 @@ tags:
 
 | 非语义化 | 语义化 | A11Y 差异 |
 |---------|--------|---------|
-| `&lt;div class="nav">` | `&lt;nav>` | 屏幕阅读器自动识别为导航区 |
-| `&lt;div onclick>` | `&lt;button>` | button 自带键盘焦点+Enter/Space 触发 |
-| `&lt;div class="h1">` | `&lt;h1>` | 屏幕阅读器自动建立标题导航 |
-| `&lt;div class="table">` | `&lt;table>` | 自动关联行列标题 |
+| `<div class="nav">` | `<nav>` | 屏幕阅读器自动识别为导航区 |
+| `<div onclick>` | `<button>` | button 自带键盘焦点+Enter/Space 触发 |
+| `<div class="h1">` | `<h1>` | 屏幕阅读器自动建立标题导航 |
+| `<div class="table">` | `<table>` | 自动关联行列标题 |
 
-**面试话术**："ARIA 的第一条规则——不要用 ARIA。能用原生 HTML 元素表达的语义就用原生的——`&lt;button>` 不需要 `role="button"`。"
+**面试话术**："ARIA 的第一条规则——不要用 ARIA。能用原生 HTML 元素表达的语义就用原生的——`<button>` 不需要 `role="button"`。"
 
 ### 焦点管理
 
@@ -68,17 +68,17 @@ tags:
 
 | 检查项 | 怎么做 |
 |--------|--------|
-| 图片有 alt | `&lt;img alt="描述">`，纯装饰用 `alt=""` |
-| 表单有 label | `&lt;label for="id">` 关联 `&lt;input id="id">` |
+| 图片有 alt | `<img alt="描述">`，纯装饰用 `alt=""` |
+| 表单有 label | `<label for="id">` 关联 `<input id="id">` |
 | 颜色不唯一传达信息 | 错误提示不仅有红色还有图标/文字 |
 | 标题层级正确 | h1→h2→h3，不跳级 |
 | 键盘可操作 | 所有交互元素可通过 Tab 访问 |
 
 ## 易错点
 
-❌ **ARIA 是用来"修"语义的** —— ARIA 不能代替语义化 HTML。`&lt;div role="button">` 不会自动获得 button 的所有行为——keyboard handler、表单提交、disabled 状态都需要自己实现。
+❌ **ARIA 是用来"修"语义的** —— ARIA 不能代替语义化 HTML。`<div role="button">` 不会自动获得 button 的所有行为——keyboard handler、表单提交、disabled 状态都需要自己实现。
 
-❌ **aria-hidden="true" 对可聚焦元素无效** —— 一个 `aria-hidden="true"` 的 button 仍然可以 Tab 聚焦。需要同时加 `tabindex="-1"`。
+❌ **aria-hidden="true" 不该用在可聚焦元素上** —— `aria-hidden` 只把元素从无障碍树移除，元素本身仍可 Tab 聚焦——读屏用户会聚焦到一个"什么都不播报"的幽灵元素。需要同时加 `tabindex="-1"`，或直接用 `inert` 属性（已 Baseline，一并禁用聚焦和读屏）。
 
 ❌ **只关注颜色对比度就完了** —— a11y 不只是颜色。标题层级、键盘导航、屏幕阅读器兼容、焦点管理都是必须的。
 

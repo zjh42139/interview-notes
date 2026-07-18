@@ -323,7 +323,7 @@ function reducer(state: any, action: { payload: any }) {
 
 2. **原型链丢失**：直接用 `{}` 或 `[]` 创建对象会丢失原型，应该用 `Object.create(Object.getPrototypeOf(value))` 保持 constructor 关系。
 
-3. **Date/RegExp 的 constructor 问题**：`new value.constructor(value)` 对 Date 可行（因为可以传原始值），但直接用 `clone = new value.constructor(value)` 是更安全的方式。Date 和 RegExp 建议显式处理以保证兼容性。
+3. **Date/RegExp 建议显式重建**：通用兜底 `new value.constructor(value)` 对 Date（构造器接受 Date/时间戳）和 RegExp（ES6 起构造器接受正则对象）恰好可行，但依赖 `constructor` 属性——它可被篡改或丢失（如 `Object.create(null)` 派生场景）。显式写 `new Date(value.getTime())`、`new RegExp(value.source, value.flags)` 语义明确、更可靠。
 
 4. **`typeof null === 'object'`**：`isObject` 函数必须显式排除 `null`，否则 `deepClone(null)` 会走到递归分支。
 
@@ -333,7 +333,7 @@ function reducer(state: any, action: { payload: any }) {
 
 - [JavaScript 深拷贝](../JavaScript/deep-clone.md) -- 深拷贝的原理，包括浅拷贝、structuredClone 等
 - [手写 Promise](./promise.md) -- 同样涉及递归和引用传递的处理
-- [snippets/deep-clone](../../snippets/ts/deep-clone.ts) -- 项目中的深拷贝工具代码
+- [snippets/deep-clone](../snippets/ts/deep-clone.ts) -- 项目中的深拷贝工具代码
 
 ## 更新记录
 

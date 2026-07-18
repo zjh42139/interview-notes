@@ -110,12 +110,12 @@ tags:
 <a rel="sponsored">付费/广告链接（比 nofollow 更语义化）</a>
 <a rel="ugc">User Generated Content 中的链接</a>
 
-<!-- 预加载 -->
-<a rel="prefetch">提前下载目标页面资源（用户可能会点）</a>
-<a rel="preload">提前加载目标页面的关键资源</a>
+<!-- 预加载（注意：prefetch/preload/canonical 是 <link> 的 rel 值，写在 <a> 上无效） -->
+<link rel="prefetch" href="/next-page.html" />
+<link rel="preload" href="/critical.css" as="style" />
 
 <!-- 其他 -->
-<a rel="canonical" href="https://example.com/page">指定规范 URL（用于SEO，应对重复内容）</a>
+<link rel="canonical" href="https://example.com/page" /> <!-- 指定规范 URL（用于SEO，应对重复内容），只能用于 <link> -->
 <a rel="alternate" hreflang="en" href="/en/page">多语言版本</a>
 <a rel="bookmark">永久链接（给博客标题）</a>
 <a rel="help">链接到帮助文档</a>
@@ -129,8 +129,8 @@ tags:
 <!-- 点击链接时，浏览器异步 POST 一个 beacon 到指定 URL -->
 <a href="/article/123" ping="/track/click?from=homepage">文章标题</a>
 
-<!-- POST 请求体：点击页面的 URL + 目标 URL -->
-<!-- 发送的是 application/ping 格式（不是 JSON），无需等待响应 -->
+<!-- POST 请求体固定为字符串 "PING"，Content-Type: text/ping -->
+<!-- 来源页 URL 和目标 URL 通过 Ping-From / Ping-To 请求头携带，无需等待响应 -->
 <!-- 即使用户右键"在新标签页打开"也会触发 -->
 ```
 
@@ -138,7 +138,7 @@ tags:
 
 | 方案 | 可靠性 | 是否延迟跳转 | 原理 |
 |------|--------|-------------|------|
-| `<a ping>` | **高**（浏览器原生保证） | 不延迟（异步 POST） | 浏览器在跳转前发出 beacon |
+| `<a ping>` | **较高**（Chrome/Safari 原生支持，Firefox 默认禁用） | 不延迟（异步 POST） | 浏览器在跳转前发出 beacon |
 | JS `onclick` + fetch | 低（页面卸载时 fetch 可能被取消） | 需 `e.preventDefault()` 手动控制跳转 | navigator.sendBeacon 更可靠 |
 | `navigator.sendBeacon` | 高（浏览器保证发送） | 不延迟 | 适合页面关闭时的上报 |
 | 重定向中转页 | 高 | 明显延迟 | `/out?url=xxx` 先打点再 302 |

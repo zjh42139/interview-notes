@@ -54,7 +54,7 @@ class UserCard extends HTMLElement {
   constructor() {
     super()  // 必须首先调用 super()
     // 在 constructor 中只做初始化，不要操作 DOM 或属性
-    this._internals = this.attachInternals?.()  // 表单关联（实验性）
+    this._internals = this.attachInternals?.()  // 表单关联（ElementInternals，已 Baseline）
   }
 
   // 元素被插入 DOM 时调用 —— 初始渲染、事件绑定放这里
@@ -221,7 +221,7 @@ customElements.define('template-card', TemplateCard)
 | 跨框架 | **天然跨框架**（任何框架都能用） | 需要封装（如 `@vue/composition-api`） |
 | 响应式 | 需手动实现（attributeChangedCallback） | 框架内置（ref/reactive/state） |
 | 模板语法 | 无（手动操作 DOM） | JSX / SFC template |
-| SSR | 原生不支持（需 Declarative Shadow DOM） | 框架级支持 |
+| SSR | 需 Declarative Shadow DOM（已 Baseline）+ 配套序列化 | 框架级支持 |
 | 生态 | 弱（Lit 是主要增强库） | 极强（组件库、工具链） |
 | 适用场景 | 跨框架共享的基础 UI 组件 | 应用级开发 |
 
@@ -233,13 +233,17 @@ customElements.define('template-card', TemplateCard)
 
 // Shadow DOM 内部：
 shadow.innerHTML = `<button id="inner-btn">点我</button>`
-shadow.querySelector('#inner-btn').addEventListener('click', (e) => {
-  console.log(e.target)  // <styled-card> —— 被 retarget 了！
+
+// 在 Shadow DOM 外部（如 document）监听时，target 被 retarget 为宿主元素：
+document.addEventListener('click', (e) => {
+  console.log(e.target)             // <styled-card> —— 被 retarget 了！
+  // 获取真实 target：
+  console.log(e.composedPath()[0])  // <button id="inner-btn">
+  // composedPath() 不受 retarget 影响，返回完整的事件路径（closed 模式下会被截断）
 })
 
-// 获取真实 target：
-console.log(e.composedPath()[0])  // <button id="inner-btn">
-// composedPath() 不受 retarget 影响，返回完整的事件路径
+// 注意：在 Shadow DOM 内部监听（如直接监听 button）不会被 retarget，
+// e.target 就是 <button> 本身——retarget 只发生在事件跨出 Shadow 边界之后
 
 // 控制是否穿透 Shadow DOM：
 // 普通事件（如 click）：默认 composed: true（会冒泡穿透）

@@ -8,7 +8,7 @@ difficulty: 中高级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-18
 reviewed: null
 tags:
   - 结构类型
@@ -48,7 +48,7 @@ let animal: Animal = person;  // ✅ Person 赋值给 Animal，不报错！
 // 在结构类型系统中，它们就是同一个类型
 ```
 
-更精确的表述：**如果 X 的每个属性在 Y 中都有对应属性且类型兼容，则 X 可赋值给 Y。** `person` 有 `name: string` 和 `age: number`，`Animal` 也需要 `name: string` 和 `age: number`——完全匹配，所以兼容。
+更精确的表述：**如果目标类型 Y 要求的每个属性，在源类型 X 中都有对应属性且类型兼容，则 X 可赋值给 Y。** `Animal` 要求 `name: string` 和 `age: number`，`person` 恰好都能提供——完全匹配，所以兼容。
 
 "鸭子类型"（Duck Typing）的经典表述：如果它走起来像鸭子、叫起来像鸭子，它就是鸭子。
 
@@ -68,9 +68,9 @@ p2d = p3d;   // ✅ Point3D 包含了 Point2D 需要的所有属性（x, y）
 // 这保证了"目标类型需要的东西源类型一定提供"
 ```
 
-### 函数参数的双向协变
+### 函数类型的协变与逆变
 
-函数参数的类型检查有两个方向：
+函数类型的兼容检查分参数和返回值两个方向：
 
 ```typescript
 // 参数类型：逆变（Contravariance）—— 函数参数接受更宽的类型
@@ -93,7 +93,7 @@ let fn: Factory = (): string => 'hello';  // ✅
 
 **面试话术**："TypeScript 整体是结构类型系统，但函数参数在 strictFunctionTypes 开启后是逆变的——回调函数的参数必须能接受所有可能的传入值。这是为了函数调用安全。"
 
-### 多余属性检查（Excess Property Checking）—— 唯一的例外
+### 多余属性检查（Excess Property Checking）—— 字面量的附加安全网
 
 ```typescript
 interface Config {
@@ -115,7 +115,7 @@ const config2: Config = temp;  // ✅ 不报错！
 
 **为什么**：直接字面量赋值时，多出来的属性在所有上下文中都无法访问——大概率是拼写错误或误解了接口定义。这是 TypeScript 有意加的一层"安全网"，不是结构类型系统的例外，而是实用性补丁。
 
-**新鲜对象（Fresh Object）**：字面量创建的对象没有经过任何类型标注，TypeScript 会执行严格的多余属性检查。一旦赋值给有类型标注的变量，这个对象就被"拓宽"为那个类型，后续不再检查。
+**新鲜对象（Fresh Object）**：对象字面量刚创建时是"新鲜"的——新鲜对象直接赋给带类型标注的目标（变量、函数参数、返回值）才会触发严格的多余属性检查。先赋给无标注变量（类型走推断）或经过类型断言后，新鲜度丢失，之后的赋值只按普通结构兼容规则判断，不再检查多余属性。
 
 ## 深度拓展
 
@@ -144,7 +144,10 @@ getUser(userId);    // ✅
 ### 追问 2：函数的协变/逆变在什么场景出问题？
 
 ```typescript
-// 经典反例：为什么 Array<T> 的方法签名用了逆变
+// 方法双变（Method Bivariance）：strictFunctionTypes 只严格检查
+// "函数类型属性"写法（on: (e: Event) => void），方法简写
+// （on(e: Event): void）的参数仍是双向协变——这是故意放宽的：
+// 数组的方法都是方法语法，否则 Dog[] 将无法赋值给 Animal[]
 interface Animal { name: string; }
 interface Dog extends Animal { bark(): void; }
 
@@ -172,7 +175,7 @@ let c: {} = { x: 1 };    // ✅
 let e: object = { x: 1 }; // ✅
 // let f: object = 42;    // ❌ number 是原始类型
 
-// Object —— 尽量不要用（是 JS 的 Object 构造函数类型，行为复杂）
+// Object —— 尽量不要用（描述 Object.prototype 方法的接口，原始值如 42 也能赋给它）
 ```
 
 ## 项目实战
@@ -253,3 +256,4 @@ assignRole(1 as UserId, 2 as RoleId);  // ✅ 必须显式断言
 ## 更新记录
 
 - 2026-07-14：新建——结构类型 vs 标称类型核心概念 + 多余属性检查 + 协变逆变 + brand 模式
+- 2026-07-18：事实审计——修正兼容规则方向（以目标类型为基准）、"双向协变"标题与正文不符、Array 方法签名注释（方法双变而非逆变）、Fresh Object 失效条件、Object 类型描述（tsc strict 实测）

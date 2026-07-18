@@ -78,6 +78,11 @@ function concurrencyLimit(tasks, limit) {
     let cursor = 0      // 下一个要执行的任务索引
     let completed = 0    // 已完成数
 
+    // 空数组直接完成——否则没有任务触发 finally，completed 永远到不了 tasks.length，Promise 永远 pending
+    if (tasks.length === 0) {
+      return resolve(results)
+    }
+
     function next() {
       // 当还有任务 + 还有空闲位置 → 启动新任务
       while (cursor < tasks.length && running < limit) {

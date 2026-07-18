@@ -8,7 +8,7 @@ difficulty: 高级
 frequency: ⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-05
+updated: 2026-07-18
 reviewed: null
 tags:
   - 虚拟列表
@@ -34,11 +34,11 @@ tags:
 ```mermaid
 graph TD
     A[用户滚动] --> B[获取 scrollTop]
-    B --> C[startIndex = floor(scrollTop / itemHeight)]
-    C --> D[endIndex = ceil((scrollTop + containerHeight) / itemHeight)]
-    D --> E[只渲染 items[startIndex..endIndex]]
-    E --> F[设置偏移量 translateY(startIndex * itemHeight)]
-    F --> G[撑开总高度 totalHeight = 数据总数 * itemHeight]
+    B --> C["startIndex = floor(scrollTop / itemHeight)"]
+    C --> D["endIndex = ceil((scrollTop + containerHeight) / itemHeight)"]
+    D --> E["只渲染 items[startIndex..endIndex]"]
+    E --> F["设置偏移量 translateY(startIndex * itemHeight)"]
+    F --> G["撑开总高度 totalHeight = 数据总数 * itemHeight"]
 ```
 
 ### 可视区域计算
@@ -73,7 +73,7 @@ const handleScroll = (scrollTop: number) => {
 </div>
 
 // 方式二：paddingTop 撑开
-// 兼容性更好，但在某些场景可能触发 reflow
+// 兼容性更好，但每次更新 padding 都会触发 reflow
 <div :style="{ paddingTop: `${offsetY}px` }">
   <div v-for="item in visibleData" :key="item.id">{{ item.text }}</div>
 </div>
@@ -167,7 +167,7 @@ function scrollToItem(index: number) {
 // Element Plus 的 el-table-v2 内置虚拟滚动，是大数据量的首选
 // 不需要自己实现虚拟列表
 <template>
-  <el-auto-table-v2 :columns="columns" :data="listData" :width="800" :height="600" fixed />
+  <el-table-v2 :columns="columns" :data="listData" :width="800" :height="600" fixed />
 </template>
 
 <script setup>
@@ -213,7 +213,7 @@ watch(() => messages.value.length, () => {
 2. **可视区域计算用 Math.round** -- 应该用 `Math.floor(startIndex)` 和 `Math.ceil(endIndex)`，round 会导致首尾漏渲染
 3. **不设缓冲区** -- 快速滚动时用户会看到"先空白再出现内容"的闪烁，3-5 个缓冲节点就能解决
 4. **动态高度每项都实时测量** -- 应该先用预估高度渲染，ResizeObserver 异步测量后更新缓存，实时测量会阻塞渲染
-5. **scroll 事件没有节流** -- scroll 每帧可能触发几十次，需要用 `requestAnimationFrame` 包裹渲染逻辑，确保一帧只计算一次
+5. **scroll 事件没有节流** -- scroll 每秒可触发数十次（约一帧一次），需要用 `requestAnimationFrame` 包裹渲染逻辑，确保一帧只计算一次
 
 ## 面试信号表
 
@@ -232,4 +232,5 @@ watch(() => messages.value.length, () => {
 
 ## 更新记录
 
+- 2026-07-18：Phase 3 事实审计修正（mermaid 节点含括号/中括号需加引号否则渲染失败、el-auto-table-v2 更正为 el-table-v2、padding 方案必触发 reflow、scroll 触发频率表述）
 - 2026-07-05：Phase 2 深度填充（虚拟列表原理 + 固定/动态高度实现 + 缓冲区 + 二分查找 + 项目实战）

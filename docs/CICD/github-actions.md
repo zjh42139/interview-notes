@@ -8,7 +8,7 @@ difficulty: 中级
 frequency: ⭐⭐⭐⭐⭐
 status: reviewed
 created: 2026-07-06
-updated: 2026-07-06
+updated: 2026-07-18
 tags:
   - GitHub Actions
   - CI/CD
@@ -67,7 +67,7 @@ on:
     branches: [main]
     types: [opened, synchronize, reopened]
 
-  # 定时任务（Cron）——每天凌晨 2 点
+  # 定时任务（Cron）——每天 UTC 2 点（即北京时间 10 点，GitHub Actions 的 cron 按 UTC 计时）
   schedule:
     - cron: '0 2 * * *'
 
@@ -88,18 +88,20 @@ on:
 |--------|------|:---:|
 | `actions/checkout@v4` | 拉取仓库代码 | ✅ |
 | `actions/setup-node@v4` | 安装 Node.js 环境 | ✅ |
-| `pnpm/action-setup@v2` | 安装 pnpm 包管理器 | ✅ |
-| `actions/cache@v3` | 缓存依赖，加速构建 | ✅ |
-| `actions/upload-artifact@v3` | 上传构建产物供后续 Job 使用 | ✅ |
-| `peaceiris/actions-gh-pages@v3` | 部署到 GitHub Pages | 按需 |
+| `pnpm/action-setup@v4` | 安装 pnpm 包管理器 | ✅ |
+| `actions/cache@v4` | 缓存依赖，加速构建 | ✅ |
+| `actions/upload-artifact@v4` | 上传构建产物供后续 Job 使用 | ✅ |
+| `peaceiris/actions-gh-pages@v4` | 部署到 GitHub Pages | 按需 |
+
+> 版本注记：`upload/download-artifact` 的 v3 及更早版本已于 2025-01 被 GitHub 关停，`actions/cache` 的旧版缓存后端也已于 2025-03 下线（v3 仅 3.4+ 还能用）——新写 workflow 一律用 v4。
 
 **缓存示例**：
 
 ```yaml
 - name: Cache pnpm store
-  uses: actions/cache@v3
+  uses: actions/cache@v4
   with:
-    path: ~/.pnpm-store           # 缓存的路径
+    path: ~/.local/share/pnpm/store   # pnpm 在 Linux Runner 上的默认 store 路径（可用 pnpm store path 确认）
     key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
     # key 变化时重建缓存，未变化时复用
     restore-keys: |
@@ -164,7 +166,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: npm run build
-      - uses: actions/upload-artifact@v3    # 上传产物
+      - uses: actions/upload-artifact@v4    # 上传产物
         with:
           name: dist-files
           path: dist/
@@ -173,7 +175,7 @@ jobs:
     needs: build                            # 等 build 完成再执行
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3  # 下载产物
+      - uses: actions/download-artifact@v4  # 下载产物
         with:
           name: dist-files
           path: dist/
@@ -238,8 +240,8 @@ jobs:
       - name: Checkout               # ① 拉取代码
         uses: actions/checkout@v4
 
-      - name: Setup pnpm             # ② 安装 pnpm（通过包管理器核心版本号）
-        uses: pnpm/action-setup@v2
+      - name: Setup pnpm             # ② 安装 pnpm（指定主版本号即可）
+        uses: pnpm/action-setup@v4
         with:
           version: 9
 
@@ -303,4 +305,5 @@ jobs:
 
 ## 更新记录
 
+- 2026-07-18：事实审计——actions 版本升至现行主版本（upload/download-artifact、cache、pnpm/action-setup、actions-gh-pages 均升 v4，artifact v3 已于 2025-01 停服）；修正 pnpm store 缓存路径（`~/.pnpm-store` → `~/.local/share/pnpm/store`）；cron 注释标注 UTC 时区
 - 2026-07-06：完成完整内容，补充 VitePress 完整 workflow 示例、矩阵构建、Job 间数据共享、secrets 安全机制
