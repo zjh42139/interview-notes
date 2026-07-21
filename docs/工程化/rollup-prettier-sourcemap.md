@@ -32,7 +32,7 @@ tags:
 | 代码分割 | 支持（动态 import 自动分包 + manualChunks） | 策略更丰富（splitChunks/cacheGroups） |
 | 生态 | 插件较少但够用 | 插件极丰富 |
 
-**Vite 为什么（曾）用 Rollup 做生产构建？** Vite 7 及以前，生产打包选择 Rollup 的核心原因：Rollup 输出的 ESM 更干净、Tree Shaking 更彻底，生成库的体积比 Webpack 小 5-15%。开发阶段 Vite 用 esbuild 做预构建（快），生产用 Rollup 打包（干净）。
+**Vite 为什么（曾）用 Rollup 做生产构建？** Vite 7 及以前，生产打包选择 Rollup 的核心原因：Rollup 输出的 ESM 更干净、Tree Shaking 更彻底，生成库的体积比 Webpack 小 5-15%。开发阶段 Vite 用 esbuild 做预构建（快），生产用 Rollup 打包（干净）。Vite 8+ 起 Rolldown（Rust 实现，Rollup 继任者）统一开发和生产打包，Oxc 负责转译压缩，esbuild 和 Rollup 不再作为 Vite 依赖。
 
 **Vite 8+（2026-03）起，Rolldown 成为默认唯一打包器。** Rolldown 是 Rollup 作者 Rich Harris 参与开发的 Rust 重写版，继承了同样的 ESM-first 设计哲学和 Tree Shaking 能力，并且 Rust 实现带来 10-30x 的性能提升（实际案例：108s→5.2s、46s→6s），99%+ 现有 Rollup 插件兼容。面试中讲 Rollup 的 Tree Shaking 优势依然正确，但需要补上 Rolldown 这一演进。
 
