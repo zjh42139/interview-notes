@@ -8,8 +8,10 @@ difficulty: 中级
 frequency: ⭐⭐⭐
 status: filled
 created: 2026-07-16
+updated: 2026-07-21
 tags:
   - Rollup
+  - Rolldown
   - Prettier
   - SourceMap
 ---
@@ -30,7 +32,9 @@ tags:
 | 代码分割 | 支持（动态 import 自动分包 + manualChunks） | 策略更丰富（splitChunks/cacheGroups） |
 | 生态 | 插件较少但够用 | 插件极丰富 |
 
-**Vite 为什么用 Rollup 做生产构建？** Rollup 输出的 ESM 更干净、Tree Shaking 更彻底，生成库的体积比 Webpack 小 5-15%。开发阶段 Vite 用 esbuild 做预构建（快），生产用 Rollup 打包（干净）。
+**Vite 为什么（曾）用 Rollup 做生产构建？** Vite 7 及以前，生产打包选择 Rollup 的核心原因：Rollup 输出的 ESM 更干净、Tree Shaking 更彻底，生成库的体积比 Webpack 小 5-15%。开发阶段 Vite 用 esbuild 做预构建（快），生产用 Rollup 打包（干净）。
+
+**Vite 8+（2026-03）起，Rolldown 成为默认唯一打包器。** Rolldown 是 Rollup 作者 Rich Harris 参与开发的 Rust 重写版，继承了同样的 ESM-first 设计哲学和 Tree Shaking 能力，并且 Rust 实现带来 10-30x 的性能提升（实际案例：108s→5.2s、46s→6s），99%+ 现有 Rollup 插件兼容。面试中讲 Rollup 的 Tree Shaking 优势依然正确，但需要补上 Rolldown 这一演进。
 
 ## Prettier —— 格式统一
 
@@ -63,7 +67,7 @@ tags:
 
 | 面试官问 | 下一问大概率是 |
 |----------|-------------|
-| "Vite 为什么用 Rollup 打包" | 追问 Rollup 比 Webpack 好在哪——ESM 输出更干净 |
+| "Vite 为什么（曾）用 Rollup 打包" | 追问 Rollup 比 Webpack 好在哪——ESM 输出更干净；Vite 8+ 已演进为 Rolldown（Rust 实现） |
 | "生产环境 SourceMap 怎么处理" | 追问 hidden-source-map——上传 Sentry 不发布 |
 
 ## 相关阅读
@@ -73,4 +77,5 @@ tags:
 
 ## 更新记录
 
+- 2026-07-21：Vite 8 Rolldown 更新——「Vite 为什么（曾）用 Rollup」改为历史演进视角，补 Vite 8+ Rolldown 描述；更新面试信号表；补 frontmatter 的 updated 字段
 - 2026-07-16：新建——Rollup vs Webpack+Prettier+SourceMap 安全

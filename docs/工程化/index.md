@@ -6,7 +6,7 @@ difficulty: null
 frequency: null
 status: filled
 created: 2026-07-05
-updated: 2026-07-11
+updated: 2026-07-21
 reviewed: null
 tags:
   - 工程化
@@ -20,7 +20,7 @@ mindmap
     构建工具
       Vite
         ESBuild 预构建
-        Rollup 生产打包
+        Rolldown（Rust）统一打包
       Webpack
         loader
         plugin
@@ -114,6 +114,7 @@ mindmap
 
 ## 更新记录
 
+- 2026-07-21：mindmap「Rollup 生产打包」→「Rolldown（Rust）统一打包」，反映 Vite 8 起 Rolldown 成为默认打包器
 - 2026-07-12：学习顺序三组分类（包管理与模块/构建工具/样式与质量），pnpm+ESM归入包管理
 - 2026-07-11：补 vite.md / testing.md / esm-module.md 到学习顺序和知识点索引；mindmap 扩大覆盖 Node.js/测试/日志/监控
 - 2026-07-05：初始创建

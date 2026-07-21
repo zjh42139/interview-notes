@@ -8,12 +8,13 @@ difficulty: 高级
 frequency: ⭐⭐⭐
 status: reviewed
 created: 2026-07-05
-updated: 2026-07-18
+updated: 2026-07-21
 reviewed: null
 tags:
   - Babel
   - AST
   - ESBuild
+  - Rolldown
   - 编译
 ---
 
@@ -270,7 +271,7 @@ real    0m 32s   # 快了 4 倍
 
 1. **Babel 的 preset 和 plugin 执行顺序** -- plugin 在 preset 之前执行，且 plugin 从前往后、preset 从后往前
 2. **preset-env 的 targets 不配置** -- 不配置 targets 会按"尽可能旧"的目标环境转换，导致大量不需要的 polyfill 和语法降级，打包体积陡增
-3. **把 esbuild 当生产构建工具** -- esbuild 打包复杂场景（代码分割、CSS 处理）不如 Rollup/Webpack 成熟，Vite 只在开发+预构建中用 esbuild，生产用 Rollup
+3. **把 esbuild 当生产构建工具** -- esbuild 打包复杂场景（代码分割、CSS 处理）不如 Rollup/Webpack 成熟，Vite 只在开发+预构建中用 esbuild。Vite 7 及以前生产用 Rollup，Vite 8+ 起生产用 Rolldown（Rust 实现，10-30x 性能提升，99%+ 插件兼容）
 4. **core-js 版本不匹配** -- `@babel/preset-env` 的 `corejs` 选项必须和实际安装的 `core-js` 版本一致，否则运行时可能报错
 5. **忘记设置 `modules: false`** -- Babel 把 ESM 转成 CJS 后，Webpack/Rollup 的 Tree Shaking 完全失效，包体积可能大 30%
 
@@ -291,5 +292,6 @@ real    0m 32s   # 快了 4 倍
 
 ## 更新记录
 
-- 2026-07-05：Phase 2 深度填充（AST 三阶段 + preset-env + ESBuild 速度原理 + SWC 对比 + 项目配置）
+- 2026-07-21：Vite 8 Rolldown 更新——易错点#3 补充 Vite 8+ 用 Rolldown 生产构建；补 frontmatter Rolldown 标签
 - 2026-07-18：新增「Rspack 与 Turbopack」小节——Rust 工具链演进逻辑、两者定位对比、选型建议
+- 2026-07-05：Phase 2 深度填充（AST 三阶段 + preset-env + ESBuild 速度原理 + SWC 对比 + 项目配置）
